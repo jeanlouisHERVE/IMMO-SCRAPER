@@ -26,6 +26,10 @@ GET_PROPERTY = "SELECT * FROM camgirls #####;"
 GET_PROPERTY_DESCRIPTION = "SELECT pseudo FROM description #####"
 GET_PROPERTIES = "SELECT * FROM properties;"
 
+#update data
+
+#delete data
+
 #connection to database
 connection = sqlite3.connect(os.environ["DATABASE_PATH"])
 
@@ -44,3 +48,12 @@ def add_description():
         #connection.execute(INSERT_DESCRIPTION, ())
         pass
 
+def get_property():
+    with connection:
+        #connection.execute(INSERT_DESCRIPTION, ())
+        pass
+    
+def get_properties():
+    with connection:
+        #connection.execute(INSERT_DESCRIPTION, ())
+        pass
