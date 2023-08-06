@@ -12,6 +12,7 @@ load_dotenv()
 CREATE_PROPERTY_TABLE = """CREATE TABLE IF NOT EXISTS properties (
                                 id INTEGER NOT NULL PRIMARY KEY, 
                                 type_of_property TEXT, 
+                                url TEXT,
                                 date_add_to_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"""
 CREATE_DESCRIPTION_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 FOREIGN KEY (pseudo) REFERENCES properties(pseudo) ON DELETE CASCADE
@@ -36,7 +37,7 @@ connection = sqlite3.connect(os.environ["DATABASE_PATH"])
 def create_table():
     with connection:
         connection.execute(CREATE_PROPERTY_TABLE)
-        connection.execute(CREATE_DESCRIPTION_TABLE)
+        #connection.execute(CREATE_DESCRIPTION_TABLE)
 
 def add_property():
     with connection:
