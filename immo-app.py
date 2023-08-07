@@ -62,7 +62,6 @@ except (NoSuchElementException, StaleElementReferenceException, TimeoutException
 xpath_expression = '//span[@data-testid="gsl.uilib.Droplist.Option.1"]'   
 try:
     town_option = driver.find_element(By.XPATH, '//div[@data-testid="gsl.uilib.Droplist.Option.1"]')
-    #town_option = driver.find_element(By.CSS_SELECTOR, "div.sc-bALXmG.gpTzBq")
     time.sleep(2)
     actions.click(town_option).perform()
 except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
