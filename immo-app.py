@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, TimeoutException
 from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.common.action_chains import ActionChains
 
 #other modules
 from dotenv import load_dotenv
@@ -21,8 +22,10 @@ load_dotenv()
 #variables
 url_immo_website="https://www.seloger.com/vente.htm"
 driver = webdriver.Chrome()
+actions = ActionChains(driver)
 chrome_options = ChromeOptions()
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
+
 
 #functions 
 def check_accept_section(cssSelector: str):
@@ -38,18 +41,20 @@ def check_accept_section(cssSelector: str):
 driver.get(url_immo_website)
 driver.implicitly_wait(5)
 check_accept_section('span.didomi-continue-without-agreeing')
-driver.implicitly_wait(5)
+time.sleep(2)
 
 ##fill research section
 #remove pre selected area "Ile de France"
 driver.find_element(By.CSS_SELECTOR, "div.sc-gLDzan.bevJHu").click()
+time.sleep(2)
 driver.find_element(By.CSS_SELECTOR, "input.sc-irTswW.fPqHAw").send_keys(os.environ["CITY_RESEARCHED"])
-time.sleep(5)
+time.sleep(2)
 
 #select desired town in the dropdown menu => to fix 
 xpath_expression = '//span[@value="' + city_researched_content + '"]'
 try:
-    driver.find_element(By.CSS_SELECTOR, "div.sc-ktEKTO.kSmfsP imput.sc-irTswW.fPqHAw").click
+    dropdown_element = driver.find_element(By.CSS_SELECTOR, "div.sc-ktEKTO.kSmfsP input.sc-irTswW.fPqHAw")
+    actions.click(dropdown_element).perform()
     town_option = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, xpath_expression)))
     driver.implicitly_wait(5)
     town_option.click()
