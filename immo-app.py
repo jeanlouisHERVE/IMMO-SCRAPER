@@ -1,5 +1,6 @@
 #packages
 import os
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -18,7 +19,6 @@ database.create_table()
 load_dotenv()
 
 #variables
-city_researched="Sar"
 url_immo_website="https://www.seloger.com/vente.htm"
 driver = webdriver.Chrome()
 chrome_options = ChromeOptions()
@@ -44,10 +44,18 @@ driver.implicitly_wait(5)
 #remove pre selected area "Ile de France"
 driver.find_element(By.CSS_SELECTOR, "div.sc-gLDzan.bevJHu").click()
 driver.find_element(By.CSS_SELECTOR, "input.sc-irTswW.fPqHAw").send_keys(os.environ["CITY_RESEARCHED"])
-driver.implicitly_wait(5)
+time.sleep(5)
+
 #select desired town in the dropdown menu => to fix 
 xpath_expression = '//span[@value="' + city_researched_content + '"]'
-driver.find_element(By.XPATH, xpath_expression).click()
+try:
+    driver.find_element(By.CSS_SELECTOR, "div.sc-ktEKTO.kSmfsP imput.sc-irTswW.fPqHAw").click
+    town_option = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, xpath_expression)))
+    driver.implicitly_wait(5)
+    town_option.click()
+except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
+    print("KO : unable to make the dropdown menu appear")
+
 #driver.find_element(By.CSS_SELECTOR, "button.sc-bZPPFW.gurgxX").click()
 
 input()
