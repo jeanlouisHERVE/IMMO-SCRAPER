@@ -51,18 +51,26 @@ driver.find_element(By.CSS_SELECTOR, "input.sc-irTswW.fPqHAw").send_keys(os.envi
 time.sleep(2)
 
 #select desired town in the dropdown menu => to fix 
-xpath_expression = '//span[@value="' + city_researched_content + '"]'
 try:
     dropdown_element = driver.find_element(By.CSS_SELECTOR, "div.sc-ktEKTO.kSmfsP input.sc-irTswW.fPqHAw")
+    time.sleep(2)
     actions.click(dropdown_element).perform()
-    town_option = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, xpath_expression)))
-    driver.implicitly_wait(5)
-    town_option.click()
 except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
     print("KO : unable to make the dropdown menu appear")
+    
+#select desired option in the dropdown menu => to fix 
+xpath_expression = '//span[@data-testid="gsl.uilib.Droplist.Option.1"]'   
+try:
+    town_option = driver.find_element(By.XPATH, '//div[@data-testid="gsl.uilib.Droplist.Option.1"]')
+    #town_option = driver.find_element(By.CSS_SELECTOR, "div.sc-bALXmG.gpTzBq")
+    time.sleep(2)
+    actions.click(town_option).perform()
+except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
+    print("KO : unable to select the option in the dropdown menu")
 
-#driver.find_element(By.CSS_SELECTOR, "button.sc-bZPPFW.gurgxX").click()
-
+#click on the search button
+time.sleep(2)
+driver.find_element(By.CSS_SELECTOR, "button.sc-bZPPFW.gurgxX").click()
 input()
 
 database.connection.close()
