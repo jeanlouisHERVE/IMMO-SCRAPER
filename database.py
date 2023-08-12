@@ -3,6 +3,7 @@ import json
 import sqlite3
 
 #other modules
+from typing import List, Tuple
 from dotenv import load_dotenv
 
 #get data from .env file 

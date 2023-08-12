@@ -20,7 +20,7 @@ database.create_table()
 load_dotenv()
 
 #variables
-url_immo_website="https://www.seloger.com/vente.htm"
+url_immo_website= os.environ["URL_IMMO_WEBSITE"]
 driver = webdriver.Chrome()
 actions = ActionChains(driver)
 chrome_options = ChromeOptions()
