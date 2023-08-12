@@ -58,6 +58,22 @@ except (NoSuchElementException, StaleElementReferenceException, TimeoutException
 #click on the search button
 time.sleep(2)
 driver.find_element(By.CSS_SELECTOR, "button.btn.btn-primary.search").click()
+
+
+#catch all the 
+articles = driver.find_elements(By.CSS_SELECTOR, "div.sideListItem")
+for article in articles:
+    
+    ###Type of good 
+    
+    ###town
+    
+    ###District
+    
+    ###Postcode
+    
+    ###url
+
 input()
 
 database.connection.close()
