@@ -13,6 +13,10 @@ load_dotenv()
 CREATE_PROPERTY_TABLE = """CREATE TABLE IF NOT EXISTS properties (
                                 id INTEGER NOT NULL PRIMARY KEY, 
                                 type_of_property TEXT, 
+                                town TEXT,
+                                postcode TEXT,
+                                district TEXT,
+                                link TEXT
                                 url TEXT,
                                 date_add_to_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"""
 CREATE_DESCRIPTION_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
