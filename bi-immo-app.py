@@ -64,7 +64,10 @@ driver.find_element(By.CSS_SELECTOR, "button.btn.btn-primary.search").click()
 #catch all the announces
 print("------------------Announces Part------------------")
 try:
-    driver.implicitly_wait(5)
+    time.sleep(2)
+    articles_ready = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.resultsListContainer")))
+    if articles_ready:
+        print("test OK")
     articles = driver.find_elements(By.CSS_SELECTOR, "div.sideListItem")
     print("articles",articles)
     for article in articles:
@@ -84,7 +87,7 @@ try:
         ###town
         town = os.environ["CITY_RESEARCHED_CONTENT"]
         print("town",town)
-        ###District
+        ###District&&Postcode
         try:
             address_content = driver.find_element(By.CSS_SELECTOR,'span.ad-overview-details__address-title')
             address_content = address_content.text
