@@ -1,5 +1,6 @@
 #packages
 import os
+import re
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -65,11 +66,28 @@ articles = driver.find_elements(By.CSS_SELECTOR, "div.sideListItem")
 for article in articles:
     
     ###Type of good 
-    
+    try:
+        type_of_good_content = driver.find_element(By.CSS_SELECTOR,'span.ad-overview-details__ad-title').text
+        if "maison" in  type_of_good_content.lower():
+            type_of_good = "maison"
+        elif "appartement" in type_of_good_content.lower():
+            type_of_good = "appartement"
+        else:   
+            type_of_good = ""
+    except (NoSuchElementException):
+        print("KO : no element type_of_good")
+    print("type_of_good",type_of_good)
     ###town
-    
+    town = os.environ["CITY_RESEARCHED_CONTENT"]
+    print("town",town)
     ###District
-    
+    try:
+        district_content = driver.find_element(By.CSS_SELECTOR,'span.ad-overview-details__address-title').text
+        district = re.findall("\((.*?)\)", district_content)[0]
+        print("district",district)
+    except (NoSuchElementException):
+        print("KO : no element type_of_good")
+        
     ###Postcode
     
     ###url
