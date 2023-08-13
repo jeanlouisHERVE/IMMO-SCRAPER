@@ -61,37 +61,44 @@ time.sleep(2)
 driver.find_element(By.CSS_SELECTOR, "button.btn.btn-primary.search").click()
 
 
-#catch all the 
-articles = driver.find_elements(By.CSS_SELECTOR, "div.sideListItem")
-for article in articles:
-    
-    ###Type of good 
-    try:
-        type_of_good_content = driver.find_element(By.CSS_SELECTOR,'span.ad-overview-details__ad-title').text
-        if "maison" in  type_of_good_content.lower():
-            type_of_good = "maison"
-        elif "appartement" in type_of_good_content.lower():
-            type_of_good = "appartement"
-        else:   
-            type_of_good = ""
-    except (NoSuchElementException):
-        print("KO : no element type_of_good")
-    print("type_of_good",type_of_good)
-    ###town
-    town = os.environ["CITY_RESEARCHED_CONTENT"]
-    print("town",town)
-    ###District
-    try:
-        district_content = driver.find_element(By.CSS_SELECTOR,'span.ad-overview-details__address-title').text
-        district = re.findall("\((.*?)\)", district_content)[0]
-        print("district",district)
-    except (NoSuchElementException):
-        print("KO : no element type_of_good")
+#catch all the announces
+print("------------------Announces Part------------------")
+try:
+    driver.implicitly_wait(5)
+    articles = driver.find_elements(By.CSS_SELECTOR, "div.sideListItem")
+    print("articles",articles)
+    for article in articles:
+        ###Type of good 
+        try:
+            type_of_good_content = driver.find_element(By.CSS_SELECTOR,'span.ad-overview-details__ad-title')
+            type_of_good_content = type_of_good_content.text
+            if "maison" in  type_of_good_content.lower():
+                type_of_good = "maison"
+            elif "appartement" in type_of_good_content.lower():
+                type_of_good = "appartement"
+            else:   
+                type_of_good = ""
+        except (NoSuchElementException):
+            print("KO : no element type_of_good")
+        print("type_of_good",type_of_good)
+        ###town
+        town = os.environ["CITY_RESEARCHED_CONTENT"]
+        print("town",town)
+        ###District
+        try:
+            address_content = driver.find_element(By.CSS_SELECTOR,'span.ad-overview-details__address-title')
+            address_content = address_content.text
+            district = re.findall("\((.*?)\)", address_content)[0]
+            postcode = re.findall("[0-9]", address_content)[0]
+            print("district",district)
+        except (NoSuchElementException):
+            print("KO : no element type_of_good")
+            
+        ###Postcode
         
-    ###Postcode
-    
-    ###url
-
+        ###url
+except (NoSuchElementException):
+    print("KO : no annouces found")
 input()
 
 database.connection.close()
