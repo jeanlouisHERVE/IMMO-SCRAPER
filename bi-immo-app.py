@@ -63,26 +63,23 @@ driver.find_element(By.CSS_SELECTOR, "button.btn.btn-primary.search").click()
 
 #catch all the announces
 print("------------------Announces Part------------------")
-try:
-    time.sleep(2)
-    articles_ready = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.resultsListContainer")))
-    if articles_ready:
-        print("test OK")
-    articles = driver.find_elements(By.CSS_SELECTOR, "article.sideListItem")
-    print("articles",articles)
-    for article in articles:
-        ###Type of good 
-        try:
-            type_of_good_content = driver.find_element(By.CSS_SELECTOR,'span.ad-overview-details__ad-title.ad-overview-details__ad-title--small')
-            type_of_good_content = type_of_good_content.text
-            if "maison" in  type_of_good_content.lower():
-                type_of_good = "maison"
-            elif "appartement" in type_of_good_content.lower():
-                type_of_good = "appartement"
-            else:   
-                type_of_good = ""
-        except (NoSuchElementException):
-            print("KO : no element type_of_good")
+
+time.sleep(5)
+articles = driver.find_elements(By.CSS_SELECTOR, "article.sideListItem")
+print("articles",articles)
+for article in articles:
+    ###Type of good 
+    print("article", article)
+    try:
+        type_of_good_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
+        type_of_good_content = type_of_good_content.text
+        if "maison" in  type_of_good_content.lower():
+            type_of_good = "maison"
+        elif "appartement" in type_of_good_content.lower():
+            type_of_good = "appartement"
+        else:   
+            type_of_good = ""
+
         print("type_of_good",type_of_good)
         
         ###town
@@ -90,26 +87,21 @@ try:
         print("town",town)
         
         ###District&&Postcode
-        try:
-            address_content = driver.find_element(By.CSS_SELECTOR,'span.ad-overview-details__address-title')
-            address_content = address_content.text
-            district = re.findall("\((.*?)\)", address_content)[0]
-            postcode = re.findall("[0-9]", address_content)[0]
-            print("district",district)
-        except (NoSuchElementException):
-            print("KO : no element type_of_good")
+
+        address_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__address-title")
+        address_content = address_content.text
+        district = re.findall("\((.*?)\)", address_content)[0]
+        postcode = re.findall("[0-9]", address_content)[0]
+        print("district",district)
 
         ###url
-        try:
-            link_content = driver.find_element(By.CSS_SELECTOR,'a.detailedSheetLink')
-            link = link_content.get_attribute('href')
-            print("link",link)
-        except (NoSuchElementException):
-            print("KO : no element link")
+
+        link_content = article.find_element(By.CSS_SELECTOR,"a.detailedSheetLink")
+        link = link_content.get_attribute('href')
+        print("link",link)
+    except (NoSuchElementException):
+        print("KO : no date for article found")
         
-        
-except (NoSuchElementException):
-    print("KO : no annouces found")
 input()
 
 database.connection.close()
