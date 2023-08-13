@@ -102,9 +102,18 @@ for article in articles:
         
         ###room number && surface
         room_surface_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
+        content_text = room_surface_content.text
+        ##room
         room_number = room_surface_content.text
-        surface = room_surface_content.text
+        pattern_room = r'(\d+)\s*pièces'
+        room_content = re.findall(pattern_room, content_text)
+        room_number = room_content[0]
         print("room_number",room_number)
+        ##surface
+        surface = room_surface_content.text
+        pattern_squaremeters = r'\b(\d+)\b'
+        surface_content = re.findall(pattern_squaremeters, content_text)
+        surface = surface_content[-1]
         print("surface",surface)
         
         ###price
