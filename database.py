@@ -32,7 +32,8 @@ INSERT_PROPERTY = """INSERT INTO properties (type_of_good, town, district, postc
 INSERT_DESCRIPTION = """INSERT INTO description () VALUES ()"""
 
 ##get data
-GET_PROPERTY = "SELECT * FROM camgirls #####;"
+GET_PROPERTY = "SELECT * FROM properties #####;"
+GET_PROPERTY_BY_URL = "SELECT * FROM properties WHERE url = ?;"
 GET_PROPERTY_DESCRIPTION = "SELECT pseudo FROM description #####"
 GET_PROPERTIES = "SELECT * FROM properties;"
 
@@ -57,10 +58,9 @@ def add_description():
         #connection.execute(INSERT_DESCRIPTION, ())
         pass
 
-def get_property():
+def get_property_by_url(url):
     with connection:
-        #connection.execute(INSERT_DESCRIPTION, ())
-        pass
+        connection.execute(GET_PROPERTY_BY_URL, (url))
     
 def get_properties():
     with connection:

@@ -128,7 +128,8 @@ for article in articles:
         date_add_to_db = datetime.datetime.now().timestamp()
         
         ###add proterty to db
-        database.add_property(type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db)
+        if not database.get_property_by_url(url):
+            database.add_property(type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db)
         
     except (NoSuchElementException):
         print("KO : no date for article found")
