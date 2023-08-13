@@ -2,6 +2,7 @@
 import os
 import re
 import time
+import datetime
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -68,20 +69,20 @@ time.sleep(5)
 articles = driver.find_elements(By.CSS_SELECTOR, "article.sideListItem")
 print("articles",articles)
 for article in articles:
-    ###Type of good 
     print("------------------Article Start------------------")
     print("article", article)
     try:
-        type_of_good_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
-        type_of_good_content = type_of_good_content.text
-        if "maison" in  type_of_good_content.lower():
-            type_of_good = "maison"
-        elif "appartement" in type_of_good_content.lower():
-            type_of_good = "appartement"
+        ###type of property
+        type_of_property_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
+        type_of_property_content = type_of_property_content.text
+        if "maison" in  type_of_property_content.lower():
+            type_of_property = "maison"
+        elif "appartement" in type_of_property_content.lower():
+            type_of_property = "appartement"
         else:   
-            type_of_good = ""
+            type_of_property = ""
 
-        print("type_of_good",type_of_good)
+        print("type_of_property",type_of_property)
         
         ###town
         town = os.environ["CITY_RESEARCHED"]
@@ -96,9 +97,9 @@ for article in articles:
         print("postcode",postcode)
         
         ###url
-        link_content = article.find_element(By.CSS_SELECTOR,"a.detailedSheetLink")
-        link = link_content.get_attribute('href')
-        print("link",link)
+        url_content = article.find_element(By.CSS_SELECTOR,"a.detailedSheetLink")
+        url = url_content.get_attribute('href')
+        print("link",url)
         
         ###room number && surface
         room_surface_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
@@ -122,6 +123,12 @@ for article in articles:
         price = ''.join(re.findall('\d+', price_content))
         print("price",price)
         print("------------------Article End------------------")  
+        
+        ###date 
+        date_add_to_db = datetime.datetime.now().timestamp()
+        
+        ###add proterty to db
+        database.add_property(type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db)
         
     except (NoSuchElementException):
         print("KO : no date for article found")

@@ -14,17 +14,21 @@ CREATE_PROPERTY_TABLE = """CREATE TABLE IF NOT EXISTS properties (
                                 id INTEGER NOT NULL PRIMARY KEY, 
                                 type_of_property TEXT, 
                                 town TEXT,
-                                postcode TEXT,
                                 district TEXT,
-                                link TEXT
-                                url TEXT,
+                                postcode TEXT,                               
+                                url TEXT
+                                room_number INTEGER,
+                                surface INTEGER, 
+                                price INTEGER,
                                 date_add_to_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"""
+                                
 CREATE_DESCRIPTION_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 FOREIGN KEY (pseudo) REFERENCES properties(pseudo) ON DELETE CASCADE
                             );"""
 
 ##add data
-INSERT_PROPERTY = "INSERT INTO  () VALUES ();"
+INSERT_PROPERTY = """INSERT INTO properties (type_of_good, town, district, postcode, url, room_number, 
+                    surface, price, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_DESCRIPTION = """INSERT INTO description () VALUES ()"""
 
 ##get data
@@ -44,10 +48,9 @@ def create_table():
         connection.execute(CREATE_PROPERTY_TABLE)
         #connection.execute(CREATE_DESCRIPTION_TABLE)
 
-def add_property():
+def add_property(type_of_good, town, district, postcode, url, room_number, surface, price, date_add_to_db):
     with connection:
-        # connection.execute(INSERT_PROPERTY, ())
-        pass
+        connection.execute(INSERT_PROPERTY, (type_of_good, town, district, postcode, url, room_number, surface, price, date_add_to_db))
         
 def add_description():
     with connection:
