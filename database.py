@@ -27,7 +27,7 @@ CREATE_DESCRIPTION_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                             );"""
 
 ##add data
-INSERT_PROPERTY = """INSERT INTO properties (type_of_good, town, district, postcode, url, room_number, 
+INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, postcode, url, room_number, 
                     surface, price, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_DESCRIPTION = """INSERT INTO description () VALUES ()"""
 
@@ -49,18 +49,19 @@ def create_table():
         connection.execute(CREATE_PROPERTY_TABLE)
         #connection.execute(CREATE_DESCRIPTION_TABLE)
 
-def add_property(type_of_good, town, district, postcode, url, room_number, surface, price, date_add_to_db):
+def add_property(type_of_property: str, town: str, district: str, postcode: int, url: str, room_number: int, surface: int, price: int, date_add_to_db: float):
     with connection:
-        connection.execute(INSERT_PROPERTY, (type_of_good, town, district, postcode, url, room_number, surface, price, date_add_to_db))
+        connection.execute(INSERT_PROPERTY, (type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db))
         
 def add_description():
     with connection:
         #connection.execute(INSERT_DESCRIPTION, ())
         pass
 
-def get_property_by_url(url):
+def get_property_by_url(url: str):
     with connection:
-        connection.execute(GET_PROPERTY_BY_URL, (url))
+        cursor = connection.execute(GET_PROPERTY_BY_URL, (url,))
+        return cursor.fetchone()
     
 def get_properties():
     with connection:
