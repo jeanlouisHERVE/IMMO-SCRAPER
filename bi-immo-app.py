@@ -121,6 +121,10 @@ for article in articles:
         price_content = article.find_element(By.CSS_SELECTOR,"span.ad-price__the-price")
         price_content = price_content.text
         price = ''.join(re.findall('\d+', price_content))
+        if len(price) > 7:
+            price = None
+        else: 
+            continue
         print("price :",price)
         print("------------------Article End------------------")  
         

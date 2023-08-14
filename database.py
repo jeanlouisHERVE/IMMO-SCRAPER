@@ -16,7 +16,7 @@ CREATE_PROPERTY_TABLE = """CREATE TABLE IF NOT EXISTS properties (
                                 town TEXT,
                                 district TEXT,
                                 postcode TEXT,                               
-                                url TEXT
+                                url TEXT,
                                 room_number INTEGER,
                                 surface INTEGER, 
                                 price INTEGER,
