@@ -69,7 +69,14 @@ print("------------------Announces Part------------------")
 time.sleep(5)
 
 while True:
-    next_results_btn = driver.find_element(By.CSS_SELECTOR, "a.btn.goForward.btn-primary.pagination__go-forward-button")
+    try:
+        next_results_btn = driver.find_element(By.CSS_SELECTOR, "a.btn.goForward.btn-primary.pagination__go-forward-button")
+    except(NoSuchElementException):
+        print("KO : no more next button")
+        database.connection.close()
+        driver.close()
+        driver.quit()
+    
     articles = driver.find_elements(By.CSS_SELECTOR, "article.sideListItem")
     print(f"------------------Page_Start {global_page_number-1}------------------")
     print("articles",articles)
@@ -103,12 +110,18 @@ while True:
         try: 
             address_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__address-title")
             address_content = address_content.text
+            ##district
             try: 
                 district = re.findall("\((.*?)\)", address_content)[0]
-            except(NoSuchElementException):
-                print("KO : no data for District&&Postcode found")
+            except IndexError:
+                print("KO : no data for District found")
                 distric = ""
-            postcode = re.findall("[0-9]*", address_content)[0]
+            ##postcode
+            try:
+                postcode = re.findall("[0-9]*", address_content)[0]
+            except IndexError:
+                print("KO : no data for Postcode found")
+                postcode = 0
             print("district :",district)
             print("postcode :",postcode)
             
@@ -185,7 +198,4 @@ while True:
     global_page_number += 1  
     print("------------------Page_End------------------")
 
-
-database.connection.close()
-driver.close()
-driver.quit()
+    
