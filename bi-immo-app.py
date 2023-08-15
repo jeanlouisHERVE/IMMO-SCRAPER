@@ -71,6 +71,7 @@ next_results_btn = driver.find_element(By.CSS_SELECTOR, "a.btn.goForward.btn-pri
 
 while next_results_btn:
     articles = driver.find_elements(By.CSS_SELECTOR, "article.sideListItem")
+    print("------------------Page_Start------------------")
     print("articles",articles)
     for article in articles:
         print("------------------Article Start------------------")
@@ -176,7 +177,7 @@ while next_results_btn:
     # print("page_number :",page_number)
     driver.get(next_page_url_without_page +"page={}".format(global_page_number))
     global_page_number += 1  
-        
+    print("------------------Page_End------------------")
 
 
 database.connection.close()
