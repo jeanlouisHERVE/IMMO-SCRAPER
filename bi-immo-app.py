@@ -67,11 +67,11 @@ driver.find_element(By.CSS_SELECTOR, "button.btn.btn-primary.search").click()
 print("------------------Announces Part------------------")
 
 time.sleep(5)
-next_results_btn = driver.find_element(By.CSS_SELECTOR, "a.btn.goForward.btn-primary.pagination__go-forward-button")
 
-while next_results_btn:
+while True:
+    next_results_btn = driver.find_element(By.CSS_SELECTOR, "a.btn.goForward.btn-primary.pagination__go-forward-button")
     articles = driver.find_elements(By.CSS_SELECTOR, "article.sideListItem")
-    print("------------------Page_Start------------------")
+    print(f"------------------Page_Start {global_page_number-1}------------------")
     print("articles",articles)
     for article in articles:
         print("------------------Article Start------------------")
@@ -103,7 +103,11 @@ while next_results_btn:
         try: 
             address_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__address-title")
             address_content = address_content.text
-            district = re.findall("\((.*?)\)", address_content)[0]
+            try: 
+                district = re.findall("\((.*?)\)", address_content)[0]
+            except(NoSuchElementException):
+                print("KO : no data for District&&Postcode found")
+                distric = ""
             postcode = re.findall("[0-9]*", address_content)[0]
             print("district :",district)
             print("postcode :",postcode)
@@ -175,7 +179,9 @@ while next_results_btn:
     # page_number = re.findall(patter_page_number, next_page_url)[0]
     # page_number = int(page_number)
     # print("page_number :",page_number)
-    driver.get(next_page_url_without_page +"page={}".format(global_page_number))
+    
+    # driver.get(next_page_url_without_page +"page={}".format(global_page_number))
+    driver.get(next_page_url)
     global_page_number += 1  
     print("------------------Page_End------------------")
 
