@@ -127,7 +127,7 @@ while next_results_btn:
             content_text = room_surface_content.text
             ##room
             room_number = room_surface_content.text
-            pattern_room = r'(\d+)\s*pièces'
+            pattern_room = r'(\d+)\s*pièce'
             room_content = re.findall(pattern_room, content_text)
             room_number = room_content[0]
             print("room_number :",room_number)
