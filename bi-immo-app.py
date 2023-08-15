@@ -27,7 +27,7 @@ driver = webdriver.Chrome()
 actions = ActionChains(driver)
 chrome_options = ChromeOptions()
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
-page_number = 2
+global_page_number = 2
 
 #functions 
 def check_accept_section(cssSelector: str):
@@ -165,16 +165,17 @@ while next_results_btn:
         
         
     ###catch data to access the next page
-    # next_page_url = next_results_btn.get_attribute('href')
+    next_page_url = next_results_btn.get_attribute('href')
+    print("next_page_url", next_page_url)
+    pattern_next_page_url_without_page = r"(.+)\?"
+    next_page_url_without_page = re.findall(pattern_next_page_url_without_page, next_page_url)[0]
+    print("next_page_url_without_page :",next_page_url_without_page)
     # patter_page_number = r"\bpage=(\d+)\b"
-    # pattern_next_page_url_without_page = r"(.+)\?page=\d+$"
-    # next_page_url_without_page = re.findall(pattern_next_page_url_without_page, url)[0]
-    # print("next_page_url_without_page :",next_page_url_without_page)
     # page_number = re.findall(patter_page_number, next_page_url)[0]
+    # page_number = int(page_number)
     # print("page_number :",page_number)
-    # driver.get(next_page_url_without_page +"?page={}".format(page_number))
-    # page_number += 1  
-    input()
+    driver.get(next_page_url_without_page +"page={}".format(global_page_number))
+    global_page_number += 1  
         
 
 
