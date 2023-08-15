@@ -27,6 +27,7 @@ driver = webdriver.Chrome()
 actions = ActionChains(driver)
 chrome_options = ChromeOptions()
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
+page_number = 2
 
 #functions 
 def check_accept_section(cssSelector: str):
@@ -66,80 +67,95 @@ driver.find_element(By.CSS_SELECTOR, "button.btn.btn-primary.search").click()
 print("------------------Announces Part------------------")
 
 time.sleep(5)
-articles = driver.find_elements(By.CSS_SELECTOR, "article.sideListItem")
-print("articles",articles)
-for article in articles:
-    print("------------------Article Start------------------")
-    print("article :", article)
-    try:
-        ###type of property
-        type_of_property_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
-        type_of_property_content = type_of_property_content.text
-        if "maison" in  type_of_property_content.lower():
-            type_of_property = "maison"
-        elif "appartement" in type_of_property_content.lower():
-            type_of_property = "appartement"
-        else:   
-            type_of_property = ""
+next_results_btn = driver.find_element(By.CSS_SELECTOR, "a.btn.goForward.btn-primary.pagination__go-forward-button")
 
-        print("type_of_property :",type_of_property)
+while next_results_btn:
+    articles = driver.find_elements(By.CSS_SELECTOR, "article.sideListItem")
+    print("articles",articles)
+    for article in articles:
+        print("------------------Article Start------------------")
+        print("article :", article)
+        try:
+            ###type of property
+            type_of_property_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
+            type_of_property_content = type_of_property_content.text
+            if "maison" in  type_of_property_content.lower():
+                type_of_property = "maison"
+            elif "appartement" in type_of_property_content.lower():
+                type_of_property = "appartement"
+            else:   
+                type_of_property = ""
+
+            print("type_of_property :",type_of_property)
+            
+            ###town
+            town = os.environ["CITY_RESEARCHED"]
+            print("town :",town)
+            
+            ###District&&Postcode
+            address_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__address-title")
+            address_content = address_content.text
+            district = re.findall("\((.*?)\)", address_content)[0]
+            postcode = re.findall("[0-9]*", address_content)[0]
+            print("district :",district)
+            print("postcode :",postcode)
+            
+            ###url
+            url_content = article.find_element(By.CSS_SELECTOR,"a.detailedSheetLink")
+            url = url_content.get_attribute('href')
+            print("link :",url)
+            
+            ###room number && surface
+            room_surface_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
+            content_text = room_surface_content.text
+            ##room
+            room_number = room_surface_content.text
+            pattern_room = r'(\d+)\s*pièces'
+            room_content = re.findall(pattern_room, content_text)
+            room_number = room_content[0]
+            print("room_number :",room_number)
+            ##surface
+            surface = room_surface_content.text
+            pattern_squaremeters = r'\b(\d+)\b'
+            surface_content = re.findall(pattern_squaremeters, content_text)
+            surface = surface_content[-1]
+            print("surface :",surface)
+            
+            ###price
+            price_content = article.find_element(By.CSS_SELECTOR,"span.ad-price__the-price")
+            price_content = price_content.text
+            price = ''.join(re.findall('\d+', price_content))
+            if len(price) > 7:
+                price = None
+            else: 
+                continue
+            print("price :",price)
+            print("------------------Article End------------------")  
+            
+            ###date 
+            date_add_to_db = datetime.datetime.now().timestamp()
+            print("date_add_to_db :",date_add_to_db)
+            
+            ###add property to db
+            if not database.get_property_by_url(url):
+                database.add_property(type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db)
+            
+        except (NoSuchElementException):
+            print("KO : no data for article found")
         
-        ###town
-        town = os.environ["CITY_RESEARCHED"]
-        print("town :",town)
+    ###catch data to access the next page
+    # next_page_url = next_results_btn.get_attribute('href')
+    # patter_page_number = r"\bpage=(\d+)\b"
+    # pattern_next_page_url_without_page = r"(.+)\?page=\d+$"
+    # next_page_url_without_page = re.findall(pattern_next_page_url_without_page, url)[0]
+    # print("next_page_url_without_page :",next_page_url_without_page)
+    # page_number = re.findall(patter_page_number, next_page_url)[0]
+    # print("page_number :",page_number)
+    # driver.get(next_page_url_without_page +"?page={}".format(page_number))
+    # page_number += 1  
+    input()
         
-        ###District&&Postcode
-        address_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__address-title")
-        address_content = address_content.text
-        district = re.findall("\((.*?)\)", address_content)[0]
-        postcode = re.findall("[0-9]*", address_content)[0]
-        print("district :",district)
-        print("postcode :",postcode)
-        
-        ###url
-        url_content = article.find_element(By.CSS_SELECTOR,"a.detailedSheetLink")
-        url = url_content.get_attribute('href')
-        print("link :",url)
-        
-        ###room number && surface
-        room_surface_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
-        content_text = room_surface_content.text
-        ##room
-        room_number = room_surface_content.text
-        pattern_room = r'(\d+)\s*pièces'
-        room_content = re.findall(pattern_room, content_text)
-        room_number = room_content[0]
-        print("room_number :",room_number)
-        ##surface
-        surface = room_surface_content.text
-        pattern_squaremeters = r'\b(\d+)\b'
-        surface_content = re.findall(pattern_squaremeters, content_text)
-        surface = surface_content[-1]
-        print("surface :",surface)
-        
-        ###price
-        price_content = article.find_element(By.CSS_SELECTOR,"span.ad-price__the-price")
-        price_content = price_content.text
-        price = ''.join(re.findall('\d+', price_content))
-        if len(price) > 7:
-            price = None
-        else: 
-            continue
-        print("price :",price)
-        print("------------------Article End------------------")  
-        
-        ###date 
-        date_add_to_db = datetime.datetime.now().timestamp()
-        print("date_add_to_db :",date_add_to_db)
-        
-        ###add property to db
-        if not database.get_property_by_url(url):
-            database.add_property(type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db)
-        
-    except (NoSuchElementException):
-        print("KO : no date for article found")
-        
-input()
+
 
 database.connection.close()
 driver.close()
