@@ -127,16 +127,17 @@ while next_results_btn:
             price = ''.join(re.findall('\d+', price_content))
             if len(price) > 7:
                 price = None
-            else: 
-                continue
             print("price :",price)
-            print("------------------Article End------------------")  
             
             ###date 
             date_add_to_db = datetime.datetime.now().timestamp()
             print("date_add_to_db :",date_add_to_db)
             
-            ###add property to db
+            print("------------------Article End------------------")  
+            
+            
+            
+            ###add properties to db
             if not database.get_property_by_url(url):
                 database.add_property(type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db)
             
