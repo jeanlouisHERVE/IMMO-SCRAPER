@@ -34,9 +34,9 @@ INSERT_DESCRIPTION = """INSERT INTO description () VALUES ()"""
 ##get data
 GET_PROPERTY = "SELECT * FROM properties #####;"
 GET_PROPERTY_BY_URL = "SELECT * FROM properties WHERE url = ?;"
-GET_PROPERTY_DESCRIPTION = "SELECT pseudo FROM description #####"
 GET_PROPERTIES = "SELECT * FROM properties;"
-
+GET_PROPERTIES_FROM_DATE_ADDING_TO_DB = "SELECT * FROM properties WHERE date_add_to_db = ?;"
+GET_PROPERTY_DESCRIPTION = "SELECT pseudo FROM description #####"
 #update data
 
 #delete data
@@ -62,8 +62,18 @@ def get_property_by_url(url: str):
     with connection:
         cursor = connection.execute(GET_PROPERTY_BY_URL, (url,))
         return cursor.fetchone()
+
+def get_property_by_url(url: str):
+    with connection:
+        cursor = connection.execute(GET_PROPERTY_BY_URL, (url,))
+        return cursor.fetchone()
     
 def get_properties():
     with connection:
         #connection.execute(INSERT_DESCRIPTION, ())
         pass
+
+def get_properties(date_add_to_db: float):
+    with connection:
+        cursor = connection.execute(GET_PROPERTIES_FROM_DATE_ADDING_TO_DB, (date_add_to_db, ))
+        return cursor.fetchall()
