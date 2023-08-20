@@ -23,7 +23,22 @@ CREATE_PROPERTY_TABLE = """CREATE TABLE IF NOT EXISTS properties (
                                 date_add_to_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"""
                                 
 CREATE_DESCRIPTION_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
-                                FOREIGN KEY (pseudo) REFERENCES properties(pseudo) ON DELETE CASCADE
+                                exposition TEXT,
+                                bathroom_number INTEGER,
+                                heating TEXT,
+                                garden BOOLEAN,
+                                toilet_number INTEGER,
+                                car_park_number INTEGER,
+                                year_of_construction TEXT,
+                                dpe_date TIMESTAMP,
+                                energetic_performance_letter TEXT,
+                                energetic_performance_letter INTEGER,
+                                climatic_performance_letter TEXT, 
+                                climatic_performance_letter INTEGER,
+                                announce_publication TIMESTAMP,
+                                announce_last_modification TIMESTAMP,
+                                neighborhood_description LONGTEXT,
+                                FOREIGN KEY (properties_id) REFERENCES properties(id) ON DELETE CASCADE
                             );"""
 
 ##add data
