@@ -39,6 +39,8 @@ CREATE_DESCRIPTION_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 announce_publication TIMESTAMP,
                                 announce_last_modification TIMESTAMP,
                                 neighborhood_description LONGTEXT,
+                                floor INT,
+                                estate_agency TEXT, 
                                 FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE
                             );"""
 
@@ -47,7 +49,7 @@ INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, p
                     surface, price, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_DESCRIPTION = """INSERT INTO description (exposition, bathroom_number, heating, garden, toilet_number, 
                     car_park_number, year_of_construction, dpe_date, energetic_performance_letter, energetic_performance_letter, climatic_performance_letter,
-                    climatic_performance_letter, announce_publication, announce_last_modification, neighborhood_description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+                    climatic_performance_letter, announce_publication, announce_last_modification, neighborhood_description, floor, estate_agency) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 
 ##get data
 GET_PROPERTY = "SELECT * FROM properties #####;"
@@ -73,10 +75,10 @@ def add_property(type_of_property: str, town: str, district: str, postcode: int,
         connection.execute(INSERT_PROPERTY, (type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db))
         
 def add_description(exposition: str, bathroom_number: int, heating: str, garden: bool, toilet_number: int, car_park_number: int, year_of_construction: str, dpe_date: float, energetic_performance_letter: str, energetic_performance_number: int, climatic_performance_letter: str,
-                    climatic_performance_number: int, announce_publication: float, announce_last_modification: float, neighborhood_description: str):
+                    climatic_performance_number: int, announce_publication: float, announce_last_modification: float, neighborhood_description: str, floor: int, estate_agency: str):
     with connection:
         connection.execute(INSERT_DESCRIPTION, (exposition, bathroom_number, heating, garden, toilet_number, car_park_number, year_of_construction, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_letter,
-                    climatic_performance_number, announce_publication, announce_last_modification, neighborhood_description))
+                    climatic_performance_number, announce_publication, announce_last_modification, neighborhood_description, floor, estate_agency))
 
 def get_property_by_url(url: str):
     with connection:
