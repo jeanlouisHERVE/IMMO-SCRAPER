@@ -200,4 +200,8 @@ while True:
     global_page_number += 1  
     print("------------------Page_End------------------")
 
+
+print("------------------Description Part------------------")
+###Add description to database
+    property_urls = database.get_id_url_from_properties()
     

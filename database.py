@@ -52,6 +52,7 @@ INSERT_DESCRIPTION = """INSERT INTO description (exposition, bathroom_number, he
 ##get data
 GET_PROPERTY = "SELECT * FROM properties #####;"
 GET_PROPERTY_BY_URL = "SELECT * FROM properties WHERE url = ?;"
+GET_ID_URL_FROM_PROPERTIES = "SELECT id, url FROM properties"
 GET_PROPERTIES = "SELECT * FROM properties;"
 GET_PROPERTIES_FROM_DATE_ADDING_TO_DB = "SELECT * FROM properties WHERE date_add_to_db = ?;"
 GET_PROPERTY_DESCRIPTION = "SELECT * FROM description WHERE "
@@ -82,10 +83,10 @@ def get_property_by_url(url: str):
         cursor = connection.execute(GET_PROPERTY_BY_URL, (url,))
         return cursor.fetchone()
 
-def get_property_by_url(url: str):
+def get_id_url_from_properties():
     with connection:
-        cursor = connection.execute(GET_PROPERTY_BY_URL, (url,))
-        return cursor.fetchone()
+        cursor = connection.execute(GET_ID_URL_FROM_PROPERTIES)
+        return cursor.fetchall()
     
 def get_properties():
     with connection:
