@@ -73,7 +73,7 @@ def get_properties():
         #connection.execute(INSERT_DESCRIPTION, ())
         pass
 
-def get_properties(date_add_to_db: float):
+def get_properties_from_adding_date(date_add_to_db: float):
     with connection:
         cursor = connection.execute(GET_PROPERTIES_FROM_DATE_ADDING_TO_DB, (date_add_to_db, ))
         return cursor.fetchall()
