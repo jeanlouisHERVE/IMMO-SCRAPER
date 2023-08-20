@@ -29,7 +29,7 @@ actions = ActionChains(driver)
 chrome_options = ChromeOptions()
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 global_page_number = 2
-current_time = datetime.datetime.now(tz=pytz.utc).timestamp()
+current_time_utc = datetime.datetime.now(tz=pytz.utc).timestamp()
 
 #functions 
 def check_accept_section(cssSelector: str):
@@ -173,7 +173,7 @@ while True:
             print("KO : no data for price found")
                 
         ###date 
-        date_add_to_db = current_time
+        date_add_to_db = current_time_utc
         print("date_add_to_db :",date_add_to_db)
             
         print("------------------Article End------------------")  
