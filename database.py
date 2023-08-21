@@ -68,6 +68,7 @@ GET_PROPERTIES = "SELECT * FROM properties;"
 GET_PROPERTIES_FROM_DATE_ADDING_TO_DB = "SELECT * FROM properties WHERE date_add_to_db = ?;"
 GET_PROPERTY_DESCRIPTION = "SELECT * FROM description WHERE "
 GET_AGENCY_BY_NAME = "SELECT agency_id FROM agencies WHERE name = ?;"
+GET_AGENCIES = "SELECT * from agencies"
 
 #update data
 
@@ -114,4 +115,14 @@ def get_properties():
 def get_properties_from_adding_date(date_add_to_db: float):
     with connection:
         cursor = connection.execute(GET_PROPERTIES_FROM_DATE_ADDING_TO_DB, (date_add_to_db, ))
+        return cursor.fetchall()
+
+def get_agency(name: str):
+    with connection:
+        cursor = connection.execute(GET_AGENCY_BY_NAME, (name, ))
+        return cursor.fetchone()
+
+def get_agencies():
+    with connection:
+        cursor = connection.execute(GET_AGENCIES)
         return cursor.fetchall()

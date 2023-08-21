@@ -272,7 +272,9 @@ for id_property, url_property in property_urls:
     estate_agency  = ""
     try: 
         estate_agency  = driver.find_element(By.CSS_SELECTOR, "div.agency-overview__info-name")
-        estate_agency  = estate_agency .text
+        estate_agency  = estate_agency.text
+        if database.get_agency(estate_agency):
+            database.add_agency()
     except(NoSuchElementException, StaleElementReferenceException):
              print("KO : no data for estate_agency ")
     print("estate_agency ",estate_agency )
