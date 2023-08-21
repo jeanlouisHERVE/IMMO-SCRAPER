@@ -255,9 +255,25 @@ for id_property, url_property in property_urls:
              print("KO : no data for climatic_performance_letter")
     print("climatic_performance_letter",climatic_performance_letter)  
     
-    
     # announce_publication
     # announce_last_modification
     # neighborhood_description
+    
+    neighborhood_description = ""
+    try: 
+        neighborhood_description = driver.find_element(By.CSS_SELECTOR, "div.neighborhoodDescription span")
+        neighborhood_description = neighborhood_description.text
+    except(NoSuchElementException, StaleElementReferenceException):
+             print("KO : no data for neighborhood_description")
+    print("neighborhood_description",neighborhood_description) 
+    
     # floor 
     # estate_agency 
+    estate_agency  = ""
+    try: 
+        estate_agency  = driver.find_element(By.CSS_SELECTOR, "div.agency-overview__info-name")
+        estate_agency  = estate_agency .text
+    except(NoSuchElementException, StaleElementReferenceException):
+             print("KO : no data for estate_agency ")
+    print("estate_agency ",estate_agency )
+    
