@@ -208,10 +208,14 @@ for id_property, url_property in property_urls:
     
     labelsInfo = driver.find_elements(By.CSS_SELECTOR, "div.labelInfo")
     for labelInfo in labelsInfo:
-        element = labelInfo.find_element(By.CSS_SELECTOR, "span")
-        print("element.text", element.text)
-    
+        
+        try:
+            element = labelInfo.find_element(By.CSS_SELECTOR, "span")
+            print("element.text", element.text)
+        except(NoSuchElementException, StaleElementReferenceException):
+             print("KO : no data for District&&Postcode found")
     input()
+    
     # exposition
     # bathroom_number
     # heating
@@ -220,7 +224,16 @@ for id_property, url_property in property_urls:
     # car_park_number
     # year_of_construction
     # dpe_date
+    
     # energetic_performance_letter
+    energetic_performance_letter = ""
+    try: 
+        energetic_performance_letter = driver.find_element(By.CSS_SELECTOR, "div.dpe-line__classification span div")
+        energetic_performance_letter = energetic_performance_letter.text
+    except(NoSuchElementException, StaleElementReferenceException):
+             print("KO : no data for energetic_performance_letter")
+    print("energetic_performance_letter",energetic_performance_letter)         
+             
     # energetic_performance_number
     # climatic_performance_letter
     # climatic_performance_number
