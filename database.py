@@ -49,7 +49,7 @@ CREATE_ESTATE_AGENCY_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
                                 id INTEGER NOT NULL PRIMARY KEY,
                                 name TEXT,
                                 address TEXT,
-                                evaluation INT, 
+                                evaluation INT
                             );"""
 
 ##add data

@@ -268,6 +268,8 @@ for id_property, url_property in property_urls:
     print("neighborhood_description",neighborhood_description) 
     
     # floor 
+    
+    
     # estate_agency 
     estate_agency  = ""
     try: 
