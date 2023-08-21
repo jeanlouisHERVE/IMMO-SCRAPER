@@ -234,9 +234,19 @@ for id_property, url_property in property_urls:
              print("KO : no data for energetic_performance_letter")
     print("energetic_performance_letter",energetic_performance_letter)         
              
-    # energetic_performance_number
+    # energetic_performance_number && climatic_performance_number
+    energetic_performance_number = 0 
+    try: 
+        dpe_data_numbers = driver.find_elements(By.CSS_SELECTOR, "div.dpe-data span div")
+        energetic_performance_number = int(dpe_data_numbers[0].text)
+        climatic_performance_number = int(dpe_data_numbers[1].text)
+    except(NoSuchElementException, StaleElementReferenceException):
+             print("KO : no data for energetic_performance_number")
+    print("energetic_performance_number", energetic_performance_number) 
+    print("climatic_performance_number", climatic_performance_number) 
+    
     # climatic_performance_letter
-    # climatic_performance_number
+    
     # announce_publication
     # announce_last_modification
     # neighborhood_description
