@@ -236,6 +236,7 @@ for id_property, url_property in property_urls:
              
     # energetic_performance_number && climatic_performance_number
     energetic_performance_number = 0 
+    climatic_performance_number = 0
     try: 
         dpe_data_numbers = driver.find_elements(By.CSS_SELECTOR, "div.dpe-data span div")
         energetic_performance_number = int(dpe_data_numbers[0].text)
@@ -246,6 +247,14 @@ for id_property, url_property in property_urls:
     print("climatic_performance_number", climatic_performance_number) 
     
     # climatic_performance_letter
+    climatic_performance_letter = ""
+    try: 
+        climatic_performance_letter = driver.find_element(By.CSS_SELECTOR, "div.ges-line__classification span")
+        climatic_performance_letter = climatic_performance_letter.text
+    except(NoSuchElementException, StaleElementReferenceException):
+             print("KO : no data for climatic_performance_letter")
+    print("climatic_performance_letter",climatic_performance_letter)  
+    
     
     # announce_publication
     # announce_last_modification
