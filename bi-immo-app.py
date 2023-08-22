@@ -218,6 +218,11 @@ for id_property, url_property in property_urls:
     bathroom_number = 0
     fibre_optics_status = 0
     cellar = False
+    dpe_date = 0
+    balcony = False
+    large_balcony = False
+    lock_up_garage = False
+    fireplace = False
     
     for labelInfo in labelsInfo:
         
@@ -274,10 +279,37 @@ for id_property, url_property in property_urls:
                 cellar = True
                 print("cellar", cellar)
             
-            # floor
+            #floor
             elif "étage" in element_text:
-                cellar = True
+                #cas dernier étage
                 print("cellar", cellar)
+                
+            #dpe_date
+            elif "dpe" in element_text:
+                dpe_regex = ""
+                ######
+                print("dpe_date", dpe_date)
+            
+            #balcony
+            elif "balcon" in element_text:
+                balcony = True
+                print("balcony", balcony)
+                
+            #large_balcony
+            elif "terrasse" in element_text:
+                large_balcony = True
+                print("large_balcony", large_balcony)
+            
+            #lock_up_garage
+            elif "box" in element_text:
+                lock_up_garage = True
+                print("lock_up_garage", lock_up_garage)
+            
+            #fireplace
+            elif "cheminée" in element_text:
+                fireplace = True
+                print("fireplace", fireplace)
+            
             fi
             
             
@@ -288,14 +320,13 @@ for id_property, url_property in property_urls:
     
     # exposition
     
-    
-    #fibre_optics_status
-    
+
     
     
     
     
-    # dpe_date
+    
+    
     
     # energetic_performance_letter
     energetic_performance_letter = ""

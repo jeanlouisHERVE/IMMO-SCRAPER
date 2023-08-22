@@ -27,6 +27,7 @@ CREATE_DESCRIPTION_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 exposition TEXT,
                                 bathroom_number INTEGER,
                                 heating TEXT,
+                                fireplace BOOLEAN,
                                 garden BOOLEAN,
                                 toilet_number INTEGER,
                                 car_park_number INTEGER,
@@ -44,6 +45,8 @@ CREATE_DESCRIPTION_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 batch INT,
                                 cellar BOOLEAN,
                                 balcony BOOLEAN,
+                                large_balcony BOOLEAN,
+                                lock_up_garage BOOLEAN,
                                 fibre_optics_status TEXT, 
                                 estate_agency_id, 
                                 FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE
@@ -54,16 +57,17 @@ CREATE_ESTATE_AGENCY_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
                                 id INTEGER NOT NULL PRIMARY KEY,
                                 name TEXT,
                                 address TEXT,
+                                fee_percentage INTEGER,
                                 evaluation INT
                             );"""
 
 ##add data
 INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, postcode, url, room_number, 
                     surface, price, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"""
-INSERT_DESCRIPTION = """INSERT INTO description (exposition, bathroom_number, heating, garden, toilet_number, 
+INSERT_DESCRIPTION = """INSERT INTO description (exposition, bathroom_number, heating, fireplace, garden, toilet_number, 
                     car_park_number, bedroom_number, year_of_construction, dpe_date, energetic_performance_letter, energetic_performance_letter, climatic_performance_letter,
-                    climatic_performance_letter, announce_publication, announce_last_modification, neighborhood_description, floor, batch, cellar, balcony, fibre_optics_status, estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
-INSERT_AGENCY = """INSERT INTO properties (name, address, evaluation) VALUES (?, ?, ?);"""
+                    climatic_performance_letter, announce_publication, announce_last_modification, neighborhood_description, floor, batch, cellar, balcony, large_balcony, lock_up_garage, fibre_optics_status, estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+INSERT_AGENCY = """INSERT INTO properties (name, address, fee_percentage, evaluation) VALUES (?, ?, ?, ?);"""
 
 ##get data
 GET_PROPERTY = "SELECT * FROM properties #####;"
@@ -92,15 +96,15 @@ def add_property(type_of_property: str, town: str, district: str, postcode: int,
     with connection:
         connection.execute(INSERT_PROPERTY, (type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db))
         
-def add_description(exposition: str, bathroom_number: int, heating: str, garden: bool, toilet_number: int, car_park_number: int, bedroom_number: int, year_of_construction: str, dpe_date: float, energetic_performance_letter: str, energetic_performance_number: int, climatic_performance_letter: str,
-                    climatic_performance_number: int, announce_publication: float, announce_last_modification: float, neighborhood_description: str, floor: int, batch: int, cellar: bool, balcony:bool, fibre_optics_status: str, estate_agency_id: int):
+def add_description(exposition: str, bathroom_number: int, heating: str, fireplace:bool, garden: bool, toilet_number: int, car_park_number: int, bedroom_number: int, year_of_construction: str, dpe_date: float, energetic_performance_letter: str, energetic_performance_number: int, climatic_performance_letter: str,
+                    climatic_performance_number: int, announce_publication: float, announce_last_modification: float, neighborhood_description: str, floor: int, batch: int, cellar: bool, balcony:bool, large_balcony:bool, lock_up_garage:bool, fibre_optics_status: str, estate_agency_id: int):
     with connection:
-        connection.execute(INSERT_DESCRIPTION, (exposition, bathroom_number, heating, garden, toilet_number, car_park_number, bedroom_number, year_of_construction, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_letter,
-                    climatic_performance_number, announce_publication, announce_last_modification, neighborhood_description, floor, batch, cellar, balcony, fibre_optics_status, estate_agency_id))
+        connection.execute(INSERT_DESCRIPTION, (exposition, bathroom_number, heating, fireplace, garden, toilet_number, car_park_number, bedroom_number, year_of_construction, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_letter,
+                    climatic_performance_number, announce_publication, announce_last_modification, neighborhood_description, floor, batch, cellar, balcony, large_balcony, lock_up_garage, fibre_optics_status, estate_agency_id))
 
-def add_agency(name: str, address: str, evaluation: int):
+def add_agency(name: str, address: str, fee_percentage:int, evaluation: int):
     with connection:
-        connection.execute(INSERT_PROPERTY, (name, address, evaluation))
+        connection.execute(INSERT_PROPERTY, (name, address, fee_percentage, evaluation))
 
 def get_property_by_url(url: str):
     with connection:
