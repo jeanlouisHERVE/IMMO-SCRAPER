@@ -207,22 +207,77 @@ for id_property, url_property in property_urls:
     
     
     labelsInfo = driver.find_elements(By.CSS_SELECTOR, "div.labelInfo")
+    
+    #default values
+    bedroom_number = 0
+    garden = False
+    toilet_number = 0
+    car_park_number = 0
+    heating = ""
+    year_of_construction = ""
+    bathroom_number = 0
+    
     for labelInfo in labelsInfo:
         
         try:
             element = labelInfo.find_element(By.CSS_SELECTOR, "span")
+            element_text = element.text.lower()
+            #bedroom_number
+            if "chambre" in element_text:
+                bedroom_regex = ""##############
+                ######
+                print("bedroom_number", bedroom_number)
+            # garden
+            elif "jardin" in element_text:
+                garden = True
+            
+            # toilet_number
+            elif "wc" in element_text:
+                toilet_regex = ""
+                ######
+                print("toilet_number", toilet_number)
+                
+            # car_park_number
+            elif "parking" in element_text:
+                car_park_regex = ""
+                ######
+                print("car_park_number", car_park_number)
+            
+            # heating
+            elif "chauffage" in element_text:
+                heating_regex = ""
+                ######
+                print("heating", heating)
+                
+            # year_of_construction
+            elif "construit" in element_text:
+                construction_regex = ""
+                ######
+                print("year_of_construction", year_of_construction)
+            
+            # bathroom_number
+            elif "bain" in element_text:
+                bathroom_regex = ""
+                ######
+                print("bathroom_number", bathroom_number)
+            
+            fi
+            
+            
             print("element.text", element.text)
         except(NoSuchElementException, StaleElementReferenceException):
-             print("KO : no data for District&&Postcode found")
+             print("KO : no data elements found")
     input()
     
     # exposition
-    # bathroom_number
-    # heating
-    # garden
-    # toilet_number
-    # car_park_number
-    # year_of_construction
+    
+    
+    
+    
+    
+    
+    
+    # floor
     # dpe_date
     
     # energetic_performance_letter
@@ -239,8 +294,9 @@ for id_property, url_property in property_urls:
     climatic_performance_number = 0
     try: 
         dpe_data_numbers = driver.find_elements(By.CSS_SELECTOR, "div.dpe-data span div")
-        energetic_performance_number = int(dpe_data_numbers[0].text)
-        climatic_performance_number = int(dpe_data_numbers[1].text)
+        if dpe_data_numbers:
+            energetic_performance_number = int(dpe_data_numbers[0].text)
+            climatic_performance_number = int(dpe_data_numbers[1].text)
     except(NoSuchElementException, StaleElementReferenceException):
              print("KO : no data for energetic_performance_number")
     print("energetic_performance_number", energetic_performance_number) 
@@ -257,8 +313,8 @@ for id_property, url_property in property_urls:
     
     # announce_publication
     # announce_last_modification
-    # neighborhood_description
     
+    # neighborhood_description
     neighborhood_description = ""
     try: 
         neighborhood_description = driver.find_element(By.CSS_SELECTOR, "div.neighborhoodDescription span")
@@ -266,9 +322,6 @@ for id_property, url_property in property_urls:
     except(NoSuchElementException, StaleElementReferenceException):
              print("KO : no data for neighborhood_description")
     print("neighborhood_description",neighborhood_description) 
-    
-    # floor 
-    
     
     # estate_agency 
     estate_agency  = ""

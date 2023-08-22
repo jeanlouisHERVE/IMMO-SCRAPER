@@ -30,6 +30,7 @@ CREATE_DESCRIPTION_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 garden BOOLEAN,
                                 toilet_number INTEGER,
                                 car_park_number INTEGER,
+                                bedroom_number INTEGER,
                                 year_of_construction TEXT,
                                 dpe_date TIMESTAMP,
                                 energetic_performance_letter TEXT,
@@ -40,6 +41,7 @@ CREATE_DESCRIPTION_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 announce_last_modification TIMESTAMP,
                                 neighborhood_description LONGTEXT,
                                 floor INT,
+                                batch INT,
                                 estate_agency_id, 
                                 FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE
                                 FOREIGN KEY (estate_agency_id) REFERENCES agencies(id)
@@ -56,8 +58,8 @@ CREATE_ESTATE_AGENCY_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
 INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, postcode, url, room_number, 
                     surface, price, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_DESCRIPTION = """INSERT INTO description (exposition, bathroom_number, heating, garden, toilet_number, 
-                    car_park_number, year_of_construction, dpe_date, energetic_performance_letter, energetic_performance_letter, climatic_performance_letter,
-                    climatic_performance_letter, announce_publication, announce_last_modification, neighborhood_description, floor, estate_agency_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+                    car_park_number, bedroom_number, year_of_construction, dpe_date, energetic_performance_letter, energetic_performance_letter, climatic_performance_letter,
+                    climatic_performance_letter, announce_publication, announce_last_modification, neighborhood_description, floor, batch, estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_AGENCY = """INSERT INTO properties (name, address, evaluation) VALUES (?, ?, ?);"""
 
 ##get data
@@ -87,11 +89,11 @@ def add_property(type_of_property: str, town: str, district: str, postcode: int,
     with connection:
         connection.execute(INSERT_PROPERTY, (type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db))
         
-def add_description(exposition: str, bathroom_number: int, heating: str, garden: bool, toilet_number: int, car_park_number: int, year_of_construction: str, dpe_date: float, energetic_performance_letter: str, energetic_performance_number: int, climatic_performance_letter: str,
-                    climatic_performance_number: int, announce_publication: float, announce_last_modification: float, neighborhood_description: str, floor: int, estate_agency_id: int):
+def add_description(exposition: str, bathroom_number: int, heating: str, garden: bool, toilet_number: int, car_park_number: int, bedroom_number: int, year_of_construction: str, dpe_date: float, energetic_performance_letter: str, energetic_performance_number: int, climatic_performance_letter: str,
+                    climatic_performance_number: int, announce_publication: float, announce_last_modification: float, neighborhood_description: str, floor: int, batch: int, estate_agency_id: int):
     with connection:
-        connection.execute(INSERT_DESCRIPTION, (exposition, bathroom_number, heating, garden, toilet_number, car_park_number, year_of_construction, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_letter,
-                    climatic_performance_number, announce_publication, announce_last_modification, neighborhood_description, floor, estate_agency_id))
+        connection.execute(INSERT_DESCRIPTION, (exposition, bathroom_number, heating, garden, toilet_number, car_park_number, bedroom_number, year_of_construction, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_letter,
+                    climatic_performance_number, announce_publication, announce_last_modification, neighborhood_description, floor, batch, estate_agency_id))
 
 def add_agency(name: str, address: str, evaluation: int):
     with connection:
