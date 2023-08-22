@@ -216,6 +216,8 @@ for id_property, url_property in property_urls:
     heating = ""
     year_of_construction = ""
     bathroom_number = 0
+    fibre_optics_status = 0
+    cellar = False
     
     for labelInfo in labelsInfo:
         
@@ -261,6 +263,21 @@ for id_property, url_property in property_urls:
                 ######
                 print("bathroom_number", bathroom_number)
             
+            #fibre_optics_status
+            elif "fibre" in element_text:
+                fibre_regex = ""
+                ######
+                print("fibre_optics_status", fibre_optics_status)
+                
+            #cellar
+            elif "cave" in element_text:
+                cellar = True
+                print("cellar", cellar)
+            
+            # floor
+            elif "étage" in element_text:
+                cellar = True
+                print("cellar", cellar)
             fi
             
             
@@ -272,12 +289,12 @@ for id_property, url_property in property_urls:
     # exposition
     
     
+    #fibre_optics_status
     
     
     
     
     
-    # floor
     # dpe_date
     
     # energetic_performance_letter
