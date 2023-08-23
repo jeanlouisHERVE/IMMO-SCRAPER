@@ -217,15 +217,18 @@ for id_property, url_property in property_urls:
     heating = ""
     year_of_construction = ""
     bathroom_number = 0
-    fibre_optics_status = 0
+    fibre_optics_status = ""
     cellar = False
     dpe_date = 0
     balcony = False
     large_balcony = False
     lock_up_garage = False
     fireplace = False
+    tv_cable = False
+    intercom = False
+    digicode = False
     
-    regex_find_numbers = r'/[0-9]*/'
+    regex_find_numbers = r'\d+'
     regex_find_text_after_colon = r':\s*([^:,]+)'
     
     print("step3")
@@ -238,8 +241,7 @@ for id_property, url_property in property_urls:
             #bedroom_number
             if "chambre" in element_text:
                 extract = re.findall(regex_find_numbers, element_text)
-                bedroom_number = [match.strip() for match in extract]
-                print("bedroom_number", bedroom_number)
+                bedroom_number = [match.strip() for match in extract][0]
                 
             # garden
             elif "jardin" in element_text:
@@ -248,82 +250,94 @@ for id_property, url_property in property_urls:
             # toilet_number
             elif "wc" in element_text:
                 toilet_number = re.findall(regex_find_numbers, element_text)[0]
-                print("toilet_number", toilet_number)
                 
             # car_park_number
             elif "parking" in element_text:
                 car_park_number = re.findall(regex_find_numbers, element_text)[0]
-                print("car_park_number", car_park_number)
             
             # heating
             elif "chauffage" in element_text:
                 heating = re.findall(regex_find_text_after_colon, element_text)[0]
-                print("heating", heating)
             
             #tv_cable
             elif "tv" in element_text:
                 tv_cable = True
-                print("tv_cable", tv_cable)
             
             # year_of_construction
             elif "construit" in element_text:
                 year_of_construction = re.findall(regex_find_numbers, element_text)[0]
-                print("year_of_construction", year_of_construction)
             
             # bathroom_number
             elif "bain" in element_text:
                 bathroom_number = re.findall(regex_find_numbers, element_text)[0]
-                print("bathroom_number", bathroom_number)
             
             #fibre_optics_status
             elif "fibre" in element_text:
                 fibre_optics_status = re.findall(regex_find_text_after_colon, element_text)[0]
-                print("fibre_optics_status", fibre_optics_status)
                 
             #cellar
             elif "cave" in element_text:
                 cellar = True
-                print("cellar", cellar)
             
             #floor
             elif "étage" in element_text:
                 #cas dernier étage
-                print("cellar", cellar)
+                pass
                 
             #dpe_date
             elif "dpe" in element_text:
                 dpe_date = re.findall(regex_find_text_after_colon, element_text)[0]
-                print("dpe_date", dpe_date)
             
             #balcony
             elif "balcon" in element_text:
                 balcony = True
-                print("balcony", balcony)
                 
             #large_balcony
             elif "terrasse" in element_text:
                 large_balcony = True
-                print("large_balcony", large_balcony)
             
             #lock_up_garage
             elif "box" in element_text:
                 lock_up_garage = True
-                print("lock_up_garage", lock_up_garage)
             
             #fireplace
             elif "cheminée" in element_text:
                 fireplace = True
-                print("fireplace", fireplace)
+            
+            #digicode
+            elif "digicode" in element_text:
+                digicode = True
+                
+            #intercom
+            elif "interphone" in element_text:
+                intercom = True
             
             else:
                 continue
             
-            
-            print("element.text", element.text)
         except(NoSuchElementException, StaleElementReferenceException):
              print("KO : no data elements found")
             
     # exposition
+    
+    print("bedroom_number       :",bedroom_number)
+    print("garden               :",garden)
+    print("toilet_number        :",toilet_number)
+    print("car_park_number      :",car_park_number)
+    print("heating              :",heating)
+    print("year_of_construction :",year_of_construction)
+    print("bathroom_number      :",bathroom_number)
+    print("fibre_optics_status  :",fibre_optics_status)
+    print("cellar               :",cellar)
+    print("dpe_date             :",dpe_date)
+    print("balcony              :",balcony)
+    print("large_balcony        :",large_balcony)
+    print("lock_up_garage       :",lock_up_garage)
+    print("fireplace            :",fireplace)
+    print("tv_cable             :",tv_cable)
+    print("intercom             :",intercom)
+    print("digicode             :",digicode)
+    
     print('step4')
     # energetic_performance_letter
     energetic_performance_letter = ""
@@ -338,10 +352,11 @@ for id_property, url_property in property_urls:
     energetic_performance_number = 0 
     climatic_performance_number = 0
     try: 
-        dpe_data_numbers = driver.find_elements(By.CSS_SELECTOR, "div.dpe-data span div")
+        dpe_data_numbers = driver.find_elements(By.CSS_SELECTOR, "div.dpe-data div.value span")
         if dpe_data_numbers:
             energetic_performance_number = int(dpe_data_numbers[0].text)
-            climatic_performance_number = int(dpe_data_numbers[1].text)
+            climatic_performance_number = int(dpe_data_numbers[1].text.replace("*", ""))
+            climatic_performance_number = re.sub(r'\D', '', climatic_performance_number)
     except(NoSuchElementException, StaleElementReferenceException):
                 print("KO : no data for energetic_performance_number")
     print("energetic_performance_number", energetic_performance_number) 
