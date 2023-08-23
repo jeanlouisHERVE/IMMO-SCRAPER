@@ -240,8 +240,7 @@ for id_property, url_property in property_urls:
             print('element_text ',element_text )
             #bedroom_number
             if "chambre" in element_text:
-                extract = re.findall(regex_find_numbers, element_text)
-                bedroom_number = [match.strip() for match in extract][0]
+                bedroom_number = re.findall(regex_find_numbers, element_text)
                 
             # garden
             elif "jardin" in element_text:
@@ -267,7 +266,7 @@ for id_property, url_property in property_urls:
             elif "construit" in element_text:
                 year_of_construction = re.findall(regex_find_numbers, element_text)[0]
                 format_string_construction = "%Y"
-                local_timestamp_construction = datetime.strptime(year_of_construction, format_string_construction)
+                local_timestamp_construction = datetime.datetime.strptime(year_of_construction, format_string_construction)
                 year_of_construction = local_timestamp_construction.replace(tzinfo=pytz.timezone('UTC'))
 
             # bathroom_number
@@ -276,8 +275,8 @@ for id_property, url_property in property_urls:
             
             #fibre_optics_status
             elif "fibre" in element_text:
-                fibre_optics_status = re.findall(regex_find_text_after_colon, element_text)[0]
-                
+                fibre_optics_status = re.findall(regex_find_text_after_colon, element_text)[0].replace("*", "")
+
             #cellar
             elif "cave" in element_text:
                 cellar = True
@@ -291,7 +290,7 @@ for id_property, url_property in property_urls:
             elif "dpe" in element_text:
                 dpe_date = re.findall(regex_find_text_after_colon, element_text)[0]
                 format_string = "%d %B %Y"
-                local_timestamp_dpe = datetime.strptime(dpe_date, format_string)
+                local_timestamp_dpe = datetime.datetime.strptime(dpe_date, format_string)
                 dpe_date = local_timestamp_dpe.replace(tzinfo=pytz.timezone('UTC'))
                 
             #balcony
