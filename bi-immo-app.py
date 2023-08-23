@@ -3,6 +3,7 @@ import os
 import re
 import time
 import pytz
+import locale
 import datetime
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -240,7 +241,7 @@ for id_property, url_property in property_urls:
             print('element_text ',element_text )
             #bedroom_number
             if "chambre" in element_text:
-                bedroom_number = re.findall(regex_find_numbers, element_text)
+                bedroom_number = re.findall(regex_find_numbers, element_text)[0]
                 
             # garden
             elif "jardin" in element_text:
@@ -267,7 +268,7 @@ for id_property, url_property in property_urls:
                 year_of_construction = re.findall(regex_find_numbers, element_text)[0]
                 format_string_construction = "%Y"
                 local_timestamp_construction = datetime.datetime.strptime(year_of_construction, format_string_construction)
-                year_of_construction = local_timestamp_construction.replace(tzinfo=pytz.timezone('UTC'))
+                year_of_construction = local_timestamp_construction.replace(tzinfo=pytz.timezone('UTC')).timestamp()
 
             # bathroom_number
             elif "bain" in element_text:
@@ -289,9 +290,13 @@ for id_property, url_property in property_urls:
             #dpe_date
             elif "dpe" in element_text:
                 dpe_date = re.findall(regex_find_text_after_colon, element_text)[0]
-                format_string = "%d %B %Y"
-                local_timestamp_dpe = datetime.datetime.strptime(dpe_date, format_string)
-                dpe_date = local_timestamp_dpe.replace(tzinfo=pytz.timezone('UTC'))
+                # format_string = "%d %B %Y"
+                # locale.setlocale(locale.LC_TIME, 'fr_FR.UTF-8')
+                # local_timestamp_dpe = datetime.datetime.strptime(dpe_date, format_string)
+                # dpe_date = local_timestamp_dpe.replace(tzinfo=pytz.timezone('UTC'))
+                
+                # # Reset the locale back to the default
+                # locale.setlocale(locale.LC_TIME, '')
                 
             #balcony
             elif "balcon" in element_text:
@@ -361,7 +366,7 @@ for id_property, url_property in property_urls:
         if dpe_data_numbers:
             energetic_performance_number = int(dpe_data_numbers[0].text)
             climatic_performance_number = int(dpe_data_numbers[1].text.replace("*", ""))
-            climatic_performance_number = re.sub(r'\D', '', climatic_performance_number)
+           
     except(NoSuchElementException, StaleElementReferenceException):
                 print("KO : no data for energetic_performance_number")
     print("energetic_performance_number", energetic_performance_number) 
@@ -398,5 +403,5 @@ for id_property, url_property in property_urls:
     # except(NoSuchElementException, StaleElementReferenceException):
     #          print("KO : no data for estate_agency ")
     # print("estate_agency ",estate_agency )
-    ("step5")   
+    print("step5")   
     input()
