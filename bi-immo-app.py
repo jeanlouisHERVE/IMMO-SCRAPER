@@ -231,8 +231,7 @@ for id_property, url_property in property_urls:
             element_text = element.text.lower()
             #bedroom_number
             if "chambre" in element_text:
-                bedroom_regex = ""##############
-                ######
+                bedroom_number = re.findall("/[0-9]*/", element_text)[0]
                 print("bedroom_number", bedroom_number)
             # garden
             elif "jardin" in element_text:
@@ -240,38 +239,37 @@ for id_property, url_property in property_urls:
             
             # toilet_number
             elif "wc" in element_text:
-                toilet_regex = ""
-                ######
+                toilet_number = re.findall("/[0-9]*/", element_text)[0]
                 print("toilet_number", toilet_number)
                 
             # car_park_number
             elif "parking" in element_text:
-                car_park_regex = ""
-                ######
+                car_park_number = re.findall("/[0-9]*/", element_text)[0]
                 print("car_park_number", car_park_number)
             
             # heating
             elif "chauffage" in element_text:
-                heating_regex = ""
-                ######
+                heating = re.findall(":\s*([^:,]+)", element_text)[0]
                 print("heating", heating)
-                
+            
+            #tv_cable
+            elif "tv" in element_text:
+                tv_cable = True
+                print("tv_cable", tv_cable)
+            
             # year_of_construction
             elif "construit" in element_text:
-                construction_regex = ""
-                ######
+                year_of_construction = re.findall("/[0-9]*/", element_text)[0]
                 print("year_of_construction", year_of_construction)
             
             # bathroom_number
             elif "bain" in element_text:
-                bathroom_regex = ""
-                ######
+                bathroom_number = re.findall("/[0-9]*/", element_text)[0]
                 print("bathroom_number", bathroom_number)
             
             #fibre_optics_status
             elif "fibre" in element_text:
-                fibre_regex = ""
-                ######
+                fibre_optics_status = re.findall(":\s*([^:,]+)", element_text)[0]
                 print("fibre_optics_status", fibre_optics_status)
                 
             #cellar
@@ -286,8 +284,7 @@ for id_property, url_property in property_urls:
                 
             #dpe_date
             elif "dpe" in element_text:
-                dpe_regex = ""
-                ######
+                dpe_date = re.findall(":\s*([^:,]+)", element_text)[0]
                 print("dpe_date", dpe_date)
             
             #balcony
@@ -310,7 +307,8 @@ for id_property, url_property in property_urls:
                 fireplace = True
                 print("fireplace", fireplace)
             
-            fi
+            else:
+                continue
             
             
             print("element.text", element.text)
