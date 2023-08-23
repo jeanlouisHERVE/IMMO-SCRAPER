@@ -203,8 +203,9 @@ print("------------------Description Part------------------")
 ###Add description to database
 property_urls = database.get_id_url_from_properties()
 for id_property, url_property in property_urls:
+    print("step1")
     driver.get(url_property)
-    
+    print("step2")
     
     labelsInfo = driver.find_elements(By.CSS_SELECTOR, "div.labelInfo")
     
@@ -224,32 +225,39 @@ for id_property, url_property in property_urls:
     lock_up_garage = False
     fireplace = False
     
+    regex_find_numbers = r'/[0-9]*/'
+    regex_find_text_after_colon = r':\s*([^:,]+)'
+    
+    print("step3")
     for labelInfo in labelsInfo:
         
         try:
             element = labelInfo.find_element(By.CSS_SELECTOR, "span")
             element_text = element.text.lower()
+            print('element_text ',element_text )
             #bedroom_number
             if "chambre" in element_text:
-                bedroom_number = re.findall("/[0-9]*/", element_text)[0]
+                extract = re.findall(regex_find_numbers, element_text)
+                bedroom_number = [match.strip() for match in extract]
                 print("bedroom_number", bedroom_number)
+                
             # garden
             elif "jardin" in element_text:
                 garden = True
             
             # toilet_number
             elif "wc" in element_text:
-                toilet_number = re.findall("/[0-9]*/", element_text)[0]
+                toilet_number = re.findall(regex_find_numbers, element_text)[0]
                 print("toilet_number", toilet_number)
                 
             # car_park_number
             elif "parking" in element_text:
-                car_park_number = re.findall("/[0-9]*/", element_text)[0]
+                car_park_number = re.findall(regex_find_numbers, element_text)[0]
                 print("car_park_number", car_park_number)
             
             # heating
             elif "chauffage" in element_text:
-                heating = re.findall(":\s*([^:,]+)", element_text)[0]
+                heating = re.findall(regex_find_text_after_colon, element_text)[0]
                 print("heating", heating)
             
             #tv_cable
@@ -259,17 +267,17 @@ for id_property, url_property in property_urls:
             
             # year_of_construction
             elif "construit" in element_text:
-                year_of_construction = re.findall("/[0-9]*/", element_text)[0]
+                year_of_construction = re.findall(regex_find_numbers, element_text)[0]
                 print("year_of_construction", year_of_construction)
             
             # bathroom_number
             elif "bain" in element_text:
-                bathroom_number = re.findall("/[0-9]*/", element_text)[0]
+                bathroom_number = re.findall(regex_find_numbers, element_text)[0]
                 print("bathroom_number", bathroom_number)
             
             #fibre_optics_status
             elif "fibre" in element_text:
-                fibre_optics_status = re.findall(":\s*([^:,]+)", element_text)[0]
+                fibre_optics_status = re.findall(regex_find_text_after_colon, element_text)[0]
                 print("fibre_optics_status", fibre_optics_status)
                 
             #cellar
@@ -284,7 +292,7 @@ for id_property, url_property in property_urls:
                 
             #dpe_date
             elif "dpe" in element_text:
-                dpe_date = re.findall(":\s*([^:,]+)", element_text)[0]
+                dpe_date = re.findall(regex_find_text_after_colon, element_text)[0]
                 print("dpe_date", dpe_date)
             
             #balcony
@@ -314,27 +322,18 @@ for id_property, url_property in property_urls:
             print("element.text", element.text)
         except(NoSuchElementException, StaleElementReferenceException):
              print("KO : no data elements found")
-    input()
-    
+            
     # exposition
-    
-
-    
-    
-    
-    
-    
-    
-    
+    print('step4')
     # energetic_performance_letter
     energetic_performance_letter = ""
     try: 
         energetic_performance_letter = driver.find_element(By.CSS_SELECTOR, "div.dpe-line__classification span div")
         energetic_performance_letter = energetic_performance_letter.text
     except(NoSuchElementException, StaleElementReferenceException):
-             print("KO : no data for energetic_performance_letter")
+                print("KO : no data for energetic_performance_letter")
     print("energetic_performance_letter",energetic_performance_letter)         
-             
+                
     # energetic_performance_number && climatic_performance_number
     energetic_performance_number = 0 
     climatic_performance_number = 0
@@ -344,39 +343,40 @@ for id_property, url_property in property_urls:
             energetic_performance_number = int(dpe_data_numbers[0].text)
             climatic_performance_number = int(dpe_data_numbers[1].text)
     except(NoSuchElementException, StaleElementReferenceException):
-             print("KO : no data for energetic_performance_number")
+                print("KO : no data for energetic_performance_number")
     print("energetic_performance_number", energetic_performance_number) 
     print("climatic_performance_number", climatic_performance_number) 
-    
+
     # climatic_performance_letter
     climatic_performance_letter = ""
     try: 
         climatic_performance_letter = driver.find_element(By.CSS_SELECTOR, "div.ges-line__classification span")
         climatic_performance_letter = climatic_performance_letter.text
     except(NoSuchElementException, StaleElementReferenceException):
-             print("KO : no data for climatic_performance_letter")
+                print("KO : no data for climatic_performance_letter")
     print("climatic_performance_letter",climatic_performance_letter)  
-    
+
     # announce_publication
     # announce_last_modification
-    
+
     # neighborhood_description
     neighborhood_description = ""
     try: 
         neighborhood_description = driver.find_element(By.CSS_SELECTOR, "div.neighborhoodDescription span")
         neighborhood_description = neighborhood_description.text
     except(NoSuchElementException, StaleElementReferenceException):
-             print("KO : no data for neighborhood_description")
+                print("KO : no data for neighborhood_description")
     print("neighborhood_description",neighborhood_description) 
-    
+
     # estate_agency 
-    estate_agency  = ""
-    try: 
-        estate_agency  = driver.find_element(By.CSS_SELECTOR, "div.agency-overview__info-name")
-        estate_agency  = estate_agency.text
-        if database.get_agency(estate_agency):
-            database.add_agency()
-    except(NoSuchElementException, StaleElementReferenceException):
-             print("KO : no data for estate_agency ")
-    print("estate_agency ",estate_agency )
-    
+    # estate_agency  = ""
+    # try: 
+    #     estate_agency  = driver.find_element(By.CSS_SELECTOR, "div.agency-overview__info-name")
+    #     estate_agency  = estate_agency.text
+    #     if database.get_agency(estate_agency):
+    #         database.add_agency()
+    # except(NoSuchElementException, StaleElementReferenceException):
+    #          print("KO : no data for estate_agency ")
+    # print("estate_agency ",estate_agency )
+    ("step5")   
+    input()
