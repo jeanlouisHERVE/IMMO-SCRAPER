@@ -266,7 +266,10 @@ for id_property, url_property in property_urls:
             # year_of_construction
             elif "construit" in element_text:
                 year_of_construction = re.findall(regex_find_numbers, element_text)[0]
-            
+                format_string_construction = "%Y"
+                local_timestamp_construction = datetime.strptime(year_of_construction, format_string_construction)
+                year_of_construction = local_timestamp_construction.replace(tzinfo=pytz.timezone('UTC'))
+
             # bathroom_number
             elif "bain" in element_text:
                 bathroom_number = re.findall(regex_find_numbers, element_text)[0]
@@ -287,7 +290,10 @@ for id_property, url_property in property_urls:
             #dpe_date
             elif "dpe" in element_text:
                 dpe_date = re.findall(regex_find_text_after_colon, element_text)[0]
-            
+                format_string = "%d %B %Y"
+                local_timestamp_dpe = datetime.strptime(dpe_date, format_string)
+                dpe_date = local_timestamp_dpe.replace(tzinfo=pytz.timezone('UTC'))
+                
             #balcony
             elif "balcon" in element_text:
                 balcony = True
