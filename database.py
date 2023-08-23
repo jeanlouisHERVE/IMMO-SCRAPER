@@ -69,7 +69,7 @@ INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, p
                     surface, price, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_DESCRIPTION = """INSERT INTO description (exposition, bathroom_number, heating, fireplace, garden, toilet_number, 
                     car_park_number, bedroom_number, year_of_construction, dpe_date, energetic_performance_letter, energetic_performance_letter, climatic_performance_letter,
-                    climatic_performance_letter, announce_publication, announce_last_modification, neighborhood_description, floor, batch, cellar, balcony, large_balcony, tv_cable, digicode, intercom, lock_up_garage, fibre_optics_status, estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+                    climatic_performance_letter, announce_publication, announce_last_modification, neighborhood_description, floor, batch, cellar, balcony, large_balcony, tv_cable, digicode, intercom, lock_up_garage, fibre_optics_status, estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_AGENCY = """INSERT INTO properties (name, address, fee_percentage, evaluation) VALUES (?, ?, ?, ?);"""
 
 ##get data
