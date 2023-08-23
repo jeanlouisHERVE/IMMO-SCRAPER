@@ -228,6 +228,7 @@ for id_property, url_property in property_urls:
     tv_cable = False
     intercom = False
     digicode = False
+    estate_agency_fee_percentage = 0
     
     regex_find_numbers = r'\d+'
     regex_find_text_after_colon = r':\s*([^:,]+)'
@@ -321,7 +322,12 @@ for id_property, url_property in property_urls:
             #intercom
             elif "interphone" in element_text:
                 intercom = True
-            
+                
+            #estate_agency_fee_percentage
+            elif "honoraires :" in element_text:
+                pattern = r'[\d,]+%'
+                estate_agency_fee_percentage = re.findall(pattern, element_text)[0].replace("%", "")
+                            
             else:
                 continue
             
@@ -330,23 +336,24 @@ for id_property, url_property in property_urls:
             
     # exposition
     
-    print("bedroom_number       :",bedroom_number)
-    print("garden               :",garden)
-    print("toilet_number        :",toilet_number)
-    print("car_park_number      :",car_park_number)
-    print("heating              :",heating)
-    print("year_of_construction :",year_of_construction)
-    print("bathroom_number      :",bathroom_number)
-    print("fibre_optics_status  :",fibre_optics_status)
-    print("cellar               :",cellar)
-    print("dpe_date             :",dpe_date)
-    print("balcony              :",balcony)
-    print("large_balcony        :",large_balcony)
-    print("lock_up_garage       :",lock_up_garage)
-    print("fireplace            :",fireplace)
-    print("tv_cable             :",tv_cable)
-    print("intercom             :",intercom)
-    print("digicode             :",digicode)
+    print("bedroom_number               :",bedroom_number)
+    print("garden                       :",garden)
+    print("toilet_number                :",toilet_number)
+    print("car_park_number              :",car_park_number)
+    print("heating                      :",heating)
+    print("year_of_construction         :",year_of_construction)
+    print("bathroom_number              :",bathroom_number)
+    print("fibre_optics_status          :",fibre_optics_status)
+    print("cellar                       :",cellar)
+    print("dpe_date                     :",dpe_date)
+    print("balcony                      :",balcony)
+    print("large_balcony                :",large_balcony)
+    print("lock_up_garage               :",lock_up_garage)
+    print("fireplace                    :",fireplace)
+    print("tv_cable                     :",tv_cable)
+    print("intercom                     :",intercom)
+    print("digicode                     :",digicode)
+    print("estate_agency_fee_percentage :",estate_agency_fee_percentage)
     
     print('step4')
     # energetic_performance_letter
@@ -393,15 +400,30 @@ for id_property, url_property in property_urls:
                 print("KO : no data for neighborhood_description")
     print("neighborhood_description",neighborhood_description) 
 
-    # estate_agency 
-    # estate_agency  = ""
-    # try: 
-    #     estate_agency  = driver.find_element(By.CSS_SELECTOR, "div.agency-overview__info-name")
-    #     estate_agency  = estate_agency.text
-    #     if database.get_agency(estate_agency):
-    #         database.add_agency()
-    # except(NoSuchElementException, StaleElementReferenceException):
-    #          print("KO : no data for estate_agency ")
-    # print("estate_agency ",estate_agency )
+    print("------------------Agency Part------------------")
+    #estate_agency 
+    estate_agency_name  = ""
+    try: 
+        estate_agency_name  = driver.find_element(By.CSS_SELECTOR, "div.agency-overview__info-name")
+        # name
+        estate_agency_name  = estate_agency_name.text
+        
+        # address
+        estate_agency_address = driver.find_element(By.CSS_SELECTOR, "div.agency-overview__contact-address div.contact-address").text
+        
+        # fee_percentage
+        # value catched above
+        
+        # evaluation
+        estate_agency_evaluation = driver.find_element(By.CSS_SELECTOR, "span.rating-stars__rating-text").text
+        
+        if not database.get_agency(estate_agency_name):
+            database.add_agency(estate_agency_name, estate_agency_address, estate_agency_fee_percentage, estate_agency_evaluation)
+            print(f"OK : {estate_agency_name} estate_agency has been added to database")
+        print("------------------Agency Part End------------------")
+        
+        print("------------------Description Part End------------------")
+    except(NoSuchElementException, StaleElementReferenceException):
+             print("KO : no data for estate_agency ")
+    print("estate_agency ",estate_agency_name )
     print("step5")   
-    input()
