@@ -232,6 +232,9 @@ for id_property, url_property in property_urls:
         intercom = False
         digicode = False
         estate_agency_fee_percentage = 0
+        announce_publication = ""
+        announce_last_modification = ""
+        exposition = ""
         
         regex_find_numbers = r'\d+'
         regex_find_text_after_colon = r':\s*([^:,]+)'
@@ -330,7 +333,29 @@ for id_property, url_property in property_urls:
                 elif "honoraires :" in element_text:
                     pattern = r'[\d,]+%'
                     estate_agency_fee_percentage = re.findall(pattern, element_text)[0].replace("%", "")
-                                
+                    
+                #exposition
+                elif "exposé" in element_text:
+                    pattern_exposition = r'Exposé\s(.+)'
+                    exposition = re.findall(pattern_exposition, element_text)[0]
+                
+                # announce_publication
+                elif "publiée" in element_text:
+                    announce_publication = re.findall(regex_find_text_after_colon, element_text)[0]
+                
+                # announce_last_modification
+                elif "modifiée" in element_text:
+                    announce_last_modification = re.findall(regex_find_text_after_colon, element_text)[0]
+                
+                #batch
+                elif "lot" in element_text:
+                
+                #Pinel
+                #Denormandie
+                #terrasse
+                #floor
+                #total_floor_number 
+                
                 else:
                     continue
                 
@@ -391,8 +416,7 @@ for id_property, url_property in property_urls:
                     print("KO : no data for climatic_performance_letter")
         print("climatic_performance_letter",climatic_performance_letter)  
 
-        # announce_publication
-        # announce_last_modification
+        
 
         # neighborhood_description
         neighborhood_description = ""
