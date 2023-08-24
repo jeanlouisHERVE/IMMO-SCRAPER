@@ -71,7 +71,7 @@ CREATE_ESTATE_AGENCIES_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
 ##add data
 INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, postcode, url, room_number, 
                     surface, price, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"""
-INSERT_DESCRIPTION = """INSERT INTO description (property_id, year_of_construction, exposition, floor, total_floor_number, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+INSERT_DESCRIPTION = """INSERT INTO descriptions (property_id, year_of_construction, exposition, floor, total_floor_number, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_AGENCY = """INSERT INTO properties (name, address, fee_percentage, evaluation) VALUES (?, ?, ?, ?);"""
 
 ##get data
@@ -80,8 +80,8 @@ GET_PROPERTY_BY_URL = "SELECT * FROM properties WHERE url = ?;"
 GET_ID_URL_FROM_PROPERTIES = "SELECT id, url FROM properties"
 GET_PROPERTIES = "SELECT * FROM properties;"
 GET_PROPERTIES_FROM_DATE_ADDING_TO_DB = "SELECT * FROM properties WHERE date_add_to_db = ?;"
-GET_PROPERTY_DESCRIPTION = "SELECT * FROM description WHERE "
-GET_PROPERTY_DESCRIPTION_BY_ID = "SELECT * FROM description WHERE id = ?"
+GET_PROPERTY_DESCRIPTION = "SELECT * FROM descriptions WHERE "
+GET_PROPERTY_DESCRIPTION_BY_ID = "SELECT * FROM descriptions WHERE id = ?"
 GET_AGENCY_ID_BY_NAME = "SELECT id FROM agencies WHERE name = ?;"
 GET_AGENCIES = "SELECT * from agencies"
 
