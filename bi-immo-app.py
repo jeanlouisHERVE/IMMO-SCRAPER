@@ -213,34 +213,42 @@ for id_property, url_property in property_urls:
         
         labelsInfo = driver.find_elements(By.CSS_SELECTOR, "div.labelInfo")
         
-        #default values
-        bedroom_number = 0
-        garden = False
-        toilet_number = 0
-        car_park_number = 0
-        heating = ""
+        ###default values
+        ##building options
         year_of_construction = ""
-        bathroom_number = 0
-        fibre_optics_status = ""
-        cellar = False
-        dpe_date = 0
-        balcony = False
-        large_balcony = False
-        lock_up_garage = False
-        fireplace = False
-        tv_cable = False
-        intercom = False
-        digicode = False
-        estate_agency_fee_percentage = 0
-        announce_publication = ""
-        announce_last_modification = ""
         exposition = ""
-        elevator = False
         floor = None
         total_floor_number = None
-        terrace = False
+
+        ##rooms
+        bedroom_number = 0
+        toilet_number = 0
+        bathroom_number = 0
+        cellar = False
+        lock_up_garage = False
+
+        ##options indoor
+        heating = ""
+        tv_cable = False
+        fireplace = False
+        digicode = False
+        intercom = False
+        elevator = False
+        fibre_optics_status = ""
+
+        #options outdoor
+        garden = False
+        car_park_number = 0
+        balcony = False
+        large_balcony = False
+
+        ##administration
+        dpe_date = 0
+        estate_agency_fee_percentage = 0
         pinel = False
         denormandie = False
+        announce_publication = ""
+        announce_last_modification = ""
         
         regex_find_numbers = r'\d+'
         regex_find_text_after_colon = r':\s*([^:,]+)'
@@ -295,11 +303,6 @@ for id_property, url_property in property_urls:
                 elif "cave" in element_text:
                     cellar = True
                 
-                #floor
-                elif "étage" in element_text:
-                    #cas dernier étage
-                    pass
-                    
                 #dpe_date
                 elif "dpe" in element_text:
                     dpe_date = re.findall(regex_find_text_after_colon, element_text)[0]
@@ -365,10 +368,6 @@ for id_property, url_property in property_urls:
                 elif "denormandie" in element_text:
                     pinel = True
                 
-                #terrasse
-                elif "terrasse" in element_text:
-                    terrace = True
-                
                 #floor
                 #total_floor_number 
                 elif "étage" in element_text:
@@ -392,28 +391,32 @@ for id_property, url_property in property_urls:
                 
         # exposition
         
-        print("bedroom_number               :",bedroom_number)
-        print("garden                       :",garden)
-        print("toilet_number                :",toilet_number)
-        print("car_park_number              :",car_park_number)
-        print("heating                      :",heating)
         print("year_of_construction         :",year_of_construction)
+        print("exposition                   :",exposition)
+        print("floor                        :",floor)
+        print("total_floor_number           :",total_floor_number)
+        print("bedroom_number               :",bedroom_number)
+        print("toilet_number                :",toilet_number)
         print("bathroom_number              :",bathroom_number)
-        print("fibre_optics_status          :",fibre_optics_status)
         print("cellar                       :",cellar)
-        print("dpe_date                     :",dpe_date)
+        print("lock_up_garage               :",lock_up_garage)
+        print("heating                      :",heating)
+        print("tv_cable                     :",tv_cable)
+        print("fireplace                    :",fireplace) 
+        print("digicode                     :",digicode)
+        print("intercom                     :",intercom)
+        print("elevator                     :",elevator)
+        print("fibre_optics_status          :",fibre_optics_status) 
+        print("garden                       :",garden)
+        print("car_park_number              :",car_park_number)
         print("balcony                      :",balcony)
         print("large_balcony                :",large_balcony)
-        print("lock_up_garage               :",lock_up_garage)
-        print("fireplace                    :",fireplace)
-        print("tv_cable                     :",tv_cable)
-        print("intercom                     :",intercom)
-        print("digicode                     :",digicode)
+        print("dpe_date                     :",dpe_date)
         print("estate_agency_fee_percentage :",estate_agency_fee_percentage)
-        print("floor                     :",intercom)
-        print("digicode                     :",digicode)
-        print("estate_agency_fee_percentage :",estate_agency_fee_percentage)
-        #####TODO#######add all the variable 
+        print("pinel                        :",pinel)
+        print("denormandie                  :",denormandie)
+        print("announce_publication         :",announce_publication)
+        print("announce_last_modification   :",announce_last_modification)
         
         print('step4')
         # energetic_performance_letter
