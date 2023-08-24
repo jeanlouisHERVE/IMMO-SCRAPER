@@ -235,6 +235,11 @@ for id_property, url_property in property_urls:
         announce_publication = ""
         announce_last_modification = ""
         exposition = ""
+        elevator = False
+        floor = None
+        total_floor_number = None
+        terrace = False
+        pinel = False
         
         regex_find_numbers = r'\d+'
         regex_find_text_after_colon = r':\s*([^:,]+)'
@@ -351,10 +356,30 @@ for id_property, url_property in property_urls:
                 elif "lot" in element_text:
                 
                 #Pinel
+                elif "pinel" in element_text:
+                    pinel = True
+                    
                 #Denormandie
+                
                 #terrasse
+                elif "terrasse" in element_text:
+                    terrace = True
+                
                 #floor
                 #total_floor_number 
+                elif "étage" in element_text:
+                    pattern_floor = r'(\d+)\s'
+                    pattern_floor_number = r'sur\s+(\d+)'
+                    total_floor_number = int(re.findall(pattern_floor_number, element_text)[0])
+                    if "dernier" in element_text:
+                        floor = total_floor_number
+                    else:
+                        floor = int(re.findall(pattern_floor, element_text)[0])
+                        
+                
+                #elevator
+                elif "ascenseur" in element_text:
+                    elevator = True
                 
                 else:
                     continue
