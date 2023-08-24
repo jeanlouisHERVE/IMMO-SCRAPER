@@ -359,7 +359,10 @@ for id_property, url_property in property_urls:
                 
                 # announce_publication
                 elif "publiée" in element_text:
-                    announce_publication = re.findall(regex_find_text_after_colon, element_text)[0]
+                    if "il y a plus" in element_text:
+                        announce_publication = None #### to improve
+                    else:
+                        announce_publication = re.findall(regex_find_text_after_colon, element_text)[0]
                 
                 # announce_last_modification
                 elif "modifiée" in element_text:
