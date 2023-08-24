@@ -71,133 +71,133 @@ print("------------------Announces Part------------------")
 
 time.sleep(5)
 
-# while True:
-#     try:
-#         next_results_btn = driver.find_element(By.CSS_SELECTOR, "a.btn.goForward.btn-primary.pagination__go-forward-button")
-#     except(NoSuchElementException):
-#         print("KO : no more next button")
-#         break
+while True:
+    try:
+        next_results_btn = driver.find_element(By.CSS_SELECTOR, "a.btn.goForward.btn-primary.pagination__go-forward-button")
+    except(NoSuchElementException):
+        print("KO : no more next button")
+        break
     
-#     articles = driver.find_elements(By.CSS_SELECTOR, "article.sideListItem")
-#     print(f"------------------Page_Start {global_page_number-1}------------------")
-#     print("articles",articles)
-#     for article in articles:
-#         print("------------------Article Start------------------")
-#         print("article :", article)
+    articles = driver.find_elements(By.CSS_SELECTOR, "article.sideListItem")
+    print(f"------------------Page_Start {global_page_number-1}------------------")
+    print("articles",articles)
+    for article in articles:
+        print("------------------Article Start------------------")
+        print("article :", article)
         
-#         ###type of property
-#         type_of_property = ""
-#         try:
-#             type_of_property_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
-#             type_of_property_content = type_of_property_content.text
-#             if "maison" in  type_of_property_content.lower():
-#                 type_of_property = "maison"
-#             elif "appartement" in type_of_property_content.lower():
-#                 type_of_property = "appartement"
-#             else:   
-#                 type_of_property = ""
-#             print("type_of_property :",type_of_property)
+        ###type of property
+        type_of_property = ""
+        try:
+            type_of_property_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
+            type_of_property_content = type_of_property_content.text
+            if "maison" in  type_of_property_content.lower():
+                type_of_property = "maison"
+            elif "appartement" in type_of_property_content.lower():
+                type_of_property = "appartement"
+            else:   
+                type_of_property = ""
+            print("type_of_property :",type_of_property)
             
-#         except(NoSuchElementException):
-#             print("KO : no data for type_of_property found")
+        except(NoSuchElementException):
+            print("KO : no data for type_of_property found")
         
-#         ###town
-#         town = os.environ["CITY_RESEARCHED"]
-#         print("town :",town)
+        ###town
+        town = os.environ["CITY_RESEARCHED"]
+        print("town :",town)
         
-#         ###District&&Postcode
-#         district = ""
-#         postcode = 0
-#         try: 
-#             address_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__address-title")
-#             address_content = address_content.text
-#             ##district
-#             try: 
-#                 district = re.findall("\((.*?)\)", address_content)[0]
-#             except IndexError:
-#                 print("KO : no data for District found")
-#                 distric = ""
-#             ##postcode
-#             try:
-#                 postcode = re.findall("[0-9]*", address_content)[0]
-#             except IndexError:
-#                 print("KO : no data for Postcode found")
-#                 postcode = 0
-#             print("district :",district)
-#             print("postcode :",postcode)
+        ###District&&Postcode
+        district = ""
+        postcode = 0
+        try: 
+            address_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__address-title")
+            address_content = address_content.text
+            ##district
+            try: 
+                district = re.findall("\((.*?)\)", address_content)[0]
+            except IndexError:
+                print("KO : no data for District found")
+                distric = ""
+            ##postcode
+            try:
+                postcode = re.findall("[0-9]*", address_content)[0]
+            except IndexError:
+                print("KO : no data for Postcode found")
+                postcode = 0
+            print("district :",district)
+            print("postcode :",postcode)
             
-#         except(NoSuchElementException):
-#             print("KO : no data for District&&Postcode found")
+        except(NoSuchElementException):
+            print("KO : no data for District&&Postcode found")
         
-#         ###url
-#         url = ""
-#         try:
-#             url_content = article.find_element(By.CSS_SELECTOR,"a.detailedSheetLink")
-#             url = url_content.get_attribute('href')
-#             print("link :",url)
-#         except(NoSuchElementException):
-#             print("KO : no data for url found")    
+        ###url
+        url = ""
+        try:
+            url_content = article.find_element(By.CSS_SELECTOR,"a.detailedSheetLink")
+            url = url_content.get_attribute('href')
+            print("link :",url)
+        except(NoSuchElementException):
+            print("KO : no data for url found")    
         
-#         ###room number && surface
-#         surface = 0
-#         room_number = 0
-#         try:
-#             room_surface_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
-#             content_text = room_surface_content.text
-#             ##room
-#             room_number = room_surface_content.text
-#             pattern_room = r'(\d+)\s*pièce'
-#             room_content = re.findall(pattern_room, content_text)
-#             room_number = room_content[0]
-#             print("room_number :",room_number)
-#             ##surface
-#             surface = room_surface_content.text
-#             pattern_squaremeters = r'\b(\d+)\b'
-#             surface_content = re.findall(pattern_squaremeters, content_text)
-#             surface = surface_content[-1]
-#             print("surface :",surface)
-#         except(NoSuchElementException):
-#             print("KO : no data for room number && surface found")
+        ###room number && surface
+        surface = 0
+        room_number = 0
+        try:
+            room_surface_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
+            content_text = room_surface_content.text
+            ##room
+            room_number = room_surface_content.text
+            pattern_room = r'(\d+)\s*pièce'
+            room_content = re.findall(pattern_room, content_text)
+            room_number = room_content[0]
+            print("room_number :",room_number)
+            ##surface
+            surface = room_surface_content.text
+            pattern_squaremeters = r'\b(\d+)\b'
+            surface_content = re.findall(pattern_squaremeters, content_text)
+            surface = surface_content[-1]
+            print("surface :",surface)
+        except(NoSuchElementException):
+            print("KO : no data for room number && surface found")
                 
-#         ###price
-#         price = 0
-#         try:
-#             price_content = article.find_element(By.CSS_SELECTOR,"span.ad-price__the-price")
-#             price_content = price_content.text
-#             price = ''.join(re.findall('\d+', price_content))
-#             if len(price) > 7:
-#                 price = None
-#             print("price :",price)
-#         except(NoSuchElementException):
-#             print("KO : no data for price found")
+        ###price
+        price = 0
+        try:
+            price_content = article.find_element(By.CSS_SELECTOR,"span.ad-price__the-price")
+            price_content = price_content.text
+            price = ''.join(re.findall('\d+', price_content))
+            if len(price) > 7:
+                price = None
+            print("price :",price)
+        except(NoSuchElementException):
+            print("KO : no data for price found")
                 
-#         ###date 
-#         date_add_to_db = current_time_utc
-#         print("date_add_to_db :",date_add_to_db)
+        ###date 
+        date_add_to_db = current_time_utc
+        print("date_add_to_db :",date_add_to_db)
             
-#         print("------------------Article End------------------")  
+        print("------------------Article End------------------")  
             
-#         ###add properties to db
-#         if not database.get_property_by_url(url):
-#             database.add_property(type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db)
+        ###add properties to db
+        if not database.get_property_by_url(url):
+            database.add_property(type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db)
             
         
         
-#     ###catch data to access the next page
-#     next_page_url = next_results_btn.get_attribute('href')
-#     print("next_page_url", next_page_url)
-#     pattern_next_page_url_without_page = r"(.+)\?"
-#     next_page_url_without_page = re.findall(pattern_next_page_url_without_page, next_page_url)[0]
-#     print("next_page_url_without_page :",next_page_url_without_page)
-#     # patter_page_number = r"\bpage=(\d+)\b"
-#     # page_number = re.findall(patter_page_number, next_page_url)[0]
-#     # page_number = int(page_number)
-#     # print("page_number :",page_number)
+    ###catch data to access the next page
+    next_page_url = next_results_btn.get_attribute('href')
+    print("next_page_url", next_page_url)
+    pattern_next_page_url_without_page = r"(.+)\?"
+    next_page_url_without_page = re.findall(pattern_next_page_url_without_page, next_page_url)[0]
+    print("next_page_url_without_page :",next_page_url_without_page)
+    # patter_page_number = r"\bpage=(\d+)\b"
+    # page_number = re.findall(patter_page_number, next_page_url)[0]
+    # page_number = int(page_number)
+    # print("page_number :",page_number)
     
-#     # driver.get(next_page_url_without_page +"page={}".format(global_page_number))
-#     driver.get(next_page_url)
-#     global_page_number += 1  
-#     print("------------------Page_End------------------")
+    # driver.get(next_page_url_without_page +"page={}".format(global_page_number))
+    driver.get(next_page_url)
+    global_page_number += 1  
+    print("------------------Page_End------------------")
 
 
 print("------------------Description Part------------------")
@@ -219,6 +219,7 @@ for id_property, url_property in property_urls:
         exposition = ""
         floor = None
         total_floor_number = None
+        neighborhood_description = ""
 
         ##rooms
         bedroom_number = 0
@@ -243,12 +244,19 @@ for id_property, url_property in property_urls:
         large_balcony = False
 
         ##administration
-        dpe_date = 0
         estate_agency_fee_percentage = 0
         pinel = False
         denormandie = False
         announce_publication = ""
         announce_last_modification = ""
+        
+        ##diagnostics
+        dpe_date = ""
+        energetic_performance_letter = ""
+        energetic_performance_number = 0 
+        climatic_performance_number = 0
+        climatic_performance_letter = 0
+        
         
         regex_find_numbers = r'\d+'
         regex_find_text_after_colon = r':\s*([^:,]+)'
@@ -388,8 +396,48 @@ for id_property, url_property in property_urls:
                 
             except(NoSuchElementException, StaleElementReferenceException):
                 print("KO : no data elements found")
-                
-        # exposition
+
+        
+
+        
+        print('step4')
+        # energetic_performance_letter
+        try: 
+            energetic_performance_letter = driver.find_element(By.CSS_SELECTOR, "div.dpe-line__classification span div")
+            energetic_performance_letter = energetic_performance_letter.text
+        except(NoSuchElementException, StaleElementReferenceException):
+                    print("KO : no data for energetic_performance_letter")
+        print("energetic_performance_letter",energetic_performance_letter)         
+                    
+        # energetic_performance_number && climatic_performance_number
+        try: 
+            dpe_data_numbers = driver.find_elements(By.CSS_SELECTOR, "div.dpe-data div.value span")
+            if dpe_data_numbers:
+                energetic_performance_number = int(dpe_data_numbers[0].text)
+                climatic_performance_number = int(dpe_data_numbers[1].text.replace("*", ""))
+            
+        except(NoSuchElementException, StaleElementReferenceException):
+                    print("KO : no data for energetic_performance_number")
+        print("energetic_performance_number", energetic_performance_number) 
+        print("climatic_performance_number", climatic_performance_number) 
+
+        # climatic_performance_letter
+        try: 
+            climatic_performance_letter = driver.find_element(By.CSS_SELECTOR, "div.ges-line__classification span")
+            climatic_performance_letter = climatic_performance_letter.text
+        except(NoSuchElementException, StaleElementReferenceException):
+                    print("KO : no data for climatic_performance_letter")
+        print("climatic_performance_letter",climatic_performance_letter)  
+
+        
+
+        # neighborhood_description
+        try: 
+            neighborhood_description = driver.find_element(By.CSS_SELECTOR, "div.neighborhoodDescription span")
+            neighborhood_description = neighborhood_description.text
+        except(NoSuchElementException, StaleElementReferenceException):
+                    print("KO : no data for neighborhood_description")
+        print("neighborhood_description",neighborhood_description) 
         
         print("year_of_construction         :",year_of_construction)
         print("exposition                   :",exposition)
@@ -417,57 +465,9 @@ for id_property, url_property in property_urls:
         print("denormandie                  :",denormandie)
         print("announce_publication         :",announce_publication)
         print("announce_last_modification   :",announce_last_modification)
-        
-        print('step4')
-        # energetic_performance_letter
-        energetic_performance_letter = ""
-        try: 
-            energetic_performance_letter = driver.find_element(By.CSS_SELECTOR, "div.dpe-line__classification span div")
-            energetic_performance_letter = energetic_performance_letter.text
-        except(NoSuchElementException, StaleElementReferenceException):
-                    print("KO : no data for energetic_performance_letter")
-        print("energetic_performance_letter",energetic_performance_letter)         
-                    
-        # energetic_performance_number && climatic_performance_number
-        energetic_performance_number = 0 
-        climatic_performance_number = 0
-        try: 
-            dpe_data_numbers = driver.find_elements(By.CSS_SELECTOR, "div.dpe-data div.value span")
-            if dpe_data_numbers:
-                energetic_performance_number = int(dpe_data_numbers[0].text)
-                climatic_performance_number = int(dpe_data_numbers[1].text.replace("*", ""))
-            
-        except(NoSuchElementException, StaleElementReferenceException):
-                    print("KO : no data for energetic_performance_number")
-        print("energetic_performance_number", energetic_performance_number) 
-        print("climatic_performance_number", climatic_performance_number) 
-
-        # climatic_performance_letter
-        climatic_performance_letter = ""
-        try: 
-            climatic_performance_letter = driver.find_element(By.CSS_SELECTOR, "div.ges-line__classification span")
-            climatic_performance_letter = climatic_performance_letter.text
-        except(NoSuchElementException, StaleElementReferenceException):
-                    print("KO : no data for climatic_performance_letter")
-        print("climatic_performance_letter",climatic_performance_letter)  
-
-        
-
-        # neighborhood_description
-        neighborhood_description = ""
-        try: 
-            neighborhood_description = driver.find_element(By.CSS_SELECTOR, "div.neighborhoodDescription span")
-            neighborhood_description = neighborhood_description.text
-        except(NoSuchElementException, StaleElementReferenceException):
-                    print("KO : no data for neighborhood_description")
-        print("neighborhood_description",neighborhood_description) 
-        
-        database.add_description(exposition, bathroom_number, heating, fireplace, garden, toilet_number, car_park_number, bedroom_number, year_of_construction, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_letter,
-                    climatic_performance_number, announce_publication, announce_last_modification, neighborhood_description, floor, batch, cellar, balcony, large_balcony, tv_cable, digicode, intercom, lock_up_garage, fibre_optics_status, estate_agency_id)
-        
         print("------------------Description Part End------------------")
-        
-        print("------------------Agency Part------------------")
+        print("--------------------------------------------------------")
+        print("----------------------Agency Part-----------------------")
         #estate_agency 
         estate_agency_name  = ""
         try: 
@@ -488,9 +488,20 @@ for id_property, url_property in property_urls:
                 database.add_agency(estate_agency_name, estate_agency_address, estate_agency_fee_percentage, estate_agency_evaluation)
                 print(f"OK : {estate_agency_name} estate_agency has been added to database")
             
+            estate_agency_id = database.get_agency_id_from_name(estate_agency_name)
+            
+            
         except(NoSuchElementException, StaleElementReferenceException):
                 print("KO : no data for estate_agency ")
         
         print("------------------Agency Part End------------------")
+        print("------------------Add Description------------------")
+        if not database.get_property_description_by_id(id_property):
+            database.add_description(year_of_construction, exposition, floor, total_floor_number, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id, id_property)
+        
+        input()
+        print("------------------End Add Description------------------")
+        
+
                 
     print("step5")   

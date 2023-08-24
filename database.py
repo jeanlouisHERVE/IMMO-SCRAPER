@@ -24,34 +24,38 @@ CREATE_PROPERTY_TABLE = """CREATE TABLE IF NOT EXISTS properties (
                                 
 CREATE_DESCRIPTION_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 property_id INTEGER NOT NULL PRIMARY KEY,
-                                exposition TEXT,
-                                bathroom_number INTEGER,
-                                heating TEXT,
-                                fireplace BOOLEAN,
-                                garden BOOLEAN,
-                                toilet_number INTEGER,
-                                car_park_number INTEGER,
-                                bedroom_number INTEGER,
                                 year_of_construction TEXT,
-                                dpe_date TIMESTAMP,
-                                energetic_performance_letter TEXT,
-                                energetic_performance_number INTEGER,
-                                climatic_performance_letter TEXT, 
-                                climatic_performance_number INTEGER,
-                                announce_publication TIMESTAMP,
-                                announce_last_modification TIMESTAMP,
-                                neighborhood_description LONGTEXT,
-                                floor INT,
-                                batch INT,
+                                exposition TEXT
+                                floor INTEGER,
+                                total_floor_number INTEGER,
+                                neighborhood_description TEXT,
+                                bedroom_number INTEGER
+                                toilet_number INTEGER,
+                                bathroom_number INTEGER,
                                 cellar BOOLEAN,
-                                balcony BOOLEAN,
-                                large_balcony BOOLEAN,
+                                lock_up_garage BOOLEAN,                
+                                heating TEXT,
                                 tv_cable BOOLEAN,
+                                fireplace BOOLEAN,
                                 digicode BOOLEAN,
                                 intercom BOOLEAN,
-                                lock_up_garage BOOLEAN,
-                                fibre_optics_status TEXT, 
-                                estate_agency_id, 
+                                elevator BOOLEAN,
+                                fibre_optics_status TEXT,                   
+                                garden BOOLEAN,
+                                car_park_number INTEGER,
+                                balcony BOOLEAN,
+                                large_balcony BOOLEAN,                 
+                                estate_agency_fee_percentage INTEGER,
+                                pinel BOOLEAN,
+                                denormandie BOOLEAN,
+                                announce_publication TEXT,
+                                announce_last_modification TEXT,                              
+                                dpe_date INTEGER,
+                                energetic_performance_letter TEXT,
+                                energetic_performance_number INTEGER, 
+                                climatic_performance_number INTEGER,
+                                climatic_performance_letter INTEGER,   
+                                estate_agency_id INTEGER,                
                                 FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE
                                 FOREIGN KEY (estate_agency_id) REFERENCES agencies(id)
                             );"""
@@ -67,9 +71,7 @@ CREATE_ESTATE_AGENCY_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
 ##add data
 INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, postcode, url, room_number, 
                     surface, price, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"""
-INSERT_DESCRIPTION = """INSERT INTO description (exposition, bathroom_number, heating, fireplace, garden, toilet_number, 
-                    car_park_number, bedroom_number, year_of_construction, dpe_date, energetic_performance_letter, energetic_performance_letter, climatic_performance_letter,
-                    climatic_performance_letter, announce_publication, announce_last_modification, neighborhood_description, floor, batch, cellar, balcony, large_balcony, tv_cable, digicode, intercom, lock_up_garage, fibre_optics_status, estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+INSERT_DESCRIPTION = """INSERT INTO description (property_id, year_of_construction, exposition, floor, total_floor_number, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_AGENCY = """INSERT INTO properties (name, address, fee_percentage, evaluation) VALUES (?, ?, ?, ?);"""
 
 ##get data
@@ -80,8 +82,9 @@ GET_PROPERTIES = "SELECT * FROM properties;"
 GET_PROPERTIES_FROM_DATE_ADDING_TO_DB = "SELECT * FROM properties WHERE date_add_to_db = ?;"
 GET_PROPERTY_DESCRIPTION = "SELECT * FROM description WHERE "
 GET_PROPERTY_DESCRIPTION_BY_ID = "SELECT * FROM description WHERE id = ?"
-GET_AGENCY_BY_NAME = "SELECT id FROM agencies WHERE name = ?;"
+GET_AGENCY_ID_BY_NAME = "SELECT id FROM agencies WHERE name = ?;"
 GET_AGENCIES = "SELECT * from agencies"
+
 
 #update data
 
@@ -93,18 +96,16 @@ connection = sqlite3.connect(os.environ["DATABASE_PATH"])
 def create_table():
     with connection:
         connection.execute(CREATE_PROPERTY_TABLE)
-        #connection.execute(CREATE_DESCRIPTION_TABLE)
+        connection.execute(CREATE_DESCRIPTION_TABLE)
         connection.execute(CREATE_ESTATE_AGENCY_TABLE)
 
 def add_property(type_of_property: str, town: str, district: str, postcode: int, url: str, room_number: int, surface: int, price: int, date_add_to_db: float):
     with connection:
         connection.execute(INSERT_PROPERTY, (type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db))
         
-def add_description(exposition: str, bathroom_number: int, heating: str, fireplace:bool, garden: bool, toilet_number: int, car_park_number: int, bedroom_number: int, year_of_construction: str, dpe_date: float, energetic_performance_letter: str, energetic_performance_number: int, climatic_performance_letter: str,
-                    climatic_performance_number: int, announce_publication: float, announce_last_modification: float, neighborhood_description: str, floor: int, batch: int, cellar: bool, balcony:bool, large_balcony:bool, tv_cable: bool, digicode: bool, intercom: bool, lock_up_garage:bool, fibre_optics_status: str, estate_agency_id: int):
+def add_description(property_id, year_of_construction, exposition, floor, total_floor_number, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id):
     with connection:
-        connection.execute(INSERT_DESCRIPTION, (exposition, bathroom_number, heating, fireplace, garden, toilet_number, car_park_number, bedroom_number, year_of_construction, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_letter,
-                    climatic_performance_number, announce_publication, announce_last_modification, neighborhood_description, floor, batch, cellar, balcony, large_balcony, tv_cable, digicode, intercom, lock_up_garage, fibre_optics_status, estate_agency_id))
+        connection.execute(INSERT_DESCRIPTION, (property_id, year_of_construction, exposition, floor, total_floor_number, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id))
 
 def add_agency(name: str, address: str, fee_percentage:int, evaluation: int):
     with connection:
@@ -136,11 +137,16 @@ def get_property_description_by_id(id: int):
         return cursor.fetchone()
 
 def get_agency(name: str):
-    with connection:
-        cursor = connection.execute(GET_AGENCY_BY_NAME, (name, ))
-        return cursor.fetchone()
+    pass
 
 def get_agencies():
     with connection:
         cursor = connection.execute(GET_AGENCIES)
         return cursor.fetchall()
+    
+def get_agency_id_from_name(name: str):
+    with connection:
+        cursor = connection.execute(GET_AGENCY_ID_BY_NAME, (name,))
+        return cursor.fetchall()
+    
+    
