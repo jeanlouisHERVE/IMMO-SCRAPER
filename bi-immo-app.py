@@ -240,6 +240,7 @@ for id_property, url_property in property_urls:
         total_floor_number = None
         terrace = False
         pinel = False
+        denormandie = False
         
         regex_find_numbers = r'\d+'
         regex_find_text_after_colon = r':\s*([^:,]+)'
@@ -354,12 +355,15 @@ for id_property, url_property in property_urls:
                 
                 #batch
                 elif "lot" in element_text:
-                
-                #Pinel
+                    batch = re.findall(regex_find_numbers, element_text)[0]
+                    
+                #pinel
                 elif "pinel" in element_text:
                     pinel = True
                     
-                #Denormandie
+                #denormandie
+                elif "denormandie" in element_text:
+                    pinel = True
                 
                 #terrasse
                 elif "terrasse" in element_text:
@@ -375,7 +379,6 @@ for id_property, url_property in property_urls:
                         floor = total_floor_number
                     else:
                         floor = int(re.findall(pattern_floor, element_text)[0])
-                        
                 
                 #elevator
                 elif "ascenseur" in element_text:
@@ -407,6 +410,10 @@ for id_property, url_property in property_urls:
         print("intercom                     :",intercom)
         print("digicode                     :",digicode)
         print("estate_agency_fee_percentage :",estate_agency_fee_percentage)
+        print("floor                     :",intercom)
+        print("digicode                     :",digicode)
+        print("estate_agency_fee_percentage :",estate_agency_fee_percentage)
+        #####TODO#######add all the variable 
         
         print('step4')
         # energetic_performance_letter
