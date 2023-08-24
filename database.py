@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 ##create database
-CREATE_PROPERTY_TABLE = """CREATE TABLE IF NOT EXISTS properties (
+CREATE_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS properties (
                                 id INTEGER NOT NULL PRIMARY KEY, 
                                 type_of_property TEXT, 
                                 town TEXT,
@@ -22,7 +22,7 @@ CREATE_PROPERTY_TABLE = """CREATE TABLE IF NOT EXISTS properties (
                                 price INTEGER,
                                 date_add_to_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"""
                                 
-CREATE_DESCRIPTION_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
+CREATE_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 property_id INTEGER NOT NULL PRIMARY KEY,
                                 year_of_construction TEXT,
                                 exposition TEXT
@@ -60,7 +60,7 @@ CREATE_DESCRIPTION_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 FOREIGN KEY (estate_agency_id) REFERENCES agencies(id)
                             );"""
 
-CREATE_ESTATE_AGENCY_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
+CREATE_ESTATE_AGENCIES_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
                                 id INTEGER NOT NULL PRIMARY KEY,
                                 name TEXT,
                                 address TEXT,
@@ -95,9 +95,9 @@ connection = sqlite3.connect(os.environ["DATABASE_PATH"])
 
 def create_table():
     with connection:
-        connection.execute(CREATE_PROPERTY_TABLE)
-        connection.execute(CREATE_DESCRIPTION_TABLE)
-        connection.execute(CREATE_ESTATE_AGENCY_TABLE)
+        connection.execute(CREATE_PROPERTIES_TABLE)
+        connection.execute(CREATE_DESCRIPTIONS_TABLE)
+        connection.execute(CREATE_ESTATE_AGENCIES_TABLE)
 
 def add_property(type_of_property: str, town: str, district: str, postcode: int, url: str, room_number: int, surface: int, price: int, date_add_to_db: float):
     with connection:
