@@ -54,7 +54,7 @@ CREATE_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 energetic_performance_letter TEXT,
                                 energetic_performance_number INTEGER, 
                                 climatic_performance_number INTEGER,
-                                climatic_performance_letter INTEGER,   
+                                climatic_performance_letter TEXT,   
                                 estate_agency_id INTEGER,                
                                 FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE,
                                 FOREIGN KEY (estate_agency_id) REFERENCES agencies(id)
