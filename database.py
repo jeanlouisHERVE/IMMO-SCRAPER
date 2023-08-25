@@ -50,7 +50,7 @@ CREATE_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 denormandie BOOLEAN,
                                 announce_publication TEXT,
                                 announce_last_modification TEXT,                              
-                                dpe_date INTEGER,
+                                dpe_date TEXT,
                                 energetic_performance_letter TEXT,
                                 energetic_performance_number INTEGER, 
                                 climatic_performance_number INTEGER,

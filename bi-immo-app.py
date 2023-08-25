@@ -256,7 +256,7 @@ for id_property, url_property in property_urls:
         energetic_performance_letter = ""
         energetic_performance_number = 0 
         climatic_performance_number = 0
-        climatic_performance_letter = 0
+        climatic_performance_letter = ""
         
         
         regex_find_numbers = r'\d+'
@@ -387,11 +387,17 @@ for id_property, url_property in property_urls:
                 elif "étage" in element_text:
                     pattern_floor = r'^[0-9]+'
                     pattern_floor_number = r'sur\s+(\d+)'
-                    total_floor_number = int(re.findall(pattern_floor_number, element_text)[0])
+                    
                     if "dernier" in element_text:
                         floor = total_floor_number
                     else:
                         floor = int(re.findall(pattern_floor, element_text)[0])
+                        
+                    if "sur" in element_text:
+                        total_floor_number = int(re.findall(pattern_floor_number, element_text)[0])
+                    else: 
+                        total_floor_number = None
+                        
                 
                 #elevator
                 elif "ascenseur" in element_text:
