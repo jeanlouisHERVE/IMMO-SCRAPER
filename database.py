@@ -24,11 +24,11 @@ CREATE_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS properties (
                                 
 CREATE_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 property_id INTEGER NOT NULL PRIMARY KEY,
-                                year_of_construction TEXT,
+                                year_of_construction FLOAT,
                                 exposition TEXT,
                                 floor INTEGER,
                                 total_floor_number INTEGER,
-                                neighborhood_description TEXT,
+                                neighborhood_description LONGTEXT,
                                 bedroom_number INTEGER,
                                 toilet_number INTEGER,
                                 bathroom_number INTEGER,
