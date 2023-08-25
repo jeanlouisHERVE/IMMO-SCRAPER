@@ -29,7 +29,7 @@ CREATE_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 floor INTEGER,
                                 total_floor_number INTEGER,
                                 neighborhood_description TEXT,
-                                bedroom_number INTEGER
+                                bedroom_number INTEGER,
                                 toilet_number INTEGER,
                                 bathroom_number INTEGER,
                                 cellar BOOLEAN,
