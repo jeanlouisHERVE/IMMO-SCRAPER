@@ -366,7 +366,7 @@ for id_property, url_property in property_urls:
                 
                 # announce_last_modification
                 elif "modifiée" in element_text:
-                    announce_last_modification = re.findall(regex_find_text_after_colon, element_text)[0]
+                    announce_last_modification = re.findall(r'le\s(.+)', element_text)[0]
                 
                 #batch
                 elif "lot" in element_text:
@@ -493,7 +493,6 @@ for id_property, url_property in property_urls:
                 print(f"OK : {estate_agency_name} estate_agency has been added to database")
             
             estate_agency_id = database.get_agency_id_from_name(estate_agency_name)
-            
             
         except(NoSuchElementException, StaleElementReferenceException):
                 print("KO : no data for estate_agency ")

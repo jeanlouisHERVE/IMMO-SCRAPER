@@ -109,7 +109,7 @@ def add_description(property_id, year_of_construction, exposition, floor, total_
 
 def add_agency(name: str, address: str, fee_percentage:int, evaluation: int):
     with connection:
-        connection.execute(INSERT_PROPERTY, (name, address, fee_percentage, evaluation))
+        connection.execute(INSERT_AGENCY, (name, address, fee_percentage, evaluation))
 
 def get_property_by_url(url: str):
     with connection:
