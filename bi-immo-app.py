@@ -479,10 +479,10 @@ for id_property, url_property in property_urls:
         print("announce_publication         :",announce_publication)
         print("announce_last_modification   :",announce_last_modification)
         
-        print("energetic_performance_letter",energetic_performance_letter)
-        print("energetic_performance_number",energetic_performance_number)
-        print("climatic_performance_number",climatic_performance_number)
-        print("climatic_performance_letter",climatic_performance_letter)
+        print("energetic_performance_letter :",energetic_performance_letter)
+        print("energetic_performance_number :",energetic_performance_number)
+        print("climatic_performance_number  :",climatic_performance_number)
+        print("climatic_performance_letter  :",climatic_performance_letter)
         
         print("------------------Description Part End------------------")
         print("--------------------------------------------------------")
