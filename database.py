@@ -25,7 +25,7 @@ CREATE_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS properties (
 CREATE_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 property_id INTEGER NOT NULL PRIMARY KEY,
                                 year_of_construction TEXT,
-                                exposition TEXT
+                                exposition TEXT,
                                 floor INTEGER,
                                 total_floor_number INTEGER,
                                 neighborhood_description TEXT,
@@ -56,7 +56,7 @@ CREATE_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 climatic_performance_number INTEGER,
                                 climatic_performance_letter INTEGER,   
                                 estate_agency_id INTEGER,                
-                                FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE
+                                FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE,
                                 FOREIGN KEY (estate_agency_id) REFERENCES agencies(id)
                             );"""
 
