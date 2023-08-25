@@ -500,7 +500,7 @@ for id_property, url_property in property_urls:
         print("------------------Agency Part End------------------")
         print("------------------Add Description------------------")
         if not database.get_property_description_by_id(id_property):
-            database.add_description(year_of_construction, exposition, floor, total_floor_number, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id, id_property)
+            database.add_description(id_property, year_of_construction, exposition, floor, total_floor_number, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id)
         
         input()
         print("------------------End Add Description------------------")
