@@ -409,9 +409,6 @@ for id_property, url_property in property_urls:
             except(NoSuchElementException, StaleElementReferenceException):
                 print("KO : no data elements found")
 
-        
-
-        
         print('step4')
         # energetic_performance_letter
         try: 
@@ -489,29 +486,43 @@ for id_property, url_property in property_urls:
         print("----------------------Agency Part-----------------------")
         #estate_agency 
         estate_agency_name  = ""
+        estate_agency_address = ""
+        estate_agency_evaluation = ""
+        
+        # name
         try: 
-            estate_agency_name  = driver.find_element(By.CSS_SELECTOR, "div.agency-overview__info-name")
-            # name
-            estate_agency_name  = estate_agency_name.text
-            
-            # address
-            estate_agency_address = driver.find_element(By.CSS_SELECTOR, "div.agency-overview__contact-address div.contact-address").text
-            
-            # fee_percentage
-            # value caught above
-            
-            # evaluation
-            estate_agency_evaluation = driver.find_element(By.CSS_SELECTOR, "span.rating-stars__rating-text").text
-            
-            if not database.get_agency(estate_agency_name):
-                database.add_agency(estate_agency_name, estate_agency_address, estate_agency_fee_percentage, estate_agency_evaluation)
-                print(f"OK : {estate_agency_name} estate_agency has been added to database")
-            
-            estate_agency_id = database.get_agency_id_from_name(estate_agency_name)
-            
+            estate_agency_name  = driver.find_element(By.CSS_SELECTOR, "div.agency-overview__info-name").text
         except(NoSuchElementException, StaleElementReferenceException):
                 print("KO : no data for estate_agency ")
+                estate_agency_name = None
         
+        # address        
+        try:     
+            estate_agency_address = driver.find_element(By.CSS_SELECTOR, "div.agency-overview__contact-address div.contact-address").text
+        except(NoSuchElementException, StaleElementReferenceException):
+                print("KO : no data for estate_agency ") 
+                estate_agency_address = None
+        # fee_percentage
+        # value caught above
+        
+        # evaluation
+        try:     
+            estate_agency_evaluation = driver.find_element(By.CSS_SELECTOR, "span.rating-stars__rating-text").text
+        except(NoSuchElementException, StaleElementReferenceException):
+                print("KO : no evaluation for estate_agency ")    
+                estate_agency_evaluation = None
+                
+        if not database.get_agency(estate_agency_name):
+                database.add_agency(estate_agency_name, estate_agency_address, estate_agency_fee_percentage, estate_agency_evaluation)
+                print(f"OK : {estate_agency_name} estate_agency has been added to database")
+        else:
+            print(f"KO : {estate_agency_name} estate_agency already exits")
+        
+        estate_agency_id = database.get_agency_id_from_name(estate_agency_name)
+        if not estate_agency_id:
+            estate_agency_id = None
+            
+        print("estate_agency_id",estate_agency_id)
         print("------------------Agency Part End------------------")
         print("------------------Add Description------------------")
         if not database.get_property_description_by_id(id_property):

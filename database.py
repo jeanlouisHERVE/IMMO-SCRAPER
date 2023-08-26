@@ -65,7 +65,7 @@ CREATE_ESTATE_AGENCIES_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
                                 name TEXT,
                                 address TEXT,
                                 fee_percentage INTEGER,
-                                evaluation INT
+                                evaluation TEXT
                             );"""
 
 ##add data
@@ -107,7 +107,7 @@ def add_description(property_id: int, year_of_construction: float, exposition: s
     with connection:
         connection.execute(INSERT_DESCRIPTION, (property_id, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id))
 
-def add_agency(name: str, address: str, fee_percentage:int, evaluation: int):
+def add_agency(name: str, address: str, fee_percentage:int, evaluation: str):
     with connection:
         connection.execute(INSERT_AGENCY, (name, address, fee_percentage, evaluation))
 
