@@ -62,7 +62,7 @@ CREATE_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
 
 CREATE_ESTATE_AGENCIES_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
                                 id INTEGER NOT NULL PRIMARY KEY,
-                                name TEXT UNIQUE,
+                                name TEXT,
                                 address TEXT,
                                 fee_percentage INTEGER,
                                 evaluation TEXT
@@ -84,6 +84,7 @@ GET_PROPERTY_DESCRIPTION = "SELECT * FROM descriptions WHERE "
 GET_PROPERTY_DESCRIPTION_BY_ID = "SELECT * FROM descriptions WHERE property_id = ?"
 GET_AGENCY_ID_BY_NAME = "SELECT id FROM agencies WHERE name = ?;"
 GET_AGENCIES = "SELECT * from agencies"
+GET_AGENCY = "SELECT * from agencies WHERE name = ?"
 
 
 #update data
@@ -137,7 +138,9 @@ def get_property_description_by_id(id: int):
         return cursor.fetchone()
 
 def get_agency(name: str):
-    pass
+    with connection:
+        cursor = connection.execute(GET_AGENCY, (name,))
+        return cursor.fetchone()
 
 def get_agencies():
     with connection:

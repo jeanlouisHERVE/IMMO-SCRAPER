@@ -521,13 +521,25 @@ for id_property, url_property in property_urls:
         except(NoSuchElementException, StaleElementReferenceException):
                 print("KO : no evaluation for estate_agency ")    
                 estate_agency_evaluation = None
-                
-        if not database.get_agency(estate_agency_name):
-                database.add_agency(estate_agency_name, estate_agency_address, estate_agency_fee_percentage, estate_agency_evaluation)
-                print(f"OK : {estate_agency_name} estate_agency has been added to database")
-        else:
-            print(f"KO : {estate_agency_name} estate_agency already exits")
         
+        print("estate_agency_name",estate_agency_name)
+        print("estate_agency_address",estate_agency_address)
+        print("estate_agency_fee_percentage", estate_agency_fee_percentage)
+        print("estate_agency_evaluation",estate_agency_evaluation)
+        
+        result = database.get_agency(estate_agency_name)
+        print("result", result)
+        
+        input()
+        if not database.get_agency(estate_agency_name):
+            print("stepagency1")
+            database.add_agency(estate_agency_name, estate_agency_address, estate_agency_fee_percentage, estate_agency_evaluation)
+            print("stepagency2")
+            print(f"OK : {estate_agency_name} estate_agency has been added to database")
+        else:
+            print("stepagency3")
+            print(f"KO : {estate_agency_name} estate_agency already exits")   
+            
         estate_agency_id = database.get_agency_id_from_name(estate_agency_name)[0][0]
         if not estate_agency_id:
             estate_agency_id = None
