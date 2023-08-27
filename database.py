@@ -62,7 +62,7 @@ CREATE_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
 
 CREATE_ESTATE_AGENCIES_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
                                 id INTEGER NOT NULL PRIMARY KEY,
-                                name TEXT,
+                                name TEXT UNIQUE,
                                 address TEXT,
                                 fee_percentage INTEGER,
                                 evaluation TEXT
