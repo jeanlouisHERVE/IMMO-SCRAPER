@@ -5,29 +5,29 @@ import datetime
 def date_converter_french_to_english(french_date):
     
     months = {
-    "janvier":"january",
-    "fevrier":"february",
-    "mars":"march",
-    "avril":"april",
-    "mai":"may",
-    "juin":"june",
-    "juillet":"july",
-    "août":"augustus",
-    "septembre":"september",
-    "octobre":"october",
-    "novembre":"november",
-    "décembre":"december"
+    "janvier":"01",
+    "fevrier":"02",
+    "mars":"03",
+    "avril":"04",
+    "mai":"05",
+    "juin":"06",
+    "juillet":"07",
+    "août":"08",
+    "septembre":"09",
+    "octobre":"10",
+    "novembre":"11",
+    "décembre":"12"
     }  
 
     date_parts = french_date.split()
     french_month = date_parts[1].lower()
     
     try:
-        en_month = months[french_month]
-        english_month = months.get(date_parts[1].lower(), date_parts[1])
-        formatted_date = f"{date_parts[0]} {english_month} {date_parts[2]}"
+        check_month = months[french_month]
+        number_month = months.get(date_parts[1].lower(), date_parts[1])
+        formatted_date = f"{date_parts[0]}-{number_month}-{date_parts[2]}"
         print("formatted_date",formatted_date)
-        dt_object = datetime.datetime.strptime(formatted_date, "%d %B %Y")
+        dt_object = datetime.datetime.strptime(formatted_date, "%d-%m-%Y")
         utc_timestamp = dt_object.replace(tzinfo=pytz.UTC).timestamp()
         return utc_timestamp
         
