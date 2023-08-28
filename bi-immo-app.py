@@ -503,14 +503,14 @@ for id_property, url_property in property_urls:
         try: 
             estate_agency_name  = driver.find_element(By.CSS_SELECTOR, "div.agency-overview__info-name").text
         except(NoSuchElementException, StaleElementReferenceException):
-                print("KO : no data for estate_agency ")
+                print("KO : no data for estate_agency name ")
                 estate_agency_name = None
         
         # address        
         try:     
             estate_agency_address = driver.find_element(By.CSS_SELECTOR, "div.agency-overview__contact-address div.contact-address").text
         except(NoSuchElementException, StaleElementReferenceException):
-                print("KO : no data for estate_agency ") 
+                print("KO : no data for estate_agency address") 
                 estate_agency_address = None
         # fee_percentage
         # value caught above
@@ -519,7 +519,7 @@ for id_property, url_property in property_urls:
         try:     
             estate_agency_evaluation = driver.find_element(By.CSS_SELECTOR, "span.rating-stars__rating-text").text
         except(NoSuchElementException, StaleElementReferenceException):
-                print("KO : no evaluation for estate_agency ")    
+                print("KO : no data for estate_agency evaluation")    
                 estate_agency_evaluation = None
         
         print("estate_agency_name",estate_agency_name)
@@ -530,8 +530,7 @@ for id_property, url_property in property_urls:
         result = database.get_agency(estate_agency_name)
         print("result", result)
         
-        input()
-        if not database.get_agency(estate_agency_name):
+        if not database.get_agency(estate_agency_name) or estate_agency_name == None:
             print("stepagency1")
             database.add_agency(estate_agency_name, estate_agency_address, estate_agency_fee_percentage, estate_agency_evaluation)
             print("stepagency2")
@@ -539,7 +538,7 @@ for id_property, url_property in property_urls:
         else:
             print("stepagency3")
             print(f"KO : {estate_agency_name} estate_agency already exits")   
-            
+        
         estate_agency_id = database.get_agency_id_from_name(estate_agency_name)[0][0]
         if not estate_agency_id:
             estate_agency_id = None
