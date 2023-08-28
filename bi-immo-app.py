@@ -437,18 +437,13 @@ for id_property, url_property in property_urls:
             
         except(NoSuchElementException, StaleElementReferenceException):
                     print("KO : no data for energetic_performance_number")
-        print("energetic_performance_number", energetic_performance_number) 
-        print("climatic_performance_number", climatic_performance_number) 
 
         # climatic_performance_letter
         try: 
             climatic_performance_letter = driver.find_element(By.CSS_SELECTOR, "div.ges-line__classification span")
             climatic_performance_letter = climatic_performance_letter.text
         except(NoSuchElementException, StaleElementReferenceException):
-                    print("KO : no data for climatic_performance_letter")
-        print("climatic_performance_letter",climatic_performance_letter)  
-
-        
+                    print("KO : no data for climatic_performance_letter") 
 
         # neighborhood_description
         try: 
@@ -456,8 +451,8 @@ for id_property, url_property in property_urls:
             neighborhood_description = neighborhood_description.text
         except(NoSuchElementException, StaleElementReferenceException):
                     print("KO : no data for neighborhood_description")
-        print("neighborhood_description",neighborhood_description) 
         
+        print("#############RECAP ANNOUNCE VARIABLES#############")
         print("year_of_construction         :",year_of_construction)
         print("exposition                   :",exposition)
         print("floor                        :",floor)
@@ -485,7 +480,6 @@ for id_property, url_property in property_urls:
         print("denormandie                  :",denormandie)
         print("announce_publication         :",announce_publication)
         print("announce_last_modification   :",announce_last_modification)
-        
         print("energetic_performance_letter :",energetic_performance_letter)
         print("energetic_performance_number :",energetic_performance_number)
         print("climatic_performance_number  :",climatic_performance_number)
