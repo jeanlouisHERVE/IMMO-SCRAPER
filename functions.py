@@ -2,7 +2,7 @@ import pytz
 import datetime
 
 
-def date_converter_french_to_english(french_date):
+def date_converter_french_date_to_utc_timestamp(french_date):
     
     months = {
     "janvier":"01",

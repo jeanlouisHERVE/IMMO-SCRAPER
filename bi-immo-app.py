@@ -371,10 +371,8 @@ for id_property, url_property in property_urls:
                 # announce_last_modification
                 elif "modifiée" in element_text:
                     french_date = re.findall(r'le\s(.+)', element_text)[0]
-                    announce_last_modification = functions.date_converter_french_to_english(french_date)
+                    announce_last_modification = functions.date_converter_french_date_to_utc_timestamp(french_date)
                     
-                    
-                
                 #batch
                 elif "lot" in element_text:
                     batch = re.findall(regex_find_numbers, element_text)[0]
