@@ -41,7 +41,9 @@ def date_converter_french_date_to_utc_timestamp(french_date):
         print(f"KO : The provided french month '{french_month}' does not exists")
         return None
     
-    
+def contains_numbers(input_string):
+    pattern = r'\d+' 
+    return bool(re.search(pattern, input_string))
     
     
     

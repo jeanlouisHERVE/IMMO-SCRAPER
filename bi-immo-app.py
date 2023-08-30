@@ -293,8 +293,10 @@ def update_descriptions():
                         
                     # car_park_number
                     elif "parking" in element_text:
-                        car_park_number = re.findall(regex_find_numbers, element_text)[0]
-                    
+                        if functions.contains_numbers(element_text) == True:
+                            car_park_number = re.findall(regex_find_numbers, element_text)[0]
+                        else:
+                            car_park_number = None
                     # heating
                     elif "chauffage" in element_text:
                         heating = re.findall(regex_find_text_after_colon, element_text)[0]
