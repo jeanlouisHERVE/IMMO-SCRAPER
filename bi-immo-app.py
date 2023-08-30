@@ -35,6 +35,7 @@ menu_prompt = """-- Menu --
 
 1) Refresh database
 2) Run script to add description
+3) Number of announces
 3) Exit
 
 Enter your choice: """
