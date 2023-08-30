@@ -206,7 +206,7 @@ def add_new_announces():
         global_page_number += 1  
         print("------------------Add_new_annouces_End------------------")
 
-def update_descriptions():
+def add_descriptions():
     print("------------------Description Part------------------")
     ###Add description to database
     property_urls = database.get_id_url_from_properties()
@@ -217,6 +217,11 @@ def update_descriptions():
         
             print("step1")
             driver.get(url_property)
+            driver.implicitly_wait(5)
+
+            check_accept_section('span.didomi-continue-without-agreeing')
+            driver.implicitly_wait(5)
+
             print("step2")
             
             labelsInfo = driver.find_elements(By.CSS_SELECTOR, "div.labelInfo")
@@ -558,7 +563,7 @@ def start_prompt():
         if user_input == "1":
             add_new_announces()
         elif user_input == "2":
-            update_descriptions()
+            add_descriptions()
         else:
             print("Invalid input, please try again!")
 
