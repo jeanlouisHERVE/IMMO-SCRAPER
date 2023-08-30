@@ -281,119 +281,18 @@ def add_descriptions():
                     element = labelInfo.find_element(By.CSS_SELECTOR, "span")
                     element_text = element.text.lower()
                     print('element_text ',element_text )
-                    #bedroom_number
-                    if "chambre" in element_text:
-                        bedroom_number = re.findall(regex_find_numbers, element_text)[0]
-                        
-                    # garden
-                    elif "jardin" in element_text:
-                        garden = True
-                    
-                    # toilet_number
-                    elif "wc" in element_text:
-                        if "séparé" in element_text:
-                            continue
-                        else:
-                            toilet_number = re.findall(regex_find_numbers, element_text)[0]
-                        
-                    # car_park_number
-                    elif "parking" in element_text:
-                        if functions.contains_numbers(element_text) == True:
-                            car_park_number = re.findall(regex_find_numbers, element_text)[0]
-                        else:
-                            car_park_number = None
-                    # heating
-                    elif "chauffage" in element_text:
-                        heating = re.findall(regex_find_text_after_colon, element_text)[0]
-                    
-                    #tv_cable
-                    elif "tv" in element_text:
-                        tv_cable = True
                     
                     # year_of_construction
-                    elif "construit" in element_text:
-                        print("year_of_construction",element_text)
+                    if "construit" in element_text:
                         year_of_construction = re.findall(regex_find_numbers, element_text)[0]
                         format_string_construction = "%Y"
-                        print("year_of_construction",year_of_construction)
                         local_timestamp_construction = datetime.datetime.strptime(year_of_construction, format_string_construction)
                         year_of_construction = local_timestamp_construction.replace(tzinfo=pytz.timezone('UTC')).timestamp()
-
-                    # bathroom_number
-                    elif "bain" in element_text:
-                        bathroom_number = re.findall(regex_find_numbers, element_text)[0]
                     
-                    #fibre_optics_status
-                    elif "fibre" in element_text:
-                        fibre_optics_status = re.findall(regex_find_text_after_colon, element_text)[0].replace("*", "")
-
-                    #cellar
-                    elif "cave" in element_text:
-                        cellar = True
-                    
-                    #dpe_date
-                    elif "dpe" in element_text:
-                        dpe_french_date = re.findall(regex_find_text_after_colon, element_text)[0]
-                        dpe_date = functions.date_converter_french_date_to_utc_timestamp(dpe_french_date)
-                        
-                    #balcony
-                    elif "balcon" in element_text:
-                        balcony = True
-                        
-                    #large_balcony
-                    elif "terrasse" in element_text:
-                        large_balcony = True
-                    
-                    #lock_up_garage
-                    elif "box" in element_text:
-                        lock_up_garage = True
-                    
-                    #fireplace
-                    elif "cheminée" in element_text:
-                        fireplace = True
-                    
-                    #digicode
-                    elif "digicode" in element_text:
-                        digicode = True
-                        
-                    #intercom
-                    elif "interphone" in element_text:
-                        intercom = True
-                        
-                    #estate_agency_fee_percentage
-                    # elif "honoraires :" in element_text:
-                    #     pattern = r'[\d,]+%'
-                    #     estate_agency_fee_percentage = re.findall(pattern, element_text)[0].replace("%", "")
-                        
                     #exposition
                     elif "exposé" in element_text:
                         pattern_exposition = r'exposé\s(.+)'
                         exposition = re.findall(pattern_exposition, element_text)[0]
-                    
-                    # announce_publication
-                    elif "publiée" in element_text:
-                        # if "il y a plus" in element_text:
-                        #     announce_publication = None #### to improve
-                        # else:
-                        #     announce_publication = re.findall(regex_find_text_after_colon, element_text)[0]
-                        announce_publication = element_text
-                    
-                    # announce_last_modification
-                    elif "modifiée" in element_text:
-                        french_date = re.findall(r'le\s(.+)', element_text)[0]
-                        announce_last_modification = functions.date_converter_french_date_to_utc_timestamp(french_date)
-                        
-                    #batch
-                    elif "lot" in element_text:
-                        batch = re.findall(regex_find_numbers, element_text)[0]
-                        
-                    #pinel
-                    elif "pinel" in element_text:
-                        pinel = True
-                        
-                    #denormandie
-                    elif "denormandie" in element_text:
-                        pinel = True
                     
                     #floor
                     #total_floor_number 
@@ -410,12 +309,114 @@ def add_descriptions():
                             total_floor_number = int(re.findall(pattern_floor_number, element_text)[0])
                         else: 
                             total_floor_number = None
-                            
+                    
+                    #bedroom_number
+                    elif "chambre" in element_text:
+                        bedroom_number = re.findall(regex_find_numbers, element_text)[0]
+                    
+                    # toilet_number
+                    elif "wc" in element_text:
+                        if "séparé" in element_text:
+                            continue
+                        else:
+                            toilet_number = re.findall(regex_find_numbers, element_text)[0]
+                    
+                    # bathroom_number
+                    elif "bain" in element_text:
+                        bathroom_number = re.findall(regex_find_numbers, element_text)[0]
+                    
+                    #cellar
+                    elif "cave" in element_text:
+                        cellar = True
+                    
+                    #lock_up_garage
+                    elif "box" in element_text:
+                        lock_up_garage = True
+                    
+
+                    
+                    # heating
+                    elif "chauffage" in element_text:
+                        heating = re.findall(regex_find_text_after_colon, element_text)[0]
+                    
+                    #tv_cable
+                    elif "tv" in element_text:
+                        tv_cable = True
+                    
+                    #fireplace
+                    elif "cheminée" in element_text:
+                        fireplace = True
+                        
+                    #digicode
+                    elif "digicode" in element_text:
+                        digicode = True
+                        
+                    #intercom
+                    elif "interphone" in element_text:
+                        intercom = True
                     
                     #elevator
                     elif "ascenseur" in element_text:
                         elevator = True
+                        
+                    #fibre_optics_status
+                    elif "fibre" in element_text:
+                        fibre_optics_status = re.findall(regex_find_text_after_colon, element_text)[0].replace("*", "")
+
+                    # garden
+                    elif "jardin" in element_text:
+                        garden = True
+                        
+                    # car_park_number
+                    elif "parking" in element_text:
+                        if functions.contains_numbers(element_text) == True:
+                            car_park_number = re.findall(regex_find_numbers, element_text)[0]
+                        else:
+                            car_park_number = None
                     
+                    #balcony
+                    elif "balcon" in element_text:
+                        balcony = True
+                        
+                    #large_balcony
+                    elif "terrasse" in element_text:
+                        large_balcony = True
+                    
+                    #estate_agency_fee_percentage
+                    # elif "honoraires :" in element_text:
+                    #     pattern = r'[\d,]+%'
+                    #     estate_agency_fee_percentage = re.findall(pattern, element_text)[0].replace("%", "")
+                    
+                    #pinel
+                    elif "pinel" in element_text:
+                        pinel = True
+                        
+                    #denormandie
+                    elif "denormandie" in element_text:
+                        pinel = True
+                    
+                    # announce_publication
+                    elif "publiée" in element_text:
+                        # if "il y a plus" in element_text:
+                        #     announce_publication = None #### TODO improve
+                        # else:
+                        #     announce_publication = re.findall(regex_find_text_after_colon, element_text)[0]
+                        announce_publication = element_text
+                    
+                    # announce_last_modification
+                    elif "modifiée" in element_text:
+                        french_date = re.findall(r'le\s(.+)', element_text)[0]
+                        announce_last_modification = functions.date_converter_french_date_to_utc_timestamp(french_date)
+                    
+                    #dpe_date
+                    elif "dpe" in element_text:
+                        dpe_french_date = re.findall(regex_find_text_after_colon, element_text)[0]
+                        dpe_date = functions.date_converter_french_date_to_utc_timestamp(dpe_french_date)
+                        
+                    #batch
+                    # elif "lot" in element_text:
+                    #     batch = re.findall(regex_find_numbers, element_text)[0]
+                        
                     else:
                         continue
                     
@@ -423,6 +424,13 @@ def add_descriptions():
                     print("KO : no data elements found")
 
             print('step4')
+            # neighborhood_description
+            try: 
+                neighborhood_description = driver.find_element(By.CSS_SELECTOR, "div.neighborhoodDescription span")
+                neighborhood_description = neighborhood_description.text
+            except(NoSuchElementException, StaleElementReferenceException):
+                        print("KO : no data for neighborhood_description")
+            
             # energetic_performance_letter
             try: 
                 energetic_performance_letter = driver.find_element(By.CSS_SELECTOR, "div.dpe-line__classification span div")
@@ -454,13 +462,6 @@ def add_descriptions():
             except(NoSuchElementException, StaleElementReferenceException):
                         print("KO : no data for climatic_performance_letter") 
 
-            # neighborhood_description
-            try: 
-                neighborhood_description = driver.find_element(By.CSS_SELECTOR, "div.neighborhoodDescription span")
-                neighborhood_description = neighborhood_description.text
-            except(NoSuchElementException, StaleElementReferenceException):
-                        print("KO : no data for neighborhood_description")
-            
             print("#############RECAP ANNOUNCE VARIABLES#############")
             print("year_of_construction         :",year_of_construction)
             print("exposition                   :",exposition)
