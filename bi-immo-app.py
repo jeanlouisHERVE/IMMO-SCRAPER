@@ -46,6 +46,7 @@ def check_accept_section(cssSelector: str):
 driver.get(url_immo_website)
 driver.implicitly_wait(5)
 #check an agree the terms section exists
+time.sleep(2)
 check_accept_section('span.didomi-continue-without-agreeing')
 time.sleep(2)
 
@@ -253,10 +254,10 @@ for id_property, url_property in property_urls:
         
         ##diagnostics
         dpe_date = ""
-        energetic_performance_letter = ""
+        energetic_performance_letter = None
         energetic_performance_number = 0 
         climatic_performance_number = 0
-        climatic_performance_letter = ""
+        climatic_performance_letter = None
         
         
         regex_find_numbers = r'\d+'
@@ -298,6 +299,7 @@ for id_property, url_property in property_urls:
                 
                 # year_of_construction
                 elif "construit" in element_text:
+                    print("year_of_construction",element_text)
                     year_of_construction = re.findall(regex_find_numbers, element_text)[0]
                     format_string_construction = "%Y"
                     local_timestamp_construction = datetime.datetime.strptime(year_of_construction, format_string_construction)
@@ -317,14 +319,8 @@ for id_property, url_property in property_urls:
                 
                 #dpe_date
                 elif "dpe" in element_text:
-                    dpe_date = re.findall(regex_find_text_after_colon, element_text)[0]
-                    # format_string = "%d %B %Y"
-                    # locale.setlocale(locale.LC_TIME, 'fr_FR.UTF-8')
-                    # local_timestamp_dpe = datetime.datetime.strptime(dpe_date, format_string)
-                    # dpe_date = local_timestamp_dpe.replace(tzinfo=pytz.timezone('UTC'))
-                    
-                    # # Reset the locale back to the default
-                    # locale.setlocale(locale.LC_TIME, '')
+                    dpe_french_date = re.findall(regex_find_text_after_colon, element_text)[0]
+                    dpe_date = functions.date_converter_french_date_to_utc_timestamp(dpe_french_date)
                     
                 #balcony
                 elif "balcon" in element_text:
@@ -418,8 +414,7 @@ for id_property, url_property in property_urls:
             energetic_performance_letter = driver.find_element(By.CSS_SELECTOR, "div.dpe-line__classification span div")
             energetic_performance_letter = energetic_performance_letter.text
         except(NoSuchElementException, StaleElementReferenceException):
-                    print("KO : no data for energetic_performance_letter")
-        print("energetic_performance_letter",energetic_performance_letter)         
+                    print("KO : no data for energetic_performance_letter")        
                     
         # energetic_performance_number && climatic_performance_number
         try: 
@@ -430,7 +425,7 @@ for id_property, url_property in property_urls:
                 else:
                     energetic_performance_number = int(dpe_data_numbers[0].text)
                 
-                if dpe_data_numbers[0].text == "-": 
+                if dpe_data_numbers[1].text == "-": 
                     climatic_performance_number = None
                 else:
                     climatic_performance_number = int(dpe_data_numbers[1].text.replace("*", ""))
@@ -541,7 +536,6 @@ for id_property, url_property in property_urls:
         print("------------------Agency Part End------------------")
         print("------------------Add Description------------------")
         
-        input()
         if not database.get_property_description_by_id(id_property):
             database.add_description(id_property, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id)
         
