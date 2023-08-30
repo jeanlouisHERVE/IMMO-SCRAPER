@@ -302,6 +302,7 @@ for id_property, url_property in property_urls:
                     print("year_of_construction",element_text)
                     year_of_construction = re.findall(regex_find_numbers, element_text)[0]
                     format_string_construction = "%Y"
+                    print("year_of_construction",year_of_construction)
                     local_timestamp_construction = datetime.datetime.strptime(year_of_construction, format_string_construction)
                     year_of_construction = local_timestamp_construction.replace(tzinfo=pytz.timezone('UTC')).timestamp()
 
