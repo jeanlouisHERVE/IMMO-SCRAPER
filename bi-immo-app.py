@@ -35,9 +35,9 @@ menu_prompt = """-- Menu --
 
 1) Refresh database
 2) Run script to add description
-3) Number of announces
-4) New announces
-3) Exit
+3) Update descriptions
+4) Number of announces
+5) Exit
 
 Enter your choice: """
 
@@ -566,13 +566,20 @@ def add_descriptions():
             
             print("------------------End Add Description------------------")               
 
+def update_descriptions():
+    for property in database.get_properties():
+        print("property", property)
+
+
 def start_prompt(): 
-    while (user_input := input(menu_prompt)) != "4":
+    while (user_input := input(menu_prompt)) != "5":
         if user_input == "1":
             add_new_announces()
         elif user_input == "2":
             add_descriptions()
         elif user_input == "3":
+            update_descriptions()
+        elif user_input == "4":
             global_properties_number = database.get_properties_number()
             print(f"""\n--- The properties number --- \n\n The city {city_researched_content} has a total of {global_properties_number[0][0]} properties to sell. \n 
                   """)

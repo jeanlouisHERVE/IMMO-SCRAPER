@@ -125,8 +125,8 @@ def get_id_url_from_properties():
     
 def get_properties():
     with connection:
-        #connection.execute(INSERT_DESCRIPTION, ())
-        pass
+        cursor = connection.execute(GET_PROPERTIES)
+        return cursor.fetchall()
 
 def get_properties_number():
     with connection:
