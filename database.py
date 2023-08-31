@@ -79,6 +79,7 @@ GET_PROPERTY = "SELECT * FROM properties #####;"
 GET_PROPERTY_BY_URL = "SELECT * FROM properties WHERE url = ?;"
 GET_ID_URL_FROM_PROPERTIES = "SELECT id, url FROM properties"
 GET_PROPERTIES = "SELECT * FROM properties;"
+GET_PROPERTIES_NUMBER = "SELECT COUNT(id) FROM properties;"
 GET_PROPERTIES_FROM_DATE_ADDING_TO_DB = "SELECT * FROM properties WHERE date_add_to_db = ?;"
 GET_PROPERTY_DESCRIPTION = "SELECT * FROM descriptions WHERE "
 GET_PROPERTY_DESCRIPTION_BY_ID = "SELECT * FROM descriptions WHERE property_id = ?"
@@ -126,6 +127,11 @@ def get_properties():
     with connection:
         #connection.execute(INSERT_DESCRIPTION, ())
         pass
+
+def get_properties_number():
+    with connection:
+        cursor = connection.execute(GET_PROPERTIES_NUMBER)
+        return cursor.fetchall()
 
 def get_properties_from_adding_date(date_add_to_db: float):
     with connection:

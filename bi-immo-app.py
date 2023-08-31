@@ -41,6 +41,8 @@ menu_prompt = """-- Menu --
 
 Enter your choice: """
 
+
+
 ###TODO update announces
 ###TODO send old announces to another table
 
@@ -565,11 +567,15 @@ def add_descriptions():
             print("------------------End Add Description------------------")               
 
 def start_prompt(): 
-    while (user_input := input(menu_prompt)) != "3":
+    while (user_input := input(menu_prompt)) != "4":
         if user_input == "1":
             add_new_announces()
         elif user_input == "2":
             add_descriptions()
+        elif user_input == "3":
+            global_properties_number = database.get_properties_number()
+            print(f"""\n--- The properties number --- \n\n The city {city_researched_content} has a total of {global_properties_number[0][0]} properties to sell. \n 
+                  """)
         else:
             print("Invalid input, please try again!")
 
