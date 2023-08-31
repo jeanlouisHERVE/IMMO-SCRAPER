@@ -36,9 +36,13 @@ menu_prompt = """-- Menu --
 1) Refresh database
 2) Run script to add description
 3) Number of announces
+4) New announces
 3) Exit
 
 Enter your choice: """
+
+###TODO update announces
+###TODO send old announces to another table
 
 #functions 
 def check_accept_section(cssSelector: str):
