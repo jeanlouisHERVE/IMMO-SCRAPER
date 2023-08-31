@@ -569,6 +569,7 @@ def add_descriptions():
 def update_descriptions():
     for property in database.get_properties():
         print("property", property)
+        ###TODO do not forget to implement an history of the price
 
 
 def start_prompt(): 
