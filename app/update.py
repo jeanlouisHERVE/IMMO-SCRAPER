@@ -22,7 +22,12 @@ import functions
 #get data from .env file 
 load_dotenv()
 
-#variable
+#variables
+driver = webdriver.Chrome()
+actions = ActionChains(driver)
+chrome_options = ChromeOptions()
+url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
+city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 current_time_utc = datetime.datetime.now(tz=pytz.utc).timestamp()
 
 def update_descriptions():
@@ -35,5 +40,4 @@ def update_descriptions():
         if int(days_difference) > 7:
             print("url_property", url_property) 
         
-        print("property", property)
         ###TODO do not forget to implement an history of the price

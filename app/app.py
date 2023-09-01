@@ -25,12 +25,11 @@ import update
 load_dotenv()
 
 #variables
-url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
 driver = webdriver.Chrome()
 actions = ActionChains(driver)
 chrome_options = ChromeOptions()
+url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
-
 current_time_utc = datetime.datetime.now(tz=pytz.utc).timestamp()
 menu_prompt = """-- Menu --
 
@@ -405,16 +404,16 @@ def add_descriptions():
                     
                     # announce_publication
                     elif "publiée" in element_text:
-                        # if "il y a plus" in element_text:
-                        #     announce_publication = None #### TODO improve
-                        # else:
-                        #     announce_publication = re.findall(regex_find_text_after_colon, element_text)[0]
-                        announce_publication = element_text
+                        if "il y a plus" in element_text:
+                            announce_publication = None
+                        else:
+                            publication_french_date = re.findall(r'le\s(.+)', element_text)[0]
+                            announce_publication = functions.date_converter_french_date_to_utc_timestamp(publication_french_date)
                     
                     # announce_last_modification
                     elif "modifiée" in element_text:
-                        french_date = re.findall(r'le\s(.+)', element_text)[0]
-                        announce_last_modification = functions.date_converter_french_date_to_utc_timestamp(french_date)
+                        modification_french_date = re.findall(r'le\s(.+)', element_text)[0]
+                        announce_last_modification = functions.date_converter_french_date_to_utc_timestamp(modification_french_date)
                     
                     #dpe_date
                     elif "dpe" in element_text:
