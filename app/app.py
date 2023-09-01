@@ -19,6 +19,7 @@ from dotenv import load_dotenv
 import database
 database.create_table()
 import functions
+import update
 
 #get data from .env file 
 load_dotenv()
@@ -566,11 +567,6 @@ def add_descriptions():
             
             print("------------------End Add Description------------------")               
 
-def update_descriptions():
-    for property in database.get_properties():
-        print("property", property)
-        ###TODO do not forget to implement an history of the price
-
 
 def start_prompt(): 
     while (user_input := input(menu_prompt)) != "5":
@@ -579,7 +575,7 @@ def start_prompt():
         elif user_input == "2":
             add_descriptions()
         elif user_input == "3":
-            update_descriptions()
+            update.update_descriptions()
         elif user_input == "4":
             global_properties_number = database.get_properties_number()
             print(f"""\n--- The properties number --- \n\n The city {city_researched_content} has a total of {global_properties_number[0][0]} properties to sell. \n 
