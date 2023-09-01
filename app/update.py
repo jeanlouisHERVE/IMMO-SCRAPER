@@ -31,13 +31,13 @@ city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 current_time_utc = datetime.datetime.now(tz=pytz.utc).timestamp()
 
 def update_descriptions():
-    for property in database.get_id_url__dateofadding_from_properties():
-        id_property, url_property, dateOfAdding_property = property
-        timestamp_difference = current_time_utc - dateOfAdding_property
-        days_difference = timestamp_difference / (60 * 60 * 24)
-        print("days_difference",days_difference)
+    for property in database.get_id_url_dateofmodification_from_properties():
+        id_property, url_property, dateOfModification_announce = property
+        # timestamp_difference = current_time_utc - dateOfModification_announce
+        # days_difference = timestamp_difference / (60 * 60 * 24)
+        # print("days_difference",days_difference)
         
-        if int(days_difference) > 7:
-            print("url_property", url_property) 
-        
+        # if int(days_difference) > 7:
+        #     print("url_property", url_property) 
+        ###TODO check if the date of modification is different from the one registered
         ###TODO do not forget to implement an history of the price
