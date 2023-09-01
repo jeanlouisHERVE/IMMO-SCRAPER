@@ -326,9 +326,13 @@ def update_descriptions():
         if dateOfModification_announce != new_announce_last_modification:
             ###default values
             ##building options
-            year_of_construction = ""
-            exposition = ""
-            floor = None
+            year_of_construction = new_year_of_construction
+            
+            ###TODO extract data from the database to compare with new values
+            
+            
+            exposition = new_exposition
+            floor = new_floor
             total_floor_number = None
             neighborhood_description = ""
 
@@ -367,13 +371,13 @@ def update_descriptions():
             energetic_performance_number = 0 
             climatic_performance_number = 0
             climatic_performance_letter = None    
-        
-        
-        # timestamp_difference = current_time_utc - dateOfModification_announce
-        # days_difference = timestamp_difference / (60 * 60 * 24)
-        # print("days_difference",days_difference)
-        
-        # if int(days_difference) > 7:
-        #     print("url_property", url_property) 
-        ###TODO check if the date of modification is different from the one registered
-        ###TODO do not forget to implement an history of the price
+            
+            
+            # timestamp_difference = current_time_utc - dateOfModification_announce
+            # days_difference = timestamp_difference / (60 * 60 * 24)
+            # print("days_difference",days_difference)
+            
+            # if int(days_difference) > 7:
+            #     print("url_property", url_property) 
+            ###TODO check if the date of modification is different from the one registered
+            ###TODO do not forget to implement an history of the price
