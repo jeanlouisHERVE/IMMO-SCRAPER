@@ -124,9 +124,9 @@ def get_id_url_from_properties():
         cursor = connection.execute(GET_ID_URL_FROM_PROPERTIES)
         return cursor.fetchall()
     
-def get_id_url__dateofadding_from_properties():
+def get_id_url_dateofmodification_from_properties():
     with connection:
-        cursor = connection.execute(GET_ID_URL_DATEOFADDING_FROM_PROPERTIES)
+        cursor = connection.execute(GET_ID_URL_DATEOFMODIFICATION_FROM_PROPERTIES)
         return cursor.fetchall()
     
 def get_properties():
