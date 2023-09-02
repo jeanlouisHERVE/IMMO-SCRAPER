@@ -54,6 +54,8 @@ def update_descriptions():
         
         labelsInfo = driver.find_elements(By.CSS_SELECTOR, "div.labelInfo")
         
+        new_price = ""
+
         ###default values
         ##building options
         new_year_of_construction = ""
@@ -103,6 +105,10 @@ def update_descriptions():
         regex_find_text_after_colon = r':\s*([^:,]+)'
         
         print("step3")
+        
+        new_price_content = driver.find_element(By.CSS_SELECTOR, "span.ad-price__the-price").text
+        new_price = re.findall(regex_find_numbers, new_price_content)[0]
+        
         for labelInfo in labelsInfo:
             
             try:
@@ -289,6 +295,7 @@ def update_descriptions():
                     print("KO : no data for climatic_performance_letter") 
 
         print("#############RECAP ANNOUNCE VARIABLES#############")
+        print("price                        :",new_price)
         print("year_of_construction         :",new_year_of_construction)
         print("exposition                   :",new_exposition)
         print("floor                        :",new_floor)
@@ -323,15 +330,19 @@ def update_descriptions():
         
         print("------------------Description Part End------------------")
         
+        
         if dateOfModification_announce != new_announce_last_modification:
             ###default values
             ##building options
 
             old_property = database.get_property_by_id(id_property)
             old_property_description = database.get_property_description_by_id(id_property)
-            type_of_property, town, district, postcode, url, room_number, surface, new_price, date_add_to_db = old_property
+            type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db = old_property
             property_id, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony, estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id = old_property_description
             
+            
+            if price != new_price:
+                price = new_price
             if year_of_construction != new_year_of_construction:
                 year_of_construction = new_year_of_construction
             if exposition != new_exposition:
@@ -406,12 +417,15 @@ def update_descriptions():
             if climatic_performance_letter != new_climatic_performance_letter:
                 climatic_performance_letter = new_climatic_performance_letter
             
+            print("----------------------Update Property---------------------")
             
-            # timestamp_difference = current_time_utc - dateOfModification_announce
-            # days_difference = timestamp_difference / (60 * 60 * 24)
-            # print("days_difference",days_difference)
+            database.update_property(id_property, price)
             
-            # if int(days_difference) > 7:
-            #     print("url_property", url_property) 
-            ###TODO check if the date of modification is different from the one registered
+            print("--------------------End update Property--------------------")
+            print("--------------------Update Description---------------------")
+            
+            database.update_description(id_property, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id)
+            
+            print("--------------------End Update Description------------------")
+             
             ###TODO do not forget to implement an history of the price
