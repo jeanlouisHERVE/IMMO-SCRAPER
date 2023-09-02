@@ -181,7 +181,7 @@ def get_agency_id_from_name(name: str):
     
 def update_property(type_of_property: str, town: str, district: str, postcode: int, url: str, room_number: int, surface: int, price: int, date_add_to_db: float):
     with connection:
-        connection.execute(UPDATE_DESCRIPTION, (type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db))
+        connection.execute(UPDATE_PROPERTY, (type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db))
 
 def update_description(property_id: int, year_of_construction: float, exposition: str, floor: int, total_floor_number: int, neighborhood_description: str, bedroom_number: int, toilet_number: int, bathroom_number: int, cellar: bool, lock_up_garage: bool, heating: bool, tv_cable: bool, fireplace: bool, digicode: bool, intercom: bool, elevator: bool, fibre_optics_status: str, garden: bool, car_park_number: int, balcony: bool, large_balcony: bool,  estate_agency_fee_percentage: float, pinel: bool, denormandie: bool, announce_publication: str, announce_last_modification: str, dpe_date: str, energetic_performance_letter: str, energetic_performance_number: int, climatic_performance_number: int, climatic_performance_letter: str, estate_agency_id: int):
     with connection:
@@ -189,5 +189,5 @@ def update_description(property_id: int, year_of_construction: float, exposition
 
 def update_agency(name: str, address: str, fee_percentage:int, evaluation: str):
     with connection:
-        connection.execute(UPDATE_DESCRIPTION, (name, address, fee_percentage, evaluation))
+        connection.execute(UPDATE_AGENCY, (name, address, fee_percentage, evaluation))
     
