@@ -329,7 +329,10 @@ def update_descriptions():
             year_of_construction = new_year_of_construction
             
             ###TODO extract data from the database to compare with new values
-            
+            old_property = database.get_property_by_id(id_property)
+            old_property_description = database.get_property_description_by_id(id_property)
+            type_of_property, town, district, postcode, url, room_number, surface, new_price, date_add_to_db = old_property
+            property_id, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony, estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id = old_property_description
             
             exposition = new_exposition
             floor = new_floor

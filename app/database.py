@@ -77,6 +77,7 @@ INSERT_AGENCY = """INSERT INTO agencies (name, address, fee_percentage, evaluati
 ##get data
 GET_PROPERTY = "SELECT * FROM properties #####;"
 GET_PROPERTY_BY_URL = "SELECT * FROM properties WHERE url = ?;"
+GET_PROPERTY_BY_ID = "SELECT * FROM properties WHERE id = ?;"
 GET_ID_URL_FROM_PROPERTIES = "SELECT id, url FROM properties"
 GET_ID_URL_DATEOFMODIFICATION_FROM_PROPERTIES = "SELECT p.id, p.url, d.announce_last_modification FROM properties p JOIN descriptions d ON p.id = d.property_id;"
 GET_PROPERTIES = "SELECT * FROM properties;"
@@ -132,6 +133,11 @@ def add_agency(name: str, address: str, fee_percentage:int, evaluation: str):
 def get_property_by_url(url: str):
     with connection:
         cursor = connection.execute(GET_PROPERTY_BY_URL, (url,))
+        return cursor.fetchone()
+
+def get_property_by_id(id: int):
+    with connection:
+        cursor = connection.execute(GET_PROPERTY_BY_ID, (id,))
         return cursor.fetchone()
 
 def get_id_url_from_properties():
@@ -190,4 +196,3 @@ def update_description(property_id: int, year_of_construction: float, exposition
 def update_agency(name: str, address: str, fee_percentage:int, evaluation: str):
     with connection:
         connection.execute(UPDATE_AGENCY, (name, address, fee_percentage, evaluation))
-    
