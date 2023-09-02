@@ -326,54 +326,85 @@ def update_descriptions():
         if dateOfModification_announce != new_announce_last_modification:
             ###default values
             ##building options
-            year_of_construction = new_year_of_construction
-            
-            ###TODO extract data from the database to compare with new values
+
             old_property = database.get_property_by_id(id_property)
             old_property_description = database.get_property_description_by_id(id_property)
             type_of_property, town, district, postcode, url, room_number, surface, new_price, date_add_to_db = old_property
             property_id, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony, estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id = old_property_description
             
-            exposition = new_exposition
-            floor = new_floor
-            total_floor_number = None
-            neighborhood_description = ""
+            if year_of_construction != new_year_of_construction:
+                year_of_construction = new_year_of_construction
+            if exposition != new_exposition:
+                exposition = new_exposition
+            if floor != new_floor:
+                floor = new_floor
+            
+            if total_floor_number != new_total_floor_number:
+                total_floor_number = new_total_floor_number
+            if neighborhood_description != new_neighborhood_description:
+                neighborhood_description = new_neighborhood_description
 
             ##rooms
-            bedroom_number = 0
-            toilet_number = 0
-            bathroom_number = 0
-            cellar = False
-            lock_up_garage = False
+            if bedroom_number != new_bedroom_number:
+                bedroom_number = new_bedroom_number
+            if toilet_number != new_toilet_number:
+                toilet_number = new_toilet_number
+            if bathroom_number != new_bathroom_number:
+                bathroom_number = new_bathroom_number
+            if cellar != new_cellar:
+                cellar = new_cellar
+            if lock_up_garage != new_lock_up_garage:
+                lock_up_garage = new_lock_up_garage
 
             ##options indoor
-            heating = ""
-            tv_cable = False
-            fireplace = False
-            digicode = False
-            intercom = False
-            elevator = False
-            fibre_optics_status = ""
+            if heating != new_heating:
+                heating = new_heating
+            if tv_cable != new_tv_cable:
+                tv_cable = new_tv_cable
+            if fireplace != new_fireplace:
+                fireplace = new_fireplace
+            if digicode != new_digicode:
+                digicode = new_digicode
+            if intercom != new_intercom:
+                intercom = new_intercom
+            if elevator != new_elevator:
+                elevator = new_elevator
+            if fibre_optics_status != new_fibre_optics_status:
+                fibre_optics_status = new_fibre_optics_status
 
             #options outdoor
-            garden = False
-            car_park_number = 0
-            balcony = False
-            large_balcony = False
+            if garden != new_garden:
+                garden = new_garden
+            if car_park_number != new_car_park_number:
+                car_park_number = new_car_park_number
+            if balcony != new_balcony:
+                balcony = new_balcony
+            if large_balcony != new_large_balcony:
+                large_balcony = new_large_balcony
 
             ##administration
-            estate_agency_fee_percentage = 0
-            pinel = False
-            denormandie = False
-            announce_publication = ""
-            announce_last_modification = ""
+            if estate_agency_fee_percentage != new_estate_agency_fee_percentage:
+                estate_agency_fee_percentage = new_estate_agency_fee_percentage
+            if pinel != new_pinel:
+                pinel = new_pinel
+            if denormandie != new_denormandie:
+                denormandie = new_denormandie
+            if announce_publication != new_announce_publication:
+                announce_publication = new_announce_publication
+            if announce_last_modification != new_announce_last_modification:
+                announce_last_modification = new_announce_last_modification
             
             ##diagnostics
-            dpe_date = ""
-            energetic_performance_letter = None
-            energetic_performance_number = 0 
-            climatic_performance_number = 0
-            climatic_performance_letter = None    
+            if dpe_date != new_dpe_date:
+                dpe_date = new_dpe_date
+            if energetic_performance_letter != new_energetic_performance_letter:
+                energetic_performance_letter = new_energetic_performance_letter
+            if energetic_performance_number != new_energetic_performance_number:
+                energetic_performance_number = new_energetic_performance_number
+            if climatic_performance_number != new_climatic_performance_number:
+                climatic_performance_number = new_climatic_performance_number
+            if climatic_performance_letter != new_climatic_performance_letter:
+                climatic_performance_letter = new_climatic_performance_letter
             
             
             # timestamp_difference = current_time_utc - dateOfModification_announce
