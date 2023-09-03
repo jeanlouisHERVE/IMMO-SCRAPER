@@ -92,7 +92,7 @@ def update_descriptions():
         new_pinel = False
         new_denormandie = False
         new_announce_publication = ""
-        new_announce_last_modification = ""
+        new_announce_last_modification = 0
         
         ##diagnostics
         new_dpe_date = ""
@@ -339,13 +339,15 @@ def update_descriptions():
         
         print("------------------Description Part End------------------")
         
-        print("dateOfModification_announce",dateOfModification_announce)
-        print("new_announce_last_modification",new_announce_last_modification)
-        print(functions.are_timestamps_equal(float(dateOfModification_announce), float(new_announce_last_modification), tolerance_seconds=10))
+        print("dateOfModification_announce",dateOfModification_announce, type(dateOfModification_announce))
+        print("new_announce_last_modification",new_announce_last_modification, type(new_announce_last_modification))
+        #print(functions.are_timestamps_equal(float(dateOfModification_announce), float(new_announce_last_modification), tolerance_seconds=10))
+        
+        
         
         try : 
             same_timestamp = functions.are_timestamps_equal(float(dateOfModification_announce), float(new_announce_last_modification), tolerance_seconds=10)
-            if same_timestamp == True :
+            if same_timestamp == False :
                 print("KO : the announce is going to be modified and updated")
                 
                 ###default values
