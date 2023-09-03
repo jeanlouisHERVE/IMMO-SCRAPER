@@ -1,5 +1,6 @@
 import re
 import pytz
+import math
 import datetime
 
 def date_converter_french_date_to_utc_timestamp(french_date: str):
@@ -14,6 +15,7 @@ def date_converter_french_date_to_utc_timestamp(french_date: str):
     "juillet":"07",
     "août":"08",
     "septembre":"09",
+    "sept.":"09",
     "octobre":"10",
     "novembre":"11",
     "décembre":"12"
@@ -43,7 +45,9 @@ def date_converter_french_date_to_utc_timestamp(french_date: str):
 def contains_numbers(input_string: str):
     pattern = r'\d+' 
     return bool(re.search(pattern, input_string))
-    
+
+def are_timestamps_equal(timestamp1: float, timestamp2: float, tolerance_seconds=10):
+    return math.isclose(timestamp1, timestamp2, abs_tol=tolerance_seconds)
     
     
     
