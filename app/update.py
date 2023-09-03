@@ -107,9 +107,8 @@ def update_descriptions():
         
         print("step3")
         
-        # new_price_content = driver.find_element(By.CSS_SELECTOR, "span.ad-price__the-price").text
-        # new_price = re.findall(regex_find_numbers, new_price_content)[0]
-        new_price = 666
+        new_price_content = driver.find_element(By.CSS_SELECTOR, "span.ad-price__the-price").text
+        new_price = re.findall(regex_find_numbers, new_price_content)[0]
         
         for labelInfo in labelsInfo:
             
