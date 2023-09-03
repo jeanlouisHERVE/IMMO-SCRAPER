@@ -42,7 +42,8 @@ def check_accept_section(cssSelector: str):
 def update_descriptions():
     for property in database.get_id_url_dateofmodification_from_properties():
         id_property, url_property, dateOfModification_announce = property
-        
+        print("url_property",url_property)
+        print("id_property",id_property)
         print("step1")
         driver.get(url_property)
         driver.implicitly_wait(5)
@@ -54,7 +55,7 @@ def update_descriptions():
         
         labelsInfo = driver.find_elements(By.CSS_SELECTOR, "div.labelInfo")
         
-        new_price = ""
+        new_price = 0
 
         ###default values
         ##building options
@@ -119,19 +120,22 @@ def update_descriptions():
                 
                 # year_of_construction
                 if "construit" in element_text:
+                    print("step4")
                     new_year_of_construction = re.findall(regex_find_numbers, element_text)[0]
                     format_string_construction = "%Y"
-                    local_timestamp_construction = datetime.datetime.strptime(year_of_construction, format_string_construction)
+                    local_timestamp_construction = datetime.datetime.strptime(new_year_of_construction, format_string_construction)
                     new_year_of_construction = local_timestamp_construction.replace(tzinfo=pytz.timezone('UTC')).timestamp()
                 
                 #exposition
                 elif "exposé" in element_text:
+                    print("step5")
                     pattern_exposition = r'exposé\s(.+)'
                     new_exposition = re.findall(pattern_exposition, element_text)[0]
                 
                 #floor
                 #total_floor_number 
                 elif "étage" in element_text:
+                    print("step6")
                     pattern_floor = r'^[0-9]+'
                     pattern_floor_number = r'sur\s+(\d+)'
                     
@@ -147,10 +151,12 @@ def update_descriptions():
                 
                 #bedroom_number
                 elif "chambre" in element_text:
+                    print("step7")
                     new_bedroom_number = re.findall(regex_find_numbers, element_text)[0]
                 
                 # toilet_number
                 elif "wc" in element_text:
+                    print("step8")
                     if "séparé" in element_text:
                         continue
                     else:
@@ -158,14 +164,17 @@ def update_descriptions():
                 
                 # bathroom_number
                 elif "bain" in element_text:
+                    print("step9")
                     new_bathroom_number = re.findall(regex_find_numbers, element_text)[0]
                 
                 #cellar
                 elif "cave" in element_text:
+                    print("step10")
                     new_cellar = True
                 
                 #lock_up_garage
                 elif "box" in element_text:
+                    print("step11")
                     new_lock_up_garage = True
 
                 # heating
@@ -233,18 +242,18 @@ def update_descriptions():
                     if "il y a plus" in element_text:
                         new_announce_publication = None
                     else:
-                        publication_french_date = re.findall(r'le\s(.+)', element_text)[0]
-                        new_announce_publication = functions.date_converter_french_date_to_utc_timestamp(publication_french_date)
+                        new_publication_french_date = re.findall(r'le\s(.+)', element_text)[0]
+                        new_announce_publication = functions.date_converter_french_date_to_utc_timestamp(new_publication_french_date)
                 
                 # announce_last_modification
                 elif "modifiée" in element_text:
-                    modification_french_date = re.findall(r'le\s(.+)', element_text)[0]
-                    new_announce_last_modification = functions.date_converter_french_date_to_utc_timestamp(modification_french_date)
+                    new_modification_french_date = re.findall(r'le\s(.+)', element_text)[0]
+                    new_announce_last_modification = functions.date_converter_french_date_to_utc_timestamp(new_modification_french_date)
                 
                 #dpe_date
                 elif "dpe" in element_text:
-                    dpe_french_date = re.findall(regex_find_text_after_colon, element_text)[0]
-                    new_dpe_date = functions.date_converter_french_date_to_utc_timestamp(dpe_french_date)
+                    new_dpe_french_date = re.findall(regex_find_text_after_colon, element_text)[0]
+                    new_dpe_date = functions.date_converter_french_date_to_utc_timestamp(new_dpe_french_date)
                     
                 #batch
                 # elif "lot" in element_text:
@@ -259,31 +268,31 @@ def update_descriptions():
         print('step4')
         # neighborhood_description
         try: 
-            neighborhood_description = driver.find_element(By.CSS_SELECTOR, "div.neighborhoodDescription span")
-            new_neighborhood_description = neighborhood_description.text
+            new_neighborhood_description = driver.find_element(By.CSS_SELECTOR, "div.neighborhoodDescription span")
+            new_neighborhood_description = new_neighborhood_description.text
         except(NoSuchElementException, StaleElementReferenceException):
                     print("KO : no data for neighborhood_description")
         
         # energetic_performance_letter
         try: 
-            energetic_performance_letter = driver.find_element(By.CSS_SELECTOR, "div.dpe-line__classification span div")
-            new_energetic_performance_letter = energetic_performance_letter.text
+            new_energetic_performance_letter = driver.find_element(By.CSS_SELECTOR, "div.dpe-line__classification span div")
+            new_energetic_performance_letter = new_energetic_performance_letter.text
         except(NoSuchElementException, StaleElementReferenceException):
                     print("KO : no data for energetic_performance_letter")        
                     
         # energetic_performance_number && climatic_performance_number
         try: 
-            dpe_data_numbers = driver.find_elements(By.CSS_SELECTOR, "div.dpe-data div.value span")
-            if dpe_data_numbers:
-                if dpe_data_numbers[0].text == "-": 
+            new_dpe_data_numbers = driver.find_elements(By.CSS_SELECTOR, "div.dpe-data div.value span")
+            if new_dpe_data_numbers:
+                if new_dpe_data_numbers[0].text == "-": 
                     new_energetic_performance_number = None
                 else:
-                    new_energetic_performance_number = int(dpe_data_numbers[0].text)
+                    new_energetic_performance_number = int(new_dpe_data_numbers[0].text)
                 
-                if dpe_data_numbers[1].text == "-": 
+                if new_dpe_data_numbers[1].text == "-": 
                     new_climatic_performance_number = None
                 else:
-                    new_climatic_performance_number = int(dpe_data_numbers[1].text.replace("*", ""))
+                    new_climatic_performance_number = int(new_dpe_data_numbers[1].text.replace("*", ""))
             
         except(NoSuchElementException, StaleElementReferenceException):
                     print("KO : no data for energetic_performance_number")
@@ -331,8 +340,11 @@ def update_descriptions():
         
         print("------------------Description Part End------------------")
         
+        print("dateOfModification_announce",dateOfModification_announce)
+        print("new_announce_last_modification",new_announce_last_modification)
         
         if dateOfModification_announce != new_announce_last_modification:
+            print("OK : the announce has been modified and needs update")
             ###default values
             ##building options
 
@@ -419,14 +431,16 @@ def update_descriptions():
                 climatic_performance_letter = new_climatic_performance_letter
             
             print("----------------------Update Property---------------------")
-            
-            database.update_property(id_property, price)
+            print(new_price)
+            database.update_property(id_property, new_price)
             
             print("--------------------End update Property--------------------")
             print("--------------------Update Description---------------------")
             
-            database.update_description(id_property, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id)
+            database.update_description(id_property, new_year_of_construction, new_exposition, new_floor, new_total_floor_number, new_neighborhood_description, new_bedroom_number, new_toilet_number, new_bathroom_number, new_cellar, new_lock_up_garage, new_heating, new_tv_cable, new_fireplace, new_digicode, new_intercom, new_elevator, new_fibre_optics_status, new_garden, new_car_park_number, new_balcony, new_large_balcony,  new_estate_agency_fee_percentage, new_pinel, new_denormandie, new_announce_publication, new_announce_last_modification, new_dpe_date, new_energetic_performance_letter, new_energetic_performance_number, new_climatic_performance_number, new_climatic_performance_letter, estate_agency_id)
             
             print("--------------------End Update Description------------------")
-             
+            input()
+        else:
+            print("KO : the announce has not been modified")   
             ###TODO do not forget to implement an history of the price
