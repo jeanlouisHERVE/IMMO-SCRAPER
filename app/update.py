@@ -29,7 +29,7 @@ url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 current_time_utc = datetime.datetime.now(tz=pytz.utc).timestamp()
 
-#functions 
+#functions
 def check_accept_section(cssSelector: str):
     driver.implicitly_wait(5)
     try:
