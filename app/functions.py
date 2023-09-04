@@ -1,20 +1,8 @@
 #packages
-import os
 import re
 import math
-import time
 import pytz
 import datetime
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, TimeoutException
-from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.common.action_chains import ActionChains
-
-
-import driver_setup
 
 def date_converter_french_date_to_utc_timestamp(french_date: str):
     
