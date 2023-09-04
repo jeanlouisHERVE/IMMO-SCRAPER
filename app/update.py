@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, TimeoutException
+from driver_manager import WebDriverManager
 
 #other modules
 from dotenv import load_dotenv
@@ -14,13 +15,12 @@ from dotenv import load_dotenv
 #own packages
 import database
 import functions
-import driver_setup
 
 #get data from .env file 
 load_dotenv()
 
 #variables
-driver = driver_setup.initialize_driver()
+driver = WebDriverManager.get_driver()
 url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 current_time_utc = datetime.datetime.now(tz=pytz.utc).timestamp()

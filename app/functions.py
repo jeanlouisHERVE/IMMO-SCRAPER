@@ -14,6 +14,7 @@ def date_converter_french_date_to_utc_timestamp(french_date: str):
     "mai":"05",
     "juin":"06",
     "juillet":"07",
+    "juil.":"07",
     "août":"08",
     "septembre":"09",
     "sept.":"09",

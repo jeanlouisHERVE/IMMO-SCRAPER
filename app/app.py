@@ -26,10 +26,6 @@ menu_prompt = """-- Menu --
 Enter your choice: """
 
 
-
-###TODO update announces
-###TODO send old announces to another table
-
 def start_prompt(): 
     while (user_input := input(menu_prompt)) != "5":
         if user_input == "1":
@@ -47,3 +43,7 @@ def start_prompt():
 
 #script
 start_prompt()
+
+###TODO update announces
+###TODO send old announces to another table
+###TODO migration to another base of unpublished announces

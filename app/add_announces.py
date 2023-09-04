@@ -12,17 +12,17 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 #other modules
 from dotenv import load_dotenv
+from driver_manager import WebDriverManager
 
 #own packages
 import database
 import functions
-import driver_setup
 
 #get data from .env file 
 load_dotenv()
 
 #variables
-driver = driver_setup.initialize_driver()
+driver = WebDriverManager.get_driver()
 actions = ActionChains(driver)
 url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
