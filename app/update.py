@@ -18,14 +18,13 @@ from dotenv import load_dotenv
 #own packages
 import database
 import functions
+import driver_setup
 
 #get data from .env file 
 load_dotenv()
 
 #variables
-driver = webdriver.Chrome()
-actions = ActionChains(driver)
-chrome_options = ChromeOptions()
+driver = driver_setup.initialize_driver()
 url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 current_time_utc = datetime.datetime.now(tz=pytz.utc).timestamp()
@@ -106,9 +105,12 @@ def update_descriptions():
         regex_find_text_after_colon = r':\s*([^:,]+)'
         
         print("step3")
-        new_price_content = driver.find_element(By.CSS_SELECTOR, "span.ad-price__the-price").text
-        new_price_content = new_price_content.replace(" ","")
-        new_price = re.findall(regex_find_numbers, new_price_content)[0]
+        try:
+            new_price_content = driver.find_element(By.CSS_SELECTOR, "span.ad-price__the-price").text
+            new_price_content = new_price_content.replace(" ","")
+            new_price = re.findall(regex_find_numbers, new_price_content)[0]
+        except NoSuchElementException:
+            print("KO : no data for new_price")
         
         for labelInfo in labelsInfo:
             
@@ -338,12 +340,6 @@ def update_descriptions():
         print("climatic_performance_letter  :",new_climatic_performance_letter)
         
         print("------------------Description Part End------------------")
-        
-        print("dateOfModification_announce",dateOfModification_announce, type(dateOfModification_announce))
-        print("new_announce_last_modification",new_announce_last_modification, type(new_announce_last_modification))
-        #print(functions.are_timestamps_equal(float(dateOfModification_announce), float(new_announce_last_modification), tolerance_seconds=10))
-        
-        
         
         try : 
             same_timestamp = functions.are_timestamps_equal(float(dateOfModification_announce), float(new_announce_last_modification), tolerance_seconds=10)

@@ -20,14 +20,15 @@ import database
 database.create_table()
 import functions
 import update
+import driver_setup
 
 #get data from .env file 
 load_dotenv()
 
 #variables
-driver = webdriver.Chrome()
+
+driver = driver_setup.initialize_driver()
 actions = ActionChains(driver)
-chrome_options = ChromeOptions()
 url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 current_time_utc = datetime.datetime.now(tz=pytz.utc).timestamp()
