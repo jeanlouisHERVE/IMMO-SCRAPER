@@ -111,7 +111,7 @@ UPDATE_AGENCY = """UPDATE agencies
 #connection to database
 connection = sqlite3.connect(os.environ["DATABASE_PATH"])
 
-def create_table():
+def create_tables():
     with connection:
         connection.execute(CREATE_PROPERTIES_TABLE)
         connection.execute(CREATE_DESCRIPTIONS_TABLE)

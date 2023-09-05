@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 
 #own packages
 import database
-database.create_table()
 import update
 import add_announces
 
+database.create_tables()
 #get data from .env file 
 load_dotenv()
 
