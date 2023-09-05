@@ -41,7 +41,7 @@ def update_descriptions():
         print("id_property",id_property)
         print("step1")
         driver.get(url_property)
-        driver.implicitly_wait(5)
+        driver.implicitly_wait(10)
 
         check_accept_section('span.didomi-continue-without-agreeing')
         driver.implicitly_wait(5)
