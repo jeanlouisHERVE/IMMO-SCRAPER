@@ -123,6 +123,7 @@ def create_tables():
     with connection:
         connection.execute(CREATE_PROPERTIES_TABLE)
         connection.execute(CREATE_DESCRIPTIONS_TABLE)
+        connection.execute(CREATE_PRICE_EVOLUTION_TABLE)
         connection.execute(CREATE_ESTATE_AGENCIES_TABLE)
 
 def add_property(type_of_property: str, town: str, district: str, postcode: int, url: str, room_number: int, surface: int, price: int, date_add_to_db: float):
