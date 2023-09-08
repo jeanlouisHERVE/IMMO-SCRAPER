@@ -175,7 +175,7 @@ def add_new_announces():
             ###add properties to db
             if not database.get_property_by_url(url):
                 property_id = database.add_property(type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db)
-                database.add_price_to_property(property_id, price, date_add_to_db)
+                database.add_price_to_property(date_add_to_db, property_id, price)
             
             
         ###catch data to access the next page
