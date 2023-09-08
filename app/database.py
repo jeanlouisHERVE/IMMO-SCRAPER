@@ -70,7 +70,7 @@ CREATE_PRICES_TABLE = """CREATE TABLE IF NOT EXISTS prices (
                                 id INTEGER INTEGER NOT NULL,
                                 property_id INTEGER NOT NULL,
                                 price REAL,
-                                date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL PRIMARY KEY
+                                date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL PRIMARY KEY,
                                 FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE,
                             );"""
 
