@@ -66,7 +66,7 @@ CREATE_ESTATE_AGENCIES_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
                                 evaluation TEXT
                             );"""
                             
-CREATE_PRICE_EVOLUTION_TABLE = """CREATE TABLE IF NOT EXISTS prices_history (
+CREATE_PRICES_TABLE = """CREATE TABLE IF NOT EXISTS prices (
                                 id INTEGER INTEGER NOT NULL,
                                 property_id INTEGER NOT NULL,
                                 price REAL,
@@ -79,7 +79,7 @@ INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, p
                     surface, price, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_DESCRIPTION = """INSERT INTO descriptions (property_id, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_AGENCY = """INSERT INTO agencies (name, address, fee_percentage, evaluation) VALUES (?, ?, ?, ?);"""
-INSERT_PRICE_HISTORY = """INSERT INTO prices_history (property_id, price, date) VALUES (?, ?, ?);"""
+INSERT_PRICE = """INSERT INTO prices (property_id, price, date) VALUES (?, ?, ?);"""
 
 ##get data
 GET_PROPERTY = "SELECT * FROM properties #####;"
@@ -123,12 +123,14 @@ def create_tables():
     with connection:
         connection.execute(CREATE_PROPERTIES_TABLE)
         connection.execute(CREATE_DESCRIPTIONS_TABLE)
-        connection.execute(CREATE_PRICE_EVOLUTION_TABLE)
+        connection.execute(CREATE_PRICES_TABLE)
         connection.execute(CREATE_ESTATE_AGENCIES_TABLE)
 
-def add_property(type_of_property: str, town: str, district: str, postcode: int, url: str, room_number: int, surface: int, price: int, date_add_to_db: float):
+def add_property(type_of_property: str, town: str, district: str, postcode: int, url: str, room_number: int, surface: int, date_add_to_db: float):
     with connection:
-        connection.execute(INSERT_PROPERTY, (type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db))
+        cursor = connection.execute(INSERT_PROPERTY, (type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db))
+        last_inserted_id = cursor.lastrowid
+    return last_inserted_id
         
 def add_description(property_id: int, year_of_construction: float, exposition: str, floor: int, total_floor_number: int, neighborhood_description: str, bedroom_number: int, toilet_number: int, bathroom_number: int, cellar: bool, lock_up_garage: bool, heating: bool, tv_cable: bool, fireplace: bool, digicode: bool, intercom: bool, elevator: bool, fibre_optics_status: str, garden: bool, car_park_number: int, balcony: bool, large_balcony: bool,  estate_agency_fee_percentage: float, pinel: bool, denormandie: bool, announce_publication: str, announce_last_modification: str, dpe_date: str, energetic_performance_letter: str, energetic_performance_number: int, climatic_performance_number: int, climatic_performance_letter: str, estate_agency_id: int):
     with connection:
@@ -138,9 +140,9 @@ def add_agency(name: str, address: str, fee_percentage:int, evaluation: str):
     with connection:
         connection.execute(INSERT_AGENCY, (name, address, fee_percentage, evaluation))
         
-def add_price_to_property()
+def add_price_to_property(property_id: int, price: int, date: float):
     with connection:
-        connection.execute(INSERT_AGENCY, (property_id, price, date,))
+        connection.execute(INSERT_PRICE, (property_id, price, date))
 
 def get_property_by_url(url: str):
     with connection:

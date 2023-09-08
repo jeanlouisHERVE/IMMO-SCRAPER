@@ -174,8 +174,8 @@ def add_new_announces():
                 
             ###add properties to db
             if not database.get_property_by_url(url):
-                database.add_property(type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db)
-                
+                property_id = database.add_property(type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db)
+                database.add_price_to_property(property_id, price, date_add_to_db)
             
             
         ###catch data to access the next page
@@ -525,6 +525,7 @@ def add_descriptions():
             if not database.get_agency(estate_agency_name) or estate_agency_name == None:
                 print("stepagency1")
                 database.add_agency(estate_agency_name, estate_agency_address, estate_agency_fee_percentage, estate_agency_evaluation)
+                database.add
                 print("stepagency2")
                 print(f"OK : {estate_agency_name} estate_agency has been added to database")
             else:
