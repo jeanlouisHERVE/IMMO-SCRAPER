@@ -525,7 +525,6 @@ def add_descriptions():
             if not database.get_agency(estate_agency_name) or estate_agency_name == None:
                 print("stepagency1")
                 database.add_agency(estate_agency_name, estate_agency_address, estate_agency_fee_percentage, estate_agency_evaluation)
-                database.add
                 print("stepagency2")
                 print(f"OK : {estate_agency_name} estate_agency has been added to database")
             else:

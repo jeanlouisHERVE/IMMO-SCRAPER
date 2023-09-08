@@ -67,7 +67,8 @@ CREATE_ESTATE_AGENCIES_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
                             );"""
                             
 CREATE_PRICES_TABLE = """CREATE TABLE IF NOT EXISTS prices (
-                                date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL PRIMARY KEY,
+                                id INTEGER NOT NULL PRIMARY KEY,
+                                date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
                                 property_id INTEGER NOT NULL,
                                 price REAL,
                                 FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE
