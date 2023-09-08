@@ -18,7 +18,6 @@ CREATE_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS properties (
                                 url TEXT,
                                 room_number INTEGER,
                                 surface INTEGER, 
-                                price INTEGER,
                                 date_add_to_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"""
                                 
 CREATE_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
@@ -68,10 +67,11 @@ CREATE_ESTATE_AGENCIES_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
                             );"""
                             
 CREATE_PRICE_EVOLUTION_TABLE = """CREATE TABLE IF NOT EXISTS prices_history (
-                                id INTEGER PRIMARY KEY,
-                                property_id INTEGER,
+                                id INTEGER INTEGER NOT NULL,
+                                property_id INTEGER NOT NULL,
                                 price REAL,
-                                date DATETIME DEFAULT CURRENT_TIMESTAMP
+                                date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL PRIMARY KEY
+                                FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE,
                             );"""
 
 ##add data
@@ -79,7 +79,7 @@ INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, p
                     surface, price, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_DESCRIPTION = """INSERT INTO descriptions (property_id, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_AGENCY = """INSERT INTO agencies (name, address, fee_percentage, evaluation) VALUES (?, ?, ?, ?);"""
-INSERT_PRICE_HISTORY = """INSERT INTO prices_history (name, property_id, price, date) VALUES (?, ?, ?, ?);"""
+INSERT_PRICE_HISTORY = """INSERT INTO prices_history (property_id, price, date) VALUES (?, ?, ?);"""
 
 ##get data
 GET_PROPERTY = "SELECT * FROM properties #####;"
@@ -137,6 +137,10 @@ def add_description(property_id: int, year_of_construction: float, exposition: s
 def add_agency(name: str, address: str, fee_percentage:int, evaluation: str):
     with connection:
         connection.execute(INSERT_AGENCY, (name, address, fee_percentage, evaluation))
+        
+def add_price_to_property()
+    with connection:
+        connection.execute(INSERT_AGENCY, (property_id, price, date,))
 
 def get_property_by_url(url: str):
     with connection:
