@@ -5,11 +5,11 @@ import os
 from dotenv import load_dotenv
 
 #own packages
-import database
+import databaseModule
 import update
 import add_announces
 
-database.create_tables()
+databaseModule.create_tables()
 #get data from .env file 
 load_dotenv()
 
@@ -35,7 +35,7 @@ def start_prompt():
         elif user_input == "3":
             update.update_descriptions()
         elif user_input == "4":
-            global_properties_number = database.get_properties_number()
+            global_properties_number = databaseModule.get_properties_number()
             print(f"""\n--- The properties number --- \n\n The city {city_researched_content} has a total of {global_properties_number[0][0]} properties to sell. \n 
                   """)
         else:

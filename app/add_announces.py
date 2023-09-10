@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 from driver_manager import WebDriverManager
 
 #own packages
-import database
+import databaseModule
 import functions
 
 #get data from .env file 
@@ -111,7 +111,7 @@ def add_new_announces():
                     district = re.findall("\((.*?)\)", address_content)[0]
                 except IndexError:
                     print("KO : no data for District found")
-                    distric = ""
+                    district = ""
                 ##postcode
                 try:
                     postcode = re.findall("[0-9]*", address_content)[0]
@@ -173,9 +173,9 @@ def add_new_announces():
             print("------------------Article End------------------")  
                 
             ###add properties to db
-            if not database.get_property_by_url(url):
-                property_id = database.add_property(type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db)
-                database.add_price_to_property(date_add_to_db, property_id, price)
+            if not databaseModule.get_property_by_url(url):
+                property_id = databaseModule.add_property(type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db)
+                databaseModule.add_price_to_property(date_add_to_db, property_id, price)
             
             
         ###catch data to access the next page
@@ -197,11 +197,11 @@ def add_new_announces():
 def add_descriptions():
     print("------------------Description Part------------------")
     ###Add description to database
-    property_urls = database.get_id_url_from_properties()
+    property_urls = databaseModule.get_id_url_from_properties()
     for id_property, url_property in property_urls:
         print("url_property",url_property)
         
-        if not database.get_property_description_by_id(id_property):
+    databaseModuledatabaseModule.get_property_description_by_id(id_property):
         
             print("step1")
             driver.get(url_property)
@@ -522,9 +522,9 @@ def add_descriptions():
             result = database.get_agency(estate_agency_name)
             print("result", result)
             
-            if not database.get_agency(estate_agency_name) or estate_agency_name == None:
+            if not databaseModule.get_agency(estate_agency_name) or estate_agency_name == None:
                 print("stepagency1")
-                database.add_agency(estate_agency_name, estate_agency_address, estate_agency_fee_percentage, estate_agency_evaluation)
+                databaseModule.add_agency(estate_agency_name, estate_agency_address, estate_agency_fee_percentage, estate_agency_evaluation)
                 print("stepagency2")
                 print(f"OK : {estate_agency_name} estate_agency has been added to database")
             else:
@@ -533,7 +533,7 @@ def add_descriptions():
             
             
             try:
-                estate_agency_id = database.get_agency_id_from_name(estate_agency_name)[0][0]
+                estate_agency_id = databaseModule.get_agency_id_from_name(estate_agency_name)[0][0]
             except IndexError:
                 if not estate_agency_id:
                     estate_agency_id = None
@@ -542,7 +542,7 @@ def add_descriptions():
             print("------------------Agency Part End------------------")
             print("------------------Add Description------------------")
             
-            if not database.get_property_description_by_id(id_property):
-                database.add_description(id_property, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id)
+            if not databaseModule.get_property_description_by_id(id_property):
+                databaseModule.add_description(id_property, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id)
             
             print("------------------End Add Description------------------")              

@@ -8,8 +8,7 @@ class TestMyModule(unittest.TestCase):
         # Utilisez les méthodes d'assertion pour vérifier les résultats
 
     def test_add_descriptions(self):
-        # Écrire des cas de test pour la fonction add_descriptions
-        # Utilisez les méthodes d'assertion pour vérifier les résultats
+        pass
 
 if __name__ == '__main__':
     unittest.main()
