@@ -1,7 +1,7 @@
 import unittest
 import tempfile
 import os
-from databaseSqlite3 import create_tables, add_property, get_property_by_id, update_property
+from databaseModule import create_tables, add_property, get_property_by_id, update_property
 
 class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):

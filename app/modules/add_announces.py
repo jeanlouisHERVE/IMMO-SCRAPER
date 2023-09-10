@@ -201,7 +201,7 @@ def add_descriptions():
     for id_property, url_property in property_urls:
         print("url_property",url_property)
         
-    databaseModuledatabaseModule.get_property_description_by_id(id_property):
+    if not databaseModule.get_property_description_by_id(id_property):
         
             print("step1")
             driver.get(url_property)
@@ -519,7 +519,7 @@ def add_descriptions():
             print("estate_agency_fee_percentage", estate_agency_fee_percentage)
             print("estate_agency_evaluation",estate_agency_evaluation)
             
-            result = database.get_agency(estate_agency_name)
+            result = databaseModule.get_agency(estate_agency_name)
             print("result", result)
             
             if not databaseModule.get_agency(estate_agency_name) or estate_agency_name == None:

@@ -1,5 +1,5 @@
 import unittest
-from add_announces import add_new_announces, add_descriptions
+from modules.add_announces import add_new_announces, add_descriptions
 
 class TestMyModule(unittest.TestCase):
 

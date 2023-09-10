@@ -1,5 +1,5 @@
 import unittest
-from functions import date_converter_french_date_to_utc_timestamp, contains_numbers, are_timestamps_equal
+from modules.functions import date_converter_french_date_to_utc_timestamp, contains_numbers, are_timestamps_equal
 
 class TestYourFunctions(unittest.TestCase):
 

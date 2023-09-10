@@ -5,11 +5,11 @@ import os
 from dotenv import load_dotenv
 
 #own packages
-import databaseModule
-import update
-import add_announces
+import modules.databaseModule
+import modules.update
+import modules.add_announces
 
-databaseModule.create_tables()
+modules.databaseModule.create_tables()
 #get data from .env file 
 load_dotenv()
 
@@ -29,13 +29,13 @@ Enter your choice: """
 def start_prompt(): 
     while (user_input := input(menu_prompt)) != "5":
         if user_input == "1":
-            add_announces.add_new_announces()
+            modules.add_announces.add_new_announces()
         elif user_input == "2":
-            add_announces.add_descriptions()
+            modules.add_announces.add_descriptions()
         elif user_input == "3":
-            update.update_descriptions()
+            modules.update.update_descriptions()
         elif user_input == "4":
-            global_properties_number = databaseModule.get_properties_number()
+            global_properties_number = modules.databaseModule.get_properties_number()
             print(f"""\n--- The properties number --- \n\n The city {city_researched_content} has a total of {global_properties_number[0][0]} properties to sell. \n 
                   """)
         else:
