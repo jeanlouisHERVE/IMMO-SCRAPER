@@ -6,7 +6,7 @@ class TestYourFunctions(unittest.TestCase):
     def test_date_converter_french_date_to_utc_timestamp(self):
         # Test case 1: valid input
         french_date = "15 août 2023"
-        expected_timestamp = 1689465600.0  # Expected UTC timestamp
+        expected_timestamp = 1692057600.0  # Expected UTC timestamp
         result = date_converter_french_date_to_utc_timestamp(french_date)
         self.assertAlmostEqual(result, expected_timestamp, places=2)  # Tolerance of 2 seconds
         
