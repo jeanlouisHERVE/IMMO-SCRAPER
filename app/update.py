@@ -25,6 +25,10 @@ url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 current_time_utc = datetime.datetime.now(tz=pytz.utc).timestamp()
 
+###date 
+new_date_add_to_db = current_time_utc
+print("new_date_add_to_db :",new_date_add_to_db)
+
 #functions
 def check_accept_section(cssSelector: str):
     driver.implicitly_wait(5)
@@ -346,11 +350,9 @@ def update_descriptions():
                 ##building options
                 old_property = database.get_property_by_id(id_property)
                 old_property_description = database.get_property_description_by_id(id_property)
-                property_id, type_of_property, town, district, postcode, url, room_number, surface, price, date_add_to_db = old_property
+                property_id, type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db = old_property
                 description_property_id, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony, estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id = old_property_description
                 
-                if price != new_price:
-                    price = new_price
                 if year_of_construction != new_year_of_construction:
                     year_of_construction = new_year_of_construction
                 if exposition != new_exposition:
@@ -425,11 +427,11 @@ def update_descriptions():
                 if climatic_performance_letter != new_climatic_performance_letter:
                     climatic_performance_letter = new_climatic_performance_letter
                 
-                print("----------------------Update Property---------------------")
+                print("----------------------Add price Property---------------------")
                 print(new_price)
-                database.update_property(id_property, new_price)
+                database.add_price_to_property(new_date_add_to_db, property_id, new_price)
                 
-                print("--------------------End update Property--------------------")
+                print("--------------------End add price Property--------------------")
                 print("--------------------Update Description---------------------")
                 
                 database.update_description(id_property, new_year_of_construction, new_exposition, new_floor, new_total_floor_number, new_neighborhood_description, new_bedroom_number, new_toilet_number, new_bathroom_number, new_cellar, new_lock_up_garage, new_heating, new_tv_cable, new_fireplace, new_digicode, new_intercom, new_elevator, new_fibre_optics_status, new_garden, new_car_park_number, new_balcony, new_large_balcony,  new_estate_agency_fee_percentage, new_pinel, new_denormandie, new_announce_publication, new_announce_last_modification, new_dpe_date, new_energetic_performance_letter, new_energetic_performance_number, new_climatic_performance_number, new_climatic_performance_letter, estate_agency_id)
@@ -444,5 +446,3 @@ def update_descriptions():
             "KO : invalid timestamp value"
             continue
             
-            
-            ###TODO do not forget to implement an history of the price
