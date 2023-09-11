@@ -1,0 +1,10 @@
+
+
+###TODO add a price table with history
+###TODO send old announces to another table
+###TODO migration to another base of unpublished announces
+###TODO create a RPM of this app
+###TODO test23
+
+find a way to mirror pull the repository from github to gitlab
+implement ci_cd to create a rpm on artifactory 

@@ -43,9 +43,3 @@ def start_prompt():
 
 #script
 start_prompt()
-
-###TODO add a price table with history
-###TODO send old announces to another table
-###TODO migration to another base of unpublished announces
-###TODO create a RPM of this app
-###TODO test23
