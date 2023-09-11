@@ -74,13 +74,25 @@ CREATE_PRICES_TABLE = """CREATE TABLE IF NOT EXISTS prices (
                                 FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE
                             );"""
 
+CREATE_OLD_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS old_properties (
+                                id INTEGER NOT NULL PRIMARY KEY, 
+                                type_of_property TEXT, 
+                                town TEXT,
+                                district TEXT,
+                                postcode TEXT,                               
+                                url TEXT,
+                                room_number INTEGER,
+                                surface INTEGER, 
+                                date_add_to_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"""
+
 ##add data
 INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, postcode, url, room_number, 
                     surface, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_DESCRIPTION = """INSERT INTO descriptions (property_id, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_AGENCY = """INSERT INTO agencies (name, address, fee_percentage, evaluation) VALUES (?, ?, ?, ?);"""
 INSERT_PRICE = """INSERT INTO prices (date, property_id, price) VALUES (?, ?, ?);"""
-
+INSERT_OLD_PROPERTY = """INSERT INTO old_properties (type_of_property, town, district, postcode, url, room_number, 
+                    surface, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"""
 ##get data
 GET_PROPERTY = "SELECT * FROM properties #####;"
 GET_PROPERTY_BY_URL = "SELECT * FROM properties WHERE url = ?;"
@@ -127,10 +139,17 @@ def create_tables():
         connection.execute(CREATE_DESCRIPTIONS_TABLE)
         connection.execute(CREATE_PRICES_TABLE)
         connection.execute(CREATE_ESTATE_AGENCIES_TABLE)
+        connection.execute(CREATE_OLD_PROPERTIES_TABLE)
 
 def add_property(type_of_property: str, town: str, district: str, postcode: int, url: str, room_number: int, surface: int, date_add_to_db: float):
     with connection:
         cursor = connection.execute(INSERT_PROPERTY, (type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db))
+        last_inserted_id = cursor.lastrowid
+    return last_inserted_id
+
+def add_old_property(type_of_property: str, town: str, district: str, postcode: int, url: str, room_number: int, surface: int, date_add_to_db: float):
+    with connection:
+        cursor = connection.execute(INSERT_OLD_PROPERTY, (type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db))
         last_inserted_id = cursor.lastrowid
     return last_inserted_id
         
