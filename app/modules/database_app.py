@@ -222,3 +222,4 @@ def update_agency(name: str, address: str, fee_percentage:int, evaluation: str):
         print(f"OK : Agency {name} updated successfully.")
     except sqlite3.Error as e:
         print(f"KO : Error updating agency {name}: {e}")
+

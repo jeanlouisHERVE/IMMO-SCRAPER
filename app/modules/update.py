@@ -13,8 +13,8 @@ from driver_manager import WebDriverManager
 from dotenv import load_dotenv
 
 #own packages
-import database_app
-import functions
+import modules.database_app
+import modules.functions
 
 #get data from .env file 
 load_dotenv()
@@ -39,7 +39,7 @@ def check_accept_section(cssSelector: str):
         print("KO : no accept part")
 
 def update_descriptions():
-    for property in database_app.get_id_url_dateofmodification_from_properties():
+    for property in modules.database_app.get_id_url_dateofmodification_from_properties():
         id_property, url_property, dateOfModification_announce = property
         print("url_property",url_property)
         print("id_property",id_property)
@@ -212,7 +212,7 @@ def update_descriptions():
                     
                 # car_park_number
                 elif "parking" in element_text:
-                    if functions.contains_numbers(element_text) == True:
+                    if modules.functions.contains_numbers(element_text) == True:
                         new_car_park_number = re.findall(regex_find_numbers, element_text)[0]
                     else:
                         new_car_park_number = None
@@ -244,17 +244,17 @@ def update_descriptions():
                         new_announce_publication = None
                     else:
                         new_publication_french_date = re.findall(r'le\s(.+)', element_text)[0]
-                        new_announce_publication = functions.date_converter_french_date_to_utc_timestamp(new_publication_french_date)
+                        new_announce_publication = modules.functions.date_converter_french_date_to_utc_timestamp(new_publication_french_date)
                 
                 # announce_last_modification
                 elif "modifiée" in element_text:
                     new_modification_french_date = re.findall(r'le\s(.+)', element_text)[0]
-                    new_announce_last_modification = functions.date_converter_french_date_to_utc_timestamp(new_modification_french_date)
+                    new_announce_last_modification = modules.functions.date_converter_french_date_to_utc_timestamp(new_modification_french_date)
                 
                 #dpe_date
                 elif "dpe" in element_text:
                     new_dpe_french_date = re.findall(regex_find_text_after_colon, element_text)[0]
-                    new_dpe_date = functions.date_converter_french_date_to_utc_timestamp(new_dpe_french_date)
+                    new_dpe_date = modules.functions.date_converter_french_date_to_utc_timestamp(new_dpe_french_date)
                     
                 #batch
                 # elif "lot" in element_text:
@@ -342,14 +342,14 @@ def update_descriptions():
         print("------------------Description Part End------------------")
         
         try : 
-            same_timestamp = functions.are_timestamps_equal(float(dateOfModification_announce), float(new_announce_last_modification), tolerance_seconds=10)
+            same_timestamp = modules.functions.are_timestamps_equal(float(dateOfModification_announce), float(new_announce_last_modification), tolerance_seconds=10)
             if same_timestamp == False :
                 print("KO : the announce is going to be modified and updated")
                 
                 ###default values
                 ##building options
-                old_property = database_app.get_property_by_id(id_property)
-                old_property_description = database_app.get_property_description_by_id(id_property)
+                old_property = modules.database_app.get_property_by_id(id_property)
+                old_property_description = modules.database_app.get_property_description_by_id(id_property)
                 property_id, type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db = old_property
                 description_property_id, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony, estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id = old_property_description
                 
@@ -429,12 +429,12 @@ def update_descriptions():
                 
                 print("----------------------Add price Property---------------------")
                 print(new_price)
-                database_app.add_price_to_property(new_date_add_to_db, property_id, new_price)
+                modules.database_app.add_price_to_property(new_date_add_to_db, property_id, new_price)
                 
                 print("--------------------End add price Property--------------------")
                 print("--------------------Update Description---------------------")
                 
-                database_app.update_description(id_property, new_year_of_construction, new_exposition, new_floor, new_total_floor_number, new_neighborhood_description, new_bedroom_number, new_toilet_number, new_bathroom_number, new_cellar, new_lock_up_garage, new_heating, new_tv_cable, new_fireplace, new_digicode, new_intercom, new_elevator, new_fibre_optics_status, new_garden, new_car_park_number, new_balcony, new_large_balcony,  new_estate_agency_fee_percentage, new_pinel, new_denormandie, new_announce_publication, new_announce_last_modification, new_dpe_date, new_energetic_performance_letter, new_energetic_performance_number, new_climatic_performance_number, new_climatic_performance_letter, estate_agency_id)
+                modules.database_app.update_description(id_property, new_year_of_construction, new_exposition, new_floor, new_total_floor_number, new_neighborhood_description, new_bedroom_number, new_toilet_number, new_bathroom_number, new_cellar, new_lock_up_garage, new_heating, new_tv_cable, new_fireplace, new_digicode, new_intercom, new_elevator, new_fibre_optics_status, new_garden, new_car_park_number, new_balcony, new_large_balcony,  new_estate_agency_fee_percentage, new_pinel, new_denormandie, new_announce_publication, new_announce_last_modification, new_dpe_date, new_energetic_performance_letter, new_energetic_performance_number, new_climatic_performance_number, new_climatic_performance_letter, estate_agency_id)
                 
                 print("--------------------End Update Description------------------")
             else:
