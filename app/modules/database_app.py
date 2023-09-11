@@ -115,6 +115,8 @@ UPDATE_AGENCY = """UPDATE agencies
                     WHERE agency_id = ?;"""
 
 #delete data
+DELETE_PROPERTY = """DELETE FROM properties
+                    WHERE id = ?;"""
 
 #connection to database
 connection = sqlite3.connect(os.environ["DATABASE_PATH"])
@@ -222,4 +224,14 @@ def update_agency(name: str, address: str, fee_percentage:int, evaluation: str):
         print(f"OK : Agency {name} updated successfully.")
     except sqlite3.Error as e:
         print(f"KO : Error updating agency {name}: {e}")
+
+def delete_property(id: int):
+    try:
+        with connection:
+            connection.execute(DELETE_PROPERTY, (id))
+        print(f"OK : Property {id} has been deleted successfully.")
+    except sqlite3.Error as e:
+        print(f"KO : Error deleting property {id}: {e}")
+
+
 
