@@ -1,7 +1,7 @@
 import unittest
 import tempfile
 import os
-from modules.databaseModule import create_tables, add_property, get_property_by_id, update_property
+from modules.database_app import create_tables, add_property, get_property_by_id, update_property
 
 class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):
