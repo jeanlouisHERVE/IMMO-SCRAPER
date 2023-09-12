@@ -1,0 +1,33 @@
+image: python:3.9 
+
+stages:
+  - lint
+  - build
+  - publish
+
+lint:
+  stage: lint
+  image: python:3.9
+  script:
+    - pip install flake8
+    - flake8 . 
+
+build:
+  stage: build
+  script:
+    - apt-get update
+    - apt-get install -y rpm
+    - pip install setuptools wheel
+    - python setup.py sdist bdist_wheel
+    - rpmbuild -ba my-python-project.spec
+  artifacts:
+    paths:
+      - my-python-project-*.rpm  # Adjust the RPM file name pattern
+
+publish:
+  stage: publish
+  script:
+    - echo "Publishing RPM to Artifactory"
+    # Add commands to publish the RPM to Artifactory here
+  only:
+    - tags  # This job runs only for tags, you can adjust this condition as needed
