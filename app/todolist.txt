@@ -6,6 +6,15 @@
 ###TODO create a RPM of this app
 ###TODO test23
 
+11/09/2023
+creation of the gitlab-ci.yml
+
+12/09/2023
+add lint step to gitlab-ci.yml with Flake8
+create a repository remoted to github and gitlab ()
+allow force push on gitlab repository
+start the correction of the project with Flake8 first step 
+
 find a way to mirror pull the repository from github to gitlab
 implement ci_cd to create a rpm on artifactory 
 test bis
