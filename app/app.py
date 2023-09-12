@@ -1,19 +1,20 @@
-#packages
+# packages
 import os
 
-#other modules
+# other modules
 from dotenv import load_dotenv
 
-#own packages
+# own packages
 import modules.database_app
 import modules.update
 import modules.add_announces
 
 modules.database_app.create_tables()
-#get data from .env file 
+
+# get data from .env file
 load_dotenv()
 
-#variables
+# variables
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 menu_prompt = """-- Menu --
 
@@ -41,5 +42,5 @@ def start_prompt():
         else:
             print("Invalid input, please try again!")
 
-#script
+# script
 start_prompt()
