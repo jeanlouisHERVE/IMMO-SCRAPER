@@ -30,17 +30,15 @@ actions = ActionChains(driver)
 chrome_options = ChromeOptions()
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 
-
 # functions
 def check_accept_section(cssSelector: str):
-    
-
     driver.implicitly_wait(5)
     try:
         accept = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, cssSelector)))
         accept.click()
     except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
         print("KO : no accept part")
+
 
 # script
 # connection to website
@@ -68,9 +66,9 @@ except (
         NoSuchElementException,
         StaleElementReferenceException,
         TimeoutException
-    ):
+):
     print("KO : unable to make the dropdown menu appear")
-    
+
 # select desired option in the dropdown menu => to fix
 xpath_expression = '//span[@data-testid="gsl.uilib.Droplist.Option.1"]'
 try:
@@ -83,7 +81,7 @@ except (
         NoSuchElementException,
         StaleElementReferenceException,
         TimeoutException
-    ):
+):
     print("KO : unable to select the option in the dropdown menu")
 
 # click on the search button
