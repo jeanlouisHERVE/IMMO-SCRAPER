@@ -88,18 +88,18 @@ CREATE_OLD_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS old_properties (
 # add data
 INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, postcode, url, room_number,
                     surface, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"""
-INSERT_DESCRIPTION = """INSERT INTO descriptions (property_id, year_of_construction, exposition, floor, 
-                    total_floor_number, neighborhood_description, bedroom_number, toilet_number, 
-                    bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, 
-                    intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, 
-                    large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, 
-                    announce_last_modification, dpe_date, energetic_performance_letter, 
-                    energetic_performance_number, climatic_performance_number, climatic_performance_letter, 
-                    estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
-                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+INSERT_DESCRIPTION = """INSERT INTO descriptions (property_id, year_of_construction, exposition, floor,
+                    total_floor_number, neighborhood_description, bedroom_number, toilet_number,
+                    bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode,
+                    intercom, elevator, fibre_optics_status, garden, car_park_number, balcony,
+                    large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication,
+                    announce_last_modification, dpe_date, energetic_performance_letter,
+                    energetic_performance_number, climatic_performance_number, climatic_performance_letter,
+                    estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_AGENCY = """INSERT INTO agencies (name, address, fee_percentage, evaluation) VALUES (?, ?, ?, ?);"""
 INSERT_PRICE = """INSERT INTO prices (date, property_id, price) VALUES (?, ?, ?);"""
-INSERT_OLD_PROPERTY = """INSERT INTO old_properties (type_of_property, town, district, postcode, url, room_number, 
+INSERT_OLD_PROPERTY = """INSERT INTO old_properties (type_of_property, town, district, postcode, url, room_number,
                     surface, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"""
 # get data
 GET_PROPERTY = "SELECT * FROM properties #####;"
