@@ -13,10 +13,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 from dotenv import load_dotenv
 
 # own packages
-#import database
+# import database
 # database.create_table()
 
-#get data from .env file 
+# get data from .env file 
 load_dotenv()
 
 # variables
@@ -37,22 +37,25 @@ def check_accept_section(cssSelector: str):
         print("KO : no accept part")
 
 # script
-## connection to website
+# connection to website
 driver.get(url_immo_website)
 driver.implicitly_wait(5)
 check_accept_section('span.didomi-continue-without-agreeing')
 time.sleep(2)
 
-## fill research section
+# fill research section
 # remove pre selected area "Ile de France"
 driver.find_element(By.CSS_SELECTOR, "div.sc-gLDzan.bevJHu").click()
 time.sleep(2)
-driver.find_element(By.CSS_SELECTOR, "input.sc-irTswW.fPqHAw").send_keys(os.environ["CITY_RESEARCHED"])
+city_input = driver.find_element(By.CSS_SELECTOR, "input.sc-irTswW.fPqHAw")
+city_input.send_keys(os.environ["CITY_RESEARCHED"])
 time.sleep(2)
 
 # elect desired town in the dropdown menu => to fix
 try:
-    dropdown_element = driver.find_element(By.CSS_SELECTOR, "div.sc-ktEKTO.kSmfsP input.sc-irTswW.fPqHAw")
+    dropdown_element = driver.find_element(
+                            By.CSS_SELECTOR, "div.sc-ktEKTO.kSmfsP input.sc-irTswW.fPqHAw"
+                        )
     time.sleep(2)
     actions.click(dropdown_element).perform()
 except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
@@ -72,6 +75,6 @@ time.sleep(2)
 driver.find_element(By.CSS_SELECTOR, "button.sc-bZPPFW.gurgxX").click()
 input()
 
-#database.connection.close()
+# database.connection.close()
 driver.close()
 driver.quit()
