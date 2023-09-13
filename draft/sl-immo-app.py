@@ -5,7 +5,11 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, TimeoutException
+from selenium.common.exceptions import (
+    NoSuchElementException,
+    StaleElementReferenceException,
+    TimeoutException
+)
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.common.action_chains import ActionChains
 
@@ -61,14 +65,14 @@ try:
     time.sleep(2)
     actions.click(dropdown_element).perform()
 except (
-    NoSuchElementException,
-    StaleElementReferenceException,
-    TimeoutException
+        NoSuchElementException,
+        StaleElementReferenceException,
+        TimeoutException
     ):
     print("KO : unable to make the dropdown menu appear")
     
-# select desired option in the dropdown menu => to fix 
-xpath_expression = '//span[@data-testid="gsl.uilib.Droplist.Option.1"]'   
+# select desired option in the dropdown menu => to fix
+xpath_expression = '//span[@data-testid="gsl.uilib.Droplist.Option.1"]'
 try:
     town_option = driver.find_element(
             By.XPATH, '//div[@data-testid="gsl.uilib.Droplist.Option.1"]'
@@ -76,9 +80,9 @@ try:
     time.sleep(2)
     actions.click(town_option).perform()
 except (
-    NoSuchElementException, 
-    StaleElementReferenceException, 
-    TimeoutException
+        NoSuchElementException,
+        StaleElementReferenceException,
+        TimeoutException
     ):
     print("KO : unable to select the option in the dropdown menu")
 
