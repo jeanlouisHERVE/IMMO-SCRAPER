@@ -38,8 +38,8 @@ def check_accept_section(cssSelector: str):
                 )
         accept.click()
     except (
-        NoSuchElementException, 
-        StaleElementReferenceException, 
+        NoSuchElementException,
+        StaleElementReferenceException,
         TimeoutException
         ):
         print("KO : no accept part")
@@ -116,18 +116,18 @@ def add_new_announces():
                 address_content = address_content.text
                 # district
                 try: 
-                    district = re.findall("\((.*?)\)", address_content)[0]
+                    district = re.findall(r"\((.*?)\)", address_content)[0]
                 except IndexError:
                     print("KO : no data for District found")
                     district = ""
                 # postcode
                 try:
-                    postcode = re.findall("[0-9]*", address_content)[0]
+                    postcode = re.findall(r"[0-9]*", address_content)[0]
                 except IndexError:
                     print("KO : no data for Postcode found")
                     postcode = 0
-                print("district :",district)
-                print("postcode :",postcode)
+                print("district :", district)
+                print("postcode :", postcode)
                 
             except(NoSuchElementException):
                 print("KO : no data for District&&Postcode found")
@@ -135,9 +135,9 @@ def add_new_announces():
             # url
             url = ""
             try:
-                url_content = article.find_element(By.CSS_SELECTOR,"a.detailedSheetLink")
+                url_content = article.find_element(By.CSS_SELECTOR, "a.detailedSheetLink")
                 url = url_content.get_attribute('href')
-                print("link :",url)
+                print("link :", url)
             except(NoSuchElementException):
                 print("KO : no data for url found")    
             
@@ -152,7 +152,7 @@ def add_new_announces():
                 pattern_room = r'(\d+)\s*pièce'
                 room_content = re.findall(pattern_room, content_text)
                 room_number = room_content[0]
-                print("room_number :",room_number)
+                print("room_number :", room_number)
                 # surface
                 surface = room_surface_content.text
                 pattern_squaremeters = r'\b(\d+)\b'
@@ -165,7 +165,7 @@ def add_new_announces():
             # price
             price = 0
             try:
-                price_content = article.find_element(By.CSS_SELECTOR,"span.ad-price__the-price")
+                price_content = article.find_element(By.CSS_SELECTOR, "span.ad-price__the-price")
                 price_content = price_content.text
                 price = ''.join(re.findall('\d+', price_content))
                 if len(price) > 7:

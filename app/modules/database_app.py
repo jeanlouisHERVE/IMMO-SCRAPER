@@ -1,23 +1,23 @@
 import os
 import sqlite3
 
-#other modules
-from typing import List, Tuple
+# other modules
+
 from dotenv import load_dotenv
 
-#get data from .env file 
+# get data from .env file
 load_dotenv()
 
-##create database
+# create database
 CREATE_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS properties (
-                                id INTEGER NOT NULL PRIMARY KEY, 
-                                type_of_property TEXT, 
+                                id INTEGER NOT NULL PRIMARY KEY,
+                                type_of_property TEXT,
                                 town TEXT,
                                 district TEXT,
-                                postcode TEXT,                               
+                                postcode TEXT,               
                                 url TEXT,
                                 room_number INTEGER,
-                                surface INTEGER, 
+                                surface INTEGER,
                                 date_add_to_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"""
                                 
 CREATE_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
@@ -31,29 +31,29 @@ CREATE_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 toilet_number INTEGER,
                                 bathroom_number INTEGER,
                                 cellar BOOLEAN,
-                                lock_up_garage BOOLEAN,                
+                                lock_up_garage BOOLEAN,     
                                 heating TEXT,
                                 tv_cable BOOLEAN,
                                 fireplace BOOLEAN,
                                 digicode BOOLEAN,
                                 intercom BOOLEAN,
                                 elevator BOOLEAN,
-                                fibre_optics_status TEXT,                   
+                                fibre_optics_status TEXT,              
                                 garden BOOLEAN,
                                 car_park_number INTEGER,
                                 balcony BOOLEAN,
-                                large_balcony BOOLEAN,                 
+                                large_balcony BOOLEAN,        
                                 estate_agency_fee_percentage INTEGER,
                                 pinel BOOLEAN,
                                 denormandie BOOLEAN,
                                 announce_publication TEXT,
-                                announce_last_modification TEXT,                              
+                                announce_last_modification TEXT,                       
                                 dpe_date TEXT,
                                 energetic_performance_letter TEXT,
-                                energetic_performance_number INTEGER, 
+                                energetic_performance_number INTEGER,
                                 climatic_performance_number INTEGER,
-                                climatic_performance_letter TEXT,   
-                                estate_agency_id INTEGER,                
+                                climatic_performance_letter TEXT,
+                                estate_agency_id INTEGER,
                                 FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE,
                                 FOREIGN KEY (estate_agency_id) REFERENCES agencies(id)
                             );"""
@@ -75,30 +75,32 @@ CREATE_PRICES_TABLE = """CREATE TABLE IF NOT EXISTS prices (
                             );"""
 
 CREATE_OLD_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS old_properties (
-                                id INTEGER NOT NULL PRIMARY KEY, 
-                                type_of_property TEXT, 
+                                id INTEGER NOT NULL PRIMARY KEY,
+                                type_of_property TEXT,
                                 town TEXT,
                                 district TEXT,
-                                postcode TEXT,                               
+                                postcode TEXT,          
                                 url TEXT,
                                 room_number INTEGER,
-                                surface INTEGER, 
+                                surface INTEGER,
                                 date_add_to_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"""
 
-##add data
-INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, postcode, url, room_number, 
+# add data
+INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, postcode, url, room_number,
                     surface, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_DESCRIPTION = """INSERT INTO descriptions (property_id, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 INSERT_AGENCY = """INSERT INTO agencies (name, address, fee_percentage, evaluation) VALUES (?, ?, ?, ?);"""
 INSERT_PRICE = """INSERT INTO prices (date, property_id, price) VALUES (?, ?, ?);"""
 INSERT_OLD_PROPERTY = """INSERT INTO old_properties (type_of_property, town, district, postcode, url, room_number, 
                     surface, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"""
-##get data
+# get data
 GET_PROPERTY = "SELECT * FROM properties #####;"
 GET_PROPERTY_BY_URL = "SELECT * FROM properties WHERE url = ?;"
 GET_PROPERTY_BY_ID = "SELECT * FROM properties WHERE id = ?;"
 GET_ID_URL_FROM_PROPERTIES = "SELECT id, url FROM properties"
-GET_ID_URL_DATEOFMODIFICATION_FROM_PROPERTIES = "SELECT p.id, p.url, d.announce_last_modification FROM properties p JOIN descriptions d ON p.id = d.property_id;"
+GET_ID_URL_DATEOFMODIFICATION_FROM_PROPERTIES = """SELECT p.id, p.url, d.announce_last_modification FROM properties 
+                                                    p JOIN descriptions d ON p.id = d.property_id
+                                                ;"""
 GET_PROPERTIES = "SELECT * FROM properties;"
 GET_PROPERTIES_NUMBER = "SELECT COUNT(id) FROM properties;"
 GET_PROPERTIES_FROM_DATE_ADDING_TO_DB = "SELECT * FROM properties WHERE date_add_to_db = ?;"
@@ -114,10 +116,10 @@ UPDATE_PROPERTY = """UPDATE properties
                     WHERE id = ?;"""
 UPDATE_DESCRIPTION = """UPDATE descriptions
                     SET year_of_construction = ?, exposition = ?, floor = ?, total_floor_number = ?,
-                        neighborhood_description = ?, bedroom_number = ?, toilet_number = ?, bathroom_number = ?, cellar = ?,
-                        lock_up_garage = ?, heating = ?, tv_cable = ?, fireplace = ?, digicode = ?, intercom = ?,
-                        elevator = ?, fibre_optics_status = ?, garden = ?, car_park_number = ?, balcony = ?,
-                        large_balcony = ?, estate_agency_fee_percentage = ?, pinel = ?, denormandie = ?,
+                        neighborhood_description = ?, bedroom_number = ?, toilet_number = ?, bathroom_number = ?,
+                        cellar = ?,lock_up_garage = ?, heating = ?, tv_cable = ?, fireplace = ?, digicode = ?,
+                        intercom = ?, elevator = ?, fibre_optics_status = ?, garden = ?, car_park_number = ?,
+                        balcony = ?, large_balcony = ?, estate_agency_fee_percentage = ?, pinel = ?, denormandie = ?,
                         announce_publication = ?, announce_last_modification = ?, dpe_date = ?,
                         energetic_performance_letter = ?, energetic_performance_number = ?, climatic_performance_number = ?,
                         climatic_performance_letter = ?, estate_agency_id = ?
@@ -126,11 +128,11 @@ UPDATE_AGENCY = """UPDATE agencies
                     SET name = ?, address = ?, fee_percentage = ?, evaluation = ?
                     WHERE agency_id = ?;"""
 
-#delete data
+# delete data
 DELETE_PROPERTY = """DELETE FROM properties
                     WHERE id = ?;"""
 
-#connection to database
+# connection to database
 connection = sqlite3.connect(os.environ["DATABASE_PATH"])
 
 def create_tables():
