@@ -16,19 +16,21 @@ from dotenv import load_dotenv
 # import database
 # database.create_table()
 
-# get data from .env file 
+# get data from .env file
 load_dotenv()
 
 # variables
-url_immo_website= os.environ["URL_IMMO_WEBSITE"]
+url_immo_website = os.environ["URL_IMMO_WEBSITE"]
 driver = webdriver.Chrome()
 actions = ActionChains(driver)
 chrome_options = ChromeOptions()
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 
 
-# functions 
+# functions
 def check_accept_section(cssSelector: str):
+    
+
     driver.implicitly_wait(5)
     try:
         accept = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, cssSelector)))
@@ -58,16 +60,26 @@ try:
                         )
     time.sleep(2)
     actions.click(dropdown_element).perform()
-except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
+except (
+    NoSuchElementException,
+    StaleElementReferenceException,
+    TimeoutException
+    ):
     print("KO : unable to make the dropdown menu appear")
     
 # select desired option in the dropdown menu => to fix 
 xpath_expression = '//span[@data-testid="gsl.uilib.Droplist.Option.1"]'   
 try:
-    town_option = driver.find_element(By.XPATH, '//div[@data-testid="gsl.uilib.Droplist.Option.1"]')
+    town_option = driver.find_element(
+            By.XPATH, '//div[@data-testid="gsl.uilib.Droplist.Option.1"]'
+        )
     time.sleep(2)
     actions.click(town_option).perform()
-except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
+except (
+    NoSuchElementException, 
+    StaleElementReferenceException, 
+    TimeoutException
+    ):
     print("KO : unable to select the option in the dropdown menu")
 
 # click on the search button
