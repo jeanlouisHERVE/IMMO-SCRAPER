@@ -28,6 +28,7 @@ driver = WebDriverManager.get_driver()
 url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 current_time_utc = datetime.datetime.now(tz=pytz.utc).timestamp()
+functions = modules.functions
 
 # date
 new_date_add_to_db = current_time_utc
@@ -258,17 +259,24 @@ def update_descriptions():
                         new_announce_publication = None
                     else:
                         new_publication_french_date = re.findall(r'le\s(.+)', element_text)[0]
-                        new_announce_publication = modules.functions.date_converter_french_date_to_utc_timestamp(new_publication_french_date)
+                        new_announce_publication = functions.date_converter_french_date_to_utc_timestamp(
+                                                                                new_publication_french_date
+                                                                                )
+                        new_announce_publication = functions.date_converter_french_date_to_utc_timestamp(
+                                                                                new_publication_french_date
+                                                                                )
 
                 # announce_last_modification
                 elif "modifiée" in element_text:
                     new_modification_french_date = re.findall(r'le\s(.+)', element_text)[0]
-                    new_announce_last_modification = modules.functions.date_converter_french_date_to_utc_timestamp(new_modification_french_date)
+                    new_announce_last_modification = functions.date_converter_french_date_to_utc_timestamp(
+                                                                                new_modification_french_date
+                                                                                )
 
                 # dpe_date
                 elif "dpe" in element_text:
                     new_dpe_french_date = re.findall(regex_find_text_after_colon, element_text)[0]
-                    new_dpe_date = modules.functions.date_converter_french_date_to_utc_timestamp(new_dpe_french_date)
+                    new_dpe_date = functions.date_converter_french_date_to_utc_timestamp(new_dpe_french_date)
 
                 # batch
                 # elif "lot" in element_text:
@@ -283,21 +291,30 @@ def update_descriptions():
         print('step4')
         # neighborhood_description
         try:
-            new_neighborhood_description = driver.find_element(By.CSS_SELECTOR, "div.neighborhoodDescription span")
+            new_neighborhood_description = driver.find_element(
+                                                        By.CSS_SELECTOR,
+                                                        "div.neighborhoodDescription span"
+                                                    )
             new_neighborhood_description = new_neighborhood_description.text
         except (NoSuchElementException, StaleElementReferenceException):
             print("KO : no data for neighborhood_description")
 
         # energetic_performance_letter
         try:
-            new_energetic_performance_letter = driver.find_element(By.CSS_SELECTOR, "div.dpe-line__classification span div")
+            new_energetic_performance_letter = driver.find_element(
+                                                        By.CSS_SELECTOR,
+                                                        "div.dpe-line__classification span div"
+                                                    )
             new_energetic_performance_letter = new_energetic_performance_letter.text
         except (NoSuchElementException, StaleElementReferenceException):
             print("KO : no data for energetic_performance_letter")
 
         # energetic_performance_number && climatic_performance_number
         try:
-            new_dpe_data_numbers = driver.find_elements(By.CSS_SELECTOR, "div.dpe-data div.value span")
+            new_dpe_data_numbers = driver.find_elements(
+                                                    By.CSS_SELECTOR,
+                                                    "div.dpe-data div.value span"
+                                                )
             if new_dpe_data_numbers:
                 if new_dpe_data_numbers[0].text == "-":
                     new_energetic_performance_number = None
@@ -358,9 +375,11 @@ def update_descriptions():
         print("------------------Description Part End------------------")
 
         try:
-            same_timestamp = modules.functions.are_timestamps_equal(float(dateOfModification_announce),
-                                                                    float(new_announce_last_modification),
-                                                                    tolerance_seconds=10)
+            same_timestamp = functions.are_timestamps_equal(
+                float(dateOfModification_announce),
+                float(new_announce_last_modification),
+                tolerance_seconds=10
+            )
             if not same_timestamp:
                 print("KO : the announce is going to be modified and updated")
 
@@ -368,8 +387,39 @@ def update_descriptions():
                 # building options
                 old_property = modules.database_app.get_property_by_id(id_property)
                 old_property_description = modules.database_app.get_property_description_by_id(id_property)
-                property_id, type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db = old_property.values()
-                description_property_id, year_of_construction, exposition, floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number, bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode, intercom, elevator, fibre_optics_status, garden, car_park_number, balcony, large_balcony, estate_agency_fee_percentage, pinel, denormandie, announce_publication, announce_last_modification, dpe_date, energetic_performance_letter, energetic_performance_number, climatic_performance_number, climatic_performance_letter, estate_agency_id = old_property_description
+                property_id = old_property['property_id']
+                year_of_construction = old_property_description['year_of_construction']
+                exposition = old_property_description['exposition']
+                floor = old_property_description['floor']
+                total_floor_number = old_property_description['total_floor_number']
+                neighborhood_description = old_property_description['neighborhood_description']
+                bedroom_number = old_property_description['bedroom_number']
+                toilet_number = old_property_description['toilet_number']
+                bathroom_number = old_property_description['bathroom_number']
+                cellar = old_property_description['cellar']
+                lock_up_garage = old_property_description['lock_up_garage']
+                heating = old_property_description['heating']
+                tv_cable = old_property_description['tv_cable']
+                fireplace = old_property_description['fireplace']
+                digicode = old_property_description['digicode']
+                intercom = old_property_description['intercom']
+                elevator = old_property_description['elevator']
+                fibre_optics_status = old_property_description['fibre_optics_status']
+                garden = old_property_description['garden']
+                car_park_number = old_property_description['car_park_number']
+                balcony = old_property_description['balcony']
+                large_balcony = old_property_description['large_balcony']
+                estate_agency_fee_percentage = old_property_description['estate_agency_fee_percentage']
+                pinel = old_property_description['pinel']
+                denormandie = old_property_description['denormandie']
+                announce_publication = old_property_description['announce_publication']
+                announce_last_modification = old_property_description['announce_last_modification']
+                dpe_date = old_property_description['dpe_date']
+                energetic_performance_letter = old_property_description['energetic_performance_letter']
+                energetic_performance_number = old_property_description['energetic_performance_number']
+                climatic_performance_number = old_property_description['climatic_performance_number']
+                climatic_performance_letter = old_property_description['climatic_performance_letter']
+                estate_agency_id = old_property_description['estate_agency_id']
 
                 if year_of_construction != new_year_of_construction:
                     year_of_construction = new_year_of_construction
@@ -487,7 +537,7 @@ def update_descriptions():
 
                 print("--------------------End Update Description------------------")
             else:
-                print("OK : the announce is already up to date")   
+                print("OK : the announce is already up to date")
         except TypeError:
             "KO : invalid timestamp type"
             continue
