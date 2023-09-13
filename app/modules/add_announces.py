@@ -49,7 +49,7 @@ def add_new_announces():
     global_page_number = 2
     
     print("------------------Add_new_annouces_Start------------------")
-    ## connection to website
+    # connection to website
     driver.get(url_immo_website)
     driver.implicitly_wait(5)
     # check an agree the terms section exists
@@ -57,7 +57,7 @@ def add_new_announces():
     check_accept_section('span.didomi-continue-without-agreeing')
     time.sleep(2)
 
-    ## fill research section
+    # fill research section
     search_input = driver.find_element(By.CSS_SELECTOR, "input.tt-input")
     search_input.send_keys(os.environ["CITY_RESEARCHED"])
     time.sleep(2)
@@ -88,7 +88,7 @@ def add_new_announces():
             print("------------------Article Start------------------")
             print("article :", article)
             
-            ### type of property
+            # type of property
             type_of_property = ""
             try:
                 type_of_property_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
@@ -104,23 +104,23 @@ def add_new_announces():
             except(NoSuchElementException):
                 print("KO : no data for type_of_property found")
             
-            ### town
+            # town
             town = os.environ["CITY_RESEARCHED"]
             print("town :",town)
             
-            ### District&&Postcode
+            # District&&Postcode
             district = ""
             postcode = 0
             try: 
                 address_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__address-title")
                 address_content = address_content.text
-                ## district
+                # district
                 try: 
                     district = re.findall("\((.*?)\)", address_content)[0]
                 except IndexError:
                     print("KO : no data for District found")
                     district = ""
-                ## postcode
+                # postcode
                 try:
                     postcode = re.findall("[0-9]*", address_content)[0]
                 except IndexError:
@@ -132,7 +132,7 @@ def add_new_announces():
             except(NoSuchElementException):
                 print("KO : no data for District&&Postcode found")
             
-            ### url
+            # url
             url = ""
             try:
                 url_content = article.find_element(By.CSS_SELECTOR,"a.detailedSheetLink")
@@ -141,19 +141,19 @@ def add_new_announces():
             except(NoSuchElementException):
                 print("KO : no data for url found")    
             
-            ### room number && surface
+            # room number && surface
             surface = 0
             room_number = 0
             try:
                 room_surface_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
                 content_text = room_surface_content.text
-                ## room
+                # room
                 room_number = room_surface_content.text
                 pattern_room = r'(\d+)\s*pièce'
                 room_content = re.findall(pattern_room, content_text)
                 room_number = room_content[0]
                 print("room_number :",room_number)
-                ## surface
+                # surface
                 surface = room_surface_content.text
                 pattern_squaremeters = r'\b(\d+)\b'
                 surface_content = re.findall(pattern_squaremeters, content_text)
@@ -162,7 +162,7 @@ def add_new_announces():
             except(NoSuchElementException):
                 print("KO : no data for room number && surface found")
                     
-            ### price
+            # price
             price = 0
             try:
                 price_content = article.find_element(By.CSS_SELECTOR,"span.ad-price__the-price")
@@ -174,19 +174,19 @@ def add_new_announces():
             except(NoSuchElementException):
                 print("KO : no data for price found")
                     
-            ### date 
+            # date 
             date_add_to_db = current_time_utc
             print("date_add_to_db :",date_add_to_db)
                 
             print("------------------Article End------------------")  
                 
-            ### add properties to db
+            # add properties to db
             if not modules.database_app.get_property_by_url(url):
                 property_id = modules.database_app.add_property(type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db)
                 modules.database_app.add_price_to_property(date_add_to_db, property_id, price)
             
             
-        ### catch data to access the next page
+        # catch data to access the next page
         next_page_url = next_results_btn.get_attribute('href')
         print("next_page_url", next_page_url)
         pattern_next_page_url_without_page = r"(.+)\?"
@@ -204,7 +204,7 @@ def add_new_announces():
 
 def add_descriptions():
     print("------------------Description Part------------------")
-    ### Add description to database
+    # Add description to database
     property_urls = modules.database_app.get_id_url_from_properties()
     for id_property, url_property in property_urls:
         print("url_property",url_property)
@@ -222,22 +222,22 @@ def add_descriptions():
             
             labelsInfo = driver.find_elements(By.CSS_SELECTOR, "div.labelInfo")
             
-            ### default values
-            ## building options
+            # default values
+            # building options
             year_of_construction = ""
             exposition = ""
             floor = None
             total_floor_number = None
             neighborhood_description = ""
 
-            ## rooms
+            # rooms
             bedroom_number = 0
             toilet_number = 0
             bathroom_number = 0
             cellar = False
             lock_up_garage = False
 
-            ## options indoor
+            # options indoor
             heating = ""
             tv_cable = False
             fireplace = False
@@ -246,20 +246,20 @@ def add_descriptions():
             elevator = False
             fibre_optics_status = ""
 
-            ## options outdoor
+            # options outdoor
             garden = False
             car_park_number = 0
             balcony = False
             large_balcony = False
 
-            ## administration
+            # administration
             estate_agency_fee_percentage = 0
             pinel = False
             denormandie = False
             announce_publication = ""
             announce_last_modification = ""
             
-            ## diagnostics
+            # diagnostics
             dpe_date = ""
             energetic_performance_letter = None
             energetic_performance_number = 0 
