@@ -18,3 +18,11 @@ start the correction of the project with Flake8 first step
 find a way to mirror pull the repository from github to gitlab
 implement ci_cd to create a rpm on artifactory 
 test bis
+
+13/09/2023
+configure flake8 .flake8
+configure alias git pushall (github, gitlab)
+git config --global --edit
+finish lint step in ci_cd
+creation of setup.py to complete 
+
