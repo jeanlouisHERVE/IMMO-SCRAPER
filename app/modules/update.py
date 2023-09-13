@@ -1,4 +1,4 @@
-#packages
+# packages
 import os
 import re
 import pytz
@@ -6,30 +6,35 @@ import datetime
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, TimeoutException
+from selenium.common.exceptions import (
+    NoSuchElementException,
+    StaleElementReferenceException,
+    TimeoutException
+)
 from driver_manager import WebDriverManager
 
-#other modules
+# other modules
 from dotenv import load_dotenv
 
-#own packages
+# own packages
 import modules.database_app
 import modules.functions
 
-#get data from .env file 
+# get data from .env file
 load_dotenv()
 
-#variables
+# variables
 driver = WebDriverManager.get_driver()
 url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 current_time_utc = datetime.datetime.now(tz=pytz.utc).timestamp()
 
-###date 
+# date
 new_date_add_to_db = current_time_utc
-print("new_date_add_to_db :",new_date_add_to_db)
+print("new_date_add_to_db :", new_date_add_to_db)
 
-#functions
+
+# functions
 def check_accept_section(cssSelector: str):
     driver.implicitly_wait(5)
     try:
@@ -38,11 +43,12 @@ def check_accept_section(cssSelector: str):
     except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
         print("KO : no accept part")
 
+
 def update_descriptions():
     for property in modules.database_app.get_id_url_dateofmodification_from_properties():
         id_property, url_property, dateOfModification_announce = property
-        print("url_property",url_property)
-        print("id_property",id_property)
+        print("url_property", url_property)
+        print("id_property", id_property)
         print("step1")
         driver.get(url_property)
         driver.implicitly_wait(10)
@@ -51,27 +57,27 @@ def update_descriptions():
         driver.implicitly_wait(5)
 
         print("step2")
-        
+
         labelsInfo = driver.find_elements(By.CSS_SELECTOR, "div.labelInfo")
-        
+
         new_price = 0
 
-        ###default values
-        ##building options
+        # default values
+        # building options
         new_year_of_construction = ""
         new_exposition = ""
         new_floor = None
         new_total_floor_number = None
         new_neighborhood_description = ""
 
-        ##rooms
+        # rooms
         new_bedroom_number = 0
         new_toilet_number = 0
         new_bathroom_number = 0
         new_cellar = False
         new_lock_up_garage = False
 
-        ##options indoor
+        # options indoor
         new_heating = ""
         new_tv_cable = False
         new_fireplace = False
@@ -80,81 +86,88 @@ def update_descriptions():
         new_elevator = False
         new_fibre_optics_status = ""
 
-        #options outdoor
+        # options outdoor
         new_garden = False
         new_car_park_number = 0
         new_balcony = False
         new_large_balcony = False
 
-        ##administration
+        # administration
         new_estate_agency_fee_percentage = 0
         new_pinel = False
         new_denormandie = False
         new_announce_publication = ""
         new_announce_last_modification = 0
-        
-        ##diagnostics
+
+        # diagnostics
         new_dpe_date = ""
         new_energetic_performance_letter = None
-        new_energetic_performance_number = 0 
+        new_energetic_performance_number = 0
         new_climatic_performance_number = 0
         new_climatic_performance_letter = None
-        
-        
+
         regex_find_numbers = r'\d+'
         regex_find_text_after_colon = r':\s*([^:,]+)'
-        
+
         print("step3")
         try:
             new_price_content = driver.find_element(By.CSS_SELECTOR, "span.ad-price__the-price").text
-            new_price_content = new_price_content.replace(" ","")
+            new_price_content = new_price_content.replace(" ", "")
             new_price = re.findall(regex_find_numbers, new_price_content)[0]
         except NoSuchElementException:
             print("KO : no data for new_price")
-        
+
         for labelInfo in labelsInfo:
-            
+
             try:
                 element = labelInfo.find_element(By.CSS_SELECTOR, "span")
                 element_text = element.text.lower()
-                print('element_text ',element_text )
-                
+                print('element_text ', element_text)
+
                 # year_of_construction
                 if "construit" in element_text:
                     print("step4")
                     new_year_of_construction = re.findall(regex_find_numbers, element_text)[0]
                     format_string_construction = "%Y"
-                    local_timestamp_construction = datetime.datetime.strptime(new_year_of_construction, format_string_construction)
-                    new_year_of_construction = local_timestamp_construction.replace(tzinfo=pytz.timezone('UTC')).timestamp()
-                
-                #exposition
+                    local_timestamp_construction = datetime.datetime.strptime(
+                                                                    new_year_of_construction,
+                                                                    format_string_construction
+                                                                )
+                    new_year_of_construction = local_timestamp_construction.replace(
+                                                                                tzinfo=pytz.timezone('UTC')
+                                                                            ).timestamp()
+
+                # exposition
                 elif "exposé" in element_text:
                     print("step5")
                     pattern_exposition = r'exposé\s(.+)'
                     new_exposition = re.findall(pattern_exposition, element_text)[0]
-                
-                #floor
-                #total_floor_number 
+
+                # floor
+                # total_floor_number
                 elif "étage" in element_text:
                     print("step6")
                     pattern_floor = r'^[0-9]+'
                     pattern_floor_number = r'sur\s+(\d+)'
-                    
+
                     if "dernier" in element_text:
                         new_floor = new_total_floor_number
                     else:
                         new_floor = int(re.findall(pattern_floor, element_text)[0])
-                        
+
                     if "sur" in element_text:
-                        new_total_floor_number = int(re.findall(pattern_floor_number, element_text)[0])
-                    else: 
+                        new_total_floor_number = int(re.findall(
+                                                        pattern_floor_number,
+                                                        element_text)[0]
+                                                     )
+                    else:
                         new_total_floor_number = None
-                
-                #bedroom_number
+
+                # bedroom_number
                 elif "chambre" in element_text:
                     print("step7")
                     new_bedroom_number = re.findall(regex_find_numbers, element_text)[0]
-                
+
                 # toilet_number
                 elif "wc" in element_text:
                     print("step8")
@@ -162,18 +175,18 @@ def update_descriptions():
                         continue
                     else:
                         new_toilet_number = re.findall(regex_find_numbers, element_text)[0]
-                
+
                 # bathroom_number
                 elif "bain" in element_text:
                     print("step9")
                     new_bathroom_number = re.findall(regex_find_numbers, element_text)[0]
-                
-                #cellar
+
+                # cellar
                 elif "cave" in element_text:
                     print("step10")
                     new_cellar = True
-                
-                #lock_up_garage
+
+                # lock_up_garage
                 elif "box" in element_text:
                     print("step11")
                     new_lock_up_garage = True
@@ -181,63 +194,64 @@ def update_descriptions():
                 # heating
                 elif "chauffage" in element_text:
                     new_heating = re.findall(regex_find_text_after_colon, element_text)[0]
-                
-                #tv_cable
+
+                # tv_cable
                 elif "tv" in element_text:
                     new_tv_cable = True
-                
-                #fireplace
+
+                # ireplace
                 elif "cheminée" in element_text:
                     new_fireplace = True
-                    
-                #digicode
+
+                # digicode
                 elif "digicode" in element_text:
                     new_digicode = True
-                    
-                #intercom
+
+                # intercom
                 elif "interphone" in element_text:
                     new_intercom = True
-                
-                #elevator
+
+                # elevator
                 elif "ascenseur" in element_text:
                     new_elevator = True
-                    
-                #fibre_optics_status
+
+                # fibre_optics_status
                 elif "fibre" in element_text:
-                    new_fibre_optics_status = re.findall(regex_find_text_after_colon, element_text)[0].replace("*", "")
+                    new_fibre_optics_status = re.findall(regex_find_text_after_colon,
+                                                         element_text)[0].replace("*", "")
 
                 # garden
                 elif "jardin" in element_text:
                     new_garden = True
-                    
+
                 # car_park_number
                 elif "parking" in element_text:
                     if modules.functions.contains_numbers(element_text) == True:
                         new_car_park_number = re.findall(regex_find_numbers, element_text)[0]
                     else:
                         new_car_park_number = None
-                
-                #balcony
+
+                # balcony
                 elif "balcon" in element_text:
                     new_balcony = True
-                    
-                #large_balcony
+
+                # large_balcony
                 elif "terrasse" in element_text:
                     new_large_balcony = True
-                
-                #estate_agency_fee_percentage
+
+                # estate_agency_fee_percentage
                 # elif "honoraires :" in element_text:
                 #     pattern = r'[\d,]+%'
                 #     estate_agency_fee_percentage = re.findall(pattern, element_text)[0].replace("%", "")
-                
-                #pinel
+
+                # pinel
                 elif "pinel" in element_text:
                     new_pinel = True
-                    
-                #denormandie
+
+                # denormandie
                 elif "denormandie" in element_text:
                     new_pinel = True
-                
+
                 # announce_publication
                 elif "publiée" in element_text:
                     if "il y a plus" in element_text:
@@ -245,13 +259,13 @@ def update_descriptions():
                     else:
                         new_publication_french_date = re.findall(r'le\s(.+)', element_text)[0]
                         new_announce_publication = modules.functions.date_converter_french_date_to_utc_timestamp(new_publication_french_date)
-                
+
                 # announce_last_modification
                 elif "modifiée" in element_text:
                     new_modification_french_date = re.findall(r'le\s(.+)', element_text)[0]
                     new_announce_last_modification = modules.functions.date_converter_french_date_to_utc_timestamp(new_modification_french_date)
-                
-                #dpe_date
+
+                # dpe_date
                 elif "dpe" in element_text:
                     new_dpe_french_date = re.findall(regex_find_text_after_colon, element_text)[0]
                     new_dpe_date = modules.functions.date_converter_french_date_to_utc_timestamp(new_dpe_french_date)
@@ -306,38 +320,38 @@ def update_descriptions():
                     print("KO : no data for climatic_performance_letter") 
 
         print("#############RECAP ANNOUNCE VARIABLES#############")
-        print("price                        :",new_price)
-        print("year_of_construction         :",new_year_of_construction)
-        print("exposition                   :",new_exposition)
-        print("floor                        :",new_floor)
-        print("total_floor_number           :",new_total_floor_number)
-        print("neighborhood_description     :",new_neighborhood_description)  
-        print("bedroom_number               :",new_bedroom_number)
-        print("toilet_number                :",new_toilet_number)
-        print("bathroom_number              :",new_bathroom_number)
-        print("cellar                       :",new_cellar)
-        print("lock_up_garage               :",new_lock_up_garage)
-        print("heating                      :",new_heating)
-        print("tv_cable                     :",new_tv_cable)
-        print("fireplace                    :",new_fireplace) 
-        print("digicode                     :",new_digicode)
-        print("intercom                     :",new_intercom)
-        print("elevator                     :",new_elevator)
-        print("fibre_optics_status          :",new_fibre_optics_status) 
-        print("garden                       :",new_garden)
-        print("car_park_number              :",new_car_park_number)
-        print("balcony                      :",new_balcony)
-        print("large_balcony                :",new_large_balcony)
-        print("dpe_date                     :",new_dpe_date)
-        print("estate_agency_fee_percentage :",new_estate_agency_fee_percentage)
-        print("pinel                        :",new_pinel)
-        print("denormandie                  :",new_denormandie)
-        print("announce_publication         :",new_announce_publication)
-        print("announce_last_modification   :",new_announce_last_modification)
-        print("energetic_performance_letter :",new_energetic_performance_letter)
-        print("energetic_performance_number :",new_energetic_performance_number)
-        print("climatic_performance_number  :",new_climatic_performance_number)
-        print("climatic_performance_letter  :",new_climatic_performance_letter)
+        print("price                        :", new_price)
+        print("year_of_construction         :", new_year_of_construction)
+        print("exposition                   :", new_exposition)
+        print("floor                        :", new_floor)
+        print("total_floor_number           :", new_total_floor_number)
+        print("neighborhood_description     :", new_neighborhood_description)
+        print("bedroom_number               :", new_bedroom_number)
+        print("toilet_number                :", new_toilet_number)
+        print("bathroom_number              :", new_bathroom_number)
+        print("cellar                       :", new_cellar)
+        print("lock_up_garage               :", new_lock_up_garage)
+        print("heating                      :", new_heating)
+        print("tv_cable                     :", new_tv_cable)
+        print("fireplace                    :", new_fireplace)
+        print("digicode                     :", new_digicode)
+        print("intercom                     :", new_intercom)
+        print("elevator                     :", new_elevator)
+        print("fibre_optics_status          :", new_fibre_optics_status)
+        print("garden                       :", new_garden)
+        print("car_park_number              :", new_car_park_number)
+        print("balcony                      :", new_balcony)
+        print("large_balcony                :", new_large_balcony)
+        print("dpe_date                     :", new_dpe_date)
+        print("estate_agency_fee_percentage :", new_estate_agency_fee_percentage)
+        print("pinel                        :", new_pinel)
+        print("denormandie                  :", new_denormandie)
+        print("announce_publication         :", new_announce_publication)
+        print("announce_last_modification   :", new_announce_last_modification)
+        print("energetic_performance_letter :", new_energetic_performance_letter)
+        print("energetic_performance_number :", new_energetic_performance_number)
+        print("climatic_performance_number  :", new_climatic_performance_number)
+        print("climatic_performance_letter  :", new_climatic_performance_letter)
         
         print("------------------Description Part End------------------")
         
@@ -346,8 +360,8 @@ def update_descriptions():
             if same_timestamp == False :
                 print("KO : the announce is going to be modified and updated")
                 
-                ###default values
-                ##building options
+                # default values
+                # building options
                 old_property = modules.database_app.get_property_by_id(id_property)
                 old_property_description = modules.database_app.get_property_description_by_id(id_property)
                 property_id, type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db = old_property
@@ -365,7 +379,7 @@ def update_descriptions():
                 if neighborhood_description != new_neighborhood_description:
                     neighborhood_description = new_neighborhood_description
 
-                ##rooms
+                # rooms
                 if bedroom_number != new_bedroom_number:
                     bedroom_number = new_bedroom_number
                 if toilet_number != new_toilet_number:
@@ -377,7 +391,7 @@ def update_descriptions():
                 if lock_up_garage != new_lock_up_garage:
                     lock_up_garage = new_lock_up_garage
 
-                ##options indoor
+                # options indoor
                 if heating != new_heating:
                     heating = new_heating
                 if tv_cable != new_tv_cable:
@@ -393,7 +407,7 @@ def update_descriptions():
                 if fibre_optics_status != new_fibre_optics_status:
                     fibre_optics_status = new_fibre_optics_status
 
-                #options outdoor
+                # options outdoor
                 if garden != new_garden:
                     garden = new_garden
                 if car_park_number != new_car_park_number:
@@ -403,7 +417,7 @@ def update_descriptions():
                 if large_balcony != new_large_balcony:
                     large_balcony = new_large_balcony
 
-                ##administration
+                # administration
                 if estate_agency_fee_percentage != new_estate_agency_fee_percentage:
                     estate_agency_fee_percentage = new_estate_agency_fee_percentage
                 if pinel != new_pinel:
@@ -414,8 +428,8 @@ def update_descriptions():
                     announce_publication = new_announce_publication
                 if announce_last_modification != new_announce_last_modification:
                     announce_last_modification = new_announce_last_modification
-                
-                ##diagnostics
+
+                # diagnostics
                 if dpe_date != new_dpe_date:
                     dpe_date = new_dpe_date
                 if energetic_performance_letter != new_energetic_performance_letter:

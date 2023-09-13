@@ -19,7 +19,6 @@ class TestYourFunctions(unittest.TestCase):
         result = date_converter_french_date_to_utc_timestamp(french_date)
         self.assertIsNone(result)  # Expecting None
 
-
     def test_contains_numbers(self):
         # Test case 1: input contains numbers
         input_string = "This is a string with 12345 numbers."
@@ -31,7 +30,6 @@ class TestYourFunctions(unittest.TestCase):
         result = contains_numbers(input_string)
         self.assertFalse(result)  # Expecting False
 
-
     def test_are_timestamps_equal(self):
         # Test case 1: timestamps are equal within the tolerance
         timestamp1 = 100.0
@@ -39,7 +37,7 @@ class TestYourFunctions(unittest.TestCase):
         tolerance_seconds = 2
         result = are_timestamps_equal(timestamp1, timestamp2, tolerance_seconds)
         self.assertTrue(result)  # Expecting True
-        
+
         # Test case 2: timestamps are not equal within the tolerance
         timestamp1 = 100.0
         timestamp2 = 120.0

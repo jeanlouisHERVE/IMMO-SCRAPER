@@ -2,18 +2,19 @@ import unittest
 import tempfile
 import os
 from modules.database_app import (
-    create_tables, 
-    add_property, 
-    get_property_by_id, 
+    create_tables,
+    add_property,
+    get_property_by_id,
     update_property
 )
+
 
 class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):
         # Create a temporary database file for testing
         self.db_fd, self.db_path = tempfile.mkstemp()
         os.environ["DATABASE_PATH"] = self.db_path
-        
+
         # Create the database tables before running tests
         create_tables()
 
@@ -54,7 +55,16 @@ class TestDatabaseFunctions(unittest.TestCase):
 
     def test_update_property(self):
         # Add a property to the database
-        property_id = add_property("Apartment", "Paris", "District B", "75002", "example2.com", 2, 100, 1234567890.0)
+        property_id = add_property(
+                        "Apartment",
+                        "Paris",
+                        "District B",
+                        "75002",
+                        "example2.com",
+                        2,
+                        100,
+                        1234567890.0
+                        )
 
         # Update the price of the property
         update_property(property_id, 500000)
