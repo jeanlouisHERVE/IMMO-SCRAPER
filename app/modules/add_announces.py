@@ -1,4 +1,4 @@
-#packages
+# packages
 import os
 import re
 import time
@@ -10,31 +10,38 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 
-#other modules
+# other modules
 from dotenv import load_dotenv
 from driver_manager import WebDriverManager
 
-#own packages
+# own packages
 import modules.database_app
 import modules.functions
 
-#get data from .env file 
+# get data from .env file
 load_dotenv()
 
-#variables
+# variables
 driver = WebDriverManager.get_driver()
 actions = ActionChains(driver)
 url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 current_time_utc = datetime.datetime.now(tz=pytz.utc).timestamp()
 
-#functions
+# functions
 def check_accept_section(cssSelector: str):
+
     driver.implicitly_wait(5)
     try:
-        accept = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, cssSelector)))
+        accept = WebDriverWait(driver, 5).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, cssSelector))
+                )
         accept.click()
-    except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
+    except (
+        NoSuchElementException, 
+        StaleElementReferenceException, 
+        TimeoutException
+        ):
         print("KO : no accept part")
 
 def add_new_announces():
@@ -42,19 +49,20 @@ def add_new_announces():
     global_page_number = 2
     
     print("------------------Add_new_annouces_Start------------------")
-    ##connection to website
+    ## connection to website
     driver.get(url_immo_website)
     driver.implicitly_wait(5)
-    #check an agree the terms section exists
+    # check an agree the terms section exists
     time.sleep(2)
     check_accept_section('span.didomi-continue-without-agreeing')
     time.sleep(2)
 
-    ##fill research section
-    driver.find_element(By.CSS_SELECTOR, "input.tt-input").send_keys(os.environ["CITY_RESEARCHED"])
+    ## fill research section
+    search_input = driver.find_element(By.CSS_SELECTOR, "input.tt-input")
+    search_input.send_keys(os.environ["CITY_RESEARCHED"])
     time.sleep(2)
 
-    #select desired town in the dropdown menu
+    # select desired town in the dropdown menu
     try:
         dropdown_element = driver.find_elements(By.CSS_SELECTOR, "div.suggestionItem")[0]
         time.sleep(2)
@@ -62,7 +70,7 @@ def add_new_announces():
     except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
         print("KO : unable to make the dropdown menu appear")
 
-    #click on the search button
+    # click on the search button
     time.sleep(2)
     driver.find_element(By.CSS_SELECTOR, "button.btn.btn-primary.search").click()
 
@@ -80,7 +88,7 @@ def add_new_announces():
             print("------------------Article Start------------------")
             print("article :", article)
             
-            ###type of property
+            ### type of property
             type_of_property = ""
             try:
                 type_of_property_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
@@ -96,23 +104,23 @@ def add_new_announces():
             except(NoSuchElementException):
                 print("KO : no data for type_of_property found")
             
-            ###town
+            ### town
             town = os.environ["CITY_RESEARCHED"]
             print("town :",town)
             
-            ###District&&Postcode
+            ### District&&Postcode
             district = ""
             postcode = 0
             try: 
                 address_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__address-title")
                 address_content = address_content.text
-                ##district
+                ## district
                 try: 
                     district = re.findall("\((.*?)\)", address_content)[0]
                 except IndexError:
                     print("KO : no data for District found")
                     district = ""
-                ##postcode
+                ## postcode
                 try:
                     postcode = re.findall("[0-9]*", address_content)[0]
                 except IndexError:
@@ -124,7 +132,7 @@ def add_new_announces():
             except(NoSuchElementException):
                 print("KO : no data for District&&Postcode found")
             
-            ###url
+            ### url
             url = ""
             try:
                 url_content = article.find_element(By.CSS_SELECTOR,"a.detailedSheetLink")
@@ -133,19 +141,19 @@ def add_new_announces():
             except(NoSuchElementException):
                 print("KO : no data for url found")    
             
-            ###room number && surface
+            ### room number && surface
             surface = 0
             room_number = 0
             try:
                 room_surface_content = article.find_element(By.CSS_SELECTOR,"span.ad-overview-details__ad-title")
                 content_text = room_surface_content.text
-                ##room
+                ## room
                 room_number = room_surface_content.text
                 pattern_room = r'(\d+)\s*pièce'
                 room_content = re.findall(pattern_room, content_text)
                 room_number = room_content[0]
                 print("room_number :",room_number)
-                ##surface
+                ## surface
                 surface = room_surface_content.text
                 pattern_squaremeters = r'\b(\d+)\b'
                 surface_content = re.findall(pattern_squaremeters, content_text)
@@ -154,7 +162,7 @@ def add_new_announces():
             except(NoSuchElementException):
                 print("KO : no data for room number && surface found")
                     
-            ###price
+            ### price
             price = 0
             try:
                 price_content = article.find_element(By.CSS_SELECTOR,"span.ad-price__the-price")
@@ -166,19 +174,19 @@ def add_new_announces():
             except(NoSuchElementException):
                 print("KO : no data for price found")
                     
-            ###date 
+            ### date 
             date_add_to_db = current_time_utc
             print("date_add_to_db :",date_add_to_db)
                 
             print("------------------Article End------------------")  
                 
-            ###add properties to db
+            ### add properties to db
             if not modules.database_app.get_property_by_url(url):
                 property_id = modules.database_app.add_property(type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db)
                 modules.database_app.add_price_to_property(date_add_to_db, property_id, price)
             
             
-        ###catch data to access the next page
+        ### catch data to access the next page
         next_page_url = next_results_btn.get_attribute('href')
         print("next_page_url", next_page_url)
         pattern_next_page_url_without_page = r"(.+)\?"
@@ -196,7 +204,7 @@ def add_new_announces():
 
 def add_descriptions():
     print("------------------Description Part------------------")
-    ###Add description to database
+    ### Add description to database
     property_urls = modules.database_app.get_id_url_from_properties()
     for id_property, url_property in property_urls:
         print("url_property",url_property)
@@ -214,22 +222,22 @@ def add_descriptions():
             
             labelsInfo = driver.find_elements(By.CSS_SELECTOR, "div.labelInfo")
             
-            ###default values
-            ##building options
+            ### default values
+            ## building options
             year_of_construction = ""
             exposition = ""
             floor = None
             total_floor_number = None
             neighborhood_description = ""
 
-            ##rooms
+            ## rooms
             bedroom_number = 0
             toilet_number = 0
             bathroom_number = 0
             cellar = False
             lock_up_garage = False
 
-            ##options indoor
+            ## options indoor
             heating = ""
             tv_cable = False
             fireplace = False
@@ -238,20 +246,20 @@ def add_descriptions():
             elevator = False
             fibre_optics_status = ""
 
-            #options outdoor
+            ## options outdoor
             garden = False
             car_park_number = 0
             balcony = False
             large_balcony = False
 
-            ##administration
+            ## administration
             estate_agency_fee_percentage = 0
             pinel = False
             denormandie = False
             announce_publication = ""
             announce_last_modification = ""
             
-            ##diagnostics
+            ## diagnostics
             dpe_date = ""
             energetic_performance_letter = None
             energetic_performance_number = 0 
@@ -277,13 +285,13 @@ def add_descriptions():
                         local_timestamp_construction = datetime.datetime.strptime(year_of_construction, format_string_construction)
                         year_of_construction = local_timestamp_construction.replace(tzinfo=pytz.timezone('UTC')).timestamp()
                     
-                    #exposition
+                    # exposition
                     elif "exposé" in element_text:
                         pattern_exposition = r'exposé\s(.+)'
                         exposition = re.findall(pattern_exposition, element_text)[0]
                     
-                    #floor
-                    #total_floor_number 
+                    # floor
+                    # total_floor_number 
                     elif "étage" in element_text:
                         pattern_floor = r'^[0-9]+'
                         pattern_floor_number = r'sur\s+(\d+)'
@@ -298,7 +306,7 @@ def add_descriptions():
                         else: 
                             total_floor_number = None
                     
-                    #bedroom_number
+                    # bedroom_number
                     elif "chambre" in element_text:
                         bedroom_number = re.findall(regex_find_numbers, element_text)[0]
                     
@@ -313,11 +321,11 @@ def add_descriptions():
                     elif "bain" in element_text:
                         bathroom_number = re.findall(regex_find_numbers, element_text)[0]
                     
-                    #cellar
+                    # cellar
                     elif "cave" in element_text:
                         cellar = True
                     
-                    #lock_up_garage
+                    # lock_up_garage
                     elif "box" in element_text:
                         lock_up_garage = True
                     
@@ -327,27 +335,27 @@ def add_descriptions():
                     elif "chauffage" in element_text:
                         heating = re.findall(regex_find_text_after_colon, element_text)[0]
                     
-                    #tv_cable
+                    # tv_cable
                     elif "tv" in element_text:
                         tv_cable = True
                     
-                    #fireplace
+                    # fireplace
                     elif "cheminée" in element_text:
                         fireplace = True
                         
-                    #digicode
+                    # digicode
                     elif "digicode" in element_text:
                         digicode = True
                         
-                    #intercom
+                    # intercom
                     elif "interphone" in element_text:
                         intercom = True
                     
-                    #elevator
+                    # elevator
                     elif "ascenseur" in element_text:
                         elevator = True
                         
-                    #fibre_optics_status
+                    # fibre_optics_status
                     elif "fibre" in element_text:
                         fibre_optics_status = re.findall(regex_find_text_after_colon, element_text)[0].replace("*", "")
 
@@ -362,24 +370,24 @@ def add_descriptions():
                         else:
                             car_park_number = None
                     
-                    #balcony
+                    # balcony
                     elif "balcon" in element_text:
                         balcony = True
                         
-                    #large_balcony
+                    # large_balcony
                     elif "terrasse" in element_text:
                         large_balcony = True
                     
-                    #estate_agency_fee_percentage
-                    # elif "honoraires :" in element_text:
-                    #     pattern = r'[\d,]+%'
-                    #     estate_agency_fee_percentage = re.findall(pattern, element_text)[0].replace("%", "")
+                    # estate_agency_fee_percentage
+                    #  elif "honoraires :" in element_text:
+                    #      pattern = r'[\d,]+%'
+                    #      estate_agency_fee_percentage = re.findall(pattern, element_text)[0].replace("%", "")
                     
-                    #pinel
+                    # pinel
                     elif "pinel" in element_text:
                         pinel = True
                         
-                    #denormandie
+                    # denormandie
                     elif "denormandie" in element_text:
                         pinel = True
                     
@@ -396,14 +404,14 @@ def add_descriptions():
                         modification_french_date = re.findall(r'le\s(.+)', element_text)[0]
                         announce_last_modification = modules.functions.date_converter_french_date_to_utc_timestamp(modification_french_date)
                     
-                    #dpe_date
+                    # dpe_date
                     elif "dpe" in element_text:
                         dpe_french_date = re.findall(regex_find_text_after_colon, element_text)[0]
                         dpe_date = modules.functions.date_converter_french_date_to_utc_timestamp(dpe_french_date)
                         
-                    #batch
-                    # elif "lot" in element_text:
-                    #     batch = re.findall(regex_find_numbers, element_text)[0]
+                    # batch
+                    #  elif "lot" in element_text:
+                    #      batch = re.findall(regex_find_numbers, element_text)[0]
                         
                     else:
                         continue
@@ -486,7 +494,7 @@ def add_descriptions():
             print("------------------Description Part End------------------")
             print("--------------------------------------------------------")
             print("----------------------Agency Part-----------------------")
-            #estate_agency 
+            # estate_agency 
             estate_agency_name  = ""
             estate_agency_address = ""
             estate_agency_evaluation = ""
@@ -504,6 +512,7 @@ def add_descriptions():
             except(NoSuchElementException, StaleElementReferenceException):
                     print("KO : no data for estate_agency address") 
                     estate_agency_address = None
+            
             # fee_percentage
             # value caught above
             
