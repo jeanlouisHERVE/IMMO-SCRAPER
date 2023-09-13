@@ -1,6 +1,7 @@
 import unittest
 from modules.add_announces import add_new_announces, add_descriptions
 
+
 class TestMyModule(unittest.TestCase):
     def test_add_new_announces(self):
         print("some text")
