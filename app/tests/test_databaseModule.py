@@ -18,12 +18,10 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Create the database tables before running tests
         create_tables()
 
-
     def tearDown(self):
         # Close and remove the temporary database file
         os.close(self.db_fd)
         os.unlink(self.db_path)
-
 
     def test_add_and_get_property(self):
         # Add a property to the database
@@ -74,6 +72,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Check if the price has been updated
         self.assertEqual(property_data["price"], 500000)
+
 
 if __name__ == '__main__':
     unittest.main()

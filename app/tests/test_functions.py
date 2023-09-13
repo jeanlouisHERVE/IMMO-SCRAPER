@@ -24,7 +24,7 @@ class TestYourFunctions(unittest.TestCase):
         input_string = "This is a string with 12345 numbers."
         result = contains_numbers(input_string)
         self.assertTrue(result)  # Expecting True
-        
+
         # Test case 2: input does not contain numbers
         input_string = "No numbers here."
         result = contains_numbers(input_string)
