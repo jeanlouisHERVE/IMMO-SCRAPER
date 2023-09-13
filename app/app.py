@@ -38,7 +38,7 @@ def start_prompt():
         elif user_input == "4":
             global_properties_number = modules.database_app.get_properties_number()
             print(f"""\n--- The properties number --- \n\n
-                  The city {city_researched_content} has a total of {global_properties_number[0][0]} 
+                  The city {city_researched_content} has a total of {global_properties_number[0][0]}
                   properties to sell. \n
                   """)
         else:
