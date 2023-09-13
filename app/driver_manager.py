@@ -1,5 +1,6 @@
 from selenium import webdriver
 
+
 class WebDriverManager:
     _driver = None
 
@@ -8,4 +9,3 @@ class WebDriverManager:
         if cls._driver is None:
             cls._driver = webdriver.Chrome()  # Example: Using Chrome
         return cls._driver
-    
