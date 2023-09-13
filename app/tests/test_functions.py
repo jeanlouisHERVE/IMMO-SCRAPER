@@ -5,8 +5,8 @@ from modules.functions import (
     are_timestamps_equal
 )
 
-class TestYourFunctions(unittest.TestCase):
 
+class TestYourFunctions(unittest.TestCase):
     def test_date_converter_french_date_to_utc_timestamp(self):
         # Test case 1: valid input
         french_date = "15 août 2023"
@@ -19,6 +19,7 @@ class TestYourFunctions(unittest.TestCase):
         result = date_converter_french_date_to_utc_timestamp(french_date)
         self.assertIsNone(result)  # Expecting None
 
+
     def test_contains_numbers(self):
         # Test case 1: input contains numbers
         input_string = "This is a string with 12345 numbers."
@@ -29,6 +30,7 @@ class TestYourFunctions(unittest.TestCase):
         input_string = "No numbers here."
         result = contains_numbers(input_string)
         self.assertFalse(result)  # Expecting False
+
 
     def test_are_timestamps_equal(self):
         # Test case 1: timestamps are equal within the tolerance
@@ -44,6 +46,7 @@ class TestYourFunctions(unittest.TestCase):
         tolerance_seconds = 10
         result = are_timestamps_equal(timestamp1, timestamp2, tolerance_seconds)
         self.assertFalse(result)  # Expecting False
+
 
 if __name__ == '__main__':
     unittest.main()

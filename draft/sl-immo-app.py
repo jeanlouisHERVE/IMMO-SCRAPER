@@ -30,6 +30,7 @@ actions = ActionChains(driver)
 chrome_options = ChromeOptions()
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 
+
 # functions
 def check_accept_section(cssSelector: str):
     driver.implicitly_wait(5)

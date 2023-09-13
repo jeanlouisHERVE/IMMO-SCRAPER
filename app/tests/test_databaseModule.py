@@ -1,7 +1,12 @@
 import unittest
 import tempfile
 import os
-from modules.database_app import create_tables, add_property, get_property_by_id, update_property
+from modules.database_app import (
+    create_tables, 
+    add_property, 
+    get_property_by_id, 
+    update_property
+)
 
 class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):
@@ -12,14 +17,25 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Create the database tables before running tests
         create_tables()
 
+
     def tearDown(self):
         # Close and remove the temporary database file
         os.close(self.db_fd)
         os.unlink(self.db_path)
 
+
     def test_add_and_get_property(self):
         # Add a property to the database
-        property_id = add_property("House", "Paris", "District A", "75001", "example.com", 4, 200, 1234567890.0)
+        property_id = add_property(
+                        "House",
+                        "Paris",
+                        "District A",
+                        "75001",
+                        "example.com",
+                        4,
+                        200,
+                        1234567890.0
+                        )
 
         # Get the added property by its ID
         property_data = get_property_by_id(property_id)
