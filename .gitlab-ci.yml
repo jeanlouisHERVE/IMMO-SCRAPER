@@ -19,10 +19,10 @@ build:
     - apt-get install -y rpm
     - pip install setuptools wheel
     - python setup.py sdist bdist_wheel
-    - rpmbuild -ba my-python-project.spec
+    - rpmbuild -ba immo-scraper.spec
   artifacts:
     paths:
-      - my-python-project-*.rpm  # Adjust the RPM file name pattern
+      - immo-scraper-*.rpm
 
 publish:
   stage: publish
