@@ -606,7 +606,7 @@ def add_descriptions():
             if not database_app.get_property_description_by_id(id_property):
                 database_app.add_description(id_property,
                                              year_of_construction,
-                                             exposition, 
+                                             exposition,
                                              floor,
                                              total_floor_number,
                                              neighborhood_description,
