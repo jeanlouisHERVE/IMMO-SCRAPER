@@ -46,4 +46,5 @@ def start_prompt():
 
 
 # script
-start_prompt()
+if __name__ == "__main__":
+    start_prompt()
