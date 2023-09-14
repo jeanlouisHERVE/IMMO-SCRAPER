@@ -2,6 +2,7 @@ image: python:3.9
 
 stages:
   - lint
+  - test
   - build
   - publish
 
@@ -11,6 +12,11 @@ lint:
   script:
     - pip install flake8
     - flake8 . 
+
+unit_tests:
+  stage: test
+  script:
+    - python -m unittest discover
 
 build:
   stage: build

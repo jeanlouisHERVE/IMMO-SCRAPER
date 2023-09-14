@@ -26,3 +26,7 @@ git config --global --edit
 finish lint step in ci_cd
 creation of setup.py to complete 
 
+
+##TODO add others aliases
+##TODO configure artifactory
+##TODO how launch the rpm once deployed ? 
