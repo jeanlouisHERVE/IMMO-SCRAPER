@@ -19,8 +19,8 @@ from dotenv import load_dotenv
 from driver_manager import WebDriverManager
 
 # own packages
-import modules.database_app
-import modules.functions
+import database_app
+import functions
 
 # get data from .env file
 load_dotenv()
@@ -31,7 +31,7 @@ actions = ActionChains(driver)
 url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 current_time_utc = datetime.datetime.now(tz=pytz.utc).timestamp()
-functions = modules.functions
+functions = functions
 
 
 # functions
@@ -198,8 +198,8 @@ def add_new_announces():
             print("------------------Article End------------------")
 
             # add properties to db
-            if not modules.database_app.get_property_by_url(url):
-                property_id = modules.database_app.add_property(
+            if not database_app.get_property_by_url(url):
+                property_id = database_app.add_property(
                                                     type_of_property,
                                                     town,
                                                     district,
@@ -209,7 +209,7 @@ def add_new_announces():
                                                     surface,
                                                     date_add_to_db
                                                     )
-                modules.database_app.add_price_to_property(date_add_to_db, property_id, price)
+                database_app.add_price_to_property(date_add_to_db, property_id, price)
 
         # catch data to access the next page
         next_page_url = next_results_btn.get_attribute('href')
@@ -231,11 +231,11 @@ def add_new_announces():
 def add_descriptions():
     print("------------------Description Part------------------")
     # Add description to database
-    property_urls = modules.database_app.get_id_url_from_properties()
+    property_urls = database_app.get_id_url_from_properties()
     for id_property, url_property in property_urls:
         print("url_property", url_property)
 
-    if not modules.database_app.get_property_description_by_id(id_property):
+    if not database_app.get_property_description_by_id(id_property):
 
         print("step1")
         driver.get(url_property)
@@ -396,7 +396,7 @@ def add_descriptions():
 
                 # car_park_number
                 elif "parking" in element_text:
-                    if modules.functions.contains_numbers(element_text) is True:
+                    if functions.contains_numbers(element_text) is True:
                         car_park_number = re.findall(regex_find_numbers, element_text)[0]
                     else:
                         car_park_number = None
@@ -577,16 +577,16 @@ def add_descriptions():
             print("estate_agency_fee_percentage", estate_agency_fee_percentage)
             print("estate_agency_evaluation", estate_agency_evaluation)
 
-            result = modules.database_app.get_agency(estate_agency_name)
+            result = database_app.get_agency(estate_agency_name)
             print("result", result)
 
-            if not modules.database_app.get_agency(estate_agency_name) or estate_agency_name is None:
+            if not database_app.get_agency(estate_agency_name) or estate_agency_name is None:
                 print("stepagency1")
-                modules.database_app.add_agency(estate_agency_name,
-                                                estate_agency_address,
-                                                estate_agency_fee_percentage,
-                                                estate_agency_evaluation
-                                                )
+                database_app.add_agency(estate_agency_name,
+                                        estate_agency_address,
+                                        estate_agency_fee_percentage,
+                                        estate_agency_evaluation
+                                        )
                 print("stepagency2")
                 print(f"OK : {estate_agency_name} estate_agency has been added to database")
             else:
@@ -594,7 +594,7 @@ def add_descriptions():
                 print(f"KO : {estate_agency_name} estate_agency already exits")
 
             try:
-                estate_agency_id = modules.database_app.get_agency_id_from_name(estate_agency_name)[0][0]
+                estate_agency_id = database_app.get_agency_id_from_name(estate_agency_name)[0][0]
             except IndexError:
                 if not estate_agency_id:
                     estate_agency_id = None
@@ -603,40 +603,40 @@ def add_descriptions():
             print("------------------Agency Part End------------------")
             print("------------------Add Description------------------")
 
-            if not modules.database_app.get_property_description_by_id(id_property):
-                modules.database_app.add_description(id_property,
-                                                     year_of_construction,
-                                                     exposition,
-                                                     floor,
-                                                     total_floor_number,
-                                                     neighborhood_description,
-                                                     bedroom_number,
-                                                     toilet_number,
-                                                     bathroom_number,
-                                                     cellar,
-                                                     lock_up_garage,
-                                                     heating,
-                                                     tv_cable,
-                                                     fireplace,
-                                                     digicode,
-                                                     intercom,
-                                                     elevator,
-                                                     fibre_optics_status,
-                                                     garden,
-                                                     car_park_number,
-                                                     balcony,
-                                                     large_balcony,
-                                                     estate_agency_fee_percentage,
-                                                     pinel,
-                                                     denormandie,
-                                                     announce_publication,
-                                                     announce_last_modification,
-                                                     dpe_date,
-                                                     energetic_performance_letter,
-                                                     energetic_performance_number,
-                                                     climatic_performance_number,
-                                                     climatic_performance_letter,
-                                                     estate_agency_id
-                                                     )
+            if not database_app.get_property_description_by_id(id_property):
+                database_app.add_description(id_property,
+                                             year_of_construction,
+                                             exposition, 
+                                             floor,
+                                             total_floor_number,
+                                             neighborhood_description,
+                                             bedroom_number,
+                                             toilet_number,
+                                             bathroom_number,
+                                             cellar,
+                                             lock_up_garage,
+                                             heating,
+                                             tv_cable,
+                                             fireplace,
+                                             digicode,
+                                             intercom,
+                                             elevator,
+                                             fibre_optics_status,
+                                             garden,
+                                             car_park_number,
+                                             balcony,
+                                             large_balcony,
+                                             estate_agency_fee_percentage,
+                                             pinel,
+                                             denormandie,
+                                             announce_publication,
+                                             announce_last_modification,
+                                             dpe_date,
+                                             energetic_performance_letter,
+                                             energetic_performance_number,
+                                             climatic_performance_number,
+                                             climatic_performance_letter,
+                                             estate_agency_id
+                                             )
 
             print("------------------End Add Description------------------")
