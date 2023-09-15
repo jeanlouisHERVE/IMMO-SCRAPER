@@ -29,16 +29,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
     def test_add_and_get_property(self):
         # Add a property to the database
-        property_id = add_property(
-                        "House",
-                        "Paris",
-                        "District A",
-                        "75001",
-                        "example.com",
-                        4,
-                        200,
-                        1234567890.0
-                        )
+        property_id = add_property(4)
 
         # Get the added property by its ID
         property_data = get_property_by_id(property_id)
