@@ -16,7 +16,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         database_directory = "database"
         database_filename = "immoscraper.db"
         database_path = os.path.join(database_directory, database_filename)
-        
+
         os.environ[database_path] = self.db_path
 
         # Create the database tables before running tests
