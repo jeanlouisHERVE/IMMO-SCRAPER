@@ -13,7 +13,11 @@ class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):
         # Create a temporary database file for testing
         self.db_fd, self.db_path = tempfile.mkstemp()
-        os.environ["DATABASE_PATH"] = self.db_path
+        database_directory = "database"
+        database_filename = "immoscraper.db"
+        database_path = os.path.join(database_directory, database_filename)
+        
+        os.environ[database_path] = self.db_path
 
         # Create the database tables before running tests
         create_tables()

@@ -142,7 +142,10 @@ DELETE_PROPERTY = """DELETE FROM properties
                     WHERE id = ?;"""
 
 # connection to database
-connection = sqlite3.connect(os.environ["DATABASE_PATH"])
+database_directory = "database"
+database_filename = "immoscraper.db"
+database_path = os.path.join(database_directory, database_filename)
+connection = sqlite3.connect(os.environ[database_path])
 
 
 def create_tables():
