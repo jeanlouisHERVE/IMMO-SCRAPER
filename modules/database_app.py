@@ -146,6 +146,7 @@ database_directory = "database"
 database_filename = "immoscraper.db"
 database_path = os.path.join(database_directory, database_filename)
 
+print("os.environ[database_path]", os.environ[database_path])
 connection = sqlite3.connect(os.environ[database_path])
 
 
