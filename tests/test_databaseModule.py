@@ -1,12 +1,17 @@
+
+import os
 import unittest
 import tempfile
-import os
+from dotenv import load_dotenv
 from modules.database_app import (
     create_tables,
     add_property,
     get_property_by_id,
     update_property
 )
+
+# get data from .env file
+load_dotenv()
 
 
 class TestDatabaseFunctions(unittest.TestCase):
