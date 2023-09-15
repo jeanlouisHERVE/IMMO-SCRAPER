@@ -146,8 +146,7 @@ database_directory = "database"
 database_filename = "immoscraper.db"
 database_path = os.path.join(database_directory, database_filename)
 
-os.environ["DATABASE_PATH"] = database_path
-connection = sqlite3.connect(database_path)
+connection = sqlite3.connect(os.environ[database_path])
 
 
 def create_tables():
