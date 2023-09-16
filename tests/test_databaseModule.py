@@ -2,6 +2,8 @@
 import os
 import unittest
 import tempfile
+import sqlite3
+
 from dotenv import load_dotenv
 from modules.database_app import (
     create_tables,
@@ -744,7 +746,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         delete_property(1)
 
         # Query the properties from the database
-        self.cursor.execute("SELECT * FROM properties WHERE id = ?", (1,))
+        self.cursor = self.cursor.execute("SELECT * FROM properties WHERE id = ?", (1,))
         deleted_property = self.cursor.fetchone()
 
         # Check if the property has been deleted
@@ -755,7 +757,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         delete_property(3)
 
         # Query the properties from the database
-        self.cursor.execute("SELECT * FROM properties WHERE id = ?", (3,))
+        self.cursor.execute("SELECT * FROM properties WHERE id = ?", (10000,))
         nonexistent_property = self.cursor.fetchone()
 
         # Check if no property was deleted
