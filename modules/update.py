@@ -154,7 +154,6 @@ def update_descriptions():
                                                  estate_agency_id
                                                  )
                 print("id_property", type(id_property))
-                input()
                 database_app.delete_property(int(id_property))
                 continue
         except (NoSuchElementException):
