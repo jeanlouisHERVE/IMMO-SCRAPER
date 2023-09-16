@@ -1,7 +1,5 @@
-
-import os
 import unittest
-import tempfile
+import sqlite3
 
 from dotenv import load_dotenv
 from modules.database_app import (
@@ -23,7 +21,6 @@ from modules.database_app import (
     get_agency,
     get_agencies,
     get_agency_id_from_name,
-    update_property,
     update_description,
     update_agency,
     delete_property
@@ -35,16 +32,16 @@ load_dotenv()
 
 class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):
-        # Create a temporary database file for testing
-        self.db_fd, self.db_path = tempfile.mkstemp()
+        # Create an in-memory SQLite database for testing
+        self.database_connection = sqlite3.connect(':memory:')
+        self.cursor = self.database_connection.cursor()
 
         # Create the database tables before running tests
         create_tables()
 
     def tearDown(self):
-        # Close and remove the temporary database file
-        os.close(self.db_fd)
-        os.unlink(self.db_path)
+        # Close the database connection
+        self.database_connection.close()
 
     def test_add_property(self):
         # Add a property to the database
