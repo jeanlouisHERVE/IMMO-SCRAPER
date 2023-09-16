@@ -419,7 +419,10 @@ def add_descriptions():
                     # estate_agency_fee_percentage
                     #  elif "honoraires :" in element_text:
                     #      pattern = r'[\d,]+%'
-                    #      estate_agency_fee_percentage = re.findall(pattern, element_text)[0].replace("%", "")
+                    #      estate_agency_fee_percentage = re.findall(
+                        #                                             pattern,
+                        #                                             element_text
+                        #                                            )[0].replace("%", "")
 
                     # pinel
                     elif "pinel" in element_text:
@@ -436,15 +439,15 @@ def add_descriptions():
                         else:
                             publication_french_date = re.findall(r'le\s(.+)', element_text)[0]
                             announce_publication = functions.date_converter_french_date_to_utc_timestamp(
-                                                                                        publication_french_date
-                                                                                        )
+                                                                                    publication_french_date
+                                                                                    )
 
                     # announce_last_modification
                     elif "modifiée" in element_text:
                         modification_french_date = re.findall(r'le\s(.+)', element_text)[0]
                         announce_last_modification = functions.date_converter_french_date_to_utc_timestamp(
-                                                                                        modification_french_date
-                                                                                        )
+                                                                                    modification_french_date
+                                                                                    )
 
                     # dpe_date
                     elif "dpe" in element_text:
@@ -465,7 +468,8 @@ def add_descriptions():
                 # neighborhood_description
                 try:
                     neighborhood_description = driver.find_element(By.CSS_SELECTOR,
-                                                                "div.neighborhoodDescription span")
+                                                                   "div.neighborhoodDescription span"
+                                                                   )
                     neighborhood_description = neighborhood_description.text
                 except (NoSuchElementException, StaleElementReferenceException):
                     print("KO : no data for neighborhood_description")
@@ -473,7 +477,8 @@ def add_descriptions():
                 # energetic_performance_letter
                 try:
                     energetic_performance_letter = driver.find_element(By.CSS_SELECTOR,
-                                                                    "div.dpe-line__classification span div")
+                                                                       "div.dpe-line__classification span div"
+                                                                       )
                     energetic_performance_letter = energetic_performance_letter.text
                 except (NoSuchElementException, StaleElementReferenceException):
                     print("KO : no data for energetic_performance_letter")
@@ -498,7 +503,8 @@ def add_descriptions():
                 # climatic_performance_letter
                 try:
                     climatic_performance_letter = driver.find_element(By.CSS_SELECTOR,
-                                                                    "div.ges-line__classification span")
+                                                                      "div.ges-line__classification span"
+                                                                      )
                     climatic_performance_letter = climatic_performance_letter.text
                 except (NoSuchElementException, StaleElementReferenceException):
                     print("KO : no data for climatic_performance_letter")
@@ -547,7 +553,9 @@ def add_descriptions():
 
                 # name
                 try:
-                    estate_agency_name = driver.find_element(By.CSS_SELECTOR, "div.agency-overview__info-name")
+                    estate_agency_name = driver.find_element(By.CSS_SELECTOR,
+                                                             "div.agency-overview__info-name"
+                                                             )
                     estate_agency_name = estate_agency_name.text
                 except (NoSuchElementException, StaleElementReferenceException):
                     print("KO : no data for estate_agency name ")
@@ -612,38 +620,38 @@ def add_descriptions():
 
                 if not database_app.get_property_description_by_id(id_property):
                     database_app.add_description(id_property,
-                                                year_of_construction,
-                                                exposition,
-                                                floor,
-                                                total_floor_number,
-                                                neighborhood_description,
-                                                bedroom_number,
-                                                toilet_number,
-                                                bathroom_number,
-                                                cellar,
-                                                lock_up_garage,
-                                                heating,
-                                                tv_cable,
-                                                fireplace,
-                                                digicode,
-                                                intercom,
-                                                elevator,
-                                                fibre_optics_status,
-                                                garden,
-                                                car_park_number,
-                                                balcony,
-                                                large_balcony,
-                                                estate_agency_fee_percentage,
-                                                pinel,
-                                                denormandie,
-                                                announce_publication,
-                                                announce_last_modification,
-                                                dpe_date,
-                                                energetic_performance_letter,
-                                                energetic_performance_number,
-                                                climatic_performance_number,
-                                                climatic_performance_letter,
-                                                estate_agency_id
-                                                )
+                                                 year_of_construction,
+                                                 exposition,
+                                                 floor,
+                                                 total_floor_number,
+                                                 neighborhood_description,
+                                                 bedroom_number,
+                                                 toilet_number,
+                                                 bathroom_number,
+                                                 cellar,
+                                                 lock_up_garage,
+                                                 heating,
+                                                 tv_cable,
+                                                 fireplace,
+                                                 digicode,
+                                                 intercom,
+                                                 elevator,
+                                                 fibre_optics_status,
+                                                 garden,
+                                                 car_park_number,
+                                                 balcony,
+                                                 large_balcony,
+                                                 estate_agency_fee_percentage,
+                                                 pinel,
+                                                 denormandie,
+                                                 announce_publication,
+                                                 announce_last_modification,
+                                                 dpe_date,
+                                                 energetic_performance_letter,
+                                                 energetic_performance_number,
+                                                 climatic_performance_number,
+                                                 climatic_performance_letter,
+                                                 estate_agency_id
+                                                 )
 
                 print("------------------End Add Description------------------")
