@@ -105,6 +105,7 @@ INSERT_OLD_PROPERTY = """INSERT INTO old_properties (type_of_property, town, dis
 GET_PROPERTY = "SELECT * FROM properties #####;"
 GET_PROPERTY_BY_URL = "SELECT * FROM properties WHERE url = ?;"
 GET_PROPERTY_BY_ID = "SELECT * FROM properties WHERE id = ?;"
+GET_PROPERTY_PRICES = 
 GET_ID_URL_FROM_PROPERTIES = "SELECT id, url FROM properties"
 GET_ID_URL_DATEOFMODIFICATION_FROM_PROPERTIES = """
                                         SELECT p.id, p.url, d.announce_last_modification FROM properties
