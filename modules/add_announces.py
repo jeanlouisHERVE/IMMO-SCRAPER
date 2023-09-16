@@ -241,8 +241,16 @@ def add_descriptions():
         driver.get(url_property)
         driver.implicitly_wait(5)
 
+        # check if a agreeing pop-up displays
         check_accept_section('span.didomi-continue-without-agreeing')
         driver.implicitly_wait(5)
+
+        # check if the announce is still available
+        try:
+            outOfTheMarket = driver.find_element(By.CLASS_NAME, "outOfTheMarketBanner")
+            print(f"KO : Announce no more available {outOfTheMarket}")
+        except (NoSuchElementException):
+            print("OK : no out of the market banner")
 
         print("step2")
 

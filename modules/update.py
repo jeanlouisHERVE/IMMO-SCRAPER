@@ -158,7 +158,7 @@ def update_descriptions():
                 database_app.delete_property(int(id_property))
                 continue
         except (NoSuchElementException):
-            print("KO : no accept part")
+            print("KO : no out of the market banner")
 
         print("step2")
 
