@@ -10,6 +10,7 @@ def date_converter_french_date_to_utc_timestamp(french_date: str):
     months = {
         "janvier": "01",
         "fevrier": "02",
+        "février": "02",
         "mars": "03",
         "avril": "04",
         "mai": "05",
@@ -21,7 +22,8 @@ def date_converter_french_date_to_utc_timestamp(french_date: str):
         "sept.": "09",
         "octobre": "10",
         "novembre": "11",
-        "décembre": "12"
+        "décembre": "12",
+        "decembre": "12"
         }
 
     regex_number = r'\d+'
