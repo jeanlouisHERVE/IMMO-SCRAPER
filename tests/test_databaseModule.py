@@ -45,15 +45,15 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Check if the retrieved property matches the added data
         self.assertIsNotNone(property_data)
-        self.assertEqual(property_data["id"], property_id)
-        self.assertEqual(property_data["type_of_property"], "House")
-        self.assertEqual(property_data["town"], "Paris")
-        self.assertEqual(property_data["district"], "District A")
-        self.assertEqual(property_data["postcode"], "75001")
-        self.assertEqual(property_data["url"], "example.com")
-        self.assertEqual(property_data["room_number"], 4)
-        self.assertEqual(property_data["surface"], 200)
-        self.assertEqual(property_data["date_add_to_db"], 1234567890.0)
+        self.assertEqual(property_data[0], property_id)
+        self.assertEqual(property_data[1], "House")
+        self.assertEqual(property_data[2], "Paris")
+        self.assertEqual(property_data[3], "District A")
+        self.assertEqual(property_data[4], "75001")
+        self.assertEqual(property_data[5], "example.com")
+        self.assertEqual(property_data[6], 4)
+        self.assertEqual(property_data[7], 200)
+        self.assertEqual(property_data[8], 1234567890.0)
 
     def test_update_property(self):
         # Add a property to the database
