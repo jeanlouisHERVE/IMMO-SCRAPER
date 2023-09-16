@@ -76,7 +76,7 @@ def update_descriptions():
                 date_add_to_db = property_data[7]
                 description_data = database_app.get_property_description_by_id(id_property)
                 description_data = list(description_data)
-                
+
                 print("description_data", description_data, type(description_data))
                 new_property_id = database_app.add_old_property(type_of_property,
                                                                 town,
@@ -155,6 +155,8 @@ def update_descriptions():
                                                  estate_agency_id
                                                  )
                 print("id_property", type(id_property))
+
+                ###TODO move prices to old_prices table
                 database_app.delete_property(int(id_property))
                 continue
         except (NoSuchElementException):
