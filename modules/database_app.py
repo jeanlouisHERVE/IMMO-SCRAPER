@@ -119,8 +119,15 @@ CREATE_OLD_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS old_descriptions (
                                 climatic_performance_number INTEGER,
                                 climatic_performance_letter TEXT,
                                 estate_agency_id INTEGER,
-                                FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE,
+                                FOREIGN KEY (property_id) REFERENCES old_properties(id) ON DELETE CASCADE,
                                 FOREIGN KEY (estate_agency_id) REFERENCES agencies(id)
+                            );"""
+CREATE_OLD_PRICES_TABLE = """CREATE TABLE IF NOT EXISTS old_prices (
+                                id INTEGER NOT NULL PRIMARY KEY,
+                                date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                                property_id INTEGER NOT NULL,
+                                price REAL,
+                                FOREIGN KEY (property_id) REFERENCES old_properties(id) ON DELETE CASCADE
                             );"""
 
 # add data
@@ -148,6 +155,7 @@ INSERT_OLD_DESCRIPTION = """INSERT INTO old_descriptions (property_id, year_of_c
                     energetic_performance_number, climatic_performance_number, climatic_performance_letter,
                     estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
                     ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+INSERT_OLD_PRICE = """INSERT INTO old_prices (date, property_id, price) VALUES (?, ?, ?);"""
 
 # get data
 GET_PROPERTY = "SELECT * FROM properties #####;"
@@ -168,6 +176,7 @@ GET_OLD_PROPERTY_DESCRIPTION_BY_ID = "SELECT * FROM descriptions WHERE property_
 GET_AGENCY_ID_BY_NAME = "SELECT id FROM agencies WHERE name = ?;"
 GET_AGENCIES = "SELECT * FROM agencies"
 GET_AGENCY = "SELECT * FROM agencies WHERE name = ?"
+GET_PRICES = "SELECT * FROM prices WHERE property_id = ?;"
 
 # update data
 UPDATE_PROPERTY = """UPDATE properties
@@ -201,6 +210,7 @@ def create_tables():
         connection.execute(CREATE_ESTATE_AGENCIES_TABLE)
         connection.execute(CREATE_OLD_PROPERTIES_TABLE)
         connection.execute(CREATE_OLD_DESCRIPTIONS_TABLE)
+        connection.execute(CREATE_OLD_PRICES_TABLE)
 
 
 def add_property(
@@ -402,6 +412,11 @@ def add_agency(name: str,
 def add_price_to_property(date: float, property_id: int, price: int):
     with connection:
         connection.execute(INSERT_PRICE, (date, property_id, price))
+
+
+def add_old_price_to_old_property(date: float, property_id: int, price: int):
+    with connection:
+        connection.execute(INSERT_OLD_PRICE, (date, property_id, price))
 
 
 def get_property_by_url(url: str):
