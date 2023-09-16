@@ -543,43 +543,43 @@ class TestDatabaseFunctions(unittest.TestCase):
         )
 
         # Retrieve the property description by its ID
-        property_description = get_property_description_by_id(property_id)
+        description_data = get_property_description_by_id(property_id)
 
-        # Check if the retrieved property description matches the added data
-        self.assertIsNotNone(property_description)
-        self.assertEqual(property_description["property_id"], property_id)
-        self.assertEqual(property_description["year_of_construction"], 1990.0)
-        self.assertEqual(property_description["exposition"], "North")
-        self.assertEqual(property_description["floor"], 2)
-        self.assertEqual(property_description["total_floor_number"], 5)
-        self.assertEqual(property_description["neighborhood_description"], "Quiet neighborhood")
-        self.assertEqual(property_description["bedroom_number"], 3)
-        self.assertEqual(property_description["toilet_number"], 2)
-        self.assertEqual(property_description["bathroom_number"], 2)
-        self.assertTrue(property_description["cellar"])
-        self.assertFalse(property_description["lock_up_garage"])
-        self.assertTrue(property_description["heating"])
-        self.assertFalse(property_description["tv_cable"])
-        self.assertTrue(property_description["fireplace"])
-        self.assertFalse(property_description["digicode"])
-        self.assertTrue(property_description["intercom"])
-        self.assertFalse(property_description["elevator"])
-        self.assertEqual(property_description["fibre_optics_status"], "Fiber optics available")
-        self.assertTrue(property_description["garden"])
-        self.assertEqual(property_description["car_park_number"], 1)
-        self.assertTrue(property_description["balcony"])
-        self.assertFalse(property_description["large_balcony"])
-        self.assertEqual(property_description["estate_agency_fee_percentage"], 5.0)
-        self.assertTrue(property_description["pinel"])
-        self.assertTrue(property_description["denormandie"])
-        self.assertEqual(property_description["announce_publication"], "2023-09-14")
-        self.assertEqual(property_description["announce_last_modification"], "2023-09-14")
-        self.assertEqual(property_description["dpe_date"], "2023-09-14")
-        self.assertEqual(property_description["energetic_performance_letter"], "C")
-        self.assertEqual(property_description["energetic_performance_number"], 100)
-        self.assertEqual(property_description["climatic_performance_number"], 150)
-        self.assertEqual(property_description["climatic_performance_letter"], "D")
-        self.assertEqual(property_description["estate_agency_id"], 1)
+        # Check if the retrieved description matches the added data
+        self.assertIsNotNone(description_data)
+        self.assertEqual(description_data[0], property_id)  # property_id
+        self.assertEqual(description_data[1], 1990.0)  # year_of_construction
+        self.assertEqual(description_data[2], "North")  # exposition
+        self.assertEqual(description_data[3], 2)  # floor
+        self.assertEqual(description_data[4], 5)  # total_floor_number
+        self.assertEqual(description_data[5], "Quiet neighborhood")  # neighborhood_description
+        self.assertEqual(description_data[6], 3)  # bedroom_number
+        self.assertEqual(description_data[7], 2)  # toilet_number
+        self.assertEqual(description_data[8], 2)  # bathroom_number
+        self.assertTrue(description_data[9])  # cellar
+        self.assertFalse(description_data[10])  # lock_up_garage
+        self.assertTrue(description_data[11])  # heating
+        self.assertTrue(description_data[12])  # tv_cable
+        self.assertFalse(description_data[13])  # fireplace
+        self.assertFalse(description_data[14])  # digicode
+        self.assertTrue(description_data[15])  # intercom
+        self.assertFalse(description_data[16])  # elevator
+        self.assertEqual(description_data[17], "Fiber available")  # fibre_optics_status
+        self.assertTrue(description_data[18])  # garden
+        self.assertEqual(description_data[19], 1)  # car_park_number
+        self.assertTrue(description_data[20])  # balcony
+        self.assertFalse(description_data[21])  # large_balcony
+        self.assertEqual(description_data[22], 5.0)  # estate_agency_fee_percentage
+        self.assertTrue(description_data[23])  # pinel
+        self.assertTrue(description_data[24])  # denormandie
+        self.assertEqual(description_data[25], "01/01/2023")  # announce_publication
+        self.assertEqual(description_data[26], "01/01/2023")  # announce_last_modification
+        self.assertEqual(description_data[27], "01/01/2023")  # dpe_date
+        self.assertEqual(description_data[28], "C")  # energetic_performance_letter
+        self.assertEqual(description_data[29], 150)  # energetic_performance_number
+        self.assertEqual(description_data[30], 120)  # climatic_performance_number
+        self.assertEqual(description_data[31], "D")  # climatic_performance_letter
+        self.assertEqual(description_data[32], 1)  # estate_agency_id
 
     def test_get_agency(self):
         # Add an agency to the database
@@ -590,10 +590,10 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Check if the retrieved agency matches the added data
         self.assertIsNotNone(agency)
-        self.assertEqual(agency["name"], "ABC Realty")
-        self.assertEqual(agency["address"], "123 Main St")
-        self.assertEqual(agency["fee_percentage"], 5)
-        self.assertEqual(agency["evaluation"], "Good")
+        self.assertEqual(agency[1], "ABC Realty")
+        self.assertEqual(agency[2], "123 Main St")
+        self.assertEqual(agency[3], 5)
+        self.assertEqual(agency[4], "Good")
 
     def test_get_agencies(self):
         # Call the function to retrieve agencies

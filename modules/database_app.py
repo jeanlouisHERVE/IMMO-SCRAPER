@@ -20,17 +20,6 @@ CREATE_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS properties (
                                 surface INTEGER,
                                 date_add_to_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"""
 
-CREATE_OLD_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS old_properties (
-                                id INTEGER NOT NULL PRIMARY KEY,
-                                type_of_property TEXT,
-                                town TEXT,
-                                district TEXT,
-                                postcode TEXT,
-                                url TEXT,
-                                room_number INTEGER,
-                                surface INTEGER,
-                                date_add_to_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"""
-
 CREATE_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 property_id INTEGER NOT NULL PRIMARY KEY,
                                 year_of_construction FLOAT,
@@ -96,6 +85,44 @@ CREATE_OLD_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS old_properties (
                                 surface INTEGER,
                                 date_add_to_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"""
 
+CREATE_OLD_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS old_descriptions (
+                                property_id INTEGER NOT NULL PRIMARY KEY,
+                                year_of_construction FLOAT,
+                                exposition TEXT,
+                                floor INTEGER,
+                                total_floor_number INTEGER,
+                                neighborhood_description LONGTEXT,
+                                bedroom_number INTEGER,
+                                toilet_number INTEGER,
+                                bathroom_number INTEGER,
+                                cellar BOOLEAN,
+                                lock_up_garage BOOLEAN,
+                                heating TEXT,
+                                tv_cable BOOLEAN,
+                                fireplace BOOLEAN,
+                                digicode BOOLEAN,
+                                intercom BOOLEAN,
+                                elevator BOOLEAN,
+                                fibre_optics_status TEXT,
+                                garden BOOLEAN,
+                                car_park_number INTEGER,
+                                balcony BOOLEAN,
+                                large_balcony BOOLEAN,
+                                estate_agency_fee_percentage INTEGER,
+                                pinel BOOLEAN,
+                                denormandie BOOLEAN,
+                                announce_publication TEXT,
+                                announce_last_modification TEXT,
+                                dpe_date TEXT,
+                                energetic_performance_letter TEXT,
+                                energetic_performance_number INTEGER,
+                                climatic_performance_number INTEGER,
+                                climatic_performance_letter TEXT,
+                                estate_agency_id INTEGER,
+                                FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE,
+                                FOREIGN KEY (estate_agency_id) REFERENCES agencies(id)
+                            );"""
+
 # add data
 INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, postcode, url, room_number,
                     surface, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"""
@@ -112,6 +139,16 @@ INSERT_AGENCY = """INSERT INTO agencies (name, address, fee_percentage, evaluati
 INSERT_PRICE = """INSERT INTO prices (date, property_id, price) VALUES (?, ?, ?);"""
 INSERT_OLD_PROPERTY = """INSERT INTO old_properties (type_of_property, town, district, postcode, url,
                     room_number, surface, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"""
+INSERT_OLD_DESCRIPTION = """INSERT INTO descriptions (property_id, year_of_construction, exposition, floor,
+                    total_floor_number, neighborhood_description, bedroom_number, toilet_number,
+                    bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode,
+                    intercom, elevator, fibre_optics_status, garden, car_park_number, balcony,
+                    large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication,
+                    announce_last_modification, dpe_date, energetic_performance_letter,
+                    energetic_performance_number, climatic_performance_number, climatic_performance_letter,
+                    estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+
 # get data
 GET_PROPERTY = "SELECT * FROM properties #####;"
 GET_PROPERTY_BY_URL = "SELECT * FROM properties WHERE url = ?;"
@@ -163,6 +200,7 @@ def create_tables():
         connection.execute(CREATE_PRICES_TABLE)
         connection.execute(CREATE_ESTATE_AGENCIES_TABLE)
         connection.execute(CREATE_OLD_PROPERTIES_TABLE)
+        connection.execute(CREATE_OLD_DESCRIPTIONS_TABLE)
 
 
 def add_property(
@@ -453,6 +491,18 @@ def update_agency(name: str,
         print(f"OK : Agency {name} updated successfully.")
     except sqlite3.Error as e:
         print(f"KO : Error updating agency {name}: {e}")
+
+
+def move_property_to_old(property_id):
+    try:
+        with connection:
+            cursor = connection.execute(GET_PROPERTY_BY_ID, (property_id,))
+            property_data = cursor.fetchone()
+            connection.execute(INSERT_OLD_PROPERTY, property_data)
+            connection.execute(DELETE_PROPERTY, (property_id)) 
+        print(f"OK: Property {property_id} moved to old_properties table.")
+    except sqlite3.Error as e:
+        print(f"KO: Error moving property {property_id} to old_properties: {e}")
 
 
 def delete_property(id: int):
