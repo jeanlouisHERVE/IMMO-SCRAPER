@@ -2,7 +2,6 @@
 import os
 import unittest
 import tempfile
-import sqlite3
 
 from dotenv import load_dotenv
 from modules.database_app import (
