@@ -7,6 +7,8 @@ from modules.database_app import (
     create_tables,
     add_property,
     add_description,
+    add_agency,
+    get_agency,
     get_property_by_id,
     get_property_description_by_id,
     update_property
@@ -145,6 +147,25 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(description_data[30], 120)  # climatic_performance_number
         self.assertEqual(description_data[31], "D")  # climatic_performance_letter
         self.assertEqual(description_data[32], 1)  # estate_agency_id
+
+    def test_add_agency(self):
+        # Add an agency
+        add_agency(
+            "ABC Real Estate",
+            "123 Main St",
+            5,
+            "Excellent"
+        )
+
+        # Get the added agency by its name
+        agency_data = get_agency("ABC Real Estate")
+
+        # Check if the retrieved agency matches the added data
+        self.assertIsNotNone(agency_data)
+        self.assertEqual(agency_data[0], "ABC Real Estate")  # name
+        self.assertEqual(agency_data[1], "123 Main St")  # address
+        self.assertEqual(agency_data[2], 5)  # fee_percentage
+        self.assertEqual(agency_data[3], "Excellent")  # evaluation
 
     def test_update_property(self):
         # Add a property to the database
