@@ -66,16 +66,17 @@ def update_descriptions():
                 property_data = list(property_data)
                 del property_data[0]
                 print("property_data", property_data)
-                town = property_data[0]
-                district = property_data[1]
-                postcode = property_data[2]
-                url = property_data[3]
-                room_number = property_data[4]
-                surface = property_data[5]
-                date_add_to_db = property_data[6]
+                type_of_property = property_data[0]
+                town = property_data[1]
+                district = property_data[2]
+                postcode = property_data[3]
+                url = property_data[4]
+                room_number = property_data[5]
+                surface = property_data[6]
+                date_add_to_db = property_data[7]
                 description_data = database_app.get_property_description_by_id(id_property)
                 description_data = list(description_data)
-                type_of_property = property_data[0]
+                
                 print("description_data", description_data, type(description_data))
                 new_property_id = database_app.add_old_property(type_of_property,
                                                                 town,
