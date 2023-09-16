@@ -75,7 +75,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         property_data = get_property_by_id(property_id)
 
         # Check if the price has been updated
-        self.assertEqual(property_data["price"], 500000)
+        self.assertEqual(property_data[9], 500000)
 
 
 if __name__ == '__main__':
