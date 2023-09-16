@@ -17,6 +17,7 @@ from modules.database_app import (
     get_properties,
     get_properties_number,
     get_properties_from_adding_date,
+    get_property_prices,
     get_property_description_by_id,
     get_agency,
     get_agencies,
@@ -213,7 +214,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(agency_data[2], 5)  # fee_percentage
         self.assertEqual(agency_data[3], "Excellent")  # evaluation
 
-
     def test_add_price_to_property(self):
         # Add a price to a property
         property_id = add_property(
@@ -265,34 +265,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(property_data[6], 4)  # room_number
         self.assertEqual(property_data[7], 200)  # surface
         self.assertEqual(property_data[8], 1234567890.0)  # date_add_to_d
-
-    def test_get_property_by_id(self):
-        # Add a property to the database
-        property_id = add_property(
-            "Apartment",
-            "Paris",
-            "District B",
-            "75002",
-            "example2.com",
-            2,
-            100,
-            1234567890.0
-        )
-
-        # Get the added property by its ID
-        property_data = get_property_by_id(property_id)
-
-        # Check if the retrieved property matches the added data
-        self.assertIsNotNone(property_data)
-        self.assertEqual(property_data[0], property_id)  # id
-        self.assertEqual(property_data[1], "Apartment")  # type_of_property
-        self.assertEqual(property_data[2], "Paris")  # town
-        self.assertEqual(property_data[3], "District B")  # district
-        self.assertEqual(property_data[4], "75002")  # postcode
-        self.assertEqual(property_data[5], "example2.com")  # url
-        self.assertEqual(property_data[6], 2)  # room_number
-        self.assertEqual(property_data[7], 100)  # surface
-        self.assertEqual(property_data[8], 1234567890.0)  # date_add_to_db
 
     def test_get_property_by_id(self):
         # Add a property to the database

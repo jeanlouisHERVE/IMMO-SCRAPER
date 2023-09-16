@@ -105,7 +105,7 @@ INSERT_OLD_PROPERTY = """INSERT INTO old_properties (type_of_property, town, dis
 GET_PROPERTY = "SELECT * FROM properties #####;"
 GET_PROPERTY_BY_URL = "SELECT * FROM properties WHERE url = ?;"
 GET_PROPERTY_BY_ID = "SELECT * FROM properties WHERE id = ?;"
-GET_PROPERTY_PRICES = 
+GET_PROPERTY_PRICES = "SELECT * FROM prices WHERE id = ?;"
 GET_ID_URL_FROM_PROPERTIES = "SELECT id, url FROM properties"
 GET_ID_URL_DATEOFMODIFICATION_FROM_PROPERTIES = """
                                         SELECT p.id, p.url, d.announce_last_modification FROM properties
@@ -325,6 +325,12 @@ def get_properties_from_adding_date(date_add_to_db: float):
     with connection:
         cursor = connection.execute(GET_PROPERTIES_FROM_DATE_ADDING_TO_DB, (date_add_to_db, ))
         return cursor.fetchall()
+
+
+def get_property_prices(property_id: int):
+    with connection:
+        cursor = connection.execute(GET_PROPERTY_BY_ID, (property_id,))
+        return cursor.fetchone()
 
 
 def get_property_description_by_id(id: int):
