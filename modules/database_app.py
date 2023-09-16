@@ -321,6 +321,76 @@ def add_description(
                            )
 
 
+def add_old_description(
+        property_id: int,
+        year_of_construction: float,
+        exposition: str,
+        floor: int,
+        total_floor_number: int,
+        neighborhood_description: str,
+        bedroom_number: int,
+        toilet_number: int,
+        bathroom_number: int,
+        cellar: bool,
+        lock_up_garage: bool,
+        heating: bool,
+        tv_cable: bool,
+        fireplace: bool,
+        digicode: bool,
+        intercom: bool,
+        elevator: bool,
+        fibre_optics_status: str,
+        garden: bool,
+        car_park_number: int,
+        balcony: bool,
+        large_balcony: bool,
+        estate_agency_fee_percentage: float,
+        pinel: bool,
+        denormandie: bool,
+        announce_publication: str,
+        announce_last_modification: str,
+        dpe_date: str,
+        energetic_performance_letter: str,
+        energetic_performance_number: int,
+        climatic_performance_number: int,
+        climatic_performance_letter: str,
+        estate_agency_id: int):
+    with connection:
+        connection.execute(INSERT_DESCRIPTION, (property_id,
+                                                year_of_construction,
+                                                exposition, floor,
+                                                total_floor_number,
+                                                neighborhood_description,
+                                                bedroom_number,
+                                                toilet_number,
+                                                bathroom_number,
+                                                cellar,
+                                                lock_up_garage,
+                                                heating,
+                                                tv_cable,
+                                                fireplace,
+                                                digicode,
+                                                intercom,
+                                                elevator,
+                                                fibre_optics_status,
+                                                garden,
+                                                car_park_number,
+                                                balcony,
+                                                large_balcony,
+                                                estate_agency_fee_percentage,
+                                                pinel,
+                                                denormandie,
+                                                announce_publication,
+                                                announce_last_modification,
+                                                dpe_date,
+                                                energetic_performance_letter,
+                                                energetic_performance_number,
+                                                climatic_performance_number,
+                                                climatic_performance_letter,
+                                                estate_agency_id)
+                           )
+
+
 def add_agency(name: str,
                address: str,
                fee_percentage: int,
@@ -499,7 +569,11 @@ def move_property_to_old(property_id):
             cursor = connection.execute(GET_PROPERTY_BY_ID, (property_id,))
             property_data = cursor.fetchone()
             connection.execute(INSERT_OLD_PROPERTY, property_data)
-            connection.execute(DELETE_PROPERTY, (property_id)) 
+            cursor = connection.execute(GET_PROPERTY_DESCRIPTION, (property_id,))
+            property_description_data = cursor.fetchone()
+            connection.execute(INSERT_OLD_DESCRIPTION, property_description_data)
+            
+            connection.execute(DELETE_PROPERTY, (property_id))
         print(f"OK: Property {property_id} moved to old_properties table.")
     except sqlite3.Error as e:
         print(f"KO: Error moving property {property_id} to old_properties: {e}")
