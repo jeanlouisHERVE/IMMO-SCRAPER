@@ -139,8 +139,8 @@ INSERT_AGENCY = """INSERT INTO agencies (name, address, fee_percentage, evaluati
 INSERT_PRICE = """INSERT INTO prices (date, property_id, price) VALUES (?, ?, ?);"""
 INSERT_OLD_PROPERTY = """INSERT INTO old_properties (type_of_property, town, district, postcode, url,
                     room_number, surface, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"""
-INSERT_OLD_DESCRIPTION = """INSERT INTO descriptions (property_id, year_of_construction, exposition, floor,
-                    total_floor_number, neighborhood_description, bedroom_number, toilet_number,
+INSERT_OLD_DESCRIPTION = """INSERT INTO old_descriptions (property_id, year_of_construction, exposition,
+                    floor, total_floor_number, neighborhood_description, bedroom_number, toilet_number,
                     bathroom_number, cellar, lock_up_garage, heating, tv_cable, fireplace, digicode,
                     intercom, elevator, fibre_optics_status, garden, car_park_number, balcony,
                     large_balcony,  estate_agency_fee_percentage, pinel, denormandie, announce_publication,
@@ -164,9 +164,10 @@ GET_PROPERTIES_NUMBER = "SELECT COUNT(id) FROM properties;"
 GET_PROPERTIES_FROM_DATE_ADDING_TO_DB = "SELECT * FROM properties WHERE date_add_to_db = ?;"
 GET_PROPERTY_DESCRIPTION = "SELECT * FROM descriptions WHERE "
 GET_PROPERTY_DESCRIPTION_BY_ID = "SELECT * FROM descriptions WHERE property_id = ?"
+GET_OLD_PROPERTY_DESCRIPTION_BY_ID = "SELECT * FROM descriptions WHERE property_id = ?"
 GET_AGENCY_ID_BY_NAME = "SELECT id FROM agencies WHERE name = ?;"
-GET_AGENCIES = "SELECT * from agencies"
-GET_AGENCY = "SELECT * from agencies WHERE name = ?"
+GET_AGENCIES = "SELECT * FROM agencies"
+GET_AGENCY = "SELECT * FROM agencies WHERE name = ?"
 
 # update data
 UPDATE_PROPERTY = """UPDATE properties
@@ -187,8 +188,7 @@ UPDATE_AGENCY = """UPDATE agencies
                     WHERE agency_id = ?;"""
 
 # delete data
-DELETE_PROPERTY = """DELETE FROM properties
-                    WHERE id = ?;"""
+DELETE_PROPERTY = """DELETE FROM properties WHERE id = ?;"""
 
 connection = sqlite3.connect(os.environ["DATABASE_PATH"])
 
@@ -356,38 +356,38 @@ def add_old_description(
         climatic_performance_letter: str,
         estate_agency_id: int):
     with connection:
-        connection.execute(INSERT_DESCRIPTION, (property_id,
-                                                year_of_construction,
-                                                exposition, floor,
-                                                total_floor_number,
-                                                neighborhood_description,
-                                                bedroom_number,
-                                                toilet_number,
-                                                bathroom_number,
-                                                cellar,
-                                                lock_up_garage,
-                                                heating,
-                                                tv_cable,
-                                                fireplace,
-                                                digicode,
-                                                intercom,
-                                                elevator,
-                                                fibre_optics_status,
-                                                garden,
-                                                car_park_number,
-                                                balcony,
-                                                large_balcony,
-                                                estate_agency_fee_percentage,
-                                                pinel,
-                                                denormandie,
-                                                announce_publication,
-                                                announce_last_modification,
-                                                dpe_date,
-                                                energetic_performance_letter,
-                                                energetic_performance_number,
-                                                climatic_performance_number,
-                                                climatic_performance_letter,
-                                                estate_agency_id)
+        connection.execute(INSERT_OLD_DESCRIPTION, (property_id,
+                                                    year_of_construction,
+                                                    exposition, floor,
+                                                    total_floor_number,
+                                                    neighborhood_description,
+                                                    bedroom_number,
+                                                    toilet_number,
+                                                    bathroom_number,
+                                                    cellar,
+                                                    lock_up_garage,
+                                                    heating,
+                                                    tv_cable,
+                                                    fireplace,
+                                                    digicode,
+                                                    intercom,
+                                                    elevator,
+                                                    fibre_optics_status,
+                                                    garden,
+                                                    car_park_number,
+                                                    balcony,
+                                                    large_balcony,
+                                                    estate_agency_fee_percentage,
+                                                    pinel,
+                                                    denormandie,
+                                                    announce_publication,
+                                                    announce_last_modification,
+                                                    dpe_date,
+                                                    energetic_performance_letter,
+                                                    energetic_performance_number,
+                                                    climatic_performance_number,
+                                                    climatic_performance_letter,
+                                                    estate_agency_id)
                            )
 
 
@@ -563,26 +563,10 @@ def update_agency(name: str,
         print(f"KO : Error updating agency {name}: {e}")
 
 
-def move_property_to_old(property_id):
-    try:
-        with connection:
-            cursor = connection.execute(GET_PROPERTY_BY_ID, (property_id,))
-            property_data = cursor.fetchone()
-            connection.execute(INSERT_OLD_PROPERTY, property_data)
-            cursor = connection.execute(GET_PROPERTY_DESCRIPTION, (property_id,))
-            property_description_data = cursor.fetchone()
-            connection.execute(INSERT_OLD_DESCRIPTION, property_description_data)
-            
-            connection.execute(DELETE_PROPERTY, (property_id))
-        print(f"OK: Property {property_id} moved to old_properties table.")
-    except sqlite3.Error as e:
-        print(f"KO: Error moving property {property_id} to old_properties: {e}")
-
-
 def delete_property(id: int):
     try:
         with connection:
-            connection.execute(DELETE_PROPERTY, (id))
+            connection.execute(DELETE_PROPERTY, (id, ))
         print(f"OK : Property {id} has been deleted successfully.")
     except sqlite3.Error as e:
         print(f"KO : Error deleting property {id}: {e}")
