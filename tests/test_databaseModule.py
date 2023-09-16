@@ -631,28 +631,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(len(agency_id), 1)
         self.assertEqual(agency_id[0]["id"], 1)
 
-    def test_update_property(self):
-        # Add a property to the database
-        property_id = add_property(
-                        "Apartment",
-                        "Paris",
-                        "District B",
-                        "75002",
-                        "example2.com",
-                        2,
-                        100,
-                        1234567890.0
-                        )
-
-        # Update the price of the property
-        update_property(property_id, 500000)
-
-        # Get the updated property
-        property_data = get_property_by_id(property_id)
-
-        # Check if the price has been updated
-        self.assertEqual(property_data[9], 500000)
-
     def test_update_description(self):
         # Call the function to update description
         update_description(1,

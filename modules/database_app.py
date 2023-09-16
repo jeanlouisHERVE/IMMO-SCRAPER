@@ -357,15 +357,6 @@ def get_agency_id_from_name(name: str):
         return cursor.fetchall()
 
 
-def update_property(id: int, price: int):
-    try:
-        with connection:
-            connection.execute(UPDATE_PROPERTY, (price, id))
-        print(f"OK : Property {id} updated successfully.")
-    except sqlite3.Error as e:
-        print(f"KO : Error updating property {id}: {e}")
-
-
 def update_description(property_id: int,
                        year_of_construction: float,
                        exposition: str,
