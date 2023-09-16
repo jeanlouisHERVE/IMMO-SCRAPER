@@ -20,6 +20,17 @@ CREATE_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS properties (
                                 surface INTEGER,
                                 date_add_to_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"""
 
+CREATE_OLD_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS old_properties (
+                                id INTEGER NOT NULL PRIMARY KEY,
+                                type_of_property TEXT,
+                                town TEXT,
+                                district TEXT,
+                                postcode TEXT,
+                                url TEXT,
+                                room_number INTEGER,
+                                surface INTEGER,
+                                date_add_to_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"""
+
 CREATE_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS descriptions (
                                 property_id INTEGER NOT NULL PRIMARY KEY,
                                 year_of_construction FLOAT,
