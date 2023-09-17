@@ -28,7 +28,7 @@ driver = WebDriverManager.get_driver()
 url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 current_time_utc = datetime.datetime.now(tz=pytz.utc).timestamp()
-functions = functions
+global announce_modified
 
 # date
 new_date_add_to_db = current_time_utc
@@ -48,11 +48,16 @@ def check_accept_section(cssSelector: str):
 def update_descriptions():
     for property in database_app.get_id_url_dateofmodification_from_properties():
         id_property, url_property, dateOfModification_announce = property
+        print("---------------------------------------START------------------------------------------")
+        print(f"--------------------------------PROPERTY {id_property}--------------------------------")
+        print("--------------------------------------------------------------------------------------")
+
         print("url_property", url_property)
         print("id_property", id_property, type(id_property))
         print("step1")
         driver.get(url_property)
         driver.implicitly_wait(10)
+        announce_modified = False
 
         check_accept_section('span.didomi-continue-without-agreeing')
         driver.implicitly_wait(5)
@@ -61,113 +66,113 @@ def update_descriptions():
         try:
             outOfTheMarket = driver.find_element(By.CLASS_NAME, "outOfTheMarketBanner")
             # if the announce is not available it's moved to old tables
-            if outOfTheMarket:
-                property_data = database_app.get_property_by_id(id_property)
-                property_data = list(property_data)
-                del property_data[0]
-                print("property_data", property_data)
-                type_of_property = property_data[0]
-                town = property_data[1]
-                district = property_data[2]
-                postcode = property_data[3]
-                url = property_data[4]
-                room_number = property_data[5]
-                surface = property_data[6]
-                date_add_to_db = property_data[7]
-                description_data = database_app.get_property_description_by_id(id_property)
-                description_data = list(description_data)
+            print("outOfTheMarket", outOfTheMarket)
+            property_data = database_app.get_property_by_id(id_property)
+            property_data = list(property_data)
+            del property_data[0]
+            print("property_data", property_data)
+            type_of_property = property_data[0]
+            town = property_data[1]
+            district = property_data[2]
+            postcode = property_data[3]
+            url = property_data[4]
+            room_number = property_data[5]
+            surface = property_data[6]
+            date_add_to_db = property_data[7]
+            description_data = database_app.get_property_description_by_id(id_property)
+            description_data = list(description_data)
 
-                print("description_data", description_data, type(description_data))
-                new_property_id = database_app.add_old_property(type_of_property,
-                                                                town,
-                                                                district,
-                                                                postcode,
-                                                                url,
-                                                                room_number,
-                                                                surface,
-                                                                date_add_to_db)
-                year_of_construction = description_data[1]
-                exposition = description_data[2]
-                floor = description_data[3]
-                total_floor_number = description_data[4]
-                neighborhood_description = description_data[5]
-                bedroom_number = description_data[6]
-                toilet_number = description_data[7]
-                bathroom_number = description_data[8]
-                cellar = description_data[9]
-                lock_up_garage = description_data[10]
-                heating = description_data[11]
-                tv_cable = description_data[12]
-                fireplace = description_data[13]
-                digicode = description_data[14]
-                intercom = description_data[15]
-                elevator = description_data[16]
-                fibre_optics_status = description_data[17]
-                garden = description_data[18]
-                car_park_number = description_data[19]
-                balcony = description_data[20]
-                large_balcony = description_data[21]
-                estate_agency_fee_percentage = description_data[22]
-                pinel = description_data[23]
-                denormandie = description_data[24]
-                announce_publication = description_data[25]
-                announce_last_modification = description_data[26]
-                dpe_date = description_data[27]
-                energetic_performance_letter = description_data[28]
-                energetic_performance_number = description_data[29]
-                climatic_performance_number = description_data[30]
-                climatic_performance_letter = description_data[31]
-                estate_agency_id = description_data[32]
+            print("description_data", description_data, type(description_data))
+            new_property_id = database_app.add_old_property(type_of_property,
+                                                            town,
+                                                            district,
+                                                            postcode,
+                                                            url,
+                                                            room_number,
+                                                            surface,
+                                                            date_add_to_db)
+            year_of_construction = description_data[1]
+            exposition = description_data[2]
+            floor = description_data[3]
+            total_floor_number = description_data[4]
+            neighborhood_description = description_data[5]
+            bedroom_number = description_data[6]
+            toilet_number = description_data[7]
+            bathroom_number = description_data[8]
+            cellar = description_data[9]
+            lock_up_garage = description_data[10]
+            heating = description_data[11]
+            tv_cable = description_data[12]
+            fireplace = description_data[13]
+            digicode = description_data[14]
+            intercom = description_data[15]
+            elevator = description_data[16]
+            fibre_optics_status = description_data[17]
+            garden = description_data[18]
+            car_park_number = description_data[19]
+            balcony = description_data[20]
+            large_balcony = description_data[21]
+            estate_agency_fee_percentage = description_data[22]
+            pinel = description_data[23]
+            denormandie = description_data[24]
+            announce_publication = description_data[25]
+            announce_last_modification = description_data[26]
+            dpe_date = description_data[27]
+            energetic_performance_letter = description_data[28]
+            energetic_performance_number = description_data[29]
+            climatic_performance_number = description_data[30]
+            climatic_performance_letter = description_data[31]
+            estate_agency_id = description_data[32]
 
-                print("new_property_id", new_property_id)
-                database_app.add_old_description(new_property_id,
-                                                 year_of_construction,
-                                                 exposition,
-                                                 floor,
-                                                 total_floor_number,
-                                                 neighborhood_description,
-                                                 bedroom_number,
-                                                 toilet_number,
-                                                 bathroom_number,
-                                                 cellar,
-                                                 lock_up_garage,
-                                                 heating,
-                                                 tv_cable,
-                                                 fireplace,
-                                                 digicode,
-                                                 intercom,
-                                                 elevator,
-                                                 fibre_optics_status,
-                                                 garden,
-                                                 car_park_number,
-                                                 balcony,
-                                                 large_balcony,
-                                                 estate_agency_fee_percentage,
-                                                 pinel,
-                                                 denormandie,
-                                                 announce_publication,
-                                                 announce_last_modification,
-                                                 dpe_date,
-                                                 energetic_performance_letter,
-                                                 energetic_performance_number,
-                                                 climatic_performance_number,
-                                                 climatic_performance_letter,
-                                                 estate_agency_id
-                                                 )
-                print("id_property", type(id_property))
+            print("new_property_id", new_property_id)
+            database_app.add_old_description(new_property_id,
+                                             year_of_construction,
+                                             exposition,
+                                             floor,
+                                             total_floor_number,
+                                             neighborhood_description,
+                                             bedroom_number,
+                                             toilet_number,
+                                             bathroom_number,
+                                             cellar,
+                                             lock_up_garage,
+                                             heating,
+                                             tv_cable,
+                                             fireplace,
+                                             digicode,
+                                             intercom,
+                                             elevator,
+                                             fibre_optics_status,
+                                             garden,
+                                             car_park_number,
+                                             balcony,
+                                             large_balcony,
+                                             estate_agency_fee_percentage,
+                                             pinel,
+                                             denormandie,
+                                             announce_publication,
+                                             announce_last_modification,
+                                             dpe_date,
+                                             energetic_performance_letter,
+                                             energetic_performance_number,
+                                             climatic_performance_number,
+                                             climatic_performance_letter,
+                                             estate_agency_id
+                                             )
+            print("id_property", type(id_property))
 
-                old_prices = database_app.get_prices(id_property)
-                for old_price in old_prices:
-                    old_price = list(old_price)
-                    del old_price[0]
-                    date, property_id, price = old_price
-                    database_app.add_old_price_to_old_property(date,
-                                                               new_property_id,
-                                                               price
-                                                               )
+            old_prices = database_app.get_prices(id_property)
+            for old_price in old_prices:
+                old_price = list(old_price)
+                del old_price[0]
+                date, property_id, price = old_price
+                database_app.add_old_price_to_old_property(date,
+                                                           new_property_id,
+                                                           price
+                                                           )
 
-                database_app.delete_property(int(id_property))
-                continue
+            database_app.delete_property(int(id_property))
+            continue
         except (NoSuchElementException):
             print("KO : no out of the market banner")
 
@@ -496,7 +501,7 @@ def update_descriptions():
             )
             if not same_timestamp:
                 print("KO : the announce is going to be modified and updated")
-
+                announce_modified = True
                 # default values
                 # building options
                 old_property = database_app.get_property_by_id(id_property)
@@ -657,9 +662,19 @@ def update_descriptions():
                 print("--------------------End Update Description------------------")
             else:
                 print("OK : the announce is already up to date")
+                announce_modified = False
         except TypeError:
             "KO : invalid timestamp type"
             continue
         except ValueError:
             "KO : invalid timestamp value"
             continue
+
+        if announce_modified:
+            print("---------------------------------------END------------------------------------------")
+            print(f"-------------------PROPERTY {id_property} HAS BEEN UPDATED--------------------------")
+            print("------------------------------------------------------------------------------------")
+        else:
+            print("---------------------------------------END------------------------------------------")
+            print(f"-------------------PROPERTY {id_property} HAS BEEN UPDATED--------------------------")
+            print("------------------------------------------------------------------------------------")
