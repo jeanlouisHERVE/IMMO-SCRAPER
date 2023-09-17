@@ -165,7 +165,7 @@ def update_descriptions():
                                                                new_property_id,
                                                                price
                                                                )
-                    
+
                 database_app.delete_property(int(id_property))
                 continue
         except (NoSuchElementException):
@@ -611,7 +611,12 @@ def update_descriptions():
 
                 print("----------------------Add price Property---------------------")
                 print(new_price)
-                database_app.add_price_to_property(new_date_add_to_db, property_id, new_price)
+                last_price = database_app.get_last_price_for_property(property_id)
+                if last_price != new_price:
+                    database_app.add_price_to_property(new_date_add_to_db, property_id, new_price)
+                    print(f"The last price for property {property_id} is {last_price}")
+                else:
+                    print(f"No prices found for property {property_id}")
 
                 print("--------------------End add price Property--------------------")
                 print("--------------------Update Description---------------------")

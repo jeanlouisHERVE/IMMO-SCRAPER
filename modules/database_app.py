@@ -177,6 +177,8 @@ GET_AGENCY_ID_BY_NAME = "SELECT id FROM agencies WHERE name = ?;"
 GET_AGENCIES = "SELECT * FROM agencies"
 GET_AGENCY = "SELECT * FROM agencies WHERE name = ?"
 GET_PRICES = "SELECT * FROM prices WHERE property_id = ?;"
+GET_LAST_PRICE_FOR_PROPRIETY = """SELECT price FROM your_table_name
+                                WHERE property_id = ? ORDER BY date DESC LIMIT 1"""
 
 # update data
 UPDATE_PROPERTY = """UPDATE properties
@@ -465,6 +467,17 @@ def get_property_prices(property_id: int):
     with connection:
         cursor = connection.execute(GET_PROPERTY_BY_ID, (property_id,))
         return cursor.fetchone()
+
+
+def get_last_price_for_property(property_id: int):
+    with connection:
+        cursor = connection.cursor()
+        cursor.execute(GET_LAST_PRICE_FOR_PROPRIETY, (property_id,))
+        row = cursor.fetchone()
+        if row:
+            return row[0]
+        else:
+            return None  # Property not found or no prices registere
 
 
 def get_property_description_by_id(id: int):
