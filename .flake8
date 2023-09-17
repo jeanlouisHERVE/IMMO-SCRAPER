@@ -1,4 +1,4 @@
 # configuration of python linter flake8
 
 [flake8]
-max-line-length = 110
+max-line-length = 115
