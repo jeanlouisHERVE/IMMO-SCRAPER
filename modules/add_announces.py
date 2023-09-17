@@ -290,7 +290,7 @@ def add_descriptions():
             pinel = False
             denormandie = False
             announce_publication = ""
-            announce_last_modification = ""
+            announce_last_modification = current_time_utc
 
             # diagnostics
             dpe_date = ""
