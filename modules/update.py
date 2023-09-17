@@ -458,38 +458,38 @@ def update_descriptions():
             print("KO : no data for climatic_performance_letter")
 
         print("#############RECAP ANNOUNCE VARIABLES#############")
-        print("price                        :", new_price)
-        print("year_of_construction         :", new_year_of_construction)
-        print("exposition                   :", new_exposition)
-        print("floor                        :", new_floor)
-        print("total_floor_number           :", new_total_floor_number)
-        print("neighborhood_description     :", new_neighborhood_description)
-        print("bedroom_number               :", new_bedroom_number)
-        print("toilet_number                :", new_toilet_number)
-        print("bathroom_number              :", new_bathroom_number)
-        print("cellar                       :", new_cellar)
-        print("lock_up_garage               :", new_lock_up_garage)
-        print("heating                      :", new_heating)
-        print("tv_cable                     :", new_tv_cable)
-        print("fireplace                    :", new_fireplace)
-        print("digicode                     :", new_digicode)
-        print("intercom                     :", new_intercom)
-        print("elevator                     :", new_elevator)
-        print("fibre_optics_status          :", new_fibre_optics_status)
-        print("garden                       :", new_garden)
-        print("car_park_number              :", new_car_park_number)
-        print("balcony                      :", new_balcony)
-        print("large_balcony                :", new_large_balcony)
-        print("dpe_date                     :", new_dpe_date)
-        print("estate_agency_fee_percentage :", new_estate_agency_fee_percentage)
-        print("pinel                        :", new_pinel)
-        print("denormandie                  :", new_denormandie)
-        print("announce_publication         :", new_announce_publication)
-        print("announce_last_modification   :", new_announce_last_modification)
-        print("energetic_performance_letter :", new_energetic_performance_letter)
-        print("energetic_performance_number :", new_energetic_performance_number)
-        print("climatic_performance_number  :", new_climatic_performance_number)
-        print("climatic_performance_letter  :", new_climatic_performance_letter)
+        print("price                        :", new_price, price)
+        print("year_of_construction         :", new_year_of_construction, year_of_construction)
+        print("exposition                   :", new_exposition, exposition)
+        print("floor                        :", new_floor, floor)
+        print("total_floor_number           :", new_total_floor_number, total_floor_number)
+        print("neighborhood_description     :", new_neighborhood_description, neighborhood_description)
+        print("bedroom_number               :", new_bedroom_number, bedroom_number)
+        print("toilet_number                :", new_toilet_number, toilet_number)
+        print("bathroom_number              :", new_bathroom_number, bathroom_number)
+        print("cellar                       :", new_cellar, cellar)
+        print("lock_up_garage               :", new_lock_up_garage, lock_up_garage)
+        print("heating                      :", new_heating, heating)
+        print("tv_cable                     :", new_tv_cable, tv_cable)
+        print("fireplace                    :", new_fireplace, fireplace)
+        print("digicode                     :", new_digicode, digicode)
+        print("intercom                     :", new_intercom, intercom)
+        print("elevator                     :", new_elevator, elevator)
+        print("fibre_optics_status          :", new_fibre_optics_status, fibre_optics_status)
+        print("garden                       :", new_garden, garden)
+        print("car_park_number              :", new_car_park_number, car_park_number)
+        print("balcony                      :", new_balcony, balcony)
+        print("large_balcony                :", new_large_balcony, large_balcony)
+        print("dpe_date                     :", new_dpe_date, dpe_date)
+        print("estate_agency_fee_% :", new_estate_agency_fee_percentage, estate_agency_fee_percentage)
+        print("pinel                        :", new_pinel, pinel)
+        print("denormandie                  :", new_denormandie, denormandie)
+        print("announce_publication         :", new_announce_publication, announce_publication)
+        print("announce_last_modif   :", new_announce_last_modification, announce_last_modification)
+        print("ener_perf_letter :", new_energetic_performance_letter, energetic_performance_letter)
+        print("ener_perf_number :", new_energetic_performance_number, energetic_performance_number)
+        print("climatic_perf_number  :", new_climatic_performance_number, climatic_performance_number)
+        print("climatic_perf_letter  :", new_climatic_performance_letter, climatic_performance_letter)
 
         print("------------------Description Part End------------------")
 
@@ -499,6 +499,8 @@ def update_descriptions():
                 float(new_announce_last_modification),
                 tolerance_seconds=10
             )
+            print("same_timestamp", same_timestamp)
+            print("step30")
             if not same_timestamp:
                 print("KO : the announce is going to be modified and updated")
                 announce_modified = True
@@ -611,7 +613,7 @@ def update_descriptions():
                     climatic_performance_number = new_climatic_performance_number
                 if climatic_performance_letter != new_climatic_performance_letter:
                     climatic_performance_letter = new_climatic_performance_letter
-
+                print("step31")
                 print("----------------------Update price Property---------------------")
                 print(new_price)
                 last_price = database_app.get_last_price_for_property(id_property)
@@ -620,7 +622,7 @@ def update_descriptions():
                     print(f"The price for property {id_property} has been update {new_price}")
                 else:
                     print(f"No prices found for property {id_property}")
-
+                print("step32")
                 print("--------------------End add price Property--------------------")
                 print("----------------------Update Description---------------------")
 
@@ -656,7 +658,7 @@ def update_descriptions():
                                                 new_climatic_performance_letter,
                                                 estate_agency_id
                                                 )
-
+                print("step33")
                 print("--------------------End Update Description------------------")
             else:
                 print("OK : the announce is already up to date")
