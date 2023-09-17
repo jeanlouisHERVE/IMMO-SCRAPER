@@ -48,6 +48,7 @@ def check_accept_section(cssSelector: str):
 def update_descriptions():
     for property in database_app.get_id_url_dateofmodification_from_properties():
         id_property, url_property, dateOfModification_announce = property
+        dateOfModification_announce = float(dateOfModification_announce)
         print("---------------------------------------START------------------------------------------")
         print(f"--------------------------------PROPERTY {id_property}--------------------------------")
         print("--------------------------------------------------------------------------------------")
