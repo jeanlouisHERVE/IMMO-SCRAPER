@@ -491,6 +491,12 @@ def get_agency_id_from_name(name: str):
         return cursor.fetchall()
 
 
+def get_prices(property_id: int):
+    with connection:
+        cursor = connection.execute(GET_PRICES, (property_id,))
+        return cursor.fetchall()
+
+
 def update_description(property_id: int,
                        year_of_construction: float,
                        exposition: str,
