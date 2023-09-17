@@ -504,9 +504,7 @@ def update_descriptions():
                 announce_modified = True
                 # default values
                 # building options
-                old_property = database_app.get_property_by_id(id_property)
                 old_property_description = database_app.get_property_description_by_id(id_property)
-                property_id = old_property['property_id']
                 year_of_construction = old_property_description['year_of_construction']
                 exposition = old_property_description['exposition']
                 floor = old_property_description['floor']
@@ -614,17 +612,17 @@ def update_descriptions():
                 if climatic_performance_letter != new_climatic_performance_letter:
                     climatic_performance_letter = new_climatic_performance_letter
 
-                print("----------------------Add price Property---------------------")
+                print("----------------------Update price Property---------------------")
                 print(new_price)
-                last_price = database_app.get_last_price_for_property(property_id)
+                last_price = database_app.get_last_price_for_property(id_property)
                 if last_price != new_price:
-                    database_app.add_price_to_property(new_date_add_to_db, property_id, new_price)
-                    print(f"The last price for property {property_id} is {last_price}")
+                    database_app.add_price_to_property(new_date_add_to_db, id_property, new_price)
+                    print(f"The price for property {id_property} has been update {new_price}")
                 else:
-                    print(f"No prices found for property {property_id}")
+                    print(f"No prices found for property {id_property}")
 
                 print("--------------------End add price Property--------------------")
-                print("--------------------Update Description---------------------")
+                print("----------------------Update Description---------------------")
 
                 database_app.update_description(id_property,
                                                 new_year_of_construction,
