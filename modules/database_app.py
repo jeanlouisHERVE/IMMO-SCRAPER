@@ -297,40 +297,44 @@ def add_description(
         climatic_performance_number: int,
         climatic_performance_letter: str,
         estate_agency_id: int):
-    with connection:
-        connection.execute(INSERT_DESCRIPTION, (property_id,
-                                                year_of_construction,
-                                                exposition, floor,
-                                                total_floor_number,
-                                                neighborhood_description,
-                                                bedroom_number,
-                                                toilet_number,
-                                                bathroom_number,
-                                                cellar,
-                                                lock_up_garage,
-                                                heating,
-                                                tv_cable,
-                                                fireplace,
-                                                digicode,
-                                                intercom,
-                                                elevator,
-                                                fibre_optics_status,
-                                                garden,
-                                                car_park_number,
-                                                balcony,
-                                                large_balcony,
-                                                estate_agency_fee_percentage,
-                                                pinel,
-                                                denormandie,
-                                                announce_publication,
-                                                announce_last_modification,
-                                                dpe_date,
-                                                energetic_performance_letter,
-                                                energetic_performance_number,
-                                                climatic_performance_number,
-                                                climatic_performance_letter,
-                                                estate_agency_id)
-                           )
+    try:
+        with connection:
+            connection.execute(INSERT_DESCRIPTION, (property_id,
+                                                    year_of_construction,
+                                                    exposition, floor,
+                                                    total_floor_number,
+                                                    neighborhood_description,
+                                                    bedroom_number,
+                                                    toilet_number,
+                                                    bathroom_number,
+                                                    cellar,
+                                                    lock_up_garage,
+                                                    heating,
+                                                    tv_cable,
+                                                    fireplace,
+                                                    digicode,
+                                                    intercom,
+                                                    elevator,
+                                                    fibre_optics_status,
+                                                    garden,
+                                                    car_park_number,
+                                                    balcony,
+                                                    large_balcony,
+                                                    estate_agency_fee_percentage,
+                                                    pinel,
+                                                    denormandie,
+                                                    announce_publication,
+                                                    announce_last_modification,
+                                                    dpe_date,
+                                                    energetic_performance_letter,
+                                                    energetic_performance_number,
+                                                    climatic_performance_number,
+                                                    climatic_performance_letter,
+                                                    estate_agency_id)
+                               )
+        print(f"OK : Property {property_id} 's description has been saved successfully.")
+    except sqlite3.Error as e:
+        print(f"KO : Error saving property {property_id} description: {e}")
 
 
 def add_old_description(
