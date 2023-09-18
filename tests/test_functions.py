@@ -17,6 +17,7 @@ class TestYourFunctions(unittest.TestCase):
         # Test case 2: invalid input with non-existent month
         french_date = "20 décembrrr 2023"
         result = date_converter_french_date_to_utc_timestamp(french_date)
+        print("result décembrrr", result)
         self.assertIsNone(result)  # Expecting None
 
     def test_contains_numbers(self):
