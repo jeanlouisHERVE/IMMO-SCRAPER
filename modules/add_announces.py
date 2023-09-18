@@ -308,7 +308,6 @@ def add_descriptions():
                     try:
                         element = labelInfo.find_element(By.CSS_SELECTOR, "span")
                         element_text = element.text.lower()
-                        print('element_text ', element_text)
 
                         # year_of_construction
                         if "construit" in element_text:
@@ -507,8 +506,8 @@ def add_descriptions():
                 # climatic_performance_letter
                 try:
                     climatic_performance_letter = driver.find_element(By.CSS_SELECTOR,
-                                                                    "div.ges-line__classification span"
-                                                                    )
+                                                                      "div.ges-line__classification span"
+                                                                      )
                     climatic_performance_letter = climatic_performance_letter.text
                 except (NoSuchElementException, StaleElementReferenceException):
                     print("KO : no data for climatic_performance_letter")
@@ -525,8 +524,8 @@ def add_descriptions():
                 # name
                 try:
                     estate_agency_name = driver.find_element(By.CSS_SELECTOR,
-                                                            "div.agency-overview__info-name"
-                                                            )
+                                                             "div.agency-overview__info-name"
+                                                             )
                     estate_agency_name = estate_agency_name.text
                 except (NoSuchElementException, StaleElementReferenceException):
                     print("KO : no data for estate_agency name ")

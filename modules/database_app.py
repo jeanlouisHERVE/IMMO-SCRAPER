@@ -166,6 +166,7 @@ GET_ID_URL_FROM_PROPERTIES = "SELECT id, url FROM properties"
 GET_ID_URL_DATEOFMODIFICATION_FROM_PROPERTIES = """
                                         SELECT p.id, p.url, d.announce_last_modification FROM properties
                                         p JOIN descriptions d ON p.id = d.property_id
+                                        ORDER BY RANDOM();
                                         ;"""
 GET_PROPERTIES = "SELECT * FROM properties;"
 GET_PROPERTIES_NUMBER = "SELECT COUNT(id) FROM properties;"
