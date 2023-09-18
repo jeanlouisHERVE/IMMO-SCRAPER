@@ -67,12 +67,12 @@ CREATE_ESTATE_AGENCIES_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
                             );"""
 
 CREATE_PRICES_TABLE = """CREATE TABLE IF NOT EXISTS prices (
-                                id INTEGER NOT NULL PRIMARY KEY,
-                                date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-                                property_id INTEGER NOT NULL,
-                                price REAL,
-                                FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE
-                            );"""
+                        id INTEGER NOT NULL PRIMARY KEY,
+                        date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                        property_id INTEGER NOT NULL,
+                        price REAL,
+                        FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE
+                    );"""
 
 CREATE_OLD_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS old_properties (
                                 id INTEGER NOT NULL PRIMARY KEY,
@@ -123,12 +123,12 @@ CREATE_OLD_DESCRIPTIONS_TABLE = """CREATE TABLE IF NOT EXISTS old_descriptions (
                                 FOREIGN KEY (estate_agency_id) REFERENCES agencies(id)
                             );"""
 CREATE_OLD_PRICES_TABLE = """CREATE TABLE IF NOT EXISTS old_prices (
-                                id INTEGER NOT NULL PRIMARY KEY,
-                                date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-                                property_id INTEGER NOT NULL,
-                                price REAL,
-                                FOREIGN KEY (property_id) REFERENCES old_properties(id) ON DELETE CASCADE
-                            );"""
+                            id INTEGER NOT NULL PRIMARY KEY,
+                            date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                            property_id INTEGER NOT NULL,
+                            price REAL,
+                            FOREIGN KEY (property_id) REFERENCES old_properties(id) ON DELETE CASCADE
+                        );"""
 
 # add data
 INSERT_PROPERTY = """INSERT INTO properties (type_of_property, town, district, postcode, url, room_number,

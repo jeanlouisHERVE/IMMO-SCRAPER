@@ -26,6 +26,12 @@ git config --global --edit
 finish lint step in ci_cd
 creation of setup.py to complete 
 
+17/09/2023
+configure alias git cm "massage" ti push into (github, gitlab)
+
+18/09/2023
+use ORDER BY RANDOM() in SQL command
+fix add_announces module indentation issue in description function
 
 ##TODO add others aliases
 ##TODO configure artifactory
