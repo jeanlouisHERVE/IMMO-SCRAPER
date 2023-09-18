@@ -34,16 +34,15 @@ def date_converter_french_date_to_utc_timestamp(french_date: str):
     # extract numbers in day part
     day_number = re.findall(regex_number, date_parts[0])[0]
     check_month = months[french_month]
-    try:
-        if check_month:
-            number_month = months.get(date_parts[1].lower(), date_parts[1])
-            formatted_date = f"{day_number}-{number_month}-{date_parts[2]}"
-            print("formatted_date", formatted_date)
-            dt_object = datetime.datetime.strptime(formatted_date, "%d-%m-%Y")
-            utc_timestamp = dt_object.replace(tzinfo=pytz.UTC).timestamp()
-            return utc_timestamp
 
-    except KeyError:
+    if check_month:
+        number_month = months.get(date_parts[1].lower(), date_parts[1])
+        formatted_date = f"{day_number}-{number_month}-{date_parts[2]}"
+        print("formatted_date", formatted_date)
+        dt_object = datetime.datetime.strptime(formatted_date, "%d-%m-%Y")
+        utc_timestamp = dt_object.replace(tzinfo=pytz.UTC).timestamp()
+        return utc_timestamp
+    else:
         print(f"KO : The provided french month '{french_month}' does not exists")
         return None
 
