@@ -37,7 +37,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.database_connection = os.environ.get("IN_MEMORY_DATABASE_PATH", ":memory:")
 
         self.database_connection = sqlite3.connect(self.database_connection)
-        #self.cursor = self.database_connection.cursor()
+        # self.cursor = self.database_connection.cursor()
 
         # Create the database tables before running tests
         create_tables()
