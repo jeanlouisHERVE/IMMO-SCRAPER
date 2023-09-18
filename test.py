@@ -1,6 +1,5 @@
 # packages
 import re
-import math
 import pytz
 import datetime
 
@@ -44,10 +43,5 @@ def date_converter_french_date_to_utc_timestamp(french_date: str):
         return None
 
 
-def contains_numbers(input_string: str):
-    pattern = r'\d+'
-    return bool(re.search(pattern, input_string))
-
-
-def are_timestamps_equal(timestamp1: float, timestamp2: float, tolerance_seconds=10):
-    return math.isclose(timestamp1, timestamp2, abs_tol=tolerance_seconds)
+result = date_converter_french_date_to_utc_timestamp("15 août 2023")
+print("result", result)
