@@ -11,7 +11,7 @@ from modules.database_app import (
     # add_agency,
     # add_price_to_property,
     # get_property_by_url,
-    # get_property_by_id,
+    get_property_by_id,
     # get_id_url_from_properties,
     # get_id_url_dateofmodification_from_properties,
     # get_properties,
