@@ -42,10 +42,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Create the database tables before running tests
         create_tables()
 
-    def tearDown(self):
-        # Close the database connection
-        self.database_connection.close()
-
     def test_add_property(self):
         # Add a property to the database
         property_id = add_property(
@@ -739,6 +735,10 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Check if no property was deleted
         self.assertIsNone(nonexistent_property)
+
+    def tearDown(self):
+        # Close the database connection
+        self.database_connection.close()
 
 
 if __name__ == '__main__':
