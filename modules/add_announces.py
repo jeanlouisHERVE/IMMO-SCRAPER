@@ -629,8 +629,6 @@ def add_descriptions():
             print("climatic_performance_number  :", climatic_performance_number)
             print("climatic_performance_letter  :", climatic_performance_letter)
 
-            print("id_property  :", id_property)
-            input()
             database_app.add_description(id_property,
                                          year_of_construction,
                                          exposition,
