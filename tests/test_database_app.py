@@ -46,6 +46,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
     def test_add_property(self):
         # Add a property to the database
+        print("DATABASE TEST N°1 : test_add_property")
         property_id = add_property(
             "House",
             "Paris",
@@ -73,6 +74,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(property_data[8], 1234567890.0)
 
     def test_add_old_property(self):
+        print("DATABASE TEST N°2 : test_add_old_property")
         # Test data
         type_of_property = "Apartment"
         town = "Test Town"
@@ -106,6 +108,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(property_record[8], date_add_to_db)
 
     def test_add_description(self):
+        print("DATABASE TEST N°3 : test_add_description")
         # Add a property first
         property_id = add_property(
             "House",
@@ -195,6 +198,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(description_data[32], 1)  # estate_agency_id
 
     def test_add_agency(self):
+        print("DATABASE TEST N°4 : test_add_description")
         # Add an agency
         add_agency(
             "ABC Real Estate",
@@ -214,6 +218,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(agency_data[3], "Excellent")  # evaluation
 
     def test_add_price_to_property(self):
+        print("DATABASE TEST N°5 : test_add_price_to_property")
         # Add a price to a property
         property_id = add_property(
             "House",
@@ -238,6 +243,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(price_data[2], 500000)  # price
 
     def test_get_property_by_url(self):
+        print("DATABASE TEST N°6 : test_get_property_by_url")
         # Add a property to the database
         property_id = add_property(
             "House",
@@ -266,6 +272,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(property_data[8], 1234567890.0)  # date_add_to_d
 
     def test_get_property_by_id(self):
+        print("DATABASE TEST N°7 : test_get_property_by_id")
         # Add a property to the database
         property_id = add_property(
             "Apartment",
@@ -294,6 +301,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(property_data[8], 1234567890.0)  # date_add_to_db
 
     def test_get_id_url_from_properties(self):
+        print("DATABASE TEST N°8 : test_get_id_url_from_properties")
         # Add properties to the database
         property_id1 = add_property(
             "House",
@@ -331,6 +339,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIn((property_id2, "example2.com"), id_url_data)
 
     def test_get_id_url_dateofmodification_from_properties(self):
+        print("DATABASE TEST N°9 : test_get_id_url_dateofmodification_from_properties")
         # Add properties to the database
         property_id1 = add_property(
             "House",
@@ -370,6 +379,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIn(expected_data2, id_url_date_data)
 
     def test_get_properties(self):
+        print("DATABASE TEST N°10 : test_get_properties")
         # Add some properties to the database
         property1_id = add_property(
             "House",
@@ -429,6 +439,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIn(property2_data, properties)
 
     def test_get_properties_number(self):
+        print("DATABASE TEST N°11 : test_get_properties_number")
         # Add some properties to the database
         add_property(
             "House",
@@ -458,6 +469,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(properties_count, 2)
 
     def test_get_properties_from_adding_date(self):
+        print("DATABASE TEST N°12 : test_get_properties_from_adding_date")
         # Add some properties with a specific date_add_to_db value to the database
         add_property(
             "House",
@@ -494,6 +506,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.assertEqual(property_data["date_add_to_db"], target_date)
 
     def test_get_property_description_by_id(self):
+        print("DATABASE TEST N°13 : test_get_property_description_by_id")
         # Add a property to the database
         property_id = add_property(
             "House",
@@ -583,6 +596,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(description_data[32], 1)  # estate_agency_id
 
     def test_get_agency(self):
+        print("DATABASE TEST N°14 : test_get_agency")
         # Add an agency to the database
         add_agency("ABC Realty", "123 Main St", 5, "Good")
 
@@ -597,6 +611,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(agency[4], "Good")
 
     def test_get_agencies(self):
+        print("DATABASE TEST N°15 : test_get_agencies")
         # Call the function to retrieve agencies
         agencies = get_agencies()
 
@@ -617,6 +632,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIn(('Agency3', 'Address3', 6, 'Average'), agencies)
 
     def test_get_agency_id_from_name(self):
+        print("DATABASE TEST N°16 : test_get_agency_id_from_name")
         # Add an agency to the database
         add_agency("Agency1", "123 Main St", 5, "Good")
 
@@ -630,6 +646,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(agency_id[0]["id"], 1)
 
     def test_update_description(self):
+        print("DATABASE TEST N°17 : test_update_description")
         # Call the function to update description
         update_description(1,
                            1999.0,
@@ -703,6 +720,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(updated_description[31], 2)
 
     def test_update_agency(self):
+        print("DATABASE TEST N°18 : test_update_agency")
         # Call the function to update agency
         update_agency('Agency1', '456 Elm St', 6, 'Excellent')
 
@@ -717,6 +735,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(updated_agency[4], 'Excellent')
 
     def test_delete_property(self):
+        print("DATABASE TEST N°19 : test_delete_property")
         # Call the function to delete a property
         delete_property(1)
 
@@ -728,6 +747,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIsNone(deleted_property)
 
     def test_delete_nonexistent_property(self):
+        print("DATABASE TEST N°20 : test_delete_nonexistent_property")
         # Call the function to delete a nonexistent property
         delete_property(3)
 
