@@ -272,7 +272,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(property_data[2], "Paris")  # town
         self.assertEqual(property_data[3], "District A")  # district
         self.assertEqual(property_data[4], "75001")  # postcode
-        self.assertEqual(property_data[5], "example.com")  # url
+        self.assertEqual(property_data[5], "a.com")  # url
         self.assertEqual(property_data[6], 4)  # room_number
         self.assertEqual(property_data[7], 200)  # surface
         self.assertEqual(property_data[8], 1234567890.0)  # date_add_to_d
@@ -779,7 +779,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             "Sartrouville",
             "District P",
             "78500",
-            "example.com",
+            "f.com",
             3,
             180,
             1234567890.0
