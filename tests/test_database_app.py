@@ -665,6 +665,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Retrieve the agency ID by name
         agency_id = get_agency_id_from_name("Agency1")
+        print("TEST 16 agency_id",agency_id)
 
         # Check if the retrieved agency ID is not empty and matches the added agency's ID
         self.assertIsNotNone(agency_id)
@@ -748,8 +749,16 @@ class TestDatabaseFunctions(unittest.TestCase):
 
     def test_update_agency(self):
         print("DATABASE TEST N°18 : test_update_agency")
+
+        agence_id = add_agency(
+                        "ABC Real Estate",
+                        "123 Main St",
+                        5,
+                        "Excellent"
+                        )
+
         # Call the function to update agency
-        update_agency('Agency1', '456 Elm St', 6, 'Excellent')
+        update_agency(agence_id, 'Agency1', '456 Elm St', 6, 'Excellent')
 
         # Query the updated agency from the database
         self.cursor.execute("SELECT * FROM agencies WHERE name = ?", ('Agency1',))

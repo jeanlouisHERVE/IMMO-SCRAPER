@@ -415,7 +415,9 @@ def add_agency(name: str,
                fee_percentage: int,
                evaluation: str):
     with connection:
-        connection.execute(INSERT_AGENCY, (name, address, fee_percentage, evaluation))
+        cursor = connection.execute(INSERT_AGENCY, (name, address, fee_percentage, evaluation))
+        last_inserted_id = cursor.lastrowid
+    return last_inserted_id
 
 
 def add_price_to_property(date: float, property_id: int, price: int):
@@ -592,13 +594,14 @@ def update_description(property_id: int,
         print(f"KO : Error updating description for Property {property_id}: {e}")
 
 
-def update_agency(name: str,
+def update_agency(id: int,
+                  name: str,
                   address: str,
                   fee_percentage: int,
                   evaluation: str):
     try:
         with connection:
-            connection.execute(UPDATE_AGENCY, (name, address, fee_percentage, evaluation))
+            connection.execute(UPDATE_AGENCY, (id, name, address, fee_percentage, evaluation))
         print(f"OK : Agency {name} updated successfully.")
     except sqlite3.Error as e:
         print(f"KO : Error updating agency {name}: {e}")
