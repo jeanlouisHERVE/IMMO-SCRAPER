@@ -366,13 +366,15 @@ class TestDatabaseFunctions(unittest.TestCase):
             1234567890.0
         )
 
+        properties_number = get_properties_number()
+        print("properties_number", properties_number)
         # Get ID, URL, and date of modification data from properties
         id_url_date_data = get_id_url_dateofmodification_from_properties()
 
         # Check if the retrieved data matches the added properties
         self.assertIsNotNone(id_url_date_data)
         self.assertIsInstance(id_url_date_data, list)
-        self.assertEqual(len(id_url_date_data), 2)
+        self.assertEqual(len(id_url_date_data), properties_number)
 
         # Check the data for the first property
         expected_data1 = (property_id1, "example1.com", None)  # Assuming no date for the first property
