@@ -161,7 +161,7 @@ INSERT_OLD_PRICE = """INSERT INTO old_prices (date, property_id, price) VALUES (
 GET_PROPERTY = "SELECT * FROM properties #####;"
 GET_PROPERTY_BY_URL = "SELECT * FROM properties WHERE url = ?;"
 GET_PROPERTY_BY_ID = "SELECT * FROM properties WHERE id = ?;"
-GET_PROPERTY_PRICES = "SELECT * FROM prices WHERE id = ?;"
+GET_PROPERTY_PRICES = "SELECT * FROM prices WHERE property_id = ?;"
 GET_ID_URL_FROM_PROPERTIES = "SELECT id, url FROM properties"
 GET_ID_URL_DATEOFMODIFICATION_FROM_PROPERTIES = """
                                         SELECT p.id, p.url, d.announce_last_modification FROM properties
