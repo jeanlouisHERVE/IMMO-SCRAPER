@@ -237,6 +237,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Retrieve the added price for the property
         price_data = get_property_prices(property_id)
+        print("price_data", price_data)
 
         # Check if the retrieved price matches the added data
         self.assertIsNotNone(price_data)
