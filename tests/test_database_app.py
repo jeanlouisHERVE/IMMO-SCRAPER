@@ -671,7 +671,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIsNotNone(agency_id)
         self.assertIsInstance(agency_id, list)
         self.assertEqual(len(agency_id), 1)
-        self.assertEqual(agency_id[0]["id"], 1)
+        self.assertEqual(agency_id[0]["id"], 3)
 
     def test_update_description(self):
         print("DATABASE TEST N°17 : test_update_description")
