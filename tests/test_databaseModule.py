@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from modules.database_app import (
     create_tables,
     add_property,
-    # add_old_property,
+    add_old_property,
     # add_description,
     # add_agency,
     # add_price_to_property,
@@ -37,7 +37,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.database_connection = os.environ.get("IN_MEMORY_DATABASE_PATH", ":memory:")
 
         self.database_connection = sqlite3.connect(self.database_connection)
-        # self.cursor = self.database_connection.cursor()
+        self.cursor = self.database_connection.cursor()
 
         # Create the database tables before running tests
         create_tables()
@@ -74,38 +74,38 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(property_data[7], 200)
         self.assertEqual(property_data[8], 1234567890.0)
 
-    # def test_add_old_property(self):
-    #     # Test data
-    #     type_of_property = "Apartment"
-    #     town = "Test Town"
-    #     district = "Test District"
-    #     postcode = "12345"
-    #     url = "http://example.com/property"
-    #     room_number = 3
-    #     surface = 100
-    #     date_add_to_db = 1631590200.0  # Replace with your desired timestamp
+    def test_add_old_property(self):
+        # Test data
+        type_of_property = "Apartment"
+        town = "Test Town"
+        district = "Test District"
+        postcode = "12345"
+        url = "http://example.com/property"
+        room_number = 3
+        surface = 100
+        date_add_to_db = 1631590200.0  # Replace with your desired timestamp
 
-    #     # Call the function to add an old property
-    #     last_inserted_id = add_old_property(
-    #         type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db)
+        # Call the function to add an old property
+        last_inserted_id = add_old_property(
+            type_of_property, town, district, postcode, url, room_number, surface, date_add_to_db)
 
-    #     # Check if the property was added successfully
-    #     self.assertIsNotNone(last_inserted_id)
+        # Check if the property was added successfully
+        self.assertIsNotNone(last_inserted_id)
 
-    #     # Check if the property exists in the database
-    #     self.cursor.execute("SELECT * FROM old_properties WHERE id = ?", (last_inserted_id,))
-    #     property_record = self.cursor.fetchone()
-    #     self.assertIsNotNone(property_record)
+        # Check if the property exists in the database
+        self.cursor.execute("SELECT * FROM old_properties WHERE id = ?", (last_inserted_id,))
+        property_record = self.cursor.fetchone()
+        self.assertIsNotNone(property_record)
 
-    #     # Check if the retrieved property data matches the inserted data
-    #     self.assertEqual(property_record[1], type_of_property)
-    #     self.assertEqual(property_record[2], town)
-    #     self.assertEqual(property_record[3], district)
-    #     self.assertEqual(property_record[4], postcode)
-    #     self.assertEqual(property_record[5], url)
-    #     self.assertEqual(property_record[6], room_number)
-    #     self.assertEqual(property_record[7], surface)
-    #     self.assertEqual(property_record[8], date_add_to_db)
+        # Check if the retrieved property data matches the inserted data
+        self.assertEqual(property_record[1], type_of_property)
+        self.assertEqual(property_record[2], town)
+        self.assertEqual(property_record[3], district)
+        self.assertEqual(property_record[4], postcode)
+        self.assertEqual(property_record[5], url)
+        self.assertEqual(property_record[6], room_number)
+        self.assertEqual(property_record[7], surface)
+        self.assertEqual(property_record[8], date_add_to_db)
 
     # def test_add_description(self):
     #     # Add a property first
