@@ -37,10 +37,8 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         self.cursor = self.database_connection.cursor()
 
-        self.cursor = self.database_connection.cursor()
-
         # Create the database tables before running tests
-        create_tables(self.database_connection, self.cursor)
+        create_tables()
 
     def tearDown(self):
         # Close the database connection
