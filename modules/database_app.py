@@ -472,7 +472,7 @@ def get_properties_from_adding_date(date_add_to_db: float):
 
 def get_property_prices(property_id: int):
     with connection:
-        cursor = connection.execute(GET_PROPERTY_BY_ID, (property_id,))
+        cursor = connection.execute(GET_PROPERTY_PRICES, (property_id,))
         return cursor.fetchone()
 
 
