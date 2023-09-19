@@ -209,12 +209,12 @@ def create_tables():
     with connection:
         print("Creating tables...")
         connection.execute(CREATE_PROPERTIES_TABLE)
-        connection.execute(CREATE_DESCRIPTIONS_TABLE)
-        connection.execute(CREATE_PRICES_TABLE)
-        connection.execute(CREATE_ESTATE_AGENCIES_TABLE)
         connection.execute(CREATE_OLD_PROPERTIES_TABLE)
-        connection.execute(CREATE_OLD_DESCRIPTIONS_TABLE)
+        connection.execute(CREATE_PRICES_TABLE)
         connection.execute(CREATE_OLD_PRICES_TABLE)
+        connection.execute(CREATE_DESCRIPTIONS_TABLE)
+        connection.execute(CREATE_OLD_DESCRIPTIONS_TABLE)
+        connection.execute(CREATE_ESTATE_AGENCIES_TABLE)
         print("Tables created.")
 
 
