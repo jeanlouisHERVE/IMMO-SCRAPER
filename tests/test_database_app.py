@@ -49,12 +49,12 @@ class TestDatabaseFunctions(unittest.TestCase):
         print("DATABASE TEST N°1 : test_add_property")
         property_id = add_property(
             "House",
-            "Paris",
-            "District A",
-            "75001",
+            "Sartrouville",
+            "District P",
+            "78500",
             "example.com",
-            4,
-            200,
+            3,
+            180,
             1234567890.0
         )
 
@@ -65,12 +65,12 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIsNotNone(property_data)
         self.assertEqual(property_data[0], property_id)
         self.assertEqual(property_data[1], "House")
-        self.assertEqual(property_data[2], "Paris")
-        self.assertEqual(property_data[3], "District A")
-        self.assertEqual(property_data[4], "75001")
+        self.assertEqual(property_data[2], "Sartrouville")
+        self.assertEqual(property_data[3], "District P")
+        self.assertEqual(property_data[4], "78500")
         self.assertEqual(property_data[5], "example.com")
-        self.assertEqual(property_data[6], 4)
-        self.assertEqual(property_data[7], 200)
+        self.assertEqual(property_data[6], 3)
+        self.assertEqual(property_data[7], 180)
         self.assertEqual(property_data[8], 1234567890.0)
 
     def test_add_old_property(self):
@@ -465,8 +465,11 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Retrieve the number of properties from the database
         properties_count = get_properties_number()
 
+        # Extract the count value from the result
+        count_value = properties_count[0][0]
+        
         # Check if the retrieved count matches the number of added properties (2 in this case)
-        self.assertEqual(properties_count, 2)
+        self.assertEqual(count_value, 2)
 
     def test_get_properties_from_adding_date(self):
         print("DATABASE TEST N°12 : test_get_properties_from_adding_date")
