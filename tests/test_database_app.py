@@ -665,7 +665,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Retrieve the agency ID by name
         agency_id = get_agency_id_from_name("Agency1")
-        print("TEST 16 agency_id",agency_id)
+        print("TEST 16 agency_id", agency_id)
 
         # Check if the retrieved agency ID is not empty and matches the added agency's ID
         self.assertIsNotNone(agency_id)
