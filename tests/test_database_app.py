@@ -654,17 +654,17 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.assertEqual(len(agency), 4)
 
         # Check if the retrieved agency data matches the inserted test data
-        self.assertIn(('Agency1', 'Address1', 5, 'Good'), agencies)
-        self.assertIn(('Agency2', 'Address2', 7, 'Excellent'), agencies)
-        self.assertIn(('Agency3', 'Address3', 6, 'Average'), agencies)
+        self.assertIn(('A1', 'Address1', 5, 'Good'), agencies)
+        self.assertIn(('A2', 'Address2', 7, 'Excellent'), agencies)
+        self.assertIn(('A3', 'Address3', 6, 'Average'), agencies)
 
     def test_get_agency_id_from_name(self):
         print("DATABASE TEST N°16 : test_get_agency_id_from_name")
         # Add an agency to the database
-        add_agency("Agency1", "123 Main St", 5, "Good")
+        add_agency("B1", "123 Main St", 5, "Good")
 
         # Retrieve the agency ID by name
-        agency_id = get_agency_id_from_name("Agency1")
+        agency_id = get_agency_id_from_name("B1")
 
         # Check if the retrieved agency ID is not empty and matches the added agency's ID
         self.assertIsNotNone(agency_id)
@@ -750,21 +750,21 @@ class TestDatabaseFunctions(unittest.TestCase):
         print("DATABASE TEST N°18 : test_update_agency")
 
         agence_id = add_agency(
-                        "ABC Real Estate",
+                        "D3",
                         "123 Main St",
                         5,
                         "Excellent"
                         )
 
         # Call the function to update agency
-        update_agency(agence_id, 'Agency1', '456 Elm St', 6, 'Excellent')
+        update_agency(agence_id, 'D5', '456 Elm St', 6, 'Excellent')
 
         # Query the updated agency from the database
-        self.cursor.execute("SELECT * FROM agencies WHERE name = ?", ('Agency1',))
+        self.cursor.execute("SELECT * FROM agencies WHERE name = ?", ('D5',))
         updated_agency = self.cursor.fetchone()
 
         # Check if the agency fields have been updated correctly
-        self.assertEqual(updated_agency[1], 'Agency1')
+        self.assertEqual(updated_agency[1], 'D5')
         self.assertEqual(updated_agency[2], '456 Elm St')
         self.assertEqual(updated_agency[3], 6)
         self.assertEqual(updated_agency[4], 'Excellent')
