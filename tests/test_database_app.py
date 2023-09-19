@@ -665,14 +665,12 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Retrieve the agency ID by name
         agency_id = get_agency_id_from_name("Agency1")
-        print("TEST 16 agency_id", agency_id)
-        print("TEST 16 type agency_id", agency_id[0][0])
 
         # Check if the retrieved agency ID is not empty and matches the added agency's ID
         self.assertIsNotNone(agency_id)
         self.assertIsInstance(agency_id, list)
         self.assertEqual(len(agency_id), 1)
-        self.assertEqual(agency_id[0]["id"], 3)
+        self.assertEqual(agency_id[0][0], 3)
 
     def test_update_description(self):
         print("DATABASE TEST N°17 : test_update_description")
