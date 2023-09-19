@@ -213,10 +213,11 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Check if the retrieved agency matches the added data
         self.assertIsNotNone(agency_data)
-        self.assertEqual(agency_data[0], "ABC Real Estate")  # name
-        self.assertEqual(agency_data[1], "123 Main St")  # address
-        self.assertEqual(agency_data[2], 5)  # fee_percentage
-        self.assertEqual(agency_data[3], "Excellent")  # evaluation
+        self.assertEqual(agency_data[0], 1)  # id
+        self.assertEqual(agency_data[1], "ABC Real Estate")  # name
+        self.assertEqual(agency_data[2], "123 Main St")  # address
+        self.assertEqual(agency_data[3], 5)  # fee_percentage
+        self.assertEqual(agency_data[4], "Excellent")  # evaluation
 
     def test_add_price_to_property(self):
         print("DATABASE TEST N°5 : test_add_price_to_property")
