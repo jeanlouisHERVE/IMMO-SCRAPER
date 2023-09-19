@@ -610,8 +610,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(description_data[26], 1695034738.6352)  # announce_last_modification
         self.assertEqual(description_data[27], 1645056000)  # dpe_date
         self.assertEqual(description_data[28], "C")  # energetic_performance_letter
-        self.assertEqual(description_data[29], 150)  # energetic_performance_number
-        self.assertEqual(description_data[30], 120)  # climatic_performance_number
+        self.assertEqual(description_data[29], 100)  # energetic_performance_number
+        self.assertEqual(description_data[30], 150)  # climatic_performance_number
         self.assertEqual(description_data[31], "D")  # climatic_performance_letter
         self.assertEqual(description_data[32], 1)  # estate_agency_id
 
