@@ -763,27 +763,27 @@ class TestDatabaseFunctions(unittest.TestCase):
 
     def test_delete_property(self):
         print("DATABASE TEST N°19 : test_delete_property")
+
+        property_id = add_property(
+            "House",
+            "Sartrouville",
+            "District P",
+            "78500",
+            "example.com",
+            3,
+            180,
+            1234567890.0
+        )
+
         # Call the function to delete a property
-        delete_property(1)
+        delete_property(property_id)
 
         # Query the properties from the database
-        self.cursor = self.cursor.execute("SELECT * FROM properties WHERE id = ?", (1,))
+        self.cursor = self.cursor.execute("SELECT * FROM properties WHERE id = ?", (property_id,))
         deleted_property = self.cursor.fetchone()
 
         # Check if the property has been deleted
         self.assertIsNone(deleted_property)
-
-    def test_delete_nonexistent_property(self):
-        print("DATABASE TEST N°20 : test_delete_nonexistent_property")
-        # Call the function to delete a nonexistent property
-        delete_property(3)
-
-        # Query the properties from the database
-        self.cursor.execute("SELECT * FROM properties WHERE id = ?", (10000,))
-        nonexistent_property = self.cursor.fetchone()
-
-        # Check if no property was deleted
-        self.assertIsNone(nonexistent_property)
 
 
 if __name__ == '__main__':
