@@ -205,15 +205,17 @@ DELETE_PROPERTY = """DELETE FROM properties WHERE id = ?;"""
 connection = sqlite3.connect(os.environ["DATABASE_PATH"])
 
 
-def create_tables():
+def create_tables(connection, cursor):
     with connection:
-        connection.execute(CREATE_PROPERTIES_TABLE)
-        connection.execute(CREATE_DESCRIPTIONS_TABLE)
-        connection.execute(CREATE_PRICES_TABLE)
-        connection.execute(CREATE_ESTATE_AGENCIES_TABLE)
-        connection.execute(CREATE_OLD_PROPERTIES_TABLE)
-        connection.execute(CREATE_OLD_DESCRIPTIONS_TABLE)
-        connection.execute(CREATE_OLD_PRICES_TABLE)
+        print("Creating tables...")
+        cursor.execute(CREATE_PROPERTIES_TABLE)
+        cursor.execute(CREATE_DESCRIPTIONS_TABLE)
+        cursor.execute(CREATE_PRICES_TABLE)
+        cursor.execute(CREATE_ESTATE_AGENCIES_TABLE)
+        cursor.execute(CREATE_OLD_PROPERTIES_TABLE)
+        cursor.execute(CREATE_OLD_DESCRIPTIONS_TABLE)
+        cursor.execute(CREATE_OLD_PRICES_TABLE)
+        print("Tables created.")
 
 
 def add_property(
