@@ -34,7 +34,7 @@ load_dotenv()
 class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):
         # Create an in-memory SQLite database for testing
-        self.database_connection = os.environ.get(":memory:")
+        self.database_connection = os.environ["DATABASE_PATH"]
 
         self.database_connection = sqlite3.connect(self.database_connection)
         self.cursor = self.database_connection.cursor()
