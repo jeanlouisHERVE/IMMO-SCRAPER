@@ -262,8 +262,6 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Get the added property by its URL
         property_data = get_property_by_url("a.com")
-        print("TEST 6 property_id", property_id)
-        print("TEST 6 price_data", property_data)
 
         # Check if the retrieved property matches the added data
         self.assertIsNotNone(property_data)
