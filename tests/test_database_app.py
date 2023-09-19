@@ -53,7 +53,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             "Sartrouville",
             "District P",
             "78500",
-            "example.com",
+            "e.com",
             3,
             180,
             1234567890.0
@@ -69,7 +69,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(property_data[2], "Sartrouville")
         self.assertEqual(property_data[3], "District P")
         self.assertEqual(property_data[4], "78500")
-        self.assertEqual(property_data[5], "example.com")
+        self.assertEqual(property_data[5], "e.com")
         self.assertEqual(property_data[6], 3)
         self.assertEqual(property_data[7], 180)
         self.assertEqual(property_data[8], 1234567890.0)
@@ -116,7 +116,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             "Paris",
             "District A",
             "75001",
-            "example.com",
+            "c.com",
             4,
             200,
             1234567890.0
@@ -227,7 +227,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             "Paris",
             "District A",
             "75001",
-            "example.com",
+            "b.com",
             4,
             200,
             1234567890.0
@@ -254,14 +254,14 @@ class TestDatabaseFunctions(unittest.TestCase):
             "Paris",
             "District A",
             "75001",
-            "example.com",
+            "a.com",
             4,
             200,
             1234567890.0
         )
 
         # Get the added property by its URL
-        property_data = get_property_by_url("example.com")
+        property_data = get_property_by_url("a.com")
         print("TEST 6 property_id", property_id)
         print("TEST 6 price_data", property_data)
 
