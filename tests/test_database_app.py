@@ -509,30 +509,40 @@ class TestDatabaseFunctions(unittest.TestCase):
         print("DATABASE TEST N°13 : test_get_property_description_by_id")
         # Add a property to the database
         property_id = add_property(
-            "House",
-            "Paris",
-            "District A",
-            "75001",
-            "example.com",
+            "Appartement",
+            "Sartrouville",
+            "L'Union",
+            "78500",
+            "https://www.bienici.com/annonce/vente/sartrouville/maison/4pieces/orpi-1-007073E2LU9A?q=%2Frecherche%2Fachat%2Fsartrouville-78500",
             4,
             200,
-            1234567890.0
+            1695034738.6352
         )
 
         # Add a property description for the added property
         add_description(
             property_id,
-            1990.0,
-            "North",
+            -662688000.0,
+            "Sud",
             2,
             5,
-            "Quiet neighborhood",
+            """La Vaudoire Centre-ville est un quartier de la ville
+            de Sartrouville situé dans le département des Yvelines (78).
+            Les 4 781 habitants de ce quartier (sur les 51 713 de la commune)
+            ont un âge moyen de 41 ans. La catégorie socio-professionnelle
+            la plus représentée dans le quartier est celle des cadres. Côté
+            immobilier, les habitations du quartier sont réparties en 38 % de
+            maisons et 62 % d'appartements. La part de logements sociaux est
+            ici de 3 %. La taxe d'habitation s'élève à 14 % et la taxe foncière
+            à 12 % (en moyenne pour le département : taxe d'habitation à 19 %,
+            taxe foncière à 8 %). Quant à la taxe d'enlèvement des ordures
+            ménagères, elle est de 6 % .""",
             3,
             2,
             2,
             True,
             False,
-            True,
+            "radiateur gaz individuel",
             False,
             True,
             False,
@@ -546,9 +556,9 @@ class TestDatabaseFunctions(unittest.TestCase):
             5.0,
             True,
             True,
-            "2023-09-14",
-            "2023-09-14",
-            "2023-09-14",
+            1693958400,
+            1695034738.6352,
+            1645056000,
             "C",
             100,
             150,
@@ -562,33 +572,43 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Check if the retrieved description matches the added data
         self.assertIsNotNone(description_data)
         self.assertEqual(description_data[0], property_id)  # property_id
-        self.assertEqual(description_data[1], 1990.0)  # year_of_construction
-        self.assertEqual(description_data[2], "North")  # exposition
+        self.assertEqual(description_data[1], -662688000.0)  # year_of_construction
+        self.assertEqual(description_data[2], "Sud")  # exposition
         self.assertEqual(description_data[3], 2)  # floor
         self.assertEqual(description_data[4], 5)  # total_floor_number
-        self.assertEqual(description_data[5], "Quiet neighborhood")  # neighborhood_description
+        self.assertEqual(description_data[5], """La Vaudoire Centre-ville est un quartier de la ville
+            de Sartrouville situé dans le département des Yvelines (78).
+            Les 4 781 habitants de ce quartier (sur les 51 713 de la commune)
+            ont un âge moyen de 41 ans. La catégorie socio-professionnelle
+            la plus représentée dans le quartier est celle des cadres. Côté
+            immobilier, les habitations du quartier sont réparties en 38 % de
+            maisons et 62 % d'appartements. La part de logements sociaux est
+            ici de 3 %. La taxe d'habitation s'élève à 14 % et la taxe foncière
+            à 12 % (en moyenne pour le département : taxe d'habitation à 19 %,
+            taxe foncière à 8 %). Quant à la taxe d'enlèvement des ordures
+            ménagères, elle est de 6 % .""")  # neighborhood_description
         self.assertEqual(description_data[6], 3)  # bedroom_number
         self.assertEqual(description_data[7], 2)  # toilet_number
         self.assertEqual(description_data[8], 2)  # bathroom_number
-        self.assertTrue(description_data[9])  # cellar
-        self.assertFalse(description_data[10])  # lock_up_garage
-        self.assertTrue(description_data[11])  # heating
-        self.assertTrue(description_data[12])  # tv_cable
-        self.assertFalse(description_data[13])  # fireplace
-        self.assertFalse(description_data[14])  # digicode
-        self.assertTrue(description_data[15])  # intercom
-        self.assertFalse(description_data[16])  # elevator
-        self.assertEqual(description_data[17], "Fiber available")  # fibre_optics_status
-        self.assertTrue(description_data[18])  # garden
+        self.assertTrue(description_data[9], True)  # cellar
+        self.assertFalse(description_data[10], False)  # lock_up_garage
+        self.assertTrue(description_data[11], "radiateur gaz individuel")  # heating
+        self.assertTrue(description_data[12], False)  # tv_cable
+        self.assertFalse(description_data[13], True)  # fireplace
+        self.assertFalse(description_data[14], False)  # digicode
+        self.assertTrue(description_data[15], True)  # intercom
+        self.assertFalse(description_data[16], False)  # elevator
+        self.assertEqual(description_data[17], "Fiber optics available")  # fibre_optics_status
+        self.assertTrue(description_data[18], True)  # garden
         self.assertEqual(description_data[19], 1)  # car_park_number
-        self.assertTrue(description_data[20])  # balcony
-        self.assertFalse(description_data[21])  # large_balcony
+        self.assertTrue(description_data[20], True)  # balcony
+        self.assertFalse(description_data[21], False)  # large_balcony
         self.assertEqual(description_data[22], 5.0)  # estate_agency_fee_percentage
-        self.assertTrue(description_data[23])  # pinel
-        self.assertTrue(description_data[24])  # denormandie
-        self.assertEqual(description_data[25], "01/01/2023")  # announce_publication
-        self.assertEqual(description_data[26], "01/01/2023")  # announce_last_modification
-        self.assertEqual(description_data[27], "01/01/2023")  # dpe_date
+        self.assertTrue(description_data[23], True)  # pinel
+        self.assertTrue(description_data[24], True)  # denormandie
+        self.assertEqual(description_data[25], 1693958400)  # announce_publication
+        self.assertEqual(description_data[26], 1695034738.6352)  # announce_last_modification
+        self.assertEqual(description_data[27], 1645056000)  # dpe_date
         self.assertEqual(description_data[28], "C")  # energetic_performance_letter
         self.assertEqual(description_data[29], 150)  # energetic_performance_number
         self.assertEqual(description_data[30], 120)  # climatic_performance_number
