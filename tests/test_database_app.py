@@ -513,7 +513,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             "Sartrouville",
             "L'Union",
             "78500",
-            "https://www.bienici.com/annonce/vente/sartrouville/maison/4pieces/orpi-1-007073E2LU9A?q=%2Frecherche%2Fachat%2Fsartrouville-78500",
+            "https://www.bienici.com/annonce/vente/sartrouville",
             4,
             200,
             1695034738.6352
