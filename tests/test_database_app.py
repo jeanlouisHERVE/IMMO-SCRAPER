@@ -56,7 +56,7 @@ class TestDatabaseFunctions(unittest.TestCase):
                     "DELETE FROM agencies;",
                     "DELETE FROM old_properties;",
                     "DELETE FROM old_prices;",
-                    "DELETE FROM old_descriptions;",               # Add more SQL statements as needed
+                    "DELETE FROM old_descriptions;",
                 ]
                 for sql in reset_sql:
                     self.cursor.execute(sql)
@@ -65,7 +65,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         except sqlite3.Error as e:
             print(f"Error resetting the database: {e}")
 
-    def test_add_property(self):
+    def test_01_add_property(self):
         # Add a property to the database
         print("DATABASE TEST N°1 : test_add_property")
         property_id = add_property(
@@ -97,7 +97,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_add_old_property(self):
+    def test_02_add_old_property(self):
         print("DATABASE TEST N°2 : test_add_old_property")
         # Test data
         type_of_property = "Apartment"
@@ -134,7 +134,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_add_description(self):
+    def test_03_add_description(self):
         print("DATABASE TEST N°3 : test_add_description")
         # Add a property first
         property_id = add_property(
@@ -227,7 +227,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_add_agency(self):
+    def test_04_add_agency(self):
         print("DATABASE TEST N°4 : test_add_description")
         # Add an agency
         add_agency(
@@ -251,7 +251,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_add_price_to_property(self):
+    def test_05_add_price_to_property(self):
         print("DATABASE TEST N°5 : test_add_price_to_property")
         # Add a price to a property
         property_id = add_property(
@@ -282,7 +282,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_get_property_by_url(self):
+    def test_06_get_property_by_url(self):
         print("DATABASE TEST N°6 : test_get_property_by_url")
         # Add a property to the database
         property_id = add_property(
@@ -314,7 +314,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_get_property_by_id(self):
+    def test_07_get_property_by_id(self):
         print("DATABASE TEST N°7 : test_get_property_by_id")
         # Add a property to the database
         property_id = add_property(
@@ -346,7 +346,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_get_id_url_from_properties(self):
+    def test_08_get_id_url_from_properties(self):
         print("DATABASE TEST N°8 : test_get_id_url_from_properties")
         # Add properties to the database
         property_id1 = add_property(
@@ -388,7 +388,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_get_id_url_dateofmodification_from_properties(self):
+    def test_09_get_id_url_dateofmodification_from_properties(self):
         print("DATABASE TEST N°9 : test_get_id_url_dateofmodification_from_properties")
         # Add properties to the database
         property_id1 = add_property(
@@ -434,7 +434,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_get_properties(self):
+    def test_10_get_properties(self):
         print("DATABASE TEST N°10 : test_get_properties")
         # Add some properties to the database
         property1_id = add_property(
@@ -497,7 +497,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_get_properties_number(self):
+    def test_11_get_properties_number(self):
         print("DATABASE TEST N°11 : test_get_properties_number")
         # Add some properties to the database
         add_property(
@@ -533,7 +533,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_get_properties_from_adding_date(self):
+    def test_12_get_properties_from_adding_date(self):
         print("DATABASE TEST N°12 : test_get_properties_from_adding_date")
         # Add some properties with a specific date_add_to_db value to the database
         add_property(
@@ -573,7 +573,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_get_property_description_by_id(self):
+    def test_13_get_property_description_by_id(self):
         print("DATABASE TEST N°13 : test_get_property_description_by_id")
         # Add a property to the database
         property_id = add_property(
@@ -687,7 +687,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_get_agency(self):
+    def test_14_get_agency(self):
         print("DATABASE TEST N°14 : test_get_agency")
         # Add an agency to the database
         add_agency("ABC Realty", "123 Main St", 5, "Good")
@@ -705,7 +705,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_get_agencies(self):
+    def test_15_get_agencies(self):
         print("DATABASE TEST N°15 : test_get_agencies")
 
         add_agency(
@@ -749,7 +749,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_get_agency_id_from_name(self):
+    def test_16_get_agency_id_from_name(self):
         print("DATABASE TEST N°16 : test_get_agency_id_from_name")
         # Add an agency to the database
         add_agency("B1", "123 Main St", 5, "Good")
@@ -766,7 +766,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_update_description(self):
+    def test_17_update_description(self):
         print("DATABASE TEST N°17 : test_update_description")
         # Call the function to update description
         update_description(1,
@@ -843,7 +843,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_update_agency(self):
+    def test_18_update_agency(self):
         print("DATABASE TEST N°18 : test_update_agency")
 
         agence_id = add_agency(
@@ -869,7 +869,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.reset_database()
         print("-------------------------------------------------------")
 
-    def test_delete_property(self):
+    def test_19_delete_property(self):
         print("DATABASE TEST N°19 : test_delete_property")
 
         property_id = add_property(
