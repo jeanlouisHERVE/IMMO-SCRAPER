@@ -800,7 +800,7 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_18_update_agency(self):
         print("DATABASE TEST N°18 : test_update_agency")
 
-        agence_id = add_agency(
+        agency_id = add_agency(
                         "D3",
                         "123 Main St",
                         5,
@@ -808,7 +808,7 @@ class TestDatabaseFunctions(unittest.TestCase):
                         )
 
         # Call the function to update agency
-        update_agency(agence_id, 'D5', '456 Elm St', 6, 'Excellent')
+        update_agency(agency_id, 'D5', '456 Elm St', 6, 'Excellent')
 
         # Query the updated agency from the database
         self.cursor.execute("SELECT * FROM agencies WHERE name = ?", ('D5',))
