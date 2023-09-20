@@ -43,8 +43,8 @@ class TestDatabaseFunctions(unittest.TestCase):
     def tearDown(self):
         # Close the database connection
         print("Closing database")
-        self.database_connection.close()
         self.reset_database()
+        self.database_connection.close()
 
     def reset_database(self):
         try:
