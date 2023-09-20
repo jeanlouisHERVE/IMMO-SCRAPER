@@ -44,7 +44,6 @@ class TestDatabaseFunctions(unittest.TestCase):
     def reset_database(self):
         try:
             delete_tables()
-                
             print("Database reset successfully.")
         except sqlite3.Error as e:
             print(f"Error resetting the database: {e}")
