@@ -475,6 +475,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Extract the count value from the result
         count_value = properties_count[0][0]
+        print('TEST 11 count_value', count_value)
 
         # Check if the retrieved count matches the number of added properties (2 in this case)
         self.assertEqual(count_value, 2)
