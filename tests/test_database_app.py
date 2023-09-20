@@ -696,9 +696,9 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.assertEqual(len(agency), 5)
 
         # Check if the retrieved agency data matches the inserted test data
-        self.assertIn(('A1', 'Address1', 5, 'Good'), agencies)
-        self.assertIn(('A2', 'Address2', 7, 'Excellent'), agencies)
-        self.assertIn(('A3', 'Address3', 6, 'Average'), agencies)
+        self.assertIn((3, 'A1', 'Address1', 5, 'Good'), agencies)
+        self.assertIn((4, 'A2', 'Address2', 7, 'Excellent'), agencies)
+        self.assertIn((5, 'A3', 'Address3', 6, 'Average'), agencies)
 
     def test_16_get_agency_id_from_name(self):
         print("DATABASE TEST N°16 : test_get_agency_id_from_name")
