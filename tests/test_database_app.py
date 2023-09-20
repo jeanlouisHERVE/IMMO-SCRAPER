@@ -49,13 +49,13 @@ class TestDatabaseFunctions(unittest.TestCase):
             print(f"Error resetting the database: {e}")
 
     def tearDown(self):
-        # Reset the database before closing the connection
-        print("Resetting database")
-        self.reset_database()
-
         # Close the database connection
         print("Closing database")
         self.database_connection.close()
+
+        # Reset the database before closing the connection
+        print("Resetting database")
+        self.reset_database()
         print("-------------------------------------------------------")
 
     def test_01_add_property(self):
