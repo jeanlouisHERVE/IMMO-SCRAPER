@@ -619,22 +619,22 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(description_data[6], 3)  # bedroom_number
         self.assertEqual(description_data[7], 2)  # toilet_number
         self.assertEqual(description_data[8], 2)  # bathroom_number
-        self.assertTrue(description_data[9], 1)  # cellar
-        self.assertFalse(description_data[10], 0)  # lock_up_garage
+        self.assertEqual(description_data[9], 1)  # cellar
+        self.assertEqual(description_data[10], 0)  # lock_up_garage
         self.assertTrue(description_data[11], "radiateur gaz individuel")  # heating
-        self.assertTrue(description_data[12], 0)  # tv_cable
-        self.assertFalse(description_data[13], 1)  # fireplace
-        self.assertFalse(description_data[14], 0)  # digicode
-        self.assertTrue(description_data[15], 1)  # intercom
-        self.assertFalse(description_data[16], 0)  # elevator
+        self.assertEqual(description_data[12], 0)  # tv_cable
+        self.assertEqual(description_data[13], 1)  # fireplace
+        self.assertEqual(description_data[14], 0)  # digicode
+        self.assertEqual(description_data[15], 1)  # intercom
+        self.assertEqual(description_data[16], 0)  # elevator
         self.assertEqual(description_data[17], "Fiber optics available")  # fibre_optics_status
-        self.assertTrue(description_data[18], 1)  # garden
+        self.assertEqual(description_data[18], 1)  # garden
         self.assertEqual(description_data[19], 1)  # car_park_number
-        self.assertTrue(description_data[20], 1)  # balcony
-        self.assertFalse(description_data[21], 0)  # large_balcony
+        self.assertEqual(description_data[20], 1)  # balcony
+        self.assertEqual(description_data[21], 0)  # large_balcony
         self.assertEqual(description_data[22], 0)  # estate_agency_fee_percentage
-        self.assertTrue(description_data[23], 1)  # pinel
-        self.assertTrue(description_data[24], 1)  # denormandie
+        self.assertEqual(description_data[23], 1)  # pinel
+        self.assertEqual(description_data[24], 1)  # denormandie
         self.assertEqual(description_data[25], 1693958400)  # announce_publication
         self.assertEqual(description_data[26], 1695034738.6352)  # announce_last_modification
         self.assertEqual(description_data[27], 1645056000)  # dpe_date
