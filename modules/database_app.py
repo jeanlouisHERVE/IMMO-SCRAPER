@@ -200,7 +200,14 @@ UPDATE_AGENCY = """UPDATE agencies
                     WHERE agency_id = ?;"""
 
 # delete data
-DELETE_PROPERTY = """DELETE FROM properties WHERE id = ?;"""
+DELETE_PROPERTIES_TABLE = "DELETE FROM properties;",
+DELETE_PRICES_TABLE = "DELETE FROM prices;",
+DELETE_DESCRIPTIONS_TABLE = "DELETE FROM descriptions;",
+DELETE_AGENCIES_TABLE = "DELETE FROM agencies;",
+DELETE_OLD_PROPERTIES_TABLE = "DELETE FROM old_properties;",
+DELETE_OLD_PRICES_TABLE = "DELETE FROM old_prices;",
+DELETE_OLD_DESCRIPTIONS_TABLE = "DELETE FROM old_descriptions;",
+DELETE_PROPERTY = "DELETE FROM properties WHERE id = ?;"
 
 connection = sqlite3.connect(os.environ["DATABASE_PATH"])
 
@@ -216,6 +223,19 @@ def create_tables():
         connection.execute(CREATE_OLD_DESCRIPTIONS_TABLE)
         connection.execute(CREATE_ESTATE_AGENCIES_TABLE)
         print("Tables created.")
+
+
+def delete_tables():
+    with connection:
+        print("deleting tables...")
+        connection.execute(DELETE_PROPERTIES_TABLE)
+        connection.execute(DELETE_OLD_PROPERTIES_TABLE)
+        connection.execute(DELETE_PRICES_TABLE)
+        connection.execute(DELETE_OLD_PRICES_TABLE)
+        connection.execute(DELETE_DESCRIPTIONS_TABLE)
+        connection.execute(DELETE_OLD_DESCRIPTIONS_TABLE)
+        connection.execute(DELETE_AGENCIES_TABLE)
+        print("Tables deleted.")
 
 
 def add_property(

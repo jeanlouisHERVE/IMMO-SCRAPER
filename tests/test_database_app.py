@@ -23,7 +23,8 @@ from modules.database_app import (
     get_agency_id_from_name,
     update_description,
     update_agency,
-    delete_property
+    delete_property,
+    delete_tables
 )
 
 # get data from .env file
@@ -42,20 +43,8 @@ class TestDatabaseFunctions(unittest.TestCase):
 
     def reset_database(self):
         try:
-            with self.database_connection:
-                # Define SQL statements to reset tables, e.g., delete data or drop tables
-                reset_sql = [
-                    "DELETE FROM properties;",
-                    "DELETE FROM prices;",
-                    "DELETE FROM descriptions;",
-                    "DELETE FROM agencies;",
-                    "DELETE FROM old_properties;",
-                    "DELETE FROM old_prices;",
-                    "DELETE FROM old_descriptions;",
-                ]
-                for sql in reset_sql:
-                    self.cursor.execute(sql)
-
+            delete_tables()
+                
             print("Database reset successfully.")
         except sqlite3.Error as e:
             print(f"Error resetting the database: {e}")
@@ -697,12 +686,12 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIsInstance(agencies, list)
 
         # Check if the number of retrieved agencies matches the number of inserted test data
-        self.assertEqual(len(agencies), 4)
+        self.assertEqual(len(agencies), 5)
 
         # Check if the retrieved agency data is a tuple with the correct structure
         for agency in agencies:
             self.assertIsInstance(agency, tuple)
-            self.assertEqual(len(agency), 4)
+            self.assertEqual(len(agency), 5)
 
         # Check if the retrieved agency data matches the inserted test data
         self.assertIn(('A1', 'Address1', 5, 'Good'), agencies)
