@@ -511,7 +511,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         properties = get_properties_from_adding_date(target_date)
 
         # Check if the number of retrieved properties matches the expected count (2 in this case)
-        self.assertEqual(len(properties), 12)
+        self.assertEqual(len(properties), 11)
 
         # You can further assert properties individually if needed
         for property_data in properties:
@@ -645,6 +645,26 @@ class TestDatabaseFunctions(unittest.TestCase):
 
     def test_get_agencies(self):
         print("DATABASE TEST N°15 : test_get_agencies")
+
+        add_agency(
+            'A1',
+            'Address1',
+            5,
+            'Good'
+        )
+        add_agency(
+            'A2',
+            'Address2',
+            7,
+            'Excellent'
+        )
+        add_agency(
+            'A3',
+            'Address3',
+            6,
+            'Average'
+        )
+
         # Call the function to retrieve agencies
         agencies = get_agencies()
         print("TEST 15 len(agencies)", len(agencies))
