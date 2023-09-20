@@ -584,7 +584,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Retrieve the property description by its ID
         description_data = get_property_description_by_id(property_id)
         print("TEST 13 description_data", description_data)
-        
+
         # Check if the retrieved description matches the added data
         self.assertIsNotNone(description_data)
         self.assertEqual(description_data[0], property_id)  # property_id
