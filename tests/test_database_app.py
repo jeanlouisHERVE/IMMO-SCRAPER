@@ -39,7 +39,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Create the database tables before running tests
         create_tables()
-        
+
     def reset_database(self):
         try:
             with self.database_connection:
