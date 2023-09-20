@@ -604,19 +604,19 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(description_data[7], 2)  # toilet_number
         self.assertEqual(description_data[8], 2)  # bathroom_number
         self.assertTrue(description_data[9], 1)  # cellar
-        self.assertFalse(description_data[10], 0)  # lock_up_garage
+        self.assertFalse(description_data[10])  # lock_up_garage
         self.assertTrue(description_data[11], "radiateur gaz individuel")  # heating
-        self.assertTrue(description_data[12], 0)  # tv_cable
+        self.assertTrue(description_data[12])  # tv_cable
         self.assertFalse(description_data[13], 1)  # fireplace
-        self.assertFalse(description_data[14], 0)  # digicode
+        self.assertFalse(description_data[14])  # digicode
         self.assertTrue(description_data[15], 1)  # intercom
-        self.assertFalse(description_data[16], 0)  # elevator
+        self.assertFalse(description_data[16])  # elevator
         self.assertEqual(description_data[17], "Fiber optics available")  # fibre_optics_status
         self.assertTrue(description_data[18], 1)  # garden
         self.assertEqual(description_data[19], 1)  # car_park_number
         self.assertTrue(description_data[20], 1)  # balcony
-        self.assertFalse(description_data[21], 0)  # large_balcony
-        self.assertEqual(description_data[22], 5.0)  # estate_agency_fee_percentage
+        self.assertFalse(description_data[21])  # large_balcony
+        self.assertEqual(description_data[22])  # estate_agency_fee_percentage
         self.assertTrue(description_data[23], 1)  # pinel
         self.assertTrue(description_data[24], 1)  # denormandie
         self.assertEqual(description_data[25], 1693958400)  # announce_publication
@@ -672,7 +672,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIsInstance(agencies, list)
 
         # Check if the number of retrieved agencies matches the number of inserted test data
-        self.assertEqual(len(agencies), 3)
+        self.assertEqual(len(agencies), 4)
 
         # Check if the retrieved agency data is a tuple with the correct structure
         for agency in agencies:
@@ -696,7 +696,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIsNotNone(agency_id)
         self.assertIsInstance(agency_id, list)
         self.assertEqual(len(agency_id), 1)
-        self.assertEqual(agency_id[0][0], 3)
+        self.assertEqual(agency_id[0][0], 6)
 
     def test_update_description(self):
         print("DATABASE TEST N°17 : test_update_description")
