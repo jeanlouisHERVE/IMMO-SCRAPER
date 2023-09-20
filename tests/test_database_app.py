@@ -728,6 +728,7 @@ class TestDatabaseFunctions(unittest.TestCase):
                            2,
                            0,
                            1,
+                           "boiler",
                            0,
                            0,
                            1,
@@ -766,27 +767,28 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(updated_description[8], 2)
         self.assertEqual(updated_description[9], 0)
         self.assertEqual(updated_description[10], 1)
-        self.assertEqual(updated_description[11], 0)
+        self.assertEqual(updated_description[11], "boiler")
         self.assertEqual(updated_description[12], 0)
-        self.assertEqual(updated_description[13], 1)
+        self.assertEqual(updated_description[13], 0)
         self.assertEqual(updated_description[14], 1)
         self.assertEqual(updated_description[15], 1)
-        self.assertEqual(updated_description[16], 'Fiber not available')
-        self.assertEqual(updated_description[17], 0)
-        self.assertEqual(updated_description[18], 1)
-        self.assertEqual(updated_description[19], 0)
-        self.assertEqual(updated_description[20], 1)
-        self.assertEqual(updated_description[21], 0)
+        self.assertEqual(updated_description[16], 1)
+        self.assertEqual(updated_description[17], 'Fiber not available')
+        self.assertEqual(updated_description[18], 0)
+        self.assertEqual(updated_description[19], 1)
+        self.assertEqual(updated_description[20], 0)
+        self.assertEqual(updated_description[21], 1)
         self.assertEqual(updated_description[22], 0)
-        self.assertEqual(updated_description[23], 1)
-        self.assertEqual(updated_description[24], '2023-09-17')
-        self.assertEqual(updated_description[25], '2023-09-18')
-        self.assertEqual(updated_description[26], '2023-09-19')
-        self.assertEqual(updated_description[27], 'B')
-        self.assertEqual(updated_description[28], 150)
-        self.assertEqual(updated_description[29], 250)
-        self.assertEqual(updated_description[30], 'C')
-        self.assertEqual(updated_description[31], 2)
+        self.assertEqual(updated_description[23], 0)
+        self.assertEqual(updated_description[24], 1)
+        self.assertEqual(updated_description[25], '2023-09-17')
+        self.assertEqual(updated_description[26], '2023-09-18')
+        self.assertEqual(updated_description[27], '2023-09-19')
+        self.assertEqual(updated_description[28], 'B')
+        self.assertEqual(updated_description[29], 150)
+        self.assertEqual(updated_description[30], 250)
+        self.assertEqual(updated_description[31], 'C')
+        self.assertEqual(updated_description[32], 2)
 
     def test_18_update_agency(self):
         print("DATABASE TEST N°18 : test_update_agency")
