@@ -581,7 +581,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             1,
             True,
             False,
-            5.0,
+            5,
             True,
             True,
             1693958400,
@@ -632,7 +632,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(description_data[19], 1)  # car_park_number
         self.assertEqual(description_data[20], 1)  # balcony
         self.assertEqual(description_data[21], 0)  # large_balcony
-        self.assertEqual(description_data[22], 0)  # estate_agency_fee_percentage
+        self.assertEqual(description_data[22], 5)  # estate_agency_fee_percentage
         self.assertEqual(description_data[23], 1)  # pinel
         self.assertEqual(description_data[24], 1)  # denormandie
         self.assertEqual(description_data[25], 1693958400)  # announce_publication
