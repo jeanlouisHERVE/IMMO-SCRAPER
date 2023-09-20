@@ -238,6 +238,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Retrieve the added price for the property
         price_data = get_property_prices(property_id)
         print("price_data", price_data)
+        print("TEST 5 price_data[0]", price_data[0])
 
         # Check if the retrieved price matches the added data
         self.assertIsNotNone(price_data)
@@ -368,10 +369,10 @@ class TestDatabaseFunctions(unittest.TestCase):
         )
 
         properties_number = get_properties_number()[0][0]
-        print("properties_number", properties_number)
+        print("TEST 9 properties_number", properties_number)
         # Get ID, URL, and date of modification data from properties
         id_url_date_data = get_id_url_dateofmodification_from_properties()
-        print("id_url_date_data", id_url_date_data)
+        print("TEST 9 id_url_date_data", id_url_date_data)
 
         # Check if the retrieved data matches the added properties
         self.assertIsNotNone(id_url_date_data)
@@ -412,6 +413,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Retrieve all properties from the database
         properties = get_properties()
+        print("TEST 10 len(properties)", len(properties))
 
         # Check if the retrieved properties match the added ones
         self.assertIsNotNone(properties)
@@ -511,6 +513,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         properties = get_properties_from_adding_date(target_date)
 
         # Check if the number of retrieved properties matches the expected count (2 in this case)
+        print("TEST 12 len(properties)", len(properties))
         self.assertEqual(len(properties), 2)
 
         # You can further assert properties individually if needed
@@ -647,7 +650,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print("DATABASE TEST N°15 : test_get_agencies")
         # Call the function to retrieve agencies
         agencies = get_agencies()
-
+        print("TEST 15 len(agencies)", len(agencies))
         # Check if the function returns a list
         self.assertIsInstance(agencies, list)
 
