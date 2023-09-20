@@ -46,20 +46,24 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.database_connection.close()
 
     def reset_database(self):
-        # Execute SQL statements to reset the database
-        with self.database_connection:
-            # Define SQL statements to reset tables, e.g., delete data or drop tables
-            reset_sql = [
-                "DELETE FROM properties;",
-                "DELETE FROM prices;",
-                "DELETE FROM descriptions;",
-                "DELETE FROM agencies;",
-                "DELETE FROM old_properties;",
-                "DELETE FROM old_prices;",
-                "DELETE FROM old_descriptions;",               # Add more SQL statements as needed
-            ]
-            for sql in reset_sql:
-                self.cursor.execute(sql)
+        try:
+            with self.database_connection:
+                # Define SQL statements to reset tables, e.g., delete data or drop tables
+                reset_sql = [
+                    "DELETE FROM properties;",
+                    "DELETE FROM prices;",
+                    "DELETE FROM descriptions;",
+                    "DELETE FROM agencies;",
+                    "DELETE FROM old_properties;",
+                    "DELETE FROM old_prices;",
+                    "DELETE FROM old_descriptions;",               # Add more SQL statements as needed
+                ]
+                for sql in reset_sql:
+                    self.cursor.execute(sql)
+
+            print("Database reset successfully.")
+        except sqlite3.Error as e:
+            print(f"Error resetting the database: {e}")
 
     def test_add_property(self):
         # Add a property to the database
