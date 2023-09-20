@@ -39,13 +39,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Create the database tables before running tests
         create_tables()
-
-    def tearDown(self):
-        # Close the database connection
-        print("Closing database")
-        self.reset_database()
-        self.database_connection.close()
-
+        
     def reset_database(self):
         try:
             with self.database_connection:
@@ -65,6 +59,12 @@ class TestDatabaseFunctions(unittest.TestCase):
             print("Database reset successfully.")
         except sqlite3.Error as e:
             print(f"Error resetting the database: {e}")
+
+    def tearDown(self):
+        # Close the database connection
+        print("Closing database")
+        self.reset_database()
+        self.database_connection.close()
 
     def test_01_add_property(self):
         # Add a property to the database
@@ -861,4 +861,35 @@ class TestDatabaseFunctions(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    loader = unittest.TestLoader()
+    suite = loader.loadTestsFromTestCase(TestDatabaseFunctions)
+
+    # Define the order of tests
+    ordered_tests = [
+        "test_01_add_property",
+        "test_02_add_old_property",
+        "test_03_add_description",
+        "test_04_add_agency",
+        "test_05_add_price_to_property",
+        "test_06_get_property_by_url",
+        "test_07_get_property_by_id",
+        "test_08_get_id_url_from_properties",
+        "test_09_get_id_url_dateofmodification_from_properties",
+        "test_10_get_properties",
+        "test_11_get_properties_number",
+        "test_12_get_properties_from_adding_date",
+        "test_13_get_property_description_by_id",
+        "test_14_get_agency",
+        "test_15_get_agencies",
+        "test_16_get_agency_id_from_name",
+        "test_17_update_description",
+        "test_18_update_agency",
+        "test_19_delete_property",
+    ]
+
+    ordered_suite = unittest.TestSuite()
+    for test_name in ordered_tests:
+        ordered_suite.addTest(suite.findTestCases(TestDatabaseFunctions(test_name)))
+
+    runner = unittest.TextTestRunner()
+    runner.run(ordered_suite)
