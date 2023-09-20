@@ -225,7 +225,7 @@ def create_tables():
         print("Tables created.")
 
 
-def delete_tables():
+def delete_tables(connection):
     with connection:
         print("deleting tables...")
         connection.execute(DELETE_PROPERTIES_TABLE)
