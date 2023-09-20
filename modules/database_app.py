@@ -229,7 +229,7 @@ def delete_tables(connection):
     try:
         with connection:
             print("deleting tables...")
-            # connection.execute(DELETE_PROPERTIES_TABLE)
+            connection.execute(DELETE_PROPERTIES_TABLE)
             connection.execute(DELETE_OLD_PROPERTIES_TABLE)
             connection.execute(DELETE_PRICES_TABLE)
             connection.execute(DELETE_OLD_PRICES_TABLE)
