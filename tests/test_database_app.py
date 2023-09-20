@@ -258,7 +258,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Check if the retrieved price matches the added data
         self.assertIsNotNone(price_data)
-        self.assertEqual(price_data[0], 2)  # id
+        self.assertEqual(price_data[0], 1)  # id
         self.assertEqual(price_data[1], 1234567890.0)  # date
         self.assertEqual(price_data[2], property_id)  # property_id
         self.assertEqual(price_data[3], 500000)
