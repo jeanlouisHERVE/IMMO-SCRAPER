@@ -45,6 +45,22 @@ class TestDatabaseFunctions(unittest.TestCase):
         print("Closing database")
         self.database_connection.close()
 
+    def reset_database(self):
+        # Execute SQL statements to reset the database
+        with self.database_connection:
+            # Define SQL statements to reset tables, e.g., delete data or drop tables
+            reset_sql = [
+                "DELETE FROM properties;",
+                "DELETE FROM prices;",
+                "DELETE FROM descriptions;",
+                "DELETE FROM agencies;",
+                "DELETE FROM old_properties;",
+                "DELETE FROM old_prices;",
+                "DELETE FROM old_descriptions;",               # Add more SQL statements as needed
+            ]
+            for sql in reset_sql:
+                self.cursor.execute(sql)
+
     def test_add_property(self):
         # Add a property to the database
         print("DATABASE TEST N°1 : test_add_property")
@@ -73,6 +89,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(property_data[6], 3)
         self.assertEqual(property_data[7], 180)
         self.assertEqual(property_data[8], 1234567890.0)
+
+        self.reset_database()
 
     def test_add_old_property(self):
         print("DATABASE TEST N°2 : test_add_old_property")
@@ -107,6 +125,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(property_record[6], room_number)
         self.assertEqual(property_record[7], surface)
         self.assertEqual(property_record[8], date_add_to_db)
+
+        self.reset_database()
 
     def test_add_description(self):
         print("DATABASE TEST N°3 : test_add_description")
@@ -196,7 +216,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(description_data[29], 150)  # energetic_performance_number
         self.assertEqual(description_data[30], 120)  # climatic_performance_number
         self.assertEqual(description_data[31], "D")  # climatic_performance_letter
-        self.assertEqual(description_data[32], 1)  # estate_agency_id
+        self.assertEqual(description_data[32], 1)  #
+
+        self.reset_database()
 
     def test_add_agency(self):
         print("DATABASE TEST N°4 : test_add_description")
@@ -217,7 +239,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(agency_data[1], "ABC Real Estate")  # name
         self.assertEqual(agency_data[2], "123 Main St")  # address
         self.assertEqual(agency_data[3], 5)  # fee_percentage
-        self.assertEqual(agency_data[4], "Excellent")  # evaluation
+        self.assertEqual(agency_data[4], "Excellent")
+
+        self.reset_database()
 
     def test_add_price_to_property(self):
         print("DATABASE TEST N°5 : test_add_price_to_property")
@@ -245,7 +269,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(price_data[0], 2)  # id
         self.assertEqual(price_data[1], 1234567890.0)  # date
         self.assertEqual(price_data[2], property_id)  # property_id
-        self.assertEqual(price_data[3], 500000)  # price
+        self.assertEqual(price_data[3], 500000)
+
+        self.reset_database()
 
     def test_get_property_by_url(self):
         print("DATABASE TEST N°6 : test_get_property_by_url")
@@ -276,6 +302,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(property_data[7], 200)  # surface
         self.assertEqual(property_data[8], 1234567890.0)  # date_add_to_d
 
+        self.reset_database()
+
     def test_get_property_by_id(self):
         print("DATABASE TEST N°7 : test_get_property_by_id")
         # Add a property to the database
@@ -304,6 +332,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(property_data[6], 2)  # room_number
         self.assertEqual(property_data[7], 100)  # surface
         self.assertEqual(property_data[8], 1234567890.0)  # date_add_to_db
+
+        self.reset_database()
 
     def test_get_id_url_from_properties(self):
         print("DATABASE TEST N°8 : test_get_id_url_from_properties")
@@ -343,6 +373,8 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Check the data for the second property
         self.assertIn((property_id2, "example2.com"), id_url_data)
+
+        self.reset_database()
 
     def test_get_id_url_dateofmodification_from_properties(self):
         print("DATABASE TEST N°9 : test_get_id_url_dateofmodification_from_properties")
@@ -386,6 +418,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Check the data for the second property
         expected_data2 = (property_id2, "example2.com", None)  # Assuming no date for the second property
         self.assertIn(expected_data2, id_url_date_data)
+
+        self.reset_database()
 
     def test_get_properties(self):
         print("DATABASE TEST N°10 : test_get_properties")
@@ -447,6 +481,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         )
         self.assertIn(property2_data, properties)
 
+        self.reset_database()
+
     def test_get_properties_number(self):
         print("DATABASE TEST N°11 : test_get_properties_number")
         # Add some properties to the database
@@ -479,6 +515,8 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Check if the retrieved count matches the number of added properties (2 in this case)
         self.assertEqual(count_value, 13)
+
+        self.reset_database()
 
     def test_get_properties_from_adding_date(self):
         print("DATABASE TEST N°12 : test_get_properties_from_adding_date")
@@ -516,6 +554,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         # You can further assert properties individually if needed
         for property_data in properties:
             self.assertEqual(property_data["date_add_to_db"], target_date)
+
+        self.reset_database()
 
     def test_get_property_description_by_id(self):
         print("DATABASE TEST N°13 : test_get_property_description_by_id")
@@ -628,6 +668,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(description_data[31], "D")  # climatic_performance_letter
         self.assertEqual(description_data[32], 1)  # estate_agency_id
 
+        self.reset_database()
+
     def test_get_agency(self):
         print("DATABASE TEST N°14 : test_get_agency")
         # Add an agency to the database
@@ -642,6 +684,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(agency[2], "123 Main St")
         self.assertEqual(agency[3], 5)
         self.assertEqual(agency[4], "Good")
+
+        self.reset_database()
 
     def test_get_agencies(self):
         print("DATABASE TEST N°15 : test_get_agencies")
@@ -684,6 +728,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIn(('A2', 'Address2', 7, 'Excellent'), agencies)
         self.assertIn(('A3', 'Address3', 6, 'Average'), agencies)
 
+        self.reset_database()
+
     def test_get_agency_id_from_name(self):
         print("DATABASE TEST N°16 : test_get_agency_id_from_name")
         # Add an agency to the database
@@ -697,6 +743,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIsInstance(agency_id, list)
         self.assertEqual(len(agency_id), 1)
         self.assertEqual(agency_id[0][0], 6)
+
+        self.reset_database()
 
     def test_update_description(self):
         print("DATABASE TEST N°17 : test_update_description")
@@ -772,6 +820,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(updated_description[30], 'C')
         self.assertEqual(updated_description[31], 2)
 
+        self.reset_database()
+
     def test_update_agency(self):
         print("DATABASE TEST N°18 : test_update_agency")
 
@@ -794,6 +844,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(updated_agency[2], '456 Elm St')
         self.assertEqual(updated_agency[3], 6)
         self.assertEqual(updated_agency[4], 'Excellent')
+
+        self.reset_database()
 
     def test_delete_property(self):
         print("DATABASE TEST N°19 : test_delete_property")
@@ -818,6 +870,8 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Check if the property has been deleted
         self.assertIsNone(deleted_property)
+
+        self.reset_database()
 
 
 if __name__ == '__main__':
