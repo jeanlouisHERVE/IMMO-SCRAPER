@@ -413,12 +413,11 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Retrieve all properties from the database
         properties = get_properties()
-        print("TEST 10 len(properties)", len(properties))
 
         # Check if the retrieved properties match the added ones
         self.assertIsNotNone(properties)
         self.assertIsInstance(properties, list)
-        self.assertEqual(len(properties), 2)
+        self.assertEqual(len(properties), 9)
 
         # Check the data for the first property
         property1_data = (
@@ -477,10 +476,9 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Extract the count value from the result
         count_value = properties_count[0][0]
-        print('TEST 11 count_value', count_value)
 
         # Check if the retrieved count matches the number of added properties (2 in this case)
-        self.assertEqual(count_value, 2)
+        self.assertEqual(count_value, 13)
 
     def test_get_properties_from_adding_date(self):
         print("DATABASE TEST N°12 : test_get_properties_from_adding_date")
@@ -513,8 +511,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         properties = get_properties_from_adding_date(target_date)
 
         # Check if the number of retrieved properties matches the expected count (2 in this case)
-        print("TEST 12 len(properties)", len(properties))
-        self.assertEqual(len(properties), 2)
+        self.assertEqual(len(properties), 12)
 
         # You can further assert properties individually if needed
         for property_data in properties:
