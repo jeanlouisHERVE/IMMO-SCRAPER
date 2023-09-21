@@ -387,6 +387,10 @@ class TestDatabaseFunctions(unittest.TestCase):
         properties_number = get_properties_number()[0][0]
         print("TEST 9 properties_number", properties_number)
         # Get ID, URL, and date of modification data from properties
+        properties_data = get_properties()
+        print("TEST 9 properties_data", properties_data)
+        print("TEST 9 len(properties_data)", len(properties_data))
+
         id_url_date_data = get_id_url_dateofmodification_from_properties()
         print("TEST 9 id_url_date_data", id_url_date_data)
 
