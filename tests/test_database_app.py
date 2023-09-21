@@ -11,6 +11,7 @@ from modules.database_app import (
     add_price_to_property,
     get_property_by_url,
     get_property_by_id,
+    get_old_property_by_id,
     get_id_url_from_properties,
     get_id_url_dateofmodification_from_properties,
     get_properties,
@@ -110,8 +111,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIsNotNone(last_inserted_id)
 
         # Check if the property exists in the database
-        self.cursor.execute("SELECT * FROM old_properties WHERE id = ?", (last_inserted_id,))
-        property_record = self.cursor.fetchone()
+        property_record = get_old_property_by_id(last_inserted_id)
         self.assertIsNotNone(property_record)
 
         # Check if the retrieved property data matches the inserted data

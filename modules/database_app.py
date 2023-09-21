@@ -161,6 +161,7 @@ INSERT_OLD_PRICE = """INSERT INTO old_prices (date, property_id, price) VALUES (
 GET_PROPERTY = "SELECT * FROM properties #####;"
 GET_PROPERTY_BY_URL = "SELECT * FROM properties WHERE url = ?;"
 GET_PROPERTY_BY_ID = "SELECT * FROM properties WHERE id = ?;"
+GET_OLD_PROPERTY_BY_ID = "SELECT * FROM old_properties WHERE id = ?;"
 GET_PROPERTY_PRICES = "SELECT * FROM prices WHERE property_id = ?;"
 GET_ID_URL_FROM_PROPERTIES = "SELECT id, url FROM properties"
 GET_ID_URL_DATEOFMODIFICATION_FROM_PROPERTIES = """
@@ -462,6 +463,12 @@ def get_property_by_url(url: str):
 def get_property_by_id(id: int):
     with connection:
         cursor = connection.execute(GET_PROPERTY_BY_ID, (id,))
+        return cursor.fetchone()
+
+
+def get_old_property_by_id(id: int):
+    with connection:
+        cursor = connection.execute(GET_OLD_PROPERTY_BY_ID, (id,))
         return cursor.fetchone()
 
 
