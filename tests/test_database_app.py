@@ -373,6 +373,42 @@ class TestDatabaseFunctions(unittest.TestCase):
             200,
             1234567890.0
         )
+
+        add_description(
+            property_id1,
+            1990.0,
+            "North",
+            2,
+            5,
+            "Quiet neighborhood",
+            3,
+            2,
+            2,
+            True,
+            False,
+            True,
+            True,
+            False,
+            False,
+            True,
+            False,
+            "Fiber available",
+            True,
+            1,
+            True,
+            False,
+            5.0,
+            True,
+            True,
+            "01/01/2023",
+            "01/01/2023",
+            "01/01/2023",
+            "C",
+            150,
+            120,
+            "D",
+            1
+        )
         property_id2 = add_property(
             "Apartment",
             "Paris",
@@ -382,6 +418,42 @@ class TestDatabaseFunctions(unittest.TestCase):
             2,
             100,
             1234567890.0
+        )
+
+        add_description(
+            property_id2,
+            1990.0,
+            "North",
+            2,
+            5,
+            "Quiet neighborhood",
+            3,
+            2,
+            2,
+            True,
+            False,
+            True,
+            True,
+            False,
+            False,
+            True,
+            False,
+            "Fiber available",
+            True,
+            1,
+            True,
+            False,
+            5.0,
+            True,
+            True,
+            "01/01/2023",
+            "01/01/2023",
+            "01/01/2023",
+            "C",
+            150,
+            120,
+            "D",
+            1
         )
 
         properties_number = get_properties_number()[0][0]
