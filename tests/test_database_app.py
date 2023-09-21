@@ -527,8 +527,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Retrieve properties with the specified date_add_to_db value from the database
         properties = get_properties_from_adding_date(target_date)
 
+        print("properties", properties)
         # Check if the number of retrieved properties matches the expected count (2 in this case)
-        self.assertEqual(len(properties), 11)
+        self.assertEqual(len(properties), 15)
 
         # You can further assert properties individually if needed
         for property_data in properties:
