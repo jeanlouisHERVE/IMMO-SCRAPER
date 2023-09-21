@@ -831,8 +831,7 @@ class TestDatabaseFunctions(unittest.TestCase):
                            )
 
         # Query the updated description from the database
-        self.cursor.execute("SELECT * FROM descriptions WHERE property_id = ?", (1,))
-        updated_description = self.cursor.fetchone()
+        updated_description = get_property_description_by_id(1)
 
         # Check if the description fields have been updated correctly
         self.assertEqual(updated_description[1], 1999.0)
@@ -882,8 +881,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         update_agency(agency_id, 'D5', '456 Elm St', 6, 'Excellent')
 
         # Query the updated agency from the database
-        self.cursor.execute("SELECT * FROM agencies WHERE name = ?", ('D5',))
-        updated_agency = self.cursor.fetchone()
+        updated_agency = get_agency("D5")
 
         # Check if the agency fields have been updated correctly
         self.assertEqual(updated_agency[1], 'D5')
@@ -909,8 +907,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         delete_property(property_id)
 
         # Query the properties from the database
-        self.cursor = self.cursor.execute("SELECT * FROM properties WHERE id = ?", (property_id,))
-        deleted_property = self.cursor.fetchone()
+        deleted_property = get_property_by_id(property_id)
 
         # Check if the property has been deleted
         self.assertIsNone(deleted_property)
