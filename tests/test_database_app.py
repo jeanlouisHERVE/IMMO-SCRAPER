@@ -429,6 +429,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Retrieve all properties from the database
         properties = get_properties()
+        print("properties", properties)
 
         # Check if the retrieved properties match the added ones
         self.assertIsNotNone(properties)
