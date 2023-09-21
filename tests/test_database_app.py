@@ -434,7 +434,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Check if the retrieved properties match the added ones
         self.assertIsNotNone(properties)
         self.assertIsInstance(properties, list)
-        self.assertEqual(len(properties), 9)
+        self.assertEqual(len(properties), 11)
 
         # Check the data for the first property
         property1_data = (
