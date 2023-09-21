@@ -834,7 +834,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Query the updated description from the database
         updated_description = get_property_description_by_id(1)
         print("TEST 17 updated_description", updated_description)
-        
+
         # Check if the description fields have been updated correctly
         self.assertEqual(updated_description[1], 1999.0)
         self.assertEqual(updated_description[2], 'South')
