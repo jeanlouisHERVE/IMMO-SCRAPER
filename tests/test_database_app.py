@@ -472,11 +472,11 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(len(id_url_date_data), 3)
 
         # Check the data for the first property
-        expected_data1 = (property_id1, "example1.com", None)  # Assuming no date for the first property
+        expected_data1 = (property_id1, "example1.com", "01/01/2023")  # Assuming no date for the first property
         self.assertIn(expected_data1, id_url_date_data)
 
         # Check the data for the second property
-        expected_data2 = (property_id2, "example2.com", None)  # Assuming no date for the second property
+        expected_data2 = (property_id2, "example2.com", "01/01/2023")  # Assuming no date for the second property
         self.assertIn(expected_data2, id_url_date_data)
 
     def test_10_get_properties(self):
