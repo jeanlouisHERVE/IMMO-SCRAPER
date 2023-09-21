@@ -469,7 +469,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Check if the retrieved data matches the added properties
         self.assertIsNotNone(id_url_date_data)
         self.assertIsInstance(id_url_date_data, list)
-        self.assertEqual(len(id_url_date_data), properties_number)
+        self.assertEqual(len(id_url_date_data), 3)
 
         # Check the data for the first property
         expected_data1 = (property_id1, "example1.com", None)  # Assuming no date for the first property
