@@ -628,7 +628,7 @@ def update_agency(name: str,
                   address: str,
                   fee_percentage: int,
                   evaluation: str,
-                  id: int,):
+                  id: int):
     try:
         with connection:
             connection.execute(UPDATE_AGENCY, (name, address, fee_percentage, evaluation, id))
