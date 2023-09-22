@@ -631,7 +631,7 @@ def update_agency(id: int,
                   evaluation: str):
     try:
         with connection:
-            connection.execute(UPDATE_AGENCY, (id, name, address, fee_percentage, evaluation))
+            connection.execute(UPDATE_AGENCY, (name, address, fee_percentage, evaluation, id))
         print(f"OK : Agency {name} updated successfully.")
     except sqlite3.Error as e:
         print(f"KO : Error updating agency {name}: {e}")
