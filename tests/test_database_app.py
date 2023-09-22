@@ -729,7 +729,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         add_agency("ABC Realty", "123 Main St", 5, "Good")
 
         # Retrieve the added agency by its name
-        agency = get_agency("ABC Realty")
+        agency = get_agency_by_name("ABC Realty")
 
         # Check if the retrieved agency matches the added data
         self.assertIsNotNone(agency)
