@@ -939,7 +939,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         updated_agency = get_agency(agency_id)
         print("TEST 18 updated_agency", updated_agency)
         agencies = get_agencies()
-        
+
         # Check if the agency fields have been updated correctly
         self.assertEqual(updated_agency[1], 'D18')
         self.assertEqual(updated_agency[2], '456 Elm St')
