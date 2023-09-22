@@ -198,7 +198,7 @@ UPDATE_DESCRIPTION = """UPDATE descriptions
             WHERE property_id = ?;"""
 UPDATE_AGENCY = """UPDATE agencies
                     SET name = ?, address = ?, fee_percentage = ?, evaluation = ?
-                    WHERE agency_id = ?;"""
+                    WHERE id = ?;"""
 
 # delete data
 DELETE_PROPERTIES_TABLE = "DELETE FROM properties;"
