@@ -929,7 +929,8 @@ class TestDatabaseFunctions(unittest.TestCase):
                         5,
                         "Excellent"
                         )
-
+        agencies = get_agencies()
+        print("TEST 18 agencies", agencies)
         # Call the function to update agency
         update_agency(agency_id, 'D18', '456 Elm St', 6, 'Excellent')
 
