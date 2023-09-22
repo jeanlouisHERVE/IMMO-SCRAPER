@@ -938,7 +938,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Query the updated agency from the database
         updated_agency = get_agency(agency_id)
         print("TEST 18 updated_agency", updated_agency)
-
+        agencies = get_agencies()
+        print("TEST 18 agencies", agencies)
         # Check if the agency fields have been updated correctly
         self.assertEqual(updated_agency[1], 'D18')
         self.assertEqual(updated_agency[2], '456 Elm St')
