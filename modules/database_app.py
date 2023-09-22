@@ -624,14 +624,15 @@ def update_description(property_id: int,
         print(f"KO : Error updating description for Property {property_id}: {e}")
 
 
-def update_agency(name: str,
+def update_agency(id: int,
+                  name: str,
                   address: str,
                   fee_percentage: int,
                   evaluation: str,
-                  id: int):
+                  ):
     try:
         with connection:
-            connection.execute(UPDATE_AGENCY, (name, address, fee_percentage, evaluation, id))
+            connection.execute(UPDATE_AGENCY, (id, name, address, fee_percentage, evaluation))
         print(f"OK : Agency {name} updated successfully.")
     except sqlite3.Error as e:
         print(f"KO : Error updating agency {name}: {e}")
