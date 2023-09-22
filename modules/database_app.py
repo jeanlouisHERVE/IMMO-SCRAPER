@@ -624,11 +624,11 @@ def update_description(property_id: int,
         print(f"KO : Error updating description for Property {property_id}: {e}")
 
 
-def update_agency(id: int,
-                  name: str,
+def update_agency(name: str,
                   address: str,
                   fee_percentage: int,
-                  evaluation: str):
+                  evaluation: str,
+                  id: int,):
     try:
         with connection:
             connection.execute(UPDATE_AGENCY, (name, address, fee_percentage, evaluation, id))
