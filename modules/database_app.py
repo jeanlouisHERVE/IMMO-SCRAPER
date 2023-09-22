@@ -525,7 +525,7 @@ def get_property_description_by_id(id: int):
         return cursor.fetchone()
 
 
-def get_agency_by_name (name: str):
+def get_agency_by_name(name: str):
     with connection:
         cursor = connection.execute(GET_AGENCY_BY_NAME, (name,))
         return cursor.fetchone()
