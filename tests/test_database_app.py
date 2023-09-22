@@ -796,6 +796,9 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_17_update_description(self):
         print("DATABASE TEST N°17 : test_update_description")
         # Call the function to update description
+        property_description = get_property_description_by_id(1)
+        print("TEST 17 property_description", property_description)
+
         update_description(1,
                            1999.0,
                            'South',
@@ -883,7 +886,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         update_agency(agency_id, 'D18', '456 Elm St', 6, 'Excellent')
 
         # Query the updated agency from the database
-        updated_agency = get_agency("D18")
+        updated_agency = get_agency(agency_id)
         print("TEST 18 updated_agency", updated_agency)
 
         # Check if the agency fields have been updated correctly
