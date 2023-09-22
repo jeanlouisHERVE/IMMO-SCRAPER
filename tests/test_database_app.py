@@ -19,7 +19,7 @@ from modules.database_app import (
     get_properties_from_adding_date,
     get_property_prices,
     get_property_description_by_id,
-    get_agency,
+    get_agency_by_name,
     get_agencies,
     get_agency_id_from_name,
     update_description,
@@ -936,7 +936,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         update_agency('D18', '456 Elm St', 6, 'Excellent', agency_id)
 
         # Query the updated agency from the database
-        updated_agency = get_agency(agency_id)
+        updated_agency = get_agency_by_name('D18')
         print("TEST 18 updated_agency", updated_agency)
         agencies = get_agencies()
         print("TEST 18 agencies", agencies)
