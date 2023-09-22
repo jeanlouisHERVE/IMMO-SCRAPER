@@ -610,7 +610,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # You can further assert properties individually if needed
         for property_data in properties:
             print("TEST 12 property_data", property_data)
-            self.assertEqual(property_data["date_add_to_db"], target_date)
+            self.assertEqual(property_data[8], target_date)
 
     def test_13_get_property_description_by_id(self):
         print("DATABASE TEST N°13 : test_get_property_description_by_id")
