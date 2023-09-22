@@ -796,8 +796,56 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_17_update_description(self):
         print("DATABASE TEST N°17 : test_update_description")
         # Call the function to update description
+        properties = get_properties()
+        print("TEST 17 properties", properties)
         property_description = get_property_description_by_id(1)
         print("TEST 17 property_description", property_description)
+
+        add_description(
+            1,
+            -662688000.0,
+            "Sud",
+            2,
+            5,
+            """La Vaudoire Centre-ville est un quartier de la ville
+            de Sartrouville situé dans le département des Yvelines (78).
+            Les 4 781 habitants de ce quartier (sur les 51 713 de la commune)
+            ont un âge moyen de 41 ans. La catégorie socio-professionnelle
+            la plus représentée dans le quartier est celle des cadres. Côté
+            immobilier, les habitations du quartier sont réparties en 38 % de
+            maisons et 62 % d'appartements. La part de logements sociaux est
+            ici de 3 %. La taxe d'habitation s'élève à 14 % et la taxe foncière
+            à 12 % (en moyenne pour le département : taxe d'habitation à 19 %,
+            taxe foncière à 8 %). Quant à la taxe d'enlèvement des ordures
+            ménagères, elle est de 6 % .""",
+            3,
+            2,
+            2,
+            True,
+            False,
+            "radiateur gaz individuel",
+            False,
+            True,
+            False,
+            True,
+            False,
+            "Fiber optics available",
+            True,
+            1,
+            True,
+            False,
+            5,
+            True,
+            True,
+            1693958400,
+            1695034738.6352,
+            1645056000,
+            "C",
+            100,
+            150,
+            "D",
+            1
+        )
 
         update_description(1,
                            1999.0,
