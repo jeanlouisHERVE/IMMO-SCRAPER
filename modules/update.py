@@ -639,7 +639,7 @@ def update_descriptions():
                     print("----------------------Update Description---------------------")
 
                     database_app.update_description(new_year_of_construction,
-                                                    new_exposition, 
+                                                    new_exposition,
                                                     new_floor,
                                                     new_total_floor_number,
                                                     new_neighborhood_description,
