@@ -549,8 +549,7 @@ def get_prices(property_id: int):
         return cursor.fetchall()
 
 
-def update_description(property_id: int,
-                       year_of_construction: float,
+def update_description(year_of_construction: float,
                        exposition: str,
                        floor: int,
                        total_floor_number: int,
@@ -581,7 +580,8 @@ def update_description(property_id: int,
                        energetic_performance_number: int,
                        climatic_performance_number: int,
                        climatic_performance_letter: str,
-                       estate_agency_id: int
+                       estate_agency_id: int,
+                       property_id: int
                        ):
     try:
         with connection:

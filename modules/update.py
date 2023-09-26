@@ -638,9 +638,9 @@ def update_descriptions():
                     print("--------------------End add price Property--------------------")
                     print("----------------------Update Description---------------------")
 
-                    database_app.update_description(id_property,
-                                                    new_year_of_construction,
-                                                    new_exposition, new_floor,
+                    database_app.update_description(new_year_of_construction,
+                                                    new_exposition, 
+                                                    new_floor,
                                                     new_total_floor_number,
                                                     new_neighborhood_description,
                                                     new_bedroom_number,
@@ -668,7 +668,8 @@ def update_descriptions():
                                                     new_energetic_performance_number,
                                                     new_climatic_performance_number,
                                                     new_climatic_performance_letter,
-                                                    estate_agency_id
+                                                    estate_agency_id,
+                                                    id_property
                                                     )
                     announce_modified = True
                     print("step36")
