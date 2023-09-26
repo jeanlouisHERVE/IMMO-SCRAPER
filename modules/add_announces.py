@@ -562,10 +562,10 @@ def add_descriptions():
                 print("estate_agency_fee_percentage", estate_agency_fee_percentage)
                 print("estate_agency_evaluation", estate_agency_evaluation)
 
-                result = database_app.get_agency(estate_agency_name)
+                result = database_app.get_agency_by_name(estate_agency_name)
                 print("result", result)
 
-                if not database_app.get_agency(estate_agency_name) or estate_agency_name is None:
+                if not database_app.get_agency_by_name(estate_agency_name) or estate_agency_name is None:
                     print("stepagency1")
                     database_app.add_agency(estate_agency_name,
                                             estate_agency_address,
