@@ -60,6 +60,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Close the database connection
         print("Closing database")
         self.database_connection.close()
+        print("------CLOSING DATABASE TEST--------")
+        print("get_properties", get_properties)
+        print("get_agencies", get_agencies)
         print("-------------------------------------------------------")
 
     def test_add_property(self):
