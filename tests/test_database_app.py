@@ -26,7 +26,6 @@ from modules.database_app import (
     get_agencies,
     get_agency_id_from_name,
     get_prices,
-    get_prices_by_property_id,
     get_old_prices,
     update_description,
     update_agency,
