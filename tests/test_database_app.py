@@ -56,17 +56,17 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.reset_database()
         except Exception as e:
             print(f"Error resetting the database: {e}")
-
-        # Close the database connection
-        print("Closing database")
-        self.database_connection.close()
-        print("------CLOSING DATABASE TEST--------")
-        properties = get_properties()
-        agencies = get_agencies()
-        print("get_properties", properties)
-        print("get_agencies", agencies)
-        print("-------------------------------------------------------")
-        print("-------------------------------------------------------")
+        finally:
+            # Close the database connection
+            print("Closing database")
+            self.database_connection.close()
+            print("------CLOSING DATABASE TEST--------")
+            properties = get_properties()
+            agencies = get_agencies()
+            print("get_properties", properties)
+            print("get_agencies", agencies)
+            print("-------------------------------------------------------")
+            print("-------------------------------------------------------")
 
     def test_add_property(self):
         # Add a property to the database
