@@ -468,7 +468,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Check if the retrieved data matches the added properties
         self.assertIsNotNone(id_url_date_data)
         self.assertIsInstance(id_url_date_data, list)
-        self.assertEqual(len(id_url_date_data), 3)
+        self.assertEqual(len(id_url_date_data), 2)
 
         # Check the data for the first property
         expected_data1 = (property_id1, "example1.com", "01/01/2023")  # Assuming no date for the first property
@@ -509,7 +509,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Check if the retrieved properties match the added ones
         self.assertIsNotNone(properties)
         self.assertIsInstance(properties, list)
-        self.assertEqual(len(properties), 11)
+        self.assertEqual(len(properties), 2)
 
         # Check the data for the first property
         property1_data = (
@@ -570,7 +570,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         count_value = properties_count[0][0]
 
         # Check if the retrieved count matches the number of added properties (2 in this case)
-        self.assertEqual(count_value, 13)
+        self.assertEqual(count_value, 2)
 
     def test_get_properties_from_adding_date(self):
         print("DATABASE TEST : test_get_properties_from_adding_date")
@@ -604,7 +604,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         print("properties", properties)
         # Check if the number of retrieved properties matches the expected count (2 in this case)
-        self.assertEqual(len(properties), 15)
+        self.assertEqual(len(properties), 2)
 
         # You can further assert properties individually if needed
         for property_data in properties:
@@ -766,7 +766,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIsInstance(agencies, list)
 
         # Check if the number of retrieved agencies matches the number of inserted test data
-        self.assertEqual(len(agencies), 5)
+        self.assertEqual(len(agencies), 3)
 
         # Check if the retrieved agency data is a tuple with the correct structure
         for agency in agencies:
@@ -790,7 +790,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIsNotNone(agency_id)
         self.assertIsInstance(agency_id, list)
         self.assertEqual(len(agency_id), 1)
-        self.assertEqual(agency_id[0][0], 6)
+        self.assertEqual(agency_id[0][0], 1)
 
     def test_update_description(self):
         print("DATABASE TEST : test_update_description")
