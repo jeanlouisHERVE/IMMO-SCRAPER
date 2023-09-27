@@ -172,7 +172,7 @@ GET_ID_URL_DATEOFMODIFICATION_FROM_PROPERTIES = """
 GET_PROPERTIES = "SELECT * FROM properties;"
 GET_PROPERTIES_NUMBER = "SELECT COUNT(id) FROM properties;"
 GET_PROPERTIES_FROM_DATE_ADDING_TO_DB = "SELECT * FROM properties WHERE date_add_to_db = ?;"
-GET_PROPERTY_DESCRIPTION = "SELECT * FROM descriptions WHERE "
+GET_PROPERTIES_DESCRIPTIONS = "SELECT * FROM descriptions"
 GET_PROPERTY_DESCRIPTION_BY_ID = "SELECT * FROM descriptions WHERE property_id = ?"
 GET_OLD_PROPERTY_DESCRIPTION_BY_ID = "SELECT * FROM descriptions WHERE property_id = ?"
 GET_AGENCY_ID_BY_NAME = "SELECT id FROM agencies WHERE name = ?;"
@@ -540,6 +540,12 @@ def get_last_price_for_property(property_id: int):
             return None  # Property not found or no prices registere
 
 
+def get_properties_descriptions():
+    with connection:
+        cursor = connection.execute(GET_PROPERTIES_DESCRIPTIONS)
+        return cursor.fetchall()
+
+
 def get_property_description_by_id(id: int):
     with connection:
         cursor = connection.execute(GET_PROPERTY_DESCRIPTION_BY_ID, (id,))
@@ -570,7 +576,8 @@ def get_prices(property_id: int):
         return cursor.fetchall()
 
 
-def update_description(year_of_construction: float,
+def update_description(property_id: int,
+                       year_of_construction: float,
                        exposition: str,
                        floor: int,
                        total_floor_number: int,
@@ -601,14 +608,11 @@ def update_description(year_of_construction: float,
                        energetic_performance_number: int,
                        climatic_performance_number: int,
                        climatic_performance_letter: str,
-                       estate_agency_id: int,
-                       property_id: int
-                       ):
+                       estate_agency_id: int):
     try:
         with connection:
             connection.execute(UPDATE_DESCRIPTION, (year_of_construction,
-                                                    exposition,
-                                                    floor,
+                                                    exposition, floor,
                                                     total_floor_number,
                                                     neighborhood_description,
                                                     bedroom_number,
