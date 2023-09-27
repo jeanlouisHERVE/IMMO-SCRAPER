@@ -270,6 +270,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         price_data = get_prices_by_property_id(property_id)
         print("price_data", price_data)
         print("TEST 5 price_data[0]", price_data[0])
+        print("TEST 5 price_data[1]", price_data[1])
 
         # Check if the retrieved price matches the added data
         self.assertIsNotNone(price_data)
