@@ -26,6 +26,7 @@ from modules.database_app import (
     get_agencies,
     get_agency_id_from_name,
     get_prices,
+    get_prices_by_property_id,
     get_old_prices,
     update_description,
     update_agency,
@@ -264,18 +265,23 @@ class TestDatabaseFunctions(unittest.TestCase):
         )
 
         add_price_to_property(1234567890.0, property_id, 500000)
+        add_price_to_property(1234590506.0, property_id, 450000)
 
         # Retrieve the added price for the property
-        price_data = get_property_prices(property_id)
+        price_data = get_prices_by_property_id(property_id)
         print("price_data", price_data)
         print("TEST 5 price_data[0]", price_data[0])
 
         # Check if the retrieved price matches the added data
         self.assertIsNotNone(price_data)
-        self.assertEqual(price_data[0], 1)  # id
-        self.assertEqual(price_data[1], 1234567890.0)  # date
-        self.assertEqual(price_data[2], property_id)  # property_id
-        self.assertEqual(price_data[3], 500000)
+        self.assertEqual(price_data[0][0], 1)  # id
+        self.assertEqual(price_data[0][1], 1234567890.0)  # date
+        self.assertEqual(price_data[0][2], property_id)  # property_id
+        self.assertEqual(price_data[0][3], 500000)
+        self.assertEqual(price_data[1][0], 2)  # id
+        self.assertEqual(price_data[1][1], 1234590506.0)  # date
+        self.assertEqual(price_data[1][2], property_id)  # property_id
+        self.assertEqual(price_data[1][3], 450000)
 
     def test_get_property_by_url(self):
         print("DATABASE TEST : test_get_property_by_url")
