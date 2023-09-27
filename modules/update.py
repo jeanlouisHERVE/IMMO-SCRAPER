@@ -161,7 +161,7 @@ def update_descriptions():
                                              )
             print("id_property", type(id_property))
 
-            old_prices = database_app.get_prices(id_property)
+            old_prices = database_app.get_prices_by_property_id(id_property)
             for old_price in old_prices:
                 old_price = list(old_price)
                 del old_price[0]
@@ -638,7 +638,8 @@ def update_descriptions():
                     print("--------------------End add price Property--------------------")
                     print("----------------------Update Description---------------------")
 
-                    database_app.update_description(new_year_of_construction,
+                    database_app.update_description(id_property,
+                                                    new_year_of_construction,
                                                     new_exposition,
                                                     new_floor,
                                                     new_total_floor_number,
@@ -668,8 +669,7 @@ def update_descriptions():
                                                     new_energetic_performance_number,
                                                     new_climatic_performance_number,
                                                     new_climatic_performance_letter,
-                                                    estate_agency_id,
-                                                    id_property
+                                                    estate_agency_id
                                                     )
                     announce_modified = True
                     print("step36")
