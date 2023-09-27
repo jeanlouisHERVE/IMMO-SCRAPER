@@ -825,7 +825,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             200,
             1234567890.0
         )
-        
+
         add_description(
             1,
             -662688000.0,
