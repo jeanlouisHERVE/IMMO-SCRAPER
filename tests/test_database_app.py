@@ -20,9 +20,13 @@ from modules.database_app import (
     get_property_prices,
     get_properties_descriptions,
     get_property_description_by_id,
+    get_old_properties,
+    get_old_properties_descriptions,
     get_agency_by_name,
     get_agencies,
     get_agency_id_from_name,
+    get_prices,
+    get_prices_by_property_id,
     update_description,
     update_agency,
     delete_property,
@@ -58,9 +62,14 @@ class TestDatabaseFunctions(unittest.TestCase):
             properties = get_properties()
             agencies = get_agencies()
             descriptions = get_properties_descriptions()
+            prices = get_prices()
+            old_properties = get_old_properties()
+            old_properties_descriptions = get_old_properties_descriptions()
             print("get_properties", properties)
             print("get_agencies", agencies)
             print("get_descriptions", descriptions)
+            print("get_prices", prices)
+            print("get_old_properties", old_properties)
             print("-------------------------------------------------------")
             print("-------------------------------------------------------")
 

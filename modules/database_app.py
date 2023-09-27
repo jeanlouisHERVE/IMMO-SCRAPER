@@ -174,11 +174,14 @@ GET_PROPERTIES_NUMBER = "SELECT COUNT(id) FROM properties;"
 GET_PROPERTIES_FROM_DATE_ADDING_TO_DB = "SELECT * FROM properties WHERE date_add_to_db = ?;"
 GET_PROPERTIES_DESCRIPTIONS = "SELECT * FROM descriptions"
 GET_PROPERTY_DESCRIPTION_BY_ID = "SELECT * FROM descriptions WHERE property_id = ?"
+GET_OLD_PROPERTIES = "SELECT * FROM old_properties;"
+GET_OLD_PROPERTIES_DESCRIPTIONS = "SELECT * FROM old_descriptions"
 GET_OLD_PROPERTY_DESCRIPTION_BY_ID = "SELECT * FROM descriptions WHERE property_id = ?"
 GET_AGENCY_ID_BY_NAME = "SELECT id FROM agencies WHERE name = ?;"
 GET_AGENCIES = "SELECT * FROM agencies"
 GET_AGENCY_BY_NAME = "SELECT * FROM agencies WHERE name = ?"
-GET_PRICES = "SELECT * FROM prices WHERE property_id = ?;"
+GET_PRICES = "SELECT * FROM prices"
+GET_PRICES_BY_PROPERTY_ID = "SELECT * FROM prices WHERE property_id = ?;"
 GET_LAST_PRICE_FOR_PROPRIETY = """SELECT price FROM your_table_name
                                 WHERE property_id = ? ORDER BY date DESC LIMIT 1"""
 
@@ -552,6 +555,18 @@ def get_property_description_by_id(id: int):
         return cursor.fetchone()
 
 
+def get_old_properties():
+    with connection:
+        cursor = connection.execute(GET_OLD_PROPERTIES)
+        return cursor.fetchall()
+
+
+def get_old_properties_descriptions():
+    with connection:
+        cursor = connection.execute(GET_OLD_PROPERTIES_DESCRIPTIONS)
+        return cursor.fetchall()
+
+
 def get_agency_by_name(name: str):
     with connection:
         cursor = connection.execute(GET_AGENCY_BY_NAME, (name,))
@@ -570,9 +585,15 @@ def get_agency_id_from_name(name: str):
         return cursor.fetchall()
 
 
-def get_prices(property_id: int):
+def get_prices():
     with connection:
-        cursor = connection.execute(GET_PRICES, (property_id,))
+        cursor = connection.execute(GET_PRICES)
+        return cursor.fetchall()
+
+
+def get_prices_by_property_id(property_id: int):
+    with connection:
+        cursor = connection.execute(GET_PRICES_BY_PROPERTY_ID, (property_id,))
         return cursor.fetchall()
 
 
