@@ -21,14 +21,6 @@ lint:
     - pip install flake8
     - flake8 . 
 
-compile:
-  stage: compile
-  script:
-    - apt-get update -qy
-    - apt-get install python3 python3-pip -y
-    - pip install pyinstaller
-    - pyinstaller --onefile app.py
-
 unit_tests:
   stage: test
   script:
