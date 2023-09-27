@@ -227,7 +227,6 @@ def create_tables():
 
 
 def delete_tables():
-    # try:
     with connection:
         print("deleting tables...")
         connection.execute(DELETE_PROPERTIES_TABLE)
@@ -238,8 +237,6 @@ def delete_tables():
         connection.execute(DELETE_OLD_DESCRIPTIONS_TABLE)
         connection.execute(DELETE_AGENCIES_TABLE)
         print("Tables deleted.")
-    # except sqlite3.Error as e:
-    #     print(f"Error deleting tables: {e}")
 
 
 def add_property(
