@@ -815,6 +815,17 @@ class TestDatabaseFunctions(unittest.TestCase):
         property_description = get_property_description_by_id(1)
         print("TEST 17 property_description", property_description)
 
+        add_property(
+            "House",
+            "Paris",
+            "District A",
+            "75001",
+            "example1.com",
+            4,
+            200,
+            1234567890.0
+        )
+        
         add_description(
             1,
             -662688000.0,
@@ -861,6 +872,8 @@ class TestDatabaseFunctions(unittest.TestCase):
             1
         )
 
+        description = get_property_description_by_id(1)
+
         update_description(1,
                            1999.0,
                            'South',
@@ -898,6 +911,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Query the updated description from the database
         updated_description = get_property_description_by_id(1)
+        print("TEST 17 initial_description", description)
         print("TEST 17 updated_description", updated_description)
 
         # Check if the description fields have been updated correctly
