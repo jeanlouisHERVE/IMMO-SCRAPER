@@ -27,6 +27,7 @@ from modules.database_app import (
     get_agency_id_from_name,
     get_prices,
     get_prices_by_property_id,
+    get_old_prices,
     update_description,
     update_agency,
     delete_property,
@@ -65,11 +66,14 @@ class TestDatabaseFunctions(unittest.TestCase):
             prices = get_prices()
             old_properties = get_old_properties()
             old_properties_descriptions = get_old_properties_descriptions()
+            old_prices = get_old_prices()
             print("get_properties", properties)
             print("get_agencies", agencies)
             print("get_descriptions", descriptions)
             print("get_prices", prices)
             print("get_old_properties", old_properties)
+            print("get_old_properties_descriptions", old_properties_descriptions)
+            print("get_old_prices", old_prices)
             print("-------------------------------------------------------")
             print("-------------------------------------------------------")
 

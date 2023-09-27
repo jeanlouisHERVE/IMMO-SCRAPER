@@ -184,6 +184,7 @@ GET_PRICES = "SELECT * FROM prices"
 GET_PRICES_BY_PROPERTY_ID = "SELECT * FROM prices WHERE property_id = ?;"
 GET_LAST_PRICE_FOR_PROPRIETY = """SELECT price FROM your_table_name
                                 WHERE property_id = ? ORDER BY date DESC LIMIT 1"""
+GET_OLD_PRICES = "SELECT * FROM old_prices"
 
 # update data
 UPDATE_PROPERTY = """UPDATE properties
@@ -594,6 +595,12 @@ def get_prices():
 def get_prices_by_property_id(property_id: int):
     with connection:
         cursor = connection.execute(GET_PRICES_BY_PROPERTY_ID, (property_id,))
+        return cursor.fetchall()
+
+
+def get_old_prices():
+    with connection:
+        cursor = connection.execute(GET_OLD_PRICES)
         return cursor.fetchall()
 
 
