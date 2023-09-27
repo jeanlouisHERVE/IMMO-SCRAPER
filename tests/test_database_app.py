@@ -271,6 +271,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print("price_data", price_data)
         print("TEST 5 price_data[0]", price_data[0])
         print("TEST 5 price_data[1]", price_data[1])
+        print("get_prices", get_prices())
 
         # Check if the retrieved price matches the added data
         self.assertIsNotNone(price_data)
