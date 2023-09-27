@@ -42,13 +42,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Create the database tables before running tests
         create_tables()
 
-    # def reset_database():
-    #     try:
-    #         delete_tables()
-    #         print("Database reset successfully.")
-    #     except sqlite3.Error as e:
-    #         print(f"Error resetting the database: {e}")
-
     def tearDown(self):
         try:
             # Reset the database before closing the connection
