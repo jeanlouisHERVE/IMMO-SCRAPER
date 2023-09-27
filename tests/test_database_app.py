@@ -1003,9 +1003,11 @@ if __name__ == '__main__':
         "test_delete_property",
     ]
 
+    test_instance = TestDatabaseFunctions()
     ordered_suite = unittest.TestSuite()
+
     for test_name in ordered_tests:
-        ordered_suite.addTest(suite.findTestCases(TestDatabaseFunctions(test_name)))
+        ordered_suite.addTest(test_instance.findTest(test_instance, test_name))
 
     runner = unittest.TextTestRunner()
     runner.run(ordered_suite)
