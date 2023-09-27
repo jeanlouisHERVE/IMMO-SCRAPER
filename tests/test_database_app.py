@@ -17,7 +17,6 @@ from modules.database_app import (
     get_properties,
     get_properties_number,
     get_properties_from_adding_date,
-    get_property_prices,
     get_properties_descriptions,
     get_property_description_by_id,
     get_old_properties,
