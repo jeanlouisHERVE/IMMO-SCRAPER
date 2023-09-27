@@ -58,7 +58,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             # Close the database connection
             print("Closing database")
             self.database_connection.close()
-            print("------CLOSING DATABASE TEST--------")
+            print("------TEST END : ENSURE DATABASE IS CLEANED--------")
             properties = get_properties()
             agencies = get_agencies()
             descriptions = get_properties_descriptions()
