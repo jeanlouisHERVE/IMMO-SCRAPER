@@ -226,7 +226,7 @@ def create_tables():
         print("Tables created.")
 
 
-def delete_tables(connection):
+def delete_tables():
     # try:
     with connection:
         print("deleting tables...")
