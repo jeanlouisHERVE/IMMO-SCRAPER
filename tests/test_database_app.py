@@ -64,6 +64,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print("get_properties", get_properties)
         print("get_agencies", get_agencies)
         print("-------------------------------------------------------")
+        print("-------------------------------------------------------")
 
     def test_add_property(self):
         # Add a property to the database
