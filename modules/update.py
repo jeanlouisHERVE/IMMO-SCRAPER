@@ -626,7 +626,7 @@ def update_descriptions():
                     if climatic_performance_letter != new_climatic_performance_letter:
                         climatic_performance_letter = new_climatic_performance_letter
                     print("step34")
-                    print("----------------------Update price Property---------------------")
+                    print("----------------------Add new price Property---------------------")
                     print(new_price)
                     last_price = database_app.get_last_price_for_property(id_property)
                     if last_price != new_price:
@@ -635,7 +635,7 @@ def update_descriptions():
                     else:
                         print(f"No prices found for property {id_property}")
                     print("step35")
-                    print("--------------------End add price Property--------------------")
+                    print("--------------------End add new price Property--------------------")
                     print("----------------------Update Description---------------------")
 
                     database_app.update_description(id_property,
