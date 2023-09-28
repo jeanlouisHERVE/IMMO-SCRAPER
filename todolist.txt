@@ -33,6 +33,12 @@ configure alias git cm "massage" ti push into (github, gitlab)
 use ORDER BY RANDOM() in SQL command
 fix add_announces module indentation issue in description function
 
+27/09/2023
+update teardown function to delete "memory" database at the end of each test
+
+28/09/2023
+start working on build part of CI
+
 ##TODO add others aliases
 ##TODO configure artifactory
 ##TODO how launch the rpm once deployed ? 
