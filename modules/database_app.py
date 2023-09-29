@@ -1,5 +1,6 @@
 import os
 import sqlite3
+import platform
 
 # other modules
 
@@ -238,7 +239,13 @@ DELETE_OLD_PRICES_TABLE = "DELETE FROM old_prices;"
 DELETE_OLD_DESCRIPTIONS_TABLE = "DELETE FROM old_descriptions;"
 DELETE_PROPERTY = "DELETE FROM properties WHERE id = ?;"
 
-connection = sqlite3.connect(os.environ["DATABASE_PATH"])
+# Distinguishing between different operating systems:
+if platform.system() == "Linux":
+    connection = sqlite3.connect(os.environ["LINUX_DATABASE_PATH"])
+elif platform.system() == "Windows":
+    connection = sqlite3.connect(os.environ["WINDOWS_DATABASE_PATH"])
+else:
+    print("OS not compatible")
 
 
 def create_tables():
