@@ -8,7 +8,7 @@ stages:
   - publish
 
 variables:
-  CI_PROJECT_DIR: "/home/jean-louis/Bureau/IMMO-SCRAPER/immoscraper.db"
+  CI_PROJECT_DIR: "/home/jean-louis/Bureau/IMMO-SCRAPER/"
 
 before_script:
   - python -m pip install --upgrade pip
