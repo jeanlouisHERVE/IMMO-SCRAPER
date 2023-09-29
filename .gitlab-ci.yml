@@ -34,7 +34,7 @@ build:
     - apt-get install -y rpm
     - pip install setuptools wheel
     - python setup.py sdist bdist_wheel
-    - rpmbuild -ba immo-scraper.spec
+    - rpmbuild -ba /builds/jeanlouisHERVE/immo-scraper/immo-scraper.spec
   artifacts:
     paths:
       - immo-scraper-*.rpm
