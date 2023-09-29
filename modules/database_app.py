@@ -13,6 +13,14 @@ load_dotenv()
 WINDOWS_DATABASE_PATH = "c:\\Users\\jeanl\\OneDrive\\Bureau\\IMMO-SCRAPER\\database\\immoscraper.db"
 LINUX_DATABASE_PATH = "/home/jean-louis/Bureau/IMMO-SCRAPER/immoscraper.db"
 
+# Distinguishing between different operating systems:
+if platform.system() == "Linux":
+    connection = sqlite3.connect(LINUX_DATABASE_PATH)
+elif platform.system() == "Windows":
+    connection = sqlite3.connect(WINDOWS_DATABASE_PATH)
+else:
+    print("OS not compatible")
+
 # create database
 CREATE_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS properties (
                                 id INTEGER NOT NULL PRIMARY KEY,
@@ -242,14 +250,6 @@ DELETE_OLD_PROPERTIES_TABLE = "DELETE FROM old_properties;"
 DELETE_OLD_PRICES_TABLE = "DELETE FROM old_prices;"
 DELETE_OLD_DESCRIPTIONS_TABLE = "DELETE FROM old_descriptions;"
 DELETE_PROPERTY = "DELETE FROM properties WHERE id = ?;"
-
-# Distinguishing between different operating systems:
-if platform.system() == "Linux":
-    connection = sqlite3.connect(os.environ["LINUX_DATABASE_PATH"])
-elif platform.system() == "Windows":
-    connection = sqlite3.connect(os.environ["WINDOWS_DATABASE_PATH"])
-else:
-    print("OS not compatible")
 
 
 def create_tables():
