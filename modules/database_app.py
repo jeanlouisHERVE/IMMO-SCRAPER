@@ -9,6 +9,10 @@ from dotenv import load_dotenv
 # get data from .env file
 load_dotenv()
 
+# variables 
+WINDOWS_DATABASE_PATH = "c:\\Users\\jeanl\\OneDrive\\Bureau\\IMMO-SCRAPER\\database\\immoscraper.db"
+LINUX_DATABASE_PATH = "/builds/IMMO-SCRAPER/database/immoscraper.db"
+
 # create database
 CREATE_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS properties (
                                 id INTEGER NOT NULL PRIMARY KEY,
