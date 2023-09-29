@@ -1,5 +1,5 @@
 import sqlite3
-import platform
+# import platform
 
 # other modules
 
@@ -12,13 +12,15 @@ load_dotenv()
 WINDOWS_DATABASE_PATH = "c:\\Users\\jeanl\\OneDrive\\Bureau\\IMMO-SCRAPER\\database\\immoscraper.db"
 LINUX_DATABASE_PATH = "/home/jean-louis/Bureau/IMMO-SCRAPER/immoscraper.db"
 
-# Distinguishing between different operating systems:
-if platform.system() == "Linux":
-    connection = sqlite3.connect(LINUX_DATABASE_PATH)
-elif platform.system() == "Windows":
-    connection = sqlite3.connect(WINDOWS_DATABASE_PATH)
-else:
-    print("OS not compatible")
+# # Distinguishing between different operating systems:
+# if platform.system() == "Linux":
+#     connection = sqlite3.connect(LINUX_DATABASE_PATH)
+# elif platform.system() == "Windows":
+#     connection = sqlite3.connect(WINDOWS_DATABASE_PATH)
+# else:
+#     print("OS not compatible")
+
+connection = sqlite3.connect(WINDOWS_DATABASE_PATH)
 
 # create database
 CREATE_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS properties (
