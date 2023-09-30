@@ -43,7 +43,11 @@ start working on build part of CI
 30/09/2023
 add a script in the before script part ic gitlab CI to be sure that a linux path is used when a gitlab runner is running
 create .spec file with information of the RPM (no empty tag allowed)
-
+debug a script in gitlabCI
+build:
+  stage: build
+  script:
+    - set -x
 
 ##TODO add others aliases
 ##TODO configure artifactory
