@@ -20,7 +20,7 @@ LINUX_DATABASE_PATH = "/home/jean-louis/Bureau/IMMO-SCRAPER/immoscraper.db"
 # else:
 #     print("OS not compatible")
 
-connection = sqlite3.connect(WINDOWS_DATABASE_PATH)
+connection = sqlite3.connect(LINUX_DATABASE_PATH)
 
 # create database
 CREATE_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS properties (
