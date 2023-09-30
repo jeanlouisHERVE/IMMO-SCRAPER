@@ -10,9 +10,6 @@ License: Proprietary
 Source0: %{pyshortname}-v%{version}.tar.gz
 
 # Dependencies
-BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-
 Requires: python3
 
 %description
