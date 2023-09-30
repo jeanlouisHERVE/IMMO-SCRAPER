@@ -48,7 +48,7 @@ build:
     - rpmbuild -ba /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
   artifacts:
     paths:
-      - immoscraper-*.tar.gz
+      - immoscraper-*.rpm
       - rpmbuild.log
 
 # publish:
