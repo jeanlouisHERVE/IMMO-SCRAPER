@@ -23,7 +23,6 @@ This is a webscraper script to find the goods to be sold in a city for training 
 
 %build
 # Install build-time dependencies
-sudo apt-get install -y python3-dev python3-setuptools
 %py3_build
 
 %install
