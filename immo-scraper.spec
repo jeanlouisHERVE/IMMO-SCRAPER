@@ -22,6 +22,8 @@ This is a webscraper script to find the goods to be sold in a city for training 
 %autosetup -n %{srcname}-%{version}
 
 %build
+# Install build-time dependencies
+yum install -y python3-devel python3-setuptools
 %py3_build
 
 %install
@@ -34,5 +36,5 @@ This is a webscraper script to find the goods to be sold in a city for training 
 %{python3_sitelib}/%{pyshortname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
-* Date First Last <jeanlouis.herve@hotmail.fr> - 1.0-1
+* Sat Sept 30 2023 First Last <jeanlouis.herve@hotmail.fr> - 1.0-1
 - Initial package release
