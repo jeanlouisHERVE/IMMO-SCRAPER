@@ -40,6 +40,7 @@ lint:
 build:
   stage: build
   script:
+    - set -x
     - apt-get update
     - apt-get install -y rpm python3-dev python3-setuptools
     - pip install setuptools wheel
