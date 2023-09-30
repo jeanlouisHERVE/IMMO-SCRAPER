@@ -16,7 +16,7 @@ Requires: python3
 This is a webscraper script to find the goods to be sold in a city for training purpose.
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{name}-%{version}
 
 %build
 %py3_build
