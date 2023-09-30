@@ -10,7 +10,7 @@ load_dotenv()
 
 # variables
 WINDOWS_DATABASE_PATH = "c:\\Users\\jeanl\\OneDrive\\Bureau\\IMMO-SCRAPER\\database\\immoscraper.db"
-LINUX_DATABASE_PATH = "/home/jean-louis/Bureau/IMMO-SCRAPER/database/immoscraper.db"
+LINUX_DATABASE_PATH = "/home/jean-louis/Bureau/IMMO-SCRAPER/immoscraper.db"
 
 # # Distinguishing between different operating systems:
 # if platform.system() == "Linux":
@@ -20,7 +20,7 @@ LINUX_DATABASE_PATH = "/home/jean-louis/Bureau/IMMO-SCRAPER/database/immoscraper
 # else:
 #     print("OS not compatible")
 
-connection = sqlite3.connect(LINUX_DATABASE_PATH)
+connection = sqlite3.connect(WINDOWS_DATABASE_PATH)
 
 # create database
 CREATE_PROPERTIES_TABLE = """CREATE TABLE IF NOT EXISTS properties (
