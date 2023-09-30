@@ -7,7 +7,7 @@ Release: 1%{?dist}
 Summary: A Python package for scraping an estate website
 
 License: Proprietary
-Source0: /root/rpmbuild/SOURCES/%{pyshortname}-v%{version}.tar.gz
+Source0: %{name}-%{version}.tar.gz
 
 # Dependencies
 Requires: python3
