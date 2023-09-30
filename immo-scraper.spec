@@ -2,7 +2,7 @@
 %global pyshortname immoscraper
 
 Name: python-%{pyshortname}
-Version: 1.0
+Version: 0.1
 Release: 1%{?dist}
 Summary: A Python package for scraping an estate website
 
