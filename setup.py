@@ -9,7 +9,7 @@ setup(
         # List your project's dependencies here
     ],
     scripts=[
-       'app.py'
+       '/IMMO-SCRAPER/modules/app.py'
     ],
     author='Jean-Louis HERVE',
     author_email='jeanlouis.herve@hotmail.fr',
