@@ -49,6 +49,7 @@ build:
   artifacts:
     paths:
       - immoscraper-*.rpm
+      - rpmbuild.log
 
 # publish:
 #   stage: publish
