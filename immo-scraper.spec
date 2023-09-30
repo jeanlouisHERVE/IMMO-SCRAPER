@@ -4,11 +4,9 @@
 Name: python-%{pyshortname}
 Version: 1.0
 Release: 1%{?dist}
-Summary: A Python package for XYZ
+Summary: A Python package for scraping an estate website
 
-License: MIT
-URL:
-Source0: %{url}/archive/v%{version}.tar.gz
+License: Proprietary
 
 # Dependencies
 BuildRequires: python3-devel
