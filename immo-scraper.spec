@@ -23,7 +23,7 @@ This is a webscraper script to find the goods to be sold in a city for training 
 
 %build
 # Install build-time dependencies
-yum install -y python3-devel python3-setuptools
+sudo apt-get install -y python3-dev python3-setuptools
 %py3_build
 
 %install
@@ -36,5 +36,5 @@ yum install -y python3-devel python3-setuptools
 %{python3_sitelib}/%{pyshortname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
-* Sat Sept 30 2023 First Last <jeanlouis.herve@hotmail.fr> - 1.0-1
+* Sat Sep 30 2023 First Last <jeanlouis.herve@hotmail.fr> - 1.0-1
 - Initial package release
