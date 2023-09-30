@@ -1,4 +1,4 @@
-%global srcname immo-scraper
+%global srcname immoscraper
 %global pyshortname immoscraper
 
 Name: python-%{pyshortname}
@@ -19,7 +19,6 @@ This is a webscraper script to find the goods to be sold in a city for training 
 %autosetup -n %{srcname}-%{version}
 
 %build
-# Install build-time dependencies
 %py3_build
 
 %install
