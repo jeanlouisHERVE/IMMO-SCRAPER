@@ -8,7 +8,7 @@ stages:
   - publish
 
 variables:
-  CI_PROJECT_DIR: "c:\\Users\\jeanl\\OneDrive\\Bureau\\IMMO-SCRAPER"
+  CI_PROJECT_DIR: "/home/jean-louis/Bureau/IMMO-SCRAPER"
 
 before_script:
   - python -m pip install --upgrade pip
@@ -24,7 +24,7 @@ lint:
 unit_tests:
   stage: test
   script:
-    - export DATABASE_PATH="$CI_PROJECT_DIR\\database\\immoscraper.db"
+    - export DATABASE_PATH="$CI_PROJECT_DIR/database/immoscraper.db"
     - python -m unittest discover -s tests -p 'test_*.py'
 
 build:
