@@ -47,7 +47,7 @@ build:
     - rpmbuild -ba /builds/jeanlouisHERVE/immo-scraper/immo-scraper.spec
   artifacts:
     paths:
-      - /root/rpmbuild/SOURCES/immoscraper-*.rpm
+      - immoscraper-*.rpm
 
 # publish:
 #   stage: publish
