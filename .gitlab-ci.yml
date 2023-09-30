@@ -49,10 +49,10 @@ build:
     paths:
       - immo-scraper-*.rpm
 
-publish:
-  stage: publish
-  script:
-    - echo "Publishing RPM to Artifactory"
-    # Add commands to publish the RPM to Artifactory here
-  only:
-    - tags  # This job runs only for tags, you can adjust this condition as needed
+# publish:
+#   stage: publish
+#   script:
+#     - echo "Publishing RPM to Artifactory"
+#     # Add commands to publish the RPM to Artifactory here
+#   only:
+#     - tags  # This job runs only for tags, you can adjust this condition as needed
