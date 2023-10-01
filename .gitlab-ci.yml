@@ -54,7 +54,7 @@ build:
     - yum install -y rpm-build
     - yum install -y tree
     - find / -type d -name "rpmbuild"
-    - cd ~
+    - cd ~/rpmbuild
     - tree
     - mkdir -p ~/rpmbuild/SOURCES
     - mkdir -p ~/rpmbuild/decompression
