@@ -19,11 +19,7 @@ lint:
     - pip install flake8
     - flake8 . 
 
-unit_tests:
-  stage: test
-  image: python:3.9 
-  script:
-  - python -m pip install --upgrade pip
+before_script:
   - |
     if [ "$(uname)" == "Linux" ]; then
       export DATABASE_PATH="$CI_PROJECT_DIR_LINUX/database/immoscraper.db"
@@ -33,6 +29,12 @@ unit_tests:
       echo "Unsupported OS"
       exit 1
     fi
+
+unit_tests:
+  stage: test
+  image: python:3.9 
+  script:
+    - python -m pip install --upgrade pip
     - export DATABASE_PATH="$CI_PROJECT_DIR\\database\\immoscraper.db"
     - python -m unittest discover -s tests -p 'test_*.py'
 
