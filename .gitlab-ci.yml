@@ -31,11 +31,11 @@ lint:
     - pip install flake8
     - flake8 . 
 
-# unit_tests:
-#   stage: test
-#   script:
-#     - export DATABASE_PATH="$CI_PROJECT_DIR\\database\\immoscraper.db"
-#     - python -m unittest discover -s tests -p 'test_*.py'
+unit_tests:
+  stage: test
+  script:
+    - export DATABASE_PATH="$CI_PROJECT_DIR\\database\\immoscraper.db"
+    - python -m unittest discover -s tests -p 'test_*.py'
 
 build:
   stage: build
