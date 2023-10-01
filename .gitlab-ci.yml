@@ -54,8 +54,7 @@ build:
     - yum install -y rpm-build
     - yum install -y tree
     - find / -type d -name "rpmbuild"
-    - pwd
-    - tree
+    - mkdir -p ~/rpmbuild/SOURCES
     - cp /builds/jeanlouisHERVE/immo-scraper/dist/immoscraper-*.tar.gz ~/rpmbuild/SOURCES/
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
   artifacts:
