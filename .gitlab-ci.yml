@@ -44,6 +44,7 @@ build:
   image: centos
   script:
     - set -x
+    - yum -y clean all
     - yum -y update
     - yum install -y python3 python3-pip rpm python3-devel python3-setuptools
     - python3 -m pip install --upgrade pip
