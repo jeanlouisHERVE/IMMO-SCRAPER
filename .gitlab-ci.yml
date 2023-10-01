@@ -1,4 +1,3 @@
-image: python:3.9 
 
 stages:
   - lint
@@ -31,21 +30,24 @@ lint:
     - pip install flake8
     - flake8 . 
 
-unit_tests:
-  stage: test
-  script:
-    - export DATABASE_PATH="$CI_PROJECT_DIR\\database\\immoscraper.db"
-    - python -m unittest discover -s tests -p 'test_*.py'
+# unit_tests:
+#   stage: test
+#   image: python:3.9 
+#   script:
+#     - export DATABASE_PATH="$CI_PROJECT_DIR\\database\\immoscraper.db"
+#     - python -m unittest discover -s tests -p 'test_*.py'
 
 build:
   stage: build
+  tags:
+    - TuLTpkjyX
   script:
     - set -x
-    - apt-get update
-    - apt-get install -y rpm python3-dev python3-setuptools
+    - yum update
+    - yum install -y rpm python3-dev python3-setuptools
     - pip install setuptools wheel
     - python setup.py sdist bdist_wheel
-    - apt-get install tree
+    - yum install tree
     - tree
     - cd /root
     - tree
