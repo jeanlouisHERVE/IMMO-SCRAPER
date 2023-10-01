@@ -35,6 +35,7 @@ before_script:
 #   image: python:3.9 
 #   script:
 #     - python -m pip install --upgrade pip
+#     - python -m pip install -r requirements.txt
 #     - export DATABASE_PATH="$CI_PROJECT_DIR\\database\\immoscraper.db"
 #     - python -m unittest discover -s tests -p 'test_*.py'
 
@@ -43,7 +44,7 @@ build:
   image: redhat/ubi8
   script:
     - set -x
-    - yum update
+    - yum -y update
     - yum -y install epel-release
     - yum install -y python3 python3-pip rpm python3-dev python3-setuptools
     - python3 -m pip install --upgrade pip
