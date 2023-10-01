@@ -56,11 +56,11 @@ build:
     - find / -type d -name "rpmbuild"
     - pwd
     - tree
-    - cp /builds/jeanlouisHERVE/immo-scraper/dist/python-immoscraper-*.tar.gz ~/rpmbuild/SOURCES/
+    - cp /builds/jeanlouisHERVE/immo-scraper/dist/immoscraper-*.tar.gz ~/rpmbuild/SOURCES/
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
   artifacts:
     paths:
-      - python-immoscraper-*.rpm
+      - immoscraper-*.rpm
       - rpmbuild.log
 
 # publish:
