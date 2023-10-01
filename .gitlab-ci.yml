@@ -63,6 +63,7 @@ build:
     - cd ~/rpmbuild/
     - tree
     - cd ~/rpmbuild/SOURCES/
+    - python3 --version
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
   artifacts:
     paths:
