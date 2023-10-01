@@ -40,7 +40,7 @@ lint:
 build:
   stage: build
   tags:
-    - TuLTpkjyX
+    - centos
   script:
     - set -x
     - yum update
