@@ -66,6 +66,7 @@ build:
     - cd ~/rpmbuild/SOURCES/
     - cat /etc/centos-release
     - python3.9 --version
+    - rm -rf ~/rpmbuild/*
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
   artifacts:
     paths:
