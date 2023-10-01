@@ -50,9 +50,9 @@ build:
     - python3 -m pip install setuptools wheel
     - python3 setup.py sdist bdist_wheel
     - yum install -y rpm-build
-    - cp dist/python-immoscraper-*.tar.gz ~/rpmbuild/SOURCES/
     - cd /dist 
     - tree
+    - cp dist/python-immoscraper-*.tar.gz ~/rpmbuild/SOURCES/
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
   artifacts:
     paths:
