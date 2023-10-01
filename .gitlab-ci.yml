@@ -56,6 +56,7 @@ build:
     - yum install -y rpm-build
     - yum install -y tree
     - rpm -qa | grep python
+    - yum remove python36-devel python36 python36-libs python3-rpm python3-setuptools-wheel
     - find / -type d -name "rpmbuild"
     - mkdir -p ~/rpmbuild/SOURCES
     - mkdir -p ~/rpmbuild/DECOMPRESSION
