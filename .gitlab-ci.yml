@@ -55,7 +55,7 @@ build:
     - python3.9 setup.py sdist bdist_wheel
     - yum install -y rpm-build
     - yum install -y tree
-    - ls /usr/bin/python*
+    - rpm -qa | grep python
     - find / -type d -name "rpmbuild"
     - mkdir -p ~/rpmbuild/SOURCES
     - mkdir -p ~/rpmbuild/DECOMPRESSION
