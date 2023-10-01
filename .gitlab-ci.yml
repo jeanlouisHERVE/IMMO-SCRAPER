@@ -39,7 +39,8 @@ lint:
 
 build:
   stage: build
-  image: python:3.9
+  tags:
+    - saas-linux-medium-amd64
   script:
     - set -x
     - yum update
