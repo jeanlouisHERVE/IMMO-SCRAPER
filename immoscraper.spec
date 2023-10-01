@@ -1,6 +1,7 @@
 %global srcname immoscraper
 %global pyshortname immoscraper
 %global __python /usr/bin/python3.9
+%global python3_version %(python3 -c "import sys; print('.'.join(map(str, sys.version_info[:2])))")
 
 Name: python-%{pyshortname}
 Version: 0.1
