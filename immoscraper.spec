@@ -17,7 +17,7 @@ Requires: python3
 This is a webscraper script to find the goods to be sold in a city for training purposes.
 
 %prep
-%autosetup -c
+%autosetup -c -n python-immoscraper-%{version}
 
 %build
 # Build the package using the Python interpreter
