@@ -1,6 +1,6 @@
 %global srcname immoscraper
 %global pyshortname immoscraper
-%global __python /usr/bin/python3
+%global __python /usr/bin/python3.9
 
 Name: python-%{pyshortname}
 Version: 0.1
