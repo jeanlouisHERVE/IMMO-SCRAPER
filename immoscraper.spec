@@ -11,7 +11,7 @@ License: Proprietary
 Source0: %{name}-%{version}.tar.gz
 
 # Dependencies
-Requires: python3
+Requires: python3.9
 
 %description
 This is a webscraper script to find the goods to be sold in a city for training purposes.
@@ -29,7 +29,6 @@ This is a webscraper script to find the goods to be sold in a city for training 
 %{__python} setup.py install --prefix=%{_prefix} --root=%{buildroot}
 
 %files
-%license LICENSE
 %doc README.md
 %{python3_sitelib}/%{pyshortname}
 %{python3_sitelib}/%{pyshortname}-%{version}-py%{python3_version}.egg-info
