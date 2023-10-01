@@ -58,8 +58,6 @@ build:
     - rpm -qa | grep python
     - alternatives --list | grep python
     - alternatives --set python3 /usr/bin/python3.9
-    - alternatives --set python3-config /usr/bin/python3.9-config
-    - alternatives --set python3.9-config /usr/bin/python3.9-config
     - find / -type d -name "rpmbuild"
     - mkdir -p ~/rpmbuild/SOURCES
     - mkdir -p ~/rpmbuild/DECOMPRESSION
