@@ -41,7 +41,7 @@ before_script:
 
 build:
   stage: build
-  image: redhat/ubi8
+  image: centos
   script:
     - set -x
     - yum -y update
