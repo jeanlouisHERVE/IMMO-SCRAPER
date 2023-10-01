@@ -51,6 +51,8 @@ build:
     - python3 setup.py sdist bdist_wheel
     - yum install -y rpm-build
     - cp dist/python-immoscraper-*.tar.gz ~/rpmbuild/SOURCES/
+    - cd /dist 
+    - tree
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
   artifacts:
     paths:
