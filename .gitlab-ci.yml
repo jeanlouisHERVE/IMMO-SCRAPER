@@ -58,7 +58,7 @@ build:
     - mkdir -p ~/rpmbuild/SOURCES
     - mkdir -p ~/rpmbuild/decompression
     - cp /builds/jeanlouisHERVE/immo-scraper/dist/python-immoscraper-*.tar.gz ~/rpmbuild/SOURCES/
-    - tar -xzvf /root/rpmbuild/SOURCES/python-immoscraper-0.1.tar.gz -C /rpmbuild/decompression
+    - tar -xzvf /root/rpmbuild/SOURCES/python-immoscraper-0.1.tar.gz -C ~/rpmbuild/decompression
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
   artifacts:
     paths:
