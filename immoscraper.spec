@@ -13,16 +13,18 @@ Source0: %{name}-%{version}.tar.gz
 Requires: python3
 
 %description
-This is a webscraper script to find the goods to be sold in a city for training purpose.
+This is a webscraper script to find the goods to be sold in a city for training purposes.
 
 %prep
 %autosetup -c
 
 %build
-%{__python} python-immoscraper-0.1/setup.py build
+# Build the package using the Python interpreter
+%{__python} setup.py build
 
 %install
-%py3_install
+# Install the package using the Python interpreter
+%{__python} setup.py install --prefix=%{_prefix} --root=%{buildroot}
 
 %files
 %license LICENSE
@@ -31,5 +33,5 @@ This is a webscraper script to find the goods to be sold in a city for training 
 %{python3_sitelib}/%{pyshortname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
-* Sat Sep 30 2023 First Last <jeanlouis.herve@hotmail.fr> - 1.0-1
+* Sat Sep 30 2023 First Last <jeanlouis.herve@hotmail.fr> - 0.1-1
 - Initial package release
