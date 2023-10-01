@@ -1,0 +1,51 @@
+Proprietary Software License Agreement
+
+This Software License Agreement ("Agreement") is entered into by and between:
+
+1. [Software Owner], a company organized and existing under the laws of [Country], with its principal place of business at [Address] ("Licensor").
+
+2. [Licensee], an individual or entity that wishes to use the Software, located at [Address] ("Licensee").
+
+WHEREAS, Licensor is the owner of certain proprietary software known as "[Software Name]" (the "Software").
+
+NOW, THEREFORE, in consideration of the mutual covenants contained herein, the parties hereby agree as follows:
+
+1. License Grant:
+
+1.1 Licensor hereby grants Licensee a limited, non-exclusive, non-transferable, revocable license to use the Software for its internal purposes only.
+
+2. Restrictions:
+
+2.1 Licensee shall not reverse engineer, decompile, disassemble, or attempt to discover the source code of the Software.
+
+2.2 Licensee shall not distribute, sublicense, lease, or otherwise transfer the Software to any third party.
+
+3. Ownership:
+
+3.1 Licensor retains all rights, title, and interest in and to the Software, including any updates or modifications.
+
+4. Warranty Disclaimer:
+
+4.1 The Software is provided "as is" and without any warranty of any kind, whether express or implied, including but not limited to the implied warranties of merchantability and fitness for a particular purpose.
+
+5. Limitation of Liability:
+
+5.1 Licensor shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, arising from the use or inability to use the Software.
+
+6. Term and Termination:
+
+6.1 This Agreement shall remain in effect until terminated by either party. Licensor may terminate this Agreement immediately upon written notice if Licensee breaches any term or condition of this Agreement.
+
+7. Governing Law:
+
+7.1 This Agreement shall be governed by and construed in accordance with the laws of [Country].
+
+IN WITNESS WHEREOF, the parties hereto have executed this Agreement as of the Effective Date.
+
+[Signature of Licensor]
+[Jean-Louis HERVE]
+[DEVOPS engineer]
+
+[Signature of Licensee]
+[Name of Licensee]
+[Title of Licensee]
