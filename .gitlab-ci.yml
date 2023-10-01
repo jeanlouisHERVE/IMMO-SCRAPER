@@ -56,6 +56,7 @@ build:
     - yum install -y rpm-build
     - yum install -y tree
     - rpm -qa | grep python
+    - alternatives --list | grep python
     - find / -type d -name "rpmbuild"
     - mkdir -p ~/rpmbuild/SOURCES
     - mkdir -p ~/rpmbuild/DECOMPRESSION
