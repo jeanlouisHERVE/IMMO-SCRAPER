@@ -19,7 +19,7 @@ This is a webscraper script to find the goods to be sold in a city for training 
 %autosetup -c
 
 %build
-%py3_build
+%{__python} python-immoscraper-0.1/setup.py build
 
 %install
 %py3_install
