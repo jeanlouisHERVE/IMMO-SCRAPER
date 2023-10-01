@@ -39,8 +39,6 @@ lint:
 
 build:
   stage: build
-  tags:
-    - immoscraper-centos
   script:
     - set -x
     - yum update
