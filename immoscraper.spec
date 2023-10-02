@@ -30,12 +30,15 @@ find . -type f -name "*.py" > debugsourcefiles.list
 %install
 # Install the package using the Python interpreter
 %{__python} setup.py install --prefix=%{_prefix} --root=%{buildroot}
+ls -l
+pwd
 install -D -m 644 debugsourcefiles.list %{buildroot}/%{_builddir}/%{name}-%{version}/
 
 %files
 %doc README.md
 %{python3_sitelib}/modules/*
 %{python3_sitelib}/python_%{srcname}-%{version}-py3.6.egg-info
+%{_builddir}/%{name}-%{version}/debugsourcefiles.list
 
 %changelog
 * Sat Sep 30 2023 First Last <jeanlouis.herve@hotmail.fr> - 0.1-1
