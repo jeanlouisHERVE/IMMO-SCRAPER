@@ -17,7 +17,4 @@ setup(
     classifiers=[
         'Programming Language :: Python :: 3',
     ],
-    egg_info={
-        'egg_base': 'python_immoscraper-{version}-py3.9.egg-info'
-    }
 )
