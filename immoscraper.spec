@@ -42,7 +42,7 @@ ls -l
 %files
 %doc README.md
 %{python3_sitelib}/%{pyshortname}
-%{python3_sitelib}/python_%{srcname}.egg-info
+%{python3_sitelib}/python_%{srcname}-%{version}-py3.6.egg-info
 
 %changelog
 * Sat Sep 30 2023 First Last <jeanlouis.herve@hotmail.fr> - 0.1-1
