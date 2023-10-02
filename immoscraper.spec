@@ -41,7 +41,7 @@ ls -l
 
 %files
 %doc README.md
-%{python3_sitelib}/%{pyshortname}/*
+%{python3_sitelib}/modules/*
 %{python3_sitelib}/python_%{srcname}-%{version}-py3.6.egg-info
 
 %changelog
