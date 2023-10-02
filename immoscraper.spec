@@ -36,7 +36,7 @@ pwd
 # Debugging statement to list the contents of the source directory
 ls -l
 pwd
-cd /root/rpmbuild/BUILDROOT/python-immoscraper-0.1-1.el8.x86_64/
+cd /root/rpmbuild/BUILDROOT/python-immoscraper-0.1-1.el8.x86_64/usr/lib/python3.6/site-packages/
 ls -l
 
 %files
