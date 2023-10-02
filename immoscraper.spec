@@ -1,7 +1,7 @@
 %global srcname immoscraper
 %global pyshortname immoscraper
-%global __python /usr/bin/python3.9
-%global python3_version 3.9
+%global __python /usr/bin/python3
+
 
 Name: python-%{pyshortname}
 Version: 0.1
@@ -12,7 +12,7 @@ License: Proprietary
 Source0: %{name}-%{version}.tar.gz
 
 # Dependencies
-Requires: python3.9
+Requires: python3
 
 %description
 This is a webscraper script to find the goods to be sold in a city for training purposes.

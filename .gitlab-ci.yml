@@ -48,17 +48,14 @@ build:
     - sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
     - sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
     - yum update -y
-    - yum install -y python39 python3-pip rpm python3-devel python3-setuptools
-    - python3.9 --version
-    - python3.9 -m pip install --upgrade pip
-    - python3.9 -m pip install setuptools wheel
-    - python3.9 setup.py sdist bdist_wheel
+    - yum install -y python3-pip rpm python3-devel python3-setuptools
+    - python3 --version
+    - python3 -m pip install --upgrade pip
+    - python3 -m pip install setuptools wheel
+    - python3 setup.py sdist bdist_wheel
     - yum install -y rpm-build
     - yum install -y tree
     - rpm -qa | grep python
-    - alternatives --list | grep python
-    - alternatives --set python3 /usr/bin/python3.9
-    - alternatives --list | grep python
     - find / -type d -name "rpmbuild"
     - mkdir -p ~/rpmbuild/SOURCES
     - mkdir -p ~/rpmbuild/DECOMPRESSION
@@ -70,7 +67,6 @@ build:
     - tree
     - cd ~/rpmbuild/SOURCES/
     - cat /etc/centos-release
-    - python3.9 --version
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
   artifacts:
     paths:
