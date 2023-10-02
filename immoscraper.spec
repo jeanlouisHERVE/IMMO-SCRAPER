@@ -23,6 +23,7 @@ This is a webscraper script to find the goods to be sold in a city for training 
 
 # Debugging statement to list the contents of the source directory
 ls -l
+pwd
 
 %build
 # Build the package using the Python interpreter
