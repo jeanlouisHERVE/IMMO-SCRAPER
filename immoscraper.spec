@@ -33,6 +33,10 @@ pwd
 # Install the package using the Python interpreter
 %{__python} setup.py install --prefix=%{_prefix} --root=%{buildroot}
 
+# Debugging statement to list the contents of the source directory
+ls -l
+pwd
+
 %files
 %doc README.md
 %{python3_sitelib}/%{pyshortname}
