@@ -21,6 +21,8 @@ This is a webscraper script to find the goods to be sold in a city for training 
 %autosetup -c -n python-immoscraper-%{version}
 %setup -n python-immoscraper-%{version}
 
+find . -type f -name "*.py" > debugsourcefiles.list
+
 %build
 # Build the package using the Python interpreter
 %{__python} setup.py build
@@ -29,8 +31,7 @@ This is a webscraper script to find the goods to be sold in a city for training 
 # Install the package using the Python interpreter
 %{__python} setup.py install --prefix=%{_prefix} --root=%{buildroot}
 
-cd /root/rpmbuild/BUILDROOT/python-immoscraper-0.1-1.el8.x86_64/usr/lib/python3.6/site-packages/
-ls -l
+install -D -m 644 debugsourcefiles.list %{buildroot}%{_builddir}/%{name}-%{version}/
 
 %files
 %doc README.md
