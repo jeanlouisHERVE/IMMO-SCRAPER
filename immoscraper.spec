@@ -30,6 +30,7 @@ find . -type f -name "*.py" > debugsourcefiles.list
 %install
 # Install the package using the Python interpreter
 %{__python} setup.py install --prefix=%{_prefix} --root=%{buildroot}
+install -D -m 644 debugsourcefiles.list %{buildroot}/%{_builddir}/%{name}-%{version}/
 
 %files
 %doc README.md
