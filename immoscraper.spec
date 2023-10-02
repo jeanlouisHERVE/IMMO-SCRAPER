@@ -19,9 +19,9 @@ This is a webscraper script to find the goods to be sold in a city for training 
 
 %prep
 %autosetup -c -n python-immoscraper-%{version}
+%setup -n python-immoscraper-%{version}
 
-%debug
-echo "Contents of the source directory:"
+# Debugging statement to list the contents of the source directory
 ls -l
 
 %build
