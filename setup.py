@@ -12,10 +12,14 @@ setup(
        'modules/app.py'
     ],
     author='Jean-Louis HERVE',
-    egg_info='python_immoscraper-{version}-py3.9.egg-info',
     author_email='jeanlouis.herve@hotmail.fr',
     description='This is a webscraper script to find the goods to be sold in a city for training purpose.',
     classifiers=[
         'Programming Language :: Python :: 3',
     ],
+    entry_points={
+        'egg_info': {
+            'egg_base': 'python_immoscraper-{version}-py3.9.egg-info'
+        }
+    }
 )
