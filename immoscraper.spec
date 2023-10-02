@@ -31,10 +31,6 @@ find . -type f -name "*.py" > debugsourcefiles.list
 # Install the package using the Python interpreter
 %{__python} setup.py install --prefix=%{_prefix} --root=%{buildroot}
 
-ls -l
-pwd
-install -D -m 644 debugsourcefiles.list %{buildroot}%{_builddir}/%{name}-%{version}/
-
 %files
 %doc README.md
 %{python3_sitelib}/modules/*
