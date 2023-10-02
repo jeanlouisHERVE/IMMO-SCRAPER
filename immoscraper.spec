@@ -34,7 +34,6 @@ This is a webscraper script to find the goods to be sold in a city for training 
 %{python3_sitelib}/modules/*
 %{python3_sitelib}/python_%{srcname}-%{version}-py3.6.egg-info
 
-# Debuginfo package section
 %package debuginfo
 Summary: Debug information for %{name}
 Requires: %{name} = %{version}-%{release}
