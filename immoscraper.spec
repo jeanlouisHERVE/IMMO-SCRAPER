@@ -34,15 +34,8 @@ This is a webscraper script to find the goods to be sold in a city for training 
 %{python3_sitelib}/modules/*
 %{python3_sitelib}/python_%{srcname}-%{version}-py3.6.egg-info
 
-%package debuginfo
-Summary: Debug information for %{name}
-Requires: %{name} = %{version}-%{release}
-
-%description debuginfo
-Debug information for %{name} to aid in debugging.
-
-%files debuginfo
-%{_debugdir}/%{name}.debug
+cd /root/rpmbuild/BUILDROOT/python-immoscraper-0.1-1.el8.x86_64/usr/lib/python3.6/site-packages/
+ls -l
 
 %changelog
 * Sat Sep 30 2023 First Last <jeanlouis.herve@hotmail.fr> - 0.1-1
