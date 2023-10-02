@@ -29,7 +29,8 @@ Enter your choice: """
 
 
 def start_prompt():
-    while (user_input := input(menu_prompt)) != "5":
+    user_input = input(menu_prompt)
+    while user_input != "5":
         if user_input == "1":
             add_announces.add_new_announces()
         elif user_input == "2":
