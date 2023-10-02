@@ -32,7 +32,7 @@ This is a webscraper script to find the goods to be sold in a city for training 
 %files
 %doc README.md
 %{python3_sitelib}/%{pyshortname}
-%{python3_sitelib}/%{pyshortname}-%{version}.egg-info
+%{python3_sitelib}/%{pyshortname}_%{srcname}.egg-info  python_immoscraper.egg-info
 
 %changelog
 * Sat Sep 30 2023 First Last <jeanlouis.herve@hotmail.fr> - 0.1-1
