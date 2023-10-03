@@ -1,5 +1,8 @@
 from setuptools import setup, find_packages
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name='python-immoscraper',
     version='0.1',
@@ -14,6 +17,10 @@ setup(
     author='Jean-Louis HERVE',
     author_email='jeanlouis.herve@hotmail.fr',
     description='This is a webscraper script to find the goods to be sold in a city for training purpose.',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/fedora-python/Pello",
+    license_files=["/license/LICENSE.txt"],
     classifiers=[
         'Programming Language :: Python :: 3',
     ],

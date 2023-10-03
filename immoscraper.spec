@@ -9,6 +9,7 @@ Release: 1%{?dist}
 Summary: A Python package for scraping an estate website
 
 License: Proprietary
+URL: https://github.com/jeanlouisHERVE/IMMO-SCRAPER
 Source0: %{name}-%{version}.tar.gz
 
 # Dependencies
