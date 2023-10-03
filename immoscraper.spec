@@ -31,6 +31,8 @@ find . -type f -name "*.py" > debugsourcefiles.list
 # Install the package using the Python interpreter
 %{__python} setup.py install --prefix=%{_prefix} --root=%{buildroot}
 ls -R %{buildroot}
+# /root/rpmbuild/BUILDROOT/python-immoscraper-0.1-1.el8.x86_64
+ls -R %{buildroot}/%{_datadir}
 install -D -m 644 debugsourcefiles.list %{buildroot}/%{_datadir}/%{name}/debugsourcefiles.list
 
 %files
