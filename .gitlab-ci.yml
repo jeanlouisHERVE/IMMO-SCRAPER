@@ -67,7 +67,7 @@ build:
     - tree
     - cd ~/rpmbuild/SOURCES/
     - cat /etc/centos-release
-    - cp /builds/jeanlouisHERVE/
+    - cd /builds/jeanlouisHERVE/
     - tree
     - rpmbuild --clean ~/rpmbuild/SOURCES/immoscraper.spec
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
