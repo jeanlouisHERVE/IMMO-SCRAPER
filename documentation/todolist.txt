@@ -54,6 +54,8 @@ build part succeeded
 add %global debug_package %{nil} to .spec
 to avoid debug issue part with debugsourcefiles.list
 start publish to artifactory
+add variables to gitlab CICD to secure artifactory credentials
+
 
 ##TODO add others aliases
 ##TODO configure artifactory

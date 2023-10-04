@@ -10,7 +10,6 @@ variables:
   CI_PROJECT_DIR_WINDOWS: "c:\\Users\\jeanl\\OneDrive\\Bureau\\IMMO-SCRAPER"
   CI_PROJECT_DIR_LINUX: "/home/jean-louis/Bureau/IMMO-SCRAPER"
 
-
 lint:
   stage: lint
   image: python:3.9
@@ -62,10 +61,9 @@ build:
       - python-immoscraper-*.rpm
       - rpmbuild.log
 
-# publish:
-#   stage: publish
-#   script:
-#     - echo "Publishing RPM to Artifactory"
-#     # Add commands to publish the RPM to Artifactory here
-#   only:
-#     - tags  # This job runs only for tags, you can adjust this condition as needed
+publish:
+  stage: publish
+  script:
+    - curl -u$ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT ARTIFACTORY_URL/$ARTIFACTORY_REPO/<PATH_TO_METADATA_ROOT> -T <TARGET_FILE_PATH>
+  only:
+    - tags  # This job runs only for tags, you can adjust this condition as needed
