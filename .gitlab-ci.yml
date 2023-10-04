@@ -67,6 +67,8 @@ build:
     - tree
     - cd ~/rpmbuild/SOURCES/
     - cat /etc/centos-release
+    - cp /builds/
+    - tree
     - rpmbuild --clean ~/rpmbuild/SOURCES/immoscraper.spec
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
   artifacts:
