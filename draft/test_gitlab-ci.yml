@@ -1,4 +1,3 @@
-
 stages:
   - lint
   - compile
@@ -54,8 +53,21 @@ build:
     - python3 -m pip install setuptools wheel
     - python3 setup.py sdist bdist_wheel
     - yum install -y rpm-build
+    - yum install -y tree
+    - rpm -qa | grep python
+    - find / -type d -name "rpmbuild"
     - mkdir -p ~/rpmbuild/SOURCES
+    - mkdir -p ~/rpmbuild/DECOMPRESSION
     - cp /builds/jeanlouisHERVE/immo-scraper/dist/python-immoscraper-*.tar.gz ~/rpmbuild/SOURCES/
+    - tar -xzvf /root/rpmbuild/SOURCES/python-immoscraper-0.1.tar.gz -C ~/rpmbuild/DECOMPRESSION
+    - cd ~/rpmbuild/DECOMPRESSION
+    - tree
+    - cd ~/rpmbuild/
+    - tree
+    - cd ~/rpmbuild/SOURCES/
+    - cat /etc/centos-release
+    - cd /builds/jeanlouisHERVE/
+    - tree
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
   artifacts:
     paths:

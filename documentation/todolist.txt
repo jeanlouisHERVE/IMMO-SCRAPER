@@ -49,6 +49,12 @@ build:
   script:
     - set -x
 
+04/10/2023
+build part succeeded
+add %global debug_package %{nil} to .spec
+to avoid debug issue part with debugsourcefiles.list
+start publish to artifactory
+
 ##TODO add others aliases
 ##TODO configure artifactory
 ##TODO how launch the rpm once deployed ? 
