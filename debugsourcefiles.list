@@ -1,6 +1,0 @@
-modules/add_announces.py
-modules/app.py
-modules/database_app.py
-modules/driver_manager.py
-modules/functions.py
-modules/update.py

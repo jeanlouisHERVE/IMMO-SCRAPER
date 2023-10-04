@@ -22,8 +22,6 @@ This is a webscraper script to find the goods to be sold in a city for training 
 %autosetup -c -n python-immoscraper-%{version}
 %setup -n python-immoscraper-%{version}
 
-# find . -type f -name "*.py" > debugsourcefiles.list
-
 %build
 # Build the package using the Python interpreter
 %{__python} setup.py build
@@ -31,13 +29,11 @@ This is a webscraper script to find the goods to be sold in a city for training 
 %install
 # Install the package using the Python interpreter
 %{__python} setup.py install --prefix=%{_prefix} --root=%{buildroot}
-# install -Dpm0644 debugsourcefiles.list %{buildroot}%{_datadir}/%{name}/debugsourcefiles.list
 
 %files
 %doc README.md
 %{python3_sitelib}/modules/*
 %{python3_sitelib}/python_%{srcname}-%{version}-py3.6.egg-info
-# %{_builddir}/%{name}-%{version}/debugsourcefiles.list
 
 %changelog
 * Sat Sep 30 2023 First Last <jeanlouis.herve@hotmail.fr> - 0.1-1
