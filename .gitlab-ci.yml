@@ -61,8 +61,7 @@ build:
     - tree
   artifacts:
     paths:
-      - /builds/jeanlouisHERVE/immo-scraper/python-immoscraper-*.rpm
-      - /builds/jeanlouisHERVE/immo-scraper/rpmbuild.log
+      - ~/rpmbuild/RPMS/x86_64/python-immoscraper-*.rpm
   when: on_success
 
 # publish:
