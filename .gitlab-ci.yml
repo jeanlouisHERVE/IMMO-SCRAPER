@@ -60,10 +60,11 @@ build:
     paths:
       - python-immoscraper-*.rpm
       - rpmbuild.log
+  when: on_success
 
-publish:
-  stage: publish
-  script:
-    - curl -u$ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT ARTIFACTORY_URL/$ARTIFACTORY_REPO/<PATH_TO_METADATA_ROOT> -T <TARGET_FILE_PATH>
-  only:
-    - tags  # This job runs only for tags, you can adjust this condition as needed
+# publish:
+#   stage: publish
+#   script:
+#     - curl -u$ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/ -T <TARGET_FILE_PATH>
+#   only:
+#     - tags  # This job runs only for tags, you can adjust this condition as needed
