@@ -57,9 +57,6 @@ build:
     - mkdir -p ~/rpmbuild/SOURCES
     - cp /builds/jeanlouisHERVE/immo-scraper/dist/python-immoscraper-*.tar.gz ~/rpmbuild/SOURCES/
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
-    - cd ~/rpmbuild/
-    - tree
-    - cd ~/rpmbuild/RPMS/x86_64/
   artifacts:
     paths:
       - ~/rpmbuild/RPMS/x86_64/*.rpm
