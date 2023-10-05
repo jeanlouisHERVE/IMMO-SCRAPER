@@ -53,12 +53,9 @@ build:
     - python3 -m pip install setuptools wheel
     - python3 setup.py sdist bdist_wheel
     - yum install -y rpm-build
-    - yum install -y tree
     - mkdir -p ~/rpmbuild/SOURCES
     - cp /builds/jeanlouisHERVE/immo-scraper/dist/python-immoscraper-*.tar.gz ~/rpmbuild/SOURCES/
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
-    - cd ~/rpmbuild/
-    - tree
   artifacts:
     paths:
       - ~/rpmbuild/RPMS/x86_64/python-immoscraper-*.rpm
