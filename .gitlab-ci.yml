@@ -59,7 +59,7 @@ build:
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
   artifacts:
     paths:
-      - ~/rpmbuild/RPMS/x86_64/*.rpm
+      - rpmbuild/RPMS/x86_64/*.rpm
   when: on_success
 
 # publish:
