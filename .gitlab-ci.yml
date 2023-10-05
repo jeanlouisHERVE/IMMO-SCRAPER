@@ -58,8 +58,8 @@ build:
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
   artifacts:
     paths:
-      - python-immoscraper-*.rpm
-      - rpmbuild.log
+      - /builds/jeanlouisHERVE/immo-scraper/python-immoscraper-*.rpm
+      - /builds/jeanlouisHERVE/immo-scraper/rpmbuild.log
   when: on_success
 
 # publish:
