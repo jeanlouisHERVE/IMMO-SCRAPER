@@ -60,6 +60,7 @@ build:
     - ls -al
     - find . -name "python-immoscraper*.rpm"
     - pwd
+    - tree
   artifacts:
     paths:
       - python-immoscraper*.rpm
