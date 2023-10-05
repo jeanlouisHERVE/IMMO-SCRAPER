@@ -62,7 +62,7 @@ build:
     - cd ~/rpmbuild/RPMS/x86_64/
   artifacts:
     paths:
-      - ~/rpmbuild/RPMS/x86_64/python-immoscraper-*.rpm
+      - ~/rpmbuild/RPMS/x86_64/*.rpm
   when: on_success
 
 # publish:
