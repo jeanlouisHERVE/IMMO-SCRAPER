@@ -64,7 +64,7 @@ build:
     - tree
   artifacts:
     paths:
-      - python-immoscraper*.rpm
+      - rpmbuild/RPMS/x86_64/*.rpm
   when: on_success
 
 # publish:
