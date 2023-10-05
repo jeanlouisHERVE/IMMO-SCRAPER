@@ -56,6 +56,9 @@ to avoid debug issue part with debugsourcefiles.list
 start publish to artifactory
 add variables to gitlab CICD to secure artifactory credentials
 
+05/10/2023
+issue the rpm is build but not find to be send to gitlab artefacts part 
+
 
 ##TODO add others aliases
 ##TODO configure artifactory
