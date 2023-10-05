@@ -59,6 +59,7 @@ build:
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
     - cd ~/rpmbuild/
     - tree
+    - cd ~/rpmbuild/RPMS/x86_64/
   artifacts:
     paths:
       - ~/rpmbuild/RPMS/x86_64/python-immoscraper-*.rpm
