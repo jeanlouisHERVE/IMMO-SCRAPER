@@ -29,14 +29,14 @@ before_script:
       exit 1
     fi
 
-# unit_tests:
-#   stage: test
-#   image: python:3.9 
-#   script:
-#     - python -m pip install --upgrade pip
-#     - python -m pip install -r requirements.txt
-#     - export DATABASE_PATH="$CI_PROJECT_DIR\\database\\immoscraper.db"
-#     - python -m unittest discover -s tests -p 'test_*.py'
+unit_tests:
+  stage: test
+  image: python:3.9 
+  script:
+    - python -m pip install --upgrade pip
+    - python -m pip install -r requirements.txt
+    - export DATABASE_PATH="$CI_PROJECT_DIR\\database\\immoscraper.db"
+    - python -m unittest discover -s tests -p 'test_*.py'
 
 build:
   stage: build
@@ -53,13 +53,10 @@ build:
     - python3 -m pip install setuptools wheel
     - python3 setup.py sdist bdist_wheel
     - yum install -y rpm-build
-    - yum install -y tree
     - mkdir -p ~/rpmbuild/SOURCES
     - cp /builds/jeanlouisHERVE/immo-scraper/dist/python-immoscraper-*.tar.gz ~/rpmbuild/SOURCES/
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
     - cp -R ~/rpmbuild $CI_PROJECT_DIR/
-    - cd $CI_PROJECT_DIR/
-    - tree
   artifacts:
     paths:
       - rpmbuild/RPMS/x86_64/*.rpm
