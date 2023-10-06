@@ -57,12 +57,8 @@ build:
     - mkdir -p ~/rpmbuild/SOURCES
     - cp /builds/jeanlouisHERVE/immo-scraper/dist/python-immoscraper-*.tar.gz ~/rpmbuild/SOURCES/
     - rpmbuild -ba --verbose /builds/jeanlouisHERVE/immo-scraper/immoscraper.spec
-    - ls -al
-    - find . -name "python-immoscraper*.rpm"
-    - pwd
-    - cd ~
-    - tree
-    - cd ~/builds/jeanlouisHERVE/immo-scraper
+    - cp -R rpmbuild $CI_PROJECT_DIR/
+    - cd $CI_PROJECT_DIR/
     - tree
   artifacts:
     paths:
