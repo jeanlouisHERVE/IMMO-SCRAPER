@@ -73,4 +73,5 @@ The problem is your rpmbuild folder is not under "$CI_PROJECT_DIR" rather it is 
 ## TODO create releases and version in gitlab 
 ## TODO configure EC3 to have a postgresql database 
 ## TODO migrate sqlite3 database to postgresql 
-
+## TODO recreate a multiple VM structure 
+## TODO add security
