@@ -70,4 +70,7 @@ The problem is your rpmbuild folder is not under "$CI_PROJECT_DIR" rather it is 
 ## TODO how launch the rpm once deployed ?
 ## TODO aliases for the rpm 
 ## TODO deploy rpm on EC3
-## create releases and version in gitlab 
+## TODO create releases and version in gitlab 
+## TODO configure EC3 to have a postgresql database 
+## TODO migrate sqlite3 database to postgresql 
+
