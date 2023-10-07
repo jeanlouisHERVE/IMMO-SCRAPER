@@ -1,10 +1,8 @@
 
 
-###TODO add a price table with history
-###TODO send old announces to another table
+DONE add a price table with history
+DONE send old announces to another table
 ###TODO migration to another base of unpublished announces
-###TODO create a RPM of this app
-###TODO test23
 
 11/09/2023
 creation of the gitlab-ci.yml
@@ -39,6 +37,8 @@ test
 
 28/09/2023
 start working on build part of CI
+the image centos brought a python version 3.6, I was unable to bypass this default version for another
+the solution should be to create an image with the proper version and run a personalized gitlab-runner
 
 30/09/2023
 add a script in the before script part ic gitlab CI to be sure that a linux path is used when a gitlab runner is running
