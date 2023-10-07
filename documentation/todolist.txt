@@ -65,6 +65,9 @@ fix issue sending artefacts the triggered folder was not the good one
 The problem is your rpmbuild folder is not under "$CI_PROJECT_DIR" rather it is in the "home" directory of the Gitlab runner.
 "~"(home directory) != $CI_PROJECT_DIR(gitlab project directory).
 
-##TODO add others aliases
-##TODO configure artifactory
-##TODO how launch the rpm once deployed ? 
+## TODO add others aliases
+## TODO configure artifactory
+## TODO how launch the rpm once deployed ?
+## TODO aliases for the rpm 
+## TODO deploy rpm on EC3
+## create releases and version in gitlab 
