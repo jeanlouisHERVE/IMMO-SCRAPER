@@ -702,3 +702,5 @@ def update_descriptions():
             print("---------------------------------------END------------------------------------------")
             print(f"----------------PROPERTY {id_property} HAS NOT BEEN UPDATED-------------------------")
             print("------------------------------------------------------------------------------------")
+
+# TODO change the criteria to run an update from dateOfModification to price
