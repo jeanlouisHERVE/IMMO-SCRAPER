@@ -62,9 +62,8 @@ build:
       - rpmbuild/RPMS/x86_64/*.rpm
   when: on_success
 
-# publish:
-#   stage: publish
-#   script:
-#     - curl -u$ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/ -T <TARGET_FILE_PATH>
-#   only:
-#     - tags  # This job runs only for tags, you can adjust this condition as needed
+publish:
+  stage: publish
+  script:
+    - curl -u$ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/ -T rpmbuild/RPMS/x86_64/*.rpm
+
