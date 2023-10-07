@@ -6,7 +6,7 @@ from modules.functions import (
 )
 
 
-class TestYourFunctions(unittest.TestCase):
+class TestFunctions(unittest.TestCase):
     def test_date_converter_french_date_to_utc_timestamp(self):
         # Test case 1: valid input
         french_date = "15 août 2023"
@@ -48,3 +48,19 @@ class TestYourFunctions(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+# Define the order of tests
+    ordered_tests = [
+        "test_date_converter_french_date_to_utc_timestamp",
+        "test_contains_numbers",
+        "test_are_timestamps_equal",
+    ]
+
+    test_instance = TestFunctions()
+    ordered_suite = unittest.TestSuite()
+
+    for test_name in ordered_tests:
+        ordered_suite.addTest(test_instance.findTest(test_instance, test_name))
+
+    runner = unittest.TextTestRunner()
+    runner.run(ordered_suite)
