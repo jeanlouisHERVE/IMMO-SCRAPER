@@ -46,6 +46,7 @@ def check_accept_section(cssSelector: str):
 
 
 def update_descriptions():
+    # get data from properties already in database
     for property in database_app.get_id_url_dateofmodification_from_properties():
         id_property, url_property, dateOfModification_announce = property
         print("---------------------------------------START------------------------------------------")
@@ -230,6 +231,7 @@ def update_descriptions():
         regex_find_text_after_colon = r':\s*([^:,]+)'
 
         print("step3")
+        # get new price
         try:
             new_price_content = driver.find_element(By.CSS_SELECTOR, "span.ad-price__the-price").text
             new_price_content = new_price_content.replace(" ", "")
@@ -237,6 +239,7 @@ def update_descriptions():
         except NoSuchElementException:
             print("KO : no data for new_price")
 
+        # get others data
         for labelInfo in labelsInfo:
 
             try:
@@ -459,6 +462,7 @@ def update_descriptions():
 
         print("------------------Description Part End------------------")
 
+        # update announce based on the modification date
         if not new_announce_last_modification or not dateOfModification_announce:
             print("KO : date of modification of new date of modification doesn't exists")
             continue
