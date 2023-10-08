@@ -62,13 +62,14 @@ issue the rpm is build but not find to be send to gitlab artefacts part
 06/10/2023
 fix issue sending artefacts the triggered folder was not the good one
 - cp -R ~/rpmbuild $CI_PROJECT_DIR/
-The problem is your rpmbuild folder is not under "$CI_PROJECT_DIR" rather it is in the "home" directory of the Gitlab runner.
+The problem is rpmbuild folder is not under "$CI_PROJECT_DIR" rather it is in the "home" directory of the Gitlab runner.
 "~"(home directory) != $CI_PROJECT_DIR(gitlab project directory).
 
 ## TODO add others aliases
 ## TODO configure artifactory
 ## TODO how launch the rpm once deployed ?
 ## TODO aliases for the rpm 
+## TODO create a personalized gitlab runner
 ## TODO deploy rpm on EC3
 ## TODO create releases and version in gitlab 
 ## TODO configure EC3 to have a postgresql database 
