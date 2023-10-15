@@ -468,7 +468,7 @@ def update_descriptions():
         print("last_price", last_price)
         print('new_price', new_price)
         if last_price <= new_price or not new_price:
-            print("KO : date of modification of new date of modification doesn't exists")
+            print("KO : New price is the same than the old one")
             continue
         else:
             try:
