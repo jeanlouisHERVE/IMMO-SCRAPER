@@ -233,13 +233,13 @@ def update_descriptions():
         print("step3")
         last_price = database_app.get_last_price_for_property(id_property)
         # get new price
-        try:
-            new_price_content = driver.find_element(By.CSS_SELECTOR, "span.ad-price__the-price").text
-            new_price_content = new_price_content.replace(" ", "")
-            new_price = re.findall(regex_find_numbers, new_price_content)[0]
-            new_price = float(new_price)
-        except NoSuchElementException:
-            print("KO : no data for new_price")
+        # try:
+        #     new_price_content = driver.find_element(By.CSS_SELECTOR, "span.ad-price__the-price").text
+        #     new_price_content = new_price_content.replace(" ", "")
+        #     new_price = re.findall(regex_find_numbers, new_price_content)[0]
+        #     new_price = float(new_price)
+        # except NoSuchElementException:
+        #     print("KO : no data for new_price")
 
         # get others data
         for labelInfo in labelsInfo:
@@ -467,239 +467,202 @@ def update_descriptions():
         # update announce based on the modification date
         print("last_price", last_price)
         print('new_price', new_price)
-        if new_price is None or last_price != new_price:
+        if new_price is None or last_price is new_price:
             print("KO : New price is the same than the old one")
             continue
         else:
-            try:
-                same_timestamp = functions.are_timestamps_equal(
-                    float(dateOfModification_announce),
-                    float(new_announce_last_modification),
-                    tolerance_seconds=10
-                )
-                print("same_timestamp", same_timestamp)
-                print("step30")
-                if not same_timestamp:
-                    print("KO : the announce is going to be modified and updated")
-                    print("step31")
+            # default values
+            # building options
+            old_property_description = database_app.get_property_description_by_id(id_property)
+            year_of_construction = old_property_description['year_of_construction']
+            exposition = old_property_description['exposition']
+            floor = old_property_description['floor']
+            total_floor_number = old_property_description['total_floor_number']
+            neighborhood_description = old_property_description['neighborhood_description']
+            bedroom_number = old_property_description['bedroom_number']
+            toilet_number = old_property_description['toilet_number']
+            bathroom_number = old_property_description['bathroom_number']
+            cellar = old_property_description['cellar']
+            lock_up_garage = old_property_description['lock_up_garage']
+            heating = old_property_description['heating']
+            tv_cable = old_property_description['tv_cable']
+            fireplace = old_property_description['fireplace']
+            digicode = old_property_description['digicode']
+            intercom = old_property_description['intercom']
+            elevator = old_property_description['elevator']
+            fibre_optics_status = old_property_description['fibre_optics_status']
+            garden = old_property_description['garden']
+            car_park_number = old_property_description['car_park_number']
+            balcony = old_property_description['balcony']
+            large_balcony = old_property_description['large_balcony']
+            estate_agency_fee_percentage = old_property_description['estate_agency_fee_percentage']
+            pinel = old_property_description['pinel']
+            denormandie = old_property_description['denormandie']
+            announce_publication = old_property_description['announce_publication']
+            announce_last_modification = old_property_description['announce_last_modification']
+            dpe_date = old_property_description['dpe_date']
+            energetic_performance_letter = old_property_description['energetic_performance_letter']
+            energetic_performance_number = old_property_description['energetic_performance_number']
+            climatic_performance_number = old_property_description['climatic_performance_number']
+            climatic_performance_letter = old_property_description['climatic_performance_letter']
+            estate_agency_id = old_property_description['estate_agency_id']
+            print("step32")
+            print("#############RECAP ANNOUNCE VARIABLES#############")
+            print("price                        :", new_price, price)
+            print("year_of_construction         :", new_year_of_construction, year_of_construction)
+            print("exposition                   :", new_exposition, exposition)
+            print("floor                        :", new_floor, floor)
+            print("total_floor_number           :", new_total_floor_number, total_floor_number)
+            print("neighborhood_descr     :", new_neighborhood_description, neighborhood_description)
+            print("bedroom_number               :", new_bedroom_number, bedroom_number)
+            print("toilet_number                :", new_toilet_number, toilet_number)
+            print("bathroom_number              :", new_bathroom_number, bathroom_number)
+            print("cellar                       :", new_cellar, cellar)
+            print("lock_up_garage               :", new_lock_up_garage, lock_up_garage)
+            print("heating                      :", new_heating, heating)
+            print("tv_cable                     :", new_tv_cable, tv_cable)
+            print("fireplace                    :", new_fireplace, fireplace)
+            print("digicode                     :", new_digicode, digicode)
+            print("intercom                     :", new_intercom, intercom)
+            print("elevator                     :", new_elevator, elevator)
+            print("fibre_optics_status          :", new_fibre_optics_status, fibre_optics_status)
+            print("garden                       :", new_garden, garden)
+            print("car_park_number              :", new_car_park_number, car_park_number)
+            print("balcony                      :", new_balcony, balcony)
+            print("large_balcony                :", new_large_balcony, large_balcony)
+            print("dpe_date                     :", new_dpe_date, dpe_date)
+            print("estate_agency_fee_% :", new_estate_agency_fee_percentage, estate_agency_fee_percentage)
+            print("pinel                        :", new_pinel, pinel)
+            print("denormandie                  :", new_denormandie, denormandie)
+            print("announce_publication         :", new_announce_publication, announce_publication)
+            print("announce_last_modif   :", new_announce_last_modification, announce_last_modification)
+            print("ener_perf_letter :", new_energetic_performance_letter, energetic_performance_letter)
+            print("ener_perf_number :", new_energetic_performance_number, energetic_performance_number)
+            print("climatic_perf_number  :", new_climatic_performance_number, climatic_performance_number)
+            print("climatic_perf_letter  :", new_climatic_performance_letter, climatic_performance_letter)
+            input()
+            if year_of_construction != new_year_of_construction:
+                year_of_construction = new_year_of_construction
+            if exposition != new_exposition:
+                exposition = new_exposition
+            if floor != new_floor:
+                floor = new_floor
 
-                    # default values
-                    # building options
-                    old_property_description = database_app.get_property_description_by_id(id_property)
-                    year_of_construction = old_property_description['year_of_construction']
-                    exposition = old_property_description['exposition']
-                    floor = old_property_description['floor']
-                    total_floor_number = old_property_description['total_floor_number']
-                    neighborhood_description = old_property_description['neighborhood_description']
-                    bedroom_number = old_property_description['bedroom_number']
-                    toilet_number = old_property_description['toilet_number']
-                    bathroom_number = old_property_description['bathroom_number']
-                    cellar = old_property_description['cellar']
-                    lock_up_garage = old_property_description['lock_up_garage']
-                    heating = old_property_description['heating']
-                    tv_cable = old_property_description['tv_cable']
-                    fireplace = old_property_description['fireplace']
-                    digicode = old_property_description['digicode']
-                    intercom = old_property_description['intercom']
-                    elevator = old_property_description['elevator']
-                    fibre_optics_status = old_property_description['fibre_optics_status']
-                    garden = old_property_description['garden']
-                    car_park_number = old_property_description['car_park_number']
-                    balcony = old_property_description['balcony']
-                    large_balcony = old_property_description['large_balcony']
-                    estate_agency_fee_percentage = old_property_description['estate_agency_fee_percentage']
-                    pinel = old_property_description['pinel']
-                    denormandie = old_property_description['denormandie']
-                    announce_publication = old_property_description['announce_publication']
-                    announce_last_modification = old_property_description['announce_last_modification']
-                    dpe_date = old_property_description['dpe_date']
-                    energetic_performance_letter = old_property_description['energetic_performance_letter']
-                    energetic_performance_number = old_property_description['energetic_performance_number']
-                    climatic_performance_number = old_property_description['climatic_performance_number']
-                    climatic_performance_letter = old_property_description['climatic_performance_letter']
-                    estate_agency_id = old_property_description['estate_agency_id']
-                    print("step32")
-                    print("#############RECAP ANNOUNCE VARIABLES#############")
-                    print("price                        :", new_price, price)
-                    print("year_of_construction         :", new_year_of_construction, year_of_construction)
-                    print("exposition                   :", new_exposition, exposition)
-                    print("floor                        :", new_floor, floor)
-                    print("total_floor_number           :", new_total_floor_number, total_floor_number)
-                    print("neighborhood_descr     :", new_neighborhood_description, neighborhood_description)
-                    print("bedroom_number               :", new_bedroom_number, bedroom_number)
-                    print("toilet_number                :", new_toilet_number, toilet_number)
-                    print("bathroom_number              :", new_bathroom_number, bathroom_number)
-                    print("cellar                       :", new_cellar, cellar)
-                    print("lock_up_garage               :", new_lock_up_garage, lock_up_garage)
-                    print("heating                      :", new_heating, heating)
-                    print("tv_cable                     :", new_tv_cable, tv_cable)
-                    print("fireplace                    :", new_fireplace, fireplace)
-                    print("digicode                     :", new_digicode, digicode)
-                    print("intercom                     :", new_intercom, intercom)
-                    print("elevator                     :", new_elevator, elevator)
-                    print("fibre_optics_status          :", new_fibre_optics_status, fibre_optics_status)
-                    print("garden                       :", new_garden, garden)
-                    print("car_park_number              :", new_car_park_number, car_park_number)
-                    print("balcony                      :", new_balcony, balcony)
-                    print("large_balcony                :", new_large_balcony, large_balcony)
-                    print("dpe_date                     :", new_dpe_date, dpe_date)
-                    print("estate_agency_fee_% :", new_estate_agency_fee_percentage,
-                          estate_agency_fee_percentage)
-                    print("pinel                        :", new_pinel, pinel)
-                    print("denormandie                  :", new_denormandie, denormandie)
-                    print("announce_publication         :", new_announce_publication, announce_publication)
-                    print("announce_last_modif   :", new_announce_last_modification,
-                          announce_last_modification)
-                    print("ener_perf_letter :", new_energetic_performance_letter,
-                          energetic_performance_letter)
-                    print("ener_perf_number :", new_energetic_performance_number,
-                          energetic_performance_number)
-                    print("climatic_perf_number  :", new_climatic_performance_number,
-                          climatic_performance_number)
-                    print("climatic_perf_letter  :", new_climatic_performance_letter,
-                          climatic_performance_letter)
-                    input()
-                    if year_of_construction != new_year_of_construction:
-                        year_of_construction = new_year_of_construction
-                    if exposition != new_exposition:
-                        exposition = new_exposition
-                    if floor != new_floor:
-                        floor = new_floor
+            if total_floor_number != new_total_floor_number:
+                total_floor_number = new_total_floor_number
+            if neighborhood_description != new_neighborhood_description:
+                neighborhood_description = new_neighborhood_description
 
-                    if total_floor_number != new_total_floor_number:
-                        total_floor_number = new_total_floor_number
-                    if neighborhood_description != new_neighborhood_description:
-                        neighborhood_description = new_neighborhood_description
+            print("step33")
+            # rooms
+            if bedroom_number != new_bedroom_number:
+                bedroom_number = new_bedroom_number
+            if toilet_number != new_toilet_number:
+                toilet_number = new_toilet_number
+            if bathroom_number != new_bathroom_number:
+                bathroom_number = new_bathroom_number
+            if cellar != new_cellar:
+                cellar = new_cellar
+            if lock_up_garage != new_lock_up_garage:
+                lock_up_garage = new_lock_up_garage
 
-                    print("step33")
-                    # rooms
-                    if bedroom_number != new_bedroom_number:
-                        bedroom_number = new_bedroom_number
-                    if toilet_number != new_toilet_number:
-                        toilet_number = new_toilet_number
-                    if bathroom_number != new_bathroom_number:
-                        bathroom_number = new_bathroom_number
-                    if cellar != new_cellar:
-                        cellar = new_cellar
-                    if lock_up_garage != new_lock_up_garage:
-                        lock_up_garage = new_lock_up_garage
+            # options indoor
+            if heating != new_heating:
+                heating = new_heating
+            if tv_cable != new_tv_cable:
+                tv_cable = new_tv_cable
+            if fireplace != new_fireplace:
+                fireplace = new_fireplace
+            if digicode != new_digicode:
+                digicode = new_digicode
+            if intercom != new_intercom:
+                intercom = new_intercom
+            if elevator != new_elevator:
+                elevator = new_elevator
+            if fibre_optics_status != new_fibre_optics_status:
+                fibre_optics_status = new_fibre_optics_status
 
-                    # options indoor
-                    if heating != new_heating:
-                        heating = new_heating
-                    if tv_cable != new_tv_cable:
-                        tv_cable = new_tv_cable
-                    if fireplace != new_fireplace:
-                        fireplace = new_fireplace
-                    if digicode != new_digicode:
-                        digicode = new_digicode
-                    if intercom != new_intercom:
-                        intercom = new_intercom
-                    if elevator != new_elevator:
-                        elevator = new_elevator
-                    if fibre_optics_status != new_fibre_optics_status:
-                        fibre_optics_status = new_fibre_optics_status
+            # options outdoor
+            if garden != new_garden:
+                garden = new_garden
+            if car_park_number != new_car_park_number:
+                car_park_number = new_car_park_number
+            if balcony != new_balcony:
+                balcony = new_balcony
+            if large_balcony != new_large_balcony:
+                large_balcony = new_large_balcony
 
-                    # options outdoor
-                    if garden != new_garden:
-                        garden = new_garden
-                    if car_park_number != new_car_park_number:
-                        car_park_number = new_car_park_number
-                    if balcony != new_balcony:
-                        balcony = new_balcony
-                    if large_balcony != new_large_balcony:
-                        large_balcony = new_large_balcony
+            # administration
+            if estate_agency_fee_percentage != new_estate_agency_fee_percentage:
+                estate_agency_fee_percentage = new_estate_agency_fee_percentage
+            if pinel != new_pinel:
+                pinel = new_pinel
+            if denormandie != new_denormandie:
+                denormandie = new_denormandie
+            if announce_publication != new_announce_publication:
+                announce_publication = new_announce_publication
+            if announce_last_modification != new_announce_last_modification:
+                announce_last_modification = new_announce_last_modification
 
-                    # administration
-                    if estate_agency_fee_percentage != new_estate_agency_fee_percentage:
-                        estate_agency_fee_percentage = new_estate_agency_fee_percentage
-                    if pinel != new_pinel:
-                        pinel = new_pinel
-                    if denormandie != new_denormandie:
-                        denormandie = new_denormandie
-                    if announce_publication != new_announce_publication:
-                        announce_publication = new_announce_publication
-                    if announce_last_modification != new_announce_last_modification:
-                        announce_last_modification = new_announce_last_modification
+            # diagnostics
+            if dpe_date != new_dpe_date:
+                dpe_date = new_dpe_date
+            if energetic_performance_letter != new_energetic_performance_letter:
+                energetic_performance_letter = new_energetic_performance_letter
+            if energetic_performance_number != new_energetic_performance_number:
+                energetic_performance_number = new_energetic_performance_number
+            if climatic_performance_number != new_climatic_performance_number:
+                climatic_performance_number = new_climatic_performance_number
+            if climatic_performance_letter != new_climatic_performance_letter:
+                climatic_performance_letter = new_climatic_performance_letter
+            print("step34")
+            print("----------------------Add new price Property---------------------")
+            print(new_price)
+            if last_price != new_price:
+                database_app.add_price_to_property(new_date_add_to_db, id_property, new_price)
+                print(f"The price for property {id_property} has been update {new_price}")
+            else:
+                print(f"No prices found for property {id_property}")
+            print("step35")
+            print("--------------------End add new price Property--------------------")
+            print("----------------------Update Description---------------------")
 
-                    # diagnostics
-                    if dpe_date != new_dpe_date:
-                        dpe_date = new_dpe_date
-                    if energetic_performance_letter != new_energetic_performance_letter:
-                        energetic_performance_letter = new_energetic_performance_letter
-                    if energetic_performance_number != new_energetic_performance_number:
-                        energetic_performance_number = new_energetic_performance_number
-                    if climatic_performance_number != new_climatic_performance_number:
-                        climatic_performance_number = new_climatic_performance_number
-                    if climatic_performance_letter != new_climatic_performance_letter:
-                        climatic_performance_letter = new_climatic_performance_letter
-                    print("step34")
-                    print("----------------------Add new price Property---------------------")
-                    print(new_price)
-                    if last_price != new_price:
-                        database_app.add_price_to_property(new_date_add_to_db, id_property, new_price)
-                        print(f"The price for property {id_property} has been update {new_price}")
-                    else:
-                        print(f"No prices found for property {id_property}")
-                    print("step35")
-                    print("--------------------End add new price Property--------------------")
-                    print("----------------------Update Description---------------------")
-
-                    database_app.update_description(id_property,
-                                                    new_year_of_construction,
-                                                    new_exposition,
-                                                    new_floor,
-                                                    new_total_floor_number,
-                                                    new_neighborhood_description,
-                                                    new_bedroom_number,
-                                                    new_toilet_number,
-                                                    new_bathroom_number,
-                                                    new_cellar,
-                                                    new_lock_up_garage,
-                                                    new_heating,
-                                                    new_tv_cable,
-                                                    new_fireplace,
-                                                    new_digicode,
-                                                    new_intercom,
-                                                    new_elevator,
-                                                    new_fibre_optics_status,
-                                                    new_garden,
-                                                    new_car_park_number,
-                                                    new_balcony,
-                                                    new_large_balcony,
-                                                    new_estate_agency_fee_percentage,
-                                                    new_pinel, new_denormandie,
-                                                    new_announce_publication,
-                                                    new_announce_last_modification,
-                                                    new_dpe_date,
-                                                    new_energetic_performance_letter,
-                                                    new_energetic_performance_number,
-                                                    new_climatic_performance_number,
-                                                    new_climatic_performance_letter,
-                                                    estate_agency_id
-                                                    )
-                    announce_modified = True
-                    print("step36")
-                    print("--------------------End Update Description------------------")
-                else:
-                    print("OK : the announce is already up to date")
-                    announce_modified = False
-            except TypeError:
-                print("step37")
-                print("KO : invalid timestamp type")
-                print("dateOfModification_announce", dateOfModification_announce,
-                      type(dateOfModification_announce))
-                print("new_announce_last_modification", new_announce_last_modification,
-                      type(new_announce_last_modification))
-                announce_modified = False
-            except ValueError:
-                print("step38")
-                print("KO : invalid timestamp value")
-                print("dateOfModification_announce", dateOfModification_announce,
-                      type(dateOfModification_announce))
-                print("new_announce_last_modification", new_announce_last_modification,
-                      type(new_announce_last_modification))
-                announce_modified = False
+            database_app.update_description(id_property,
+                                            new_year_of_construction,
+                                            new_exposition,
+                                            new_floor,
+                                            new_total_floor_number,
+                                            new_neighborhood_description,
+                                            new_bedroom_number,
+                                            new_toilet_number,
+                                            new_bathroom_number,
+                                            new_cellar,
+                                            new_lock_up_garage,
+                                            new_heating,
+                                            new_tv_cable,
+                                            new_fireplace,
+                                            new_digicode,
+                                            new_intercom,
+                                            new_elevator,
+                                            new_fibre_optics_status,
+                                            new_garden,
+                                            new_car_park_number,
+                                            new_balcony,
+                                            new_large_balcony,
+                                            new_estate_agency_fee_percentage,
+                                            new_pinel, new_denormandie,
+                                            new_announce_publication,
+                                            new_announce_last_modification,
+                                            new_dpe_date,
+                                            new_energetic_performance_letter,
+                                            new_energetic_performance_number,
+                                            new_climatic_performance_number,
+                                            new_climatic_performance_letter,
+                                            estate_agency_id
+                                            )
+            announce_modified = True
+            print("step36")
+            print("--------------------End Update Description------------------")
 
         if announce_modified:
             print("---------------------------------------END------------------------------------------")
