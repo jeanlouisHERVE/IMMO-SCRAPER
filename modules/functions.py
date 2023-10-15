@@ -20,6 +20,7 @@ def date_converter_french_date_to_utc_timestamp(french_date: str):
         "septembre": "09",
         "sept.": "09",
         "octobre": "10",
+        "oct.": "10",
         "novembre": "11",
         "décembre": "12",
         "decembre": "12"

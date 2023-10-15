@@ -467,7 +467,7 @@ def update_descriptions():
         # update announce based on the modification date
         print("last_price", last_price)
         print('new_price', new_price)
-        if last_price <= new_price or not new_price:
+        if new_price is None or last_price != new_price:
             print("KO : New price is the same than the old one")
             continue
         else:
