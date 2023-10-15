@@ -196,7 +196,7 @@ GET_AGENCIES = "SELECT * FROM agencies"
 GET_AGENCY_BY_NAME = "SELECT * FROM agencies WHERE name = ?"
 GET_PRICES = "SELECT * FROM prices"
 GET_PRICES_BY_PROPERTY_ID = "SELECT * FROM prices WHERE property_id = ?;"
-GET_LAST_PRICE_FOR_PROPRIETY = """SELECT price FROM your_table_name
+GET_LAST_PRICE_FOR_PROPRIETY = """SELECT price FROM prices
                                 WHERE property_id = ? ORDER BY date DESC LIMIT 1"""
 GET_OLD_PRICES = "SELECT * FROM old_prices"
 
