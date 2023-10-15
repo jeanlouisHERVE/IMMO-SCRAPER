@@ -231,6 +231,7 @@ def update_descriptions():
         regex_find_text_after_colon = r':\s*([^:,]+)'
 
         print("step3")
+        last_price = database_app.get_last_price_for_property(id_property)
         # get new price
         try:
             new_price_content = driver.find_element(By.CSS_SELECTOR, "span.ad-price__the-price").text
@@ -463,7 +464,9 @@ def update_descriptions():
         print("------------------Description Part End------------------")
 
         # update announce based on the modification date
-        if not new_announce_last_modification or not dateOfModification_announce:
+        print("last_price", last_price)
+        print('new_price', new_price)
+        if last_price <= new_price or not new_price:
             print("KO : date of modification of new date of modification doesn't exists")
             continue
         else:
@@ -632,7 +635,6 @@ def update_descriptions():
                     print("step34")
                     print("----------------------Add new price Property---------------------")
                     print(new_price)
-                    last_price = database_app.get_last_price_for_property(id_property)
                     if last_price != new_price:
                         database_app.add_price_to_property(new_date_add_to_db, id_property, new_price)
                         print(f"The price for property {id_property} has been update {new_price}")
