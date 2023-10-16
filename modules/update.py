@@ -540,7 +540,6 @@ def update_descriptions():
             print("ener_perf_number :", new_energetic_performance_number, energetic_performance_number)
             print("climatic_perf_number  :", new_climatic_performance_number, climatic_performance_number)
             print("climatic_perf_letter  :", new_climatic_performance_letter, climatic_performance_letter)
-            input()
             if year_of_construction != new_year_of_construction:
                 year_of_construction = new_year_of_construction
             if exposition != new_exposition:
