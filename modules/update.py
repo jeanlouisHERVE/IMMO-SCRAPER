@@ -449,7 +449,7 @@ def update_descriptions():
                     new_climatic_performance_number = None
                 else:
                     new_climatic_performance_number = int(new_dpe_data_numbers[1].text.replace("*", ""))
-
+                    
         except (NoSuchElementException, StaleElementReferenceException):
             print("KO : no data for energetic_performance_number")
 
@@ -508,7 +508,7 @@ def update_descriptions():
             estate_agency_id = old_property_description[32]
             print("step32")
             print("#############RECAP ANNOUNCE VARIABLES#############")
-            print("price                        :", new_price, price)
+            print("price                        :", new_price, last_price)
             print("year_of_construction         :", new_year_of_construction, year_of_construction)
             print("exposition                   :", new_exposition, exposition)
             print("floor                        :", new_floor, floor)
