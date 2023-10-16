@@ -233,13 +233,13 @@ def update_descriptions():
         print("step3")
         last_price = database_app.get_last_price_for_property(id_property)
         # get new price
-        # try:
-        #     new_price_content = driver.find_element(By.CSS_SELECTOR, "span.ad-price__the-price").text
-        #     new_price_content = new_price_content.replace(" ", "")
-        #     new_price = re.findall(regex_find_numbers, new_price_content)[0]
-        #     new_price = float(new_price)
-        # except NoSuchElementException:
-        #     print("KO : no data for new_price")
+        try:
+            new_price_content = driver.find_element(By.CSS_SELECTOR, "span.ad-price__the-price").text
+            new_price_content = new_price_content.replace(" ", "")
+            new_price = re.findall(regex_find_numbers, new_price_content)[0]
+            new_price = float(new_price)
+        except NoSuchElementException:
+            print("KO : no data for new_price")
 
         # get others data
         for labelInfo in labelsInfo:
