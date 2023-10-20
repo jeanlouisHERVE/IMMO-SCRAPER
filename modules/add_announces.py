@@ -251,6 +251,8 @@ def add_descriptions():
             try:
                 outOfTheMarket = driver.find_element(By.CLASS_NAME, "outOfTheMarketBanner")
                 print(f"KO : Announce no more available {outOfTheMarket}")
+                database_app.delete_property(id_property)
+                continue
             except (NoSuchElementException):
                 print("OK : Announce still available")
 
