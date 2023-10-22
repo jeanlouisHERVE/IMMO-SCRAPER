@@ -211,21 +211,15 @@ def add_new_announces():
                                                     )
                 database_app.add_price_to_property(date_add_to_db, property_id, price)
 
-        # catch data to access the next page
-        next_page_url = next_results_btn.get_attribute('href')
-        print("next_page_url", next_page_url)
-        pattern_next_page_url_without_page = r"(.+)\?"
-        next_page_url_without_page = re.findall(pattern_next_page_url_without_page, next_page_url)[0]
-        print("next_page_url_without_page :", next_page_url_without_page)
-        # patter_page_number = r"\bpage=(\d+)\b"
-        # page_number = re.findall(patter_page_number, next_page_url)[0]
-        # page_number = int(page_number)
-        # print("page_number :",page_number)
-
-        # driver.get(next_page_url_without_page +"page={}".format(global_page_number))
-        driver.get(next_page_url)
-        global_page_number += 1
-        print("------------------Add_new_annouces_End------------------")
+            # catch data to access the next page
+            next_page_url = next_results_btn.get_attribute('href')
+            print("next_page_url", next_page_url)
+            pattern_next_page_url_without_page = r"(.+)\?"
+            next_page_url_without_page = re.findall(pattern_next_page_url_without_page, next_page_url)[0]
+            print("next_page_url_without_page :", next_page_url_without_page)
+            driver.get(next_page_url)
+            global_page_number += 1
+            print("------------------Add_new_annouces_End------------------")
 
 
 def add_descriptions():
