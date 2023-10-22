@@ -449,7 +449,7 @@ def update_descriptions():
                     new_climatic_performance_number = None
                 else:
                     new_climatic_performance_number = int(new_dpe_data_numbers[1].text.replace("*", ""))
-                    
+
         except (NoSuchElementException, StaleElementReferenceException):
             print("KO : no data for energetic_performance_number")
 
