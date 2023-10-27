@@ -80,6 +80,7 @@ def add_new_announces():
     # click on the search button
     time.sleep(2)
     driver.find_element(By.CSS_SELECTOR, "button.btn.btn-primary.search").click()
+    annonce = 0
 
     while True:
         try:
@@ -96,6 +97,8 @@ def add_new_announces():
         print(f"------------------Page_Start {global_page_number-1}------------------")
         print("articles", articles)
         for article in articles:
+            print(f"{article} {annonce}")
+            annonce += 1
             print("------------------Article Start------------------")
             print("article :", article)
 
@@ -211,15 +214,15 @@ def add_new_announces():
                                                     )
                 database_app.add_price_to_property(date_add_to_db, property_id, price)
 
-            # catch data to access the next page
-            next_page_url = next_results_btn.get_attribute('href')
-            print("next_page_url", next_page_url)
-            pattern_next_page_url_without_page = r"(.+)\?"
-            next_page_url_without_page = re.findall(pattern_next_page_url_without_page, next_page_url)[0]
-            print("next_page_url_without_page :", next_page_url_without_page)
-            driver.get(next_page_url)
-            global_page_number += 1
-            print("------------------Add_new_annouces_End------------------")
+        # catch data to access the next page
+        next_page_url = next_results_btn.get_attribute('href')
+        print("next_page_url", next_page_url)
+        pattern_next_page_url_without_page = r"(.+)\?"
+        next_page_url_without_page = re.findall(pattern_next_page_url_without_page, next_page_url)[0]
+        print("next_page_url_without_page :", next_page_url_without_page)
+        driver.get(next_page_url)
+        global_page_number += 1
+        print("------------------Add_new_annouces_End------------------")
 
 
 def add_descriptions():
