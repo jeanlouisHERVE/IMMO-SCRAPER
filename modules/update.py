@@ -70,7 +70,7 @@ def update_descriptions():
             print("outOfTheMarket", outOfTheMarket)
             property_data = database_app.get_property_by_id(id_property)
             property_data = list(property_data)
-            del property_data[0]
+            del property_data[0] #delete id 
             print("property_data", property_data)
             type_of_property = property_data[0]
             town = property_data[1]
@@ -233,13 +233,26 @@ def update_descriptions():
         print("step3")
         last_price = database_app.get_last_price_for_property(id_property)
         # get new price
+
         try:
-            new_price_content = driver.find_element(By.CSS_SELECTOR, "span.ad-price__the-price").text
-            new_price_content = new_price_content.replace(" ", "")
-            new_price = re.findall(regex_find_numbers, new_price_content)[0]
-            new_price = float(new_price)
+            price_elements = driver.find_elements(By.CSS_SELECTOR, "span.ad-price__the-price")
+
+            if len(price_elements) == 1:
+                for price_element in price_elements:
+                    new_price_content = price_element.text
+                    new_price_content = new_price_content.replace(" ", "")
+                    new_price = re.findall(regex_find_numbers, new_price_content)[0]
+                    new_price = float(new_price)
+                    # Process the new_price as needed
+            elif len(price_elements) > 1:
+                raise ValueError("KO: Multiple elements found for span.ad-price__the-price")
+            else:
+                print("KO: No elements found for span.ad-price__the-price")
+
         except NoSuchElementException:
-            print("KO : no data for new_price")
+            print("KO: Error finding elements")
+        except ValueError as ve:
+            print(str(ve))
 
         # get others data
         for labelInfo in labelsInfo:
