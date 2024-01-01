@@ -572,7 +572,9 @@ def add_descriptions():
                     database_app.add_agency(estate_agency_name,
                                             estate_agency_address,
                                             estate_agency_fee_percentage,
-                                            estate_agency_evaluation
+                                            estate_agency_evaluation,
+                                            estate_agency_total_announces=1,
+                                            estate_agency_total_announces_active=1
                                             )
                     print("stepagency2")
                     print(f"OK : {estate_agency_name} estate_agency has been added to database")
@@ -582,6 +584,8 @@ def add_descriptions():
 
                 try:
                     estate_agency_id = database_app.get_agency_id_from_name(estate_agency_name)[0][0]
+                    # add 1 to the announce counter of this estate agency
+                    database_app.update_agency_totals(estate_agency_id)
                 except IndexError:
                     if not estate_agency_id:
                         estate_agency_id = None

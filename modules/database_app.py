@@ -248,6 +248,13 @@ UPDATE_AGENCY = """UPDATE agencies
                     total_announces = ?,
                     total_announces_active = ?
                     WHERE id = ?;"""
+UPDATE_AGENCY_TOTALS = """UPDATE agencies
+                            SET total_announces_active = total_announces_active + 1,
+                            total_announces = total_announces + 1
+                            WHERE id = ?", (agency_id,)"""
+UPDATE_AGENCY_TOTAL_ACTIVE_DECREMENT = """UPDATE agencies
+                                            SET total_announces_active = total_announces_active - 1
+                                            WHERE id = ?"""
 
 # delete data
 DELETE_PROPERTIES_TABLE = "DELETE FROM properties;"
@@ -581,6 +588,13 @@ def get_property_description_by_id(id: int):
         cursor = connection.execute(GET_PROPERTY_DESCRIPTION_BY_ID, (id,))
         return cursor.fetchone()
 
+def get_estate_agency_id_by_property_id(property_id: int):
+    result = connection.execute(GET_PROPERTY_DESCRIPTION_BY_ID, (property_id,)).fetchone()
+    if result:
+        estate_agency_id = result["estate_agency_id"]
+        return estate_agency_id
+    else:
+        return None
 
 def get_old_properties():
     with connection:
@@ -723,6 +737,25 @@ def update_agency(id: int,
         print(f"OK : Agency {name} updated successfully.")
     except sqlite3.Error as e:
         print(f"KO : Error updating agency {name}: {e}")
+
+
+def update_agency_totals(agency_id: int):
+    try:
+        with connection:
+            connection.execute(UPDATE_AGENCY_TOTALS, (agency_id,))
+        print(f"""OK: Both total_announces_active and total_announces
+              incremented successfully for agency ID {agency_id}.""")
+    except sqlite3.Error as e:
+        print(f"KO: Error updating totals for agency ID {agency_id}: {e}")
+
+
+def update_total_active_decrement(agency_id: int):
+    try:
+        with connection:
+            connection.execute(UPDATE_AGENCY_TOTAL_ACTIVE_DECREMENT, (agency_id,))
+        print(f"OK: total_announces_active decremented successfully for agency ID {agency_id}.")
+    except sqlite3.Error as e:
+        print(f"KO: Error decrementing total_announces_active for agency ID {agency_id}: {e}")
 
 
 def delete_property(id: int):

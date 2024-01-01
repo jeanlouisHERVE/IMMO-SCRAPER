@@ -70,8 +70,11 @@ def update_descriptions():
             print("outOfTheMarket", outOfTheMarket)
             property_data = database_app.get_property_by_id(id_property)
             property_data = list(property_data)
-            del property_data[0] #delete id 
+            estate_agency_id = database_app.get_estate_agency_id_by_property_id(id_property)
+            database_app.update_total_active_decrement(estate_agency_id) #update agency total_announces_active 
+            del property_data[0]  # delete id
             print("property_data", property_data)
+            
             type_of_property = property_data[0]
             town = property_data[1]
             district = property_data[2]

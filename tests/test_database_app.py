@@ -29,6 +29,8 @@ from modules.database_app import (
     get_old_prices,
     update_description,
     update_agency,
+    update_agency_totals,
+    update_total_active_decrement,
     delete_property,
     delete_tables
 )
@@ -986,6 +988,17 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(updated_agency[2], '456 Elm St')
         self.assertEqual(updated_agency[3], 6)
         self.assertEqual(updated_agency[4], 'Excellent')
+        self.assertEqual(updated_agency[5], 2)
+        self.assertEqual(updated_agency[6], 2)
+
+    def test_update_agency_totals(self):
+        # Insert a sample agency
+        agency_id = add_agency("Sample Agency", "123 Main St", 5, "Good", 1, 1)
+        update_agency_totals(agency_id)
+
+        updated_agency = get_agency_by_name('Sample Agency')
+
+        self.assertEqual(result, (2, 2))
 
     def test_delete_property(self):
         print("DATABASE TEST : test_delete_property")
