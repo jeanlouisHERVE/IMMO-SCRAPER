@@ -992,7 +992,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(updated_agency[6], 2)
 
     def test_update_agency_totals(self):
-        # Insert a sample agency
+        print("DATABASE TEST : update_agency_totals")
         agency_id = add_agency("Sample Agency", "123 Main St", 5, "Good", 1, 1)
         update_agency_totals(agency_id)
 
@@ -1001,6 +1001,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(updated_agency[6], 2)
 
     def test_update_total_active_decrement(self):
+        print("DATABASE TEST : update_total_active_decrement")
         agency_id = add_agency("Trouloulou", "123 Main St", 5, "Good", 1, 1)
         update_total_active_decrement(agency_id)
 
