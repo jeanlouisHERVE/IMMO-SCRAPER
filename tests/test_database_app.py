@@ -997,8 +997,15 @@ class TestDatabaseFunctions(unittest.TestCase):
         update_agency_totals(agency_id)
 
         updated_agency = get_agency_by_name('Sample Agency')
-
-        self.assertEqual(result, (2, 2))
+        self.assertEqual(updated_agency[5], 2)
+        self.assertEqual(updated_agency[6], 2)
+    
+    def test_update_total_active_decrement(self):
+        agency_id = add_agency("Trouloulou", "123 Main St", 5, "Good", 1, 1)
+        update_total_active_decrement(agency_id)
+        
+        updated_agency = get_agency_by_name('Trouloulou')
+        self.assertEqual(updated_agency[6], 0)
 
     def test_delete_property(self):
         print("DATABASE TEST : test_delete_property")
@@ -1048,6 +1055,8 @@ if __name__ == '__main__':
         "test_get_agency_id_from_name",
         "test_update_description",
         "test_update_agency",
+        "test_update_agency_totals",
+        "test_update_total_active_decrement",
         "test_delete_property",
     ]
 
