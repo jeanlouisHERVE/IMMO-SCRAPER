@@ -158,7 +158,13 @@ INSERT_DESCRIPTION = """INSERT INTO descriptions (property_id, year_of_construct
                     energetic_performance_number, climatic_performance_number, climatic_performance_letter,
                     estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
                     ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
-INSERT_AGENCY = """INSERT INTO agencies (name, address, fee_percentage, evaluation, total_announces, total_announces_active) VALUES (?, ?, ?, ?, ?, ?);"""
+INSERT_AGENCY = """INSERT INTO agencies (name,
+                                         address,
+                                         fee_percentage,
+                                         evaluation,
+                                         total_announces,
+                                         total_announces_active)
+                        VALUES (?, ?, ?, ?, ?, ?);"""
 INSERT_PRICE = """INSERT INTO prices (date, property_id, price) VALUES (?, ?, ?);"""
 INSERT_OLD_PROPERTY = """INSERT INTO old_properties (type_of_property, town, district, postcode, url,
                     room_number, surface, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"""
