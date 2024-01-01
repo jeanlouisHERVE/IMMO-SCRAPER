@@ -235,7 +235,9 @@ class TestDatabaseFunctions(unittest.TestCase):
             "ABC Real Estate",
             "123 Main St",
             5,
-            "Excellent"
+            "Excellent",
+            1,
+            1
         )
 
         # Get the added agency by its name
@@ -248,6 +250,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(agency_data[2], "123 Main St")  # address
         self.assertEqual(agency_data[3], 5)  # fee_percentage
         self.assertEqual(agency_data[4], "Excellent")
+        self.assertEqual(agency_data[5], 1)  # total_announces
+        self.assertEqual(agency_data[6], 1)  # total_announces_active
 
     def test_add_price_to_property(self):
         print("DATABASE TEST : test_add_price_to_property")
@@ -962,13 +966,15 @@ class TestDatabaseFunctions(unittest.TestCase):
                         "D3",
                         "123 Main St",
                         5,
-                        "Excellent"
+                        "Excellent",
+                        1,
+                        1
                         )
         agencies = get_agencies()
         print("TEST 18 agency_id", agency_id)
         print("TEST 18 agencies", agencies)
         # Call the function to update agency
-        update_agency('D18', '456 Elm St', 6, 'Excellent', agency_id)
+        update_agency('D18', '456 Elm St', 6, 'Excellent', 2, 2, agency_id)
 
         # Query the updated agency from the database
         updated_agency = get_agency_by_name('D18')

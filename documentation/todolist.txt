@@ -76,3 +76,5 @@ The problem is rpmbuild folder is not under "$CI_PROJECT_DIR" rather it is in th
 ## TODO migrate sqlite3 database to postgresql 
 ## TODO recreate a multiple VM structure 
 ## TODO add security
+## TODO add number of properties managed actually available by each agency 
+## TODO add global number of properties managed actually by each agency 

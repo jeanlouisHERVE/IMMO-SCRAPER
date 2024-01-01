@@ -78,6 +78,8 @@ CREATE_ESTATE_AGENCIES_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
                                 address TEXT,
                                 fee_percentage INTEGER,
                                 evaluation TEXT
+                                total_announces INTEGER DEFAULT 1,
+                                total_announces_active INTEGER DEFAULT 1
                             );"""
 
 CREATE_PRICES_TABLE = """CREATE TABLE IF NOT EXISTS prices (
@@ -156,7 +158,7 @@ INSERT_DESCRIPTION = """INSERT INTO descriptions (property_id, year_of_construct
                     energetic_performance_number, climatic_performance_number, climatic_performance_letter,
                     estate_agency_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
                     ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
-INSERT_AGENCY = """INSERT INTO agencies (name, address, fee_percentage, evaluation) VALUES (?, ?, ?, ?);"""
+INSERT_AGENCY = """INSERT INTO agencies (name, address, fee_percentage, evaluation) VALUES (?, ?, ?, ?, ?, ?);"""
 INSERT_PRICE = """INSERT INTO prices (date, property_id, price) VALUES (?, ?, ?);"""
 INSERT_OLD_PROPERTY = """INSERT INTO old_properties (type_of_property, town, district, postcode, url,
                     room_number, surface, date_add_to_db) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"""
@@ -239,7 +241,12 @@ UPDATE_DESCRIPTION = """UPDATE descriptions
                            estate_agency_id = ?
                        WHERE property_id = ?;"""
 UPDATE_AGENCY = """UPDATE agencies
-                    SET name = ?, address = ?, fee_percentage = ?, evaluation = ?
+                    SET name = ?,
+                    address = ?,
+                    fee_percentage = ?,
+                    evaluation = ?,
+                    total_announces = ?,
+                    total_announces_active = ?
                     WHERE id = ?;"""
 
 # delete data
@@ -474,9 +481,16 @@ def add_old_description(
 def add_agency(name: str,
                address: str,
                fee_percentage: int,
-               evaluation: str):
+               evaluation: str,
+               total_announces: int,
+               total_announces_active: int):
     with connection:
-        cursor = connection.execute(INSERT_AGENCY, (name, address, fee_percentage, evaluation))
+        cursor = connection.execute(INSERT_AGENCY, (name,
+                                                    address,
+                                                    fee_percentage,
+                                                    evaluation,
+                                                    total_announces,
+                                                    total_announces_active))
         last_inserted_id = cursor.lastrowid
     return last_inserted_id
 
@@ -694,10 +708,18 @@ def update_agency(id: int,
                   address: str,
                   fee_percentage: int,
                   evaluation: str,
+                  total_announces: int,
+                  total_announces_active: int
                   ):
     try:
         with connection:
-            connection.execute(UPDATE_AGENCY, (id, name, address, fee_percentage, evaluation))
+            connection.execute(UPDATE_AGENCY, (id,
+                                               name,
+                                               address,
+                                               fee_percentage,
+                                               evaluation,
+                                               total_announces,
+                                               total_announces_active))
         print(f"OK : Agency {name} updated successfully.")
     except sqlite3.Error as e:
         print(f"KO : Error updating agency {name}: {e}")
