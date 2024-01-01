@@ -753,7 +753,7 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_get_agency(self):
         print("DATABASE TEST : test_get_agency")
         # Add an agency to the database
-        add_agency("ABC Realty", "123 Main St", 5, "Good")
+        add_agency("ABC Realty", "123 Main St", 5, "Good", 1, 1)
 
         # Retrieve the added agency by its name
         agency = get_agency_by_name("ABC Realty")
@@ -764,6 +764,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(agency[2], "123 Main St")
         self.assertEqual(agency[3], 5)
         self.assertEqual(agency[4], "Good")
+        self.assertEqual(agency[5], 1)
+        self.assertEqual(agency[6], 1)
 
     def test_get_agencies(self):
         print("DATABASE TEST : test_get_agencies")
@@ -772,19 +774,25 @@ class TestDatabaseFunctions(unittest.TestCase):
             'A1',
             'Address1',
             5,
-            'Good'
+            'Good',
+            1,
+            1
         )
         add_agency(
             'A2',
             'Address2',
             7,
-            'Excellent'
+            'Excellent',
+            1,
+            1
         )
         add_agency(
             'A3',
             'Address3',
             6,
-            'Average'
+            'Average',
+            1,
+            1
         )
 
         # Call the function to retrieve agencies
@@ -802,14 +810,14 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.assertEqual(len(agency), 5)
 
         # Check if the retrieved agency data matches the inserted test data
-        self.assertIn((1, 'A1', 'Address1', 5, 'Good'), agencies)
-        self.assertIn((2, 'A2', 'Address2', 7, 'Excellent'), agencies)
-        self.assertIn((3, 'A3', 'Address3', 6, 'Average'), agencies)
+        self.assertIn((1, 'A1', 'Address1', 5, 'Good', 1, 1), agencies)
+        self.assertIn((2, 'A2', 'Address2', 7, 'Excellent', 1, 1), agencies)
+        self.assertIn((3, 'A3', 'Address3', 6, 'Average', 1, 1), agencies)
 
     def test_get_agency_id_from_name(self):
         print("DATABASE TEST : test_get_agency_id_from_name")
         # Add an agency to the database
-        add_agency("B1", "123 Main St", 5, "Good")
+        add_agency("B1", "123 Main St", 5, "Good", 1, 1)
 
         # Retrieve the agency ID by name
         agency_id = get_agency_id_from_name("B1")
