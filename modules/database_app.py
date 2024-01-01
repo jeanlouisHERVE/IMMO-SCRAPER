@@ -77,7 +77,7 @@ CREATE_ESTATE_AGENCIES_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
                                 name TEXT UNIQUE,
                                 address TEXT,
                                 fee_percentage INTEGER,
-                                evaluation TEXT
+                                evaluation TEXT,
                                 total_announces INTEGER DEFAULT 1,
                                 total_announces_active INTEGER DEFAULT 1
                             );"""
