@@ -807,7 +807,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Check if the retrieved agency data is a tuple with the correct structure
         for agency in agencies:
             self.assertIsInstance(agency, tuple)
-            self.assertEqual(len(agency), 5)
+            self.assertEqual(len(agency), 7)
 
         # Check if the retrieved agency data matches the inserted test data
         self.assertIn((1, 'A1', 'Address1', 5, 'Good', 1, 1), agencies)
