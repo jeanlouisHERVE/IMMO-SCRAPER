@@ -37,7 +37,7 @@ def start_prompt():
             add_announces.add_descriptions()
         elif user_input == "3":
             update.update_descriptions()
-            #add option to modify specific item based on id number
+            # add option to modify specific item based on id number
         elif user_input == "4":
             global_properties_number = database_app.get_properties_number()
             print(f"""\n--- The properties number --- \n\n

@@ -588,6 +588,7 @@ def get_property_description_by_id(id: int):
         cursor = connection.execute(GET_PROPERTY_DESCRIPTION_BY_ID, (id,))
         return cursor.fetchone()
 
+
 def get_estate_agency_id_by_property_id(property_id: int):
     result = connection.execute(GET_PROPERTY_DESCRIPTION_BY_ID, (property_id,)).fetchone()
     if result:
@@ -595,6 +596,7 @@ def get_estate_agency_id_by_property_id(property_id: int):
         return estate_agency_id
     else:
         return None
+
 
 def get_old_properties():
     with connection:
