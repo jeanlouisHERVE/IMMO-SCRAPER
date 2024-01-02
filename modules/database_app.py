@@ -773,3 +773,12 @@ def delete_property(id: int):
         print(f"OK : Property {id} has been deleted successfully.")
     except sqlite3.Error as e:
         print(f"KO : Error deleting property {id}: {e}")
+
+
+def alter_table():
+    try:
+        with connection:
+            connection.execute("ALTER TABLE agencies ADD COLUMN total_announces INTEGER;")
+        print("OK : Table has been updated.")
+    except sqlite3.Error as e:
+        print(f"KO : Error updating table {e}")

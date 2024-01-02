@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 import database_app
 import update
 import add_announces
+import sql
 
 database_app.create_tables()
 
@@ -22,23 +23,29 @@ menu_prompt = """-- Menu --
 1) Refresh database
 2) Run script to add description
 3) Update descriptions
-4) Number of announces
-5) Exit
+4) Update database architecture using sql
+5) Number of announces
+6) Exit
 
 Enter your choice: """
 
 
 def start_prompt():
-    user_input = input(menu_prompt)
-    while user_input != "5":
+    while True:
+        user_input = input(menu_prompt)
+        if user_input == "6":
+            break  # exit the loop if user_input is "6"
+
         if user_input == "1":
             add_announces.add_new_announces()
         elif user_input == "2":
             add_announces.add_descriptions()
         elif user_input == "3":
             update.update_descriptions()
-            # add option to modify specific item based on id number
         elif user_input == "4":
+            sql.sql()
+            # add option to modify specific item based on id number
+        elif user_input == "5":
             global_properties_number = database_app.get_properties_number()
             print(f"""\n--- The properties number --- \n\n
                   The city {city_researched_content} has a total of {global_properties_number[0][0]}
