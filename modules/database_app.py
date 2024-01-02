@@ -778,7 +778,7 @@ def delete_property(id: int):
 def alter_table():
     try:
         with connection:
-            connection.execute("ALTER TABLE agencies ADD COLUMN total_announces INTEGER;")
+            connection.execute("ALTER TABLE agencies ADD COLUMN total_announces_active INTEGER;")
         print("OK : Table has been updated.")
     except sqlite3.Error as e:
         print(f"KO : Error updating table {e}")
