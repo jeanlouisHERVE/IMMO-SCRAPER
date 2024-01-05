@@ -776,7 +776,8 @@ def delete_property(id: int):
         print(f"KO : Error deleting property {id}: {e}")
 
 
-# def alter_table():
+def alter_table():
+    pass
 #     try:
 #         with connection:
 #             connection.execute("PRAGMA foreign_keys=off;")
