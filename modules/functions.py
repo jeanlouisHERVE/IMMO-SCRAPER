@@ -8,6 +8,7 @@ import datetime
 def date_converter_french_date_to_utc_timestamp(french_date: str):
     months = {
         "janvier": "01",
+        "janv.": "01",
         "fevrier": "02",
         "février": "02",
         "mars": "03",

@@ -78,8 +78,8 @@ CREATE_ESTATE_AGENCIES_TABLE = """CREATE TABLE IF NOT EXISTS agencies (
                                 address TEXT,
                                 fee_percentage INTEGER,
                                 evaluation TEXT,
-                                total_announces INTEGER DEFAULT 1,
-                                total_announces_active INTEGER DEFAULT 1
+                                total_announces INTEGER,
+                                total_announces_active INTEGER
                             );"""
 
 CREATE_PRICES_TABLE = """CREATE TABLE IF NOT EXISTS prices (
@@ -598,7 +598,8 @@ def get_property_description_by_id(id: int):
 def get_estate_agency_id_by_property_id(property_id: int):
     result = connection.execute(GET_PROPERTY_DESCRIPTION_BY_ID, (property_id,)).fetchone()
     if result:
-        estate_agency_id = result["estate_agency_id"]
+        estate_agency_id = result[0]
+        print("estate_agency_id", estate_agency_id)
         return estate_agency_id
     else:
         return None
@@ -778,7 +779,20 @@ def delete_property(id: int):
 def alter_table():
     try:
         with connection:
-            connection.execute("ALTER TABLE agencies ADD COLUMN total_announces_active INTEGER;")
+            connection.execute("PRAGMA foreign_keys=off;")
+            connection.execute("CREATE TABLE temp_table AS SELECT id, name, address, fee_percentage, evaluation FROM agencies;")
+            connection.execute("DROP TABLE agencies;")
+            connection.execute("""
+                CREATE TABLE agencies (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    name TEXT UNIQUE,
+                    address TEXT,
+                    fee_percentage INTEGER,
+                    evaluation TEXT
+                );""")
+            connection.execute("INSERT INTO agencies SELECT * FROM temp_table;")
+            connection.execute("DROP TABLE temp_table;")
+            connection.execute("PRAGMA foreign_keys=on;")
         print("OK : Table has been updated.")
     except sqlite3.Error as e:
         print(f"KO : Error updating table {e}")

@@ -559,10 +559,15 @@ def add_descriptions():
                     print("KO : no data for estate_agency evaluation")
                     estate_agency_evaluation = None
 
+                estate_agency_total_announces = 0
+                estate_agency_total_announces_active = 0
+
                 print("estate_agency_name", estate_agency_name)
                 print("estate_agency_address", estate_agency_address)
                 print("estate_agency_fee_percentage", estate_agency_fee_percentage)
                 print("estate_agency_evaluation", estate_agency_evaluation)
+                print("estate_agency_total_announces", estate_agency_total_announces)
+                print("estate_agency_total_announces_active", estate_agency_total_announces_active)
 
                 result = database_app.get_agency_by_name(estate_agency_name)
                 print("result", result)
@@ -573,8 +578,8 @@ def add_descriptions():
                                             estate_agency_address,
                                             estate_agency_fee_percentage,
                                             estate_agency_evaluation,
-                                            estate_agency_total_announces=1,
-                                            estate_agency_total_announces_active=1
+                                            estate_agency_total_announces,
+                                            estate_agency_total_announces_active
                                             )
                     print("stepagency2")
                     print(f"OK : {estate_agency_name} estate_agency has been added to database")
