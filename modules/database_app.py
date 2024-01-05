@@ -776,23 +776,27 @@ def delete_property(id: int):
         print(f"KO : Error deleting property {id}: {e}")
 
 
-def alter_table():
-    try:
-        with connection:
-            connection.execute("PRAGMA foreign_keys=off;")
-            connection.execute("CREATE TABLE temp_table AS SELECT id, name, address, fee_percentage, evaluation FROM agencies;")
-            connection.execute("DROP TABLE agencies;")
-            connection.execute("""
-                CREATE TABLE agencies (
-                    id INTEGER NOT NULL PRIMARY KEY,
-                    name TEXT UNIQUE,
-                    address TEXT,
-                    fee_percentage INTEGER,
-                    evaluation TEXT
-                );""")
-            connection.execute("INSERT INTO agencies SELECT * FROM temp_table;")
-            connection.execute("DROP TABLE temp_table;")
-            connection.execute("PRAGMA foreign_keys=on;")
-        print("OK : Table has been updated.")
-    except sqlite3.Error as e:
-        print(f"KO : Error updating table {e}")
+# def alter_table():
+#     try:
+#         with connection:
+#             connection.execute("PRAGMA foreign_keys=off;")
+#             connection.execute("""CREATE TABLE temp_table AS SELECT id,
+#                                 name,
+#                                 address,
+#                                 fee_percentage,
+#                                 evaluation FROM agencies;""")
+#             connection.execute("DROP TABLE agencies;")
+#             connection.execute("""
+#                 CREATE TABLE agencies (
+#                     id INTEGER NOT NULL PRIMARY KEY,
+#                     name TEXT UNIQUE,
+#                     address TEXT,
+#                     fee_percentage INTEGER,
+#                     evaluation TEXT
+#                 );""")
+#             connection.execute("INSERT INTO agencies SELECT * FROM temp_table;")
+#             connection.execute("DROP TABLE temp_table;")
+#             connection.execute("PRAGMA foreign_keys=on;")
+#         print("OK : Table has been updated.")
+#     except sqlite3.Error as e:
+#         print(f"KO : Error updating table {e}")
