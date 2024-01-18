@@ -21,11 +21,16 @@ from driver_manager import WebDriverManager
 # own packages
 import database_app
 import functions
+import script_colors
 
 # get data from .env file
 load_dotenv()
 
 # variables
+red = script_colors.redscript
+blue = script_colors.bluescript
+green = script_colors.greenscript
+black = script_colors.blackscript
 driver = WebDriverManager.get_driver()
 actions = ActionChains(driver)
 url_immo_website = os.environ["URL_IMMO_WEBSITE_BI"]
@@ -48,7 +53,7 @@ def check_accept_section(cssSelector: str):
         StaleElementReferenceException,
         TimeoutException
     ):
-        print("KO : no accept part")
+        print(f"{blue}KO : no accept part{black}")
 
 
 def add_new_announces():
@@ -75,7 +80,7 @@ def add_new_announces():
         time.sleep(2)
         actions.click(dropdown_element).perform()
     except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
-        print("KO : unable to make the dropdown menu appear")
+        print(f"{red}KO : unable to make the dropdown menu appear{black}")
 
     # click on the search button
     time.sleep(2)
@@ -88,7 +93,7 @@ def add_new_announces():
                                 By.CSS_SELECTOR, "a.btn.goForward.btn-primary.pagination__go-forward-button"
                                 )
         except (NoSuchElementException):
-            print("KO : no more next button")
+            print(f"{blue}KO : no more next button{black}")
             break
 
         try:
@@ -119,7 +124,7 @@ def add_new_announces():
                     print("type_of_property :", type_of_property)
 
                 except (NoSuchElementException):
-                    print("KO : no data for type_of_property found")
+                    print(f"{blue}KO : no data for type_of_property found{black}")
 
                 # town
                 town = os.environ["CITY_RESEARCHED"]
@@ -137,19 +142,19 @@ def add_new_announces():
                     try:
                         district = re.findall(r"\((.*?)\)", address_content)[0]
                     except IndexError:
-                        print("KO : no data for District found")
+                        print(f"{blue}KO : no data for District found{black}")
                         district = ""
                     # postcode
                     try:
                         postcode = re.findall(r"[0-9]*", address_content)[0]
                     except IndexError:
-                        print("KO : no data for Postcode found")
+                        print(f"{blue}KO : no data for Postcode found{black}")
                         postcode = 0
                     print("district :", district)
                     print("postcode :", postcode)
 
                 except (NoSuchElementException):
-                    print("KO : no data for District&&Postcode found")
+                    print(f"{blue}KO : no data for District&&Postcode found{black}")
 
                 # url
                 url = ""
@@ -158,7 +163,7 @@ def add_new_announces():
                     url = url_content.get_attribute('href')
                     print("link :", url)
                 except (NoSuchElementException):
-                    print("KO : no data for url found")
+                    print(f"{blue}KO : no data for url found")
 
                 # room number && surface
                 surface = 0
@@ -181,7 +186,7 @@ def add_new_announces():
                     surface = surface_content[-1]
                     print("surface :", surface)
                 except (NoSuchElementException):
-                    print("KO : no data for room number && surface found")
+                    print(f"{blue}KO : no data for room number && surface found{black}")
 
                 # price
                 price = 0
@@ -193,7 +198,7 @@ def add_new_announces():
                         price = None
                     print("price :", price)
                 except (NoSuchElementException):
-                    print("KO : no data for price found")
+                    print(f"{blue}KO : no data for price found{black}")
 
                 # date
                 date_add_to_db = current_time_utc
@@ -225,7 +230,7 @@ def add_new_announces():
             global_page_number += 1
             print("------------------Add_new_annouces_End------------------")
         except Exception as e:
-            print(f"An error occurred while processing the current page: {e}")
+            print(f"{red}An error occurred while processing the current page: {e}{black}")
 
 
 def add_descriptions():
@@ -250,11 +255,11 @@ def add_descriptions():
             # check if the announce is still available
             try:
                 outOfTheMarket = driver.find_element(By.CLASS_NAME, "outOfTheMarketBanner")
-                print(f"KO : Announce no more available {outOfTheMarket}")
+                print(f"{blue}KO : Announce no more available {outOfTheMarket}{black}")
                 database_app.delete_property(id_property)
                 continue
             except (NoSuchElementException):
-                print("OK : Announce still available")
+                print(f"{green}OK : Announce still available{black}")
 
                 labelsInfo = driver.find_elements(By.CSS_SELECTOR, "div.labelInfo")
 
@@ -463,7 +468,7 @@ def add_descriptions():
                             continue
 
                     except (NoSuchElementException, StaleElementReferenceException):
-                        print("KO : no data elements found")
+                        print(f"{red}KO : no data elements found{black}")
 
                 # neighborhood_description
                 try:
@@ -473,7 +478,7 @@ def add_descriptions():
                                                                 )
                     neighborhood_description = neighborhood_description.text
                 except (NoSuchElementException, StaleElementReferenceException):
-                    print("KO : no data for neighborhood_description")
+                    print(f"{blue}KO : no data for neighborhood_description{black}")
 
                 # energetic_performance_letter
                 try:
@@ -483,7 +488,7 @@ def add_descriptions():
                                                                 )
                     energetic_performance_letter = energetic_performance_letter.text
                 except (NoSuchElementException, StaleElementReferenceException):
-                    print("KO : no data for energetic_performance_letter")
+                    print(f"{blue}KO : no data for energetic_performance_letter{black}")
 
                 # energetic_performance_number && climatic_performance_number
                 try:
@@ -503,7 +508,7 @@ def add_descriptions():
                             climatic_performance_number = int(dpe_data_numbers[1].text.replace("*", ""))
 
                 except (NoSuchElementException, StaleElementReferenceException):
-                    print("KO : no data for energetic_performance_number")
+                    print(f"{blue}KO : no data for energetic_performance_number{black}")
 
                 # climatic_performance_letter
                 try:
@@ -512,7 +517,7 @@ def add_descriptions():
                                                                       )
                     climatic_performance_letter = climatic_performance_letter.text
                 except (NoSuchElementException, StaleElementReferenceException):
-                    print("KO : no data for climatic_performance_letter")
+                    print(f"{blue}KO : no data for climatic_performance_letter{black}")
 
                 print("------------------Description Part End------------------")
                 print("--------------------------------------------------------")
@@ -530,7 +535,7 @@ def add_descriptions():
                                                              )
                     estate_agency_name = estate_agency_name.text
                 except (NoSuchElementException, StaleElementReferenceException):
-                    print("KO : no data for estate_agency name ")
+                    print(f"{blue}KO : no data for estate_agency name {black}")
                     estate_agency_name = None
 
                 # address
@@ -542,7 +547,7 @@ def add_descriptions():
                     estate_agency_address = estate_agency_address.text
 
                 except (NoSuchElementException, StaleElementReferenceException):
-                    print("KO : no data for estate_agency address")
+                    print(f"{blue}KO : no data for estate_agency address{black}")
                     estate_agency_address = None
 
                 # fee_percentage
@@ -556,7 +561,7 @@ def add_descriptions():
                     )
                     estate_agency_evaluation = estate_agency_evaluation.text
                 except (NoSuchElementException, StaleElementReferenceException):
-                    print("KO : no data for estate_agency evaluation")
+                    print(f"{blue}KO : no data for estate_agency evaluation{black}")
                     estate_agency_evaluation = None
 
                 estate_agency_total_announces = 0
@@ -582,10 +587,10 @@ def add_descriptions():
                                             estate_agency_total_announces_active
                                             )
                     print("stepagency2")
-                    print(f"OK : {estate_agency_name} estate_agency has been added to database")
+                    print(f"{green}OK : {estate_agency_name} estate_agency has been added to database{black}")
                 else:
                     print("stepagency3")
-                    print(f"KO : {estate_agency_name} estate_agency already exits")
+                    print(f"{red}KO : {estate_agency_name} estate_agency already exits{black}")
 
                 try:
                     estate_agency_id = database_app.get_agency_id_from_name(estate_agency_name)[0][0]
@@ -670,4 +675,4 @@ def add_descriptions():
                 print("------------------End Add Description------------------")
 
         else:
-            print(f"OK : property {id_property} already has a description")
+            print(f"{green}OK : property {id_property} already has a description{black}")
