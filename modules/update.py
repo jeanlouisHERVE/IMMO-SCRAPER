@@ -631,7 +631,6 @@ def update_descriptions():
                 print(f"{data.green}The price for property {id_property} has been update {new_price}{data.white}")
             else:
                 print(f"{data.blue}No prices found for property {id_property}{data.white}")
-            print("step35")
             print("--------------------End add new price Property--------------------")
             print("----------------------Update Description---------------------")
 

@@ -2,7 +2,7 @@ import sqlite3
 # import platform
 
 # other modules
-
+import data
 from dotenv import load_dotenv
 
 # get data from .env file
@@ -721,9 +721,9 @@ def update_description(property_id: int,
                                                     estate_agency_id,
                                                     property_id)
                                )
-        print(f"OK : Description for Property {property_id} updated successfully.")
+        print(f"{data.green}OK : Description for Property {property_id} updated successfully.{data.white}")
     except sqlite3.Error as e:
-        print(f"KO : Error updating description for Property {property_id}: {e}")
+        print(f"{data.red}KO : Error updating description for Property {property_id}: {e}{data.white}")
 
 
 def update_agency(id: int,
@@ -743,37 +743,39 @@ def update_agency(id: int,
                                                evaluation,
                                                total_announces,
                                                total_announces_active))
-        print(f"OK : Agency {name} updated successfully.")
+        print(f"{data.green}OK : Agency {name} updated successfully.{data.white}")
     except sqlite3.Error as e:
-        print(f"KO : Error updating agency {name}: {e}")
+        print(f"{data.red}KO : Error updating agency {name}: {e}{data.white}")
 
 
 def update_agency_totals(agency_id: int):
     try:
         with connection:
             connection.execute(UPDATE_AGENCY_TOTALS, (agency_id,))
-        print(f"""OK: Both total_announces_active and total_announces
-              incremented successfully for agency ID {agency_id}.""")
+        print(f"""{data.green}OK: Both total_announces_active and total_announces
+              incremented successfully for agency ID {agency_id}.{data.white}""")
     except sqlite3.Error as e:
-        print(f"KO: Error updating totals for agency ID {agency_id}: {e}")
+        print(f"{data.red}KO: Error updating totals for agency ID {agency_id}: {e}{data.white}")
 
 
 def update_total_active_decrement(agency_id: int):
     try:
         with connection:
             connection.execute(UPDATE_AGENCY_TOTAL_ACTIVE_DECREMENT, (agency_id,))
-        print(f"OK: total_announces_active decremented successfully for agency ID {agency_id}.")
+        print(f"""{data.green}OK: total_announces_active 
+              decremented successfully for agency ID {agency_id}.{data.white}""")
     except sqlite3.Error as e:
-        print(f"KO: Error decrementing total_announces_active for agency ID {agency_id}: {e}")
+        print(f"""{data.red}KO: Error decrementing 
+              total_announces_active for agency ID {agency_id}: {e}{data.white}""")
 
 
 def delete_property(id: int):
     try:
         with connection:
             connection.execute(DELETE_PROPERTY, (id, ))
-        print(f"OK : Property {id} has been deleted successfully.")
+        print(f"{data.green}OK : Property {id} has been deleted successfully.{data.white}")
     except sqlite3.Error as e:
-        print(f"KO : Error deleting property {id}: {e}")
+        print(f"{data.red}KO : Error deleting property {id}: {e}{data.white}")
 
 
 def alter_table():
