@@ -673,10 +673,9 @@ def update_descriptions():
 
         if announce_modified:
             print("---------------------------------------END------------------------------------------")
-            print(f"-------------------PROPERTY {id_property} HAS BEEN UPDATED--------------------------")
+            print(f"""{data.green}---------PROPERTY {id_property} HAS BEEN UPDATED---------{data.white}""")
             print("------------------------------------------------------------------------------------")
         else:
             print("---------------------------------------END------------------------------------------")
-            print(f"----------------PROPERTY {id_property} HAS NOT BEEN UPDATED-------------------------")
+            print(f"""{data.blue}----------PROPERTY {id_property} HAS NOT BEEN UPDATED---------{data.white}""")
             print("------------------------------------------------------------------------------------")
-
