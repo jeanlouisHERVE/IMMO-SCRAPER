@@ -10,6 +10,7 @@ import database_app
 import update
 import add_announces
 import sql
+import script_colors
 
 database_app.create_tables()
 
@@ -18,9 +19,9 @@ load_dotenv()
 
 # variables
 city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
-menu_prompt = """-- Menu --
+menu_prompt = f"""-- Menu --
 
-1) Refresh database
+1) {script_colors.greenscript}Refresh database{script_colors.blackscript}
 2) Run script to add description
 3) Update descriptions
 4) Update database architecture using sql
