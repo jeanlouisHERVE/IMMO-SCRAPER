@@ -583,7 +583,8 @@ def add_descriptions():
                                             estate_agency_total_announces_active
                                             )
                     print("stepagency2")
-                    print(f"{data.green}OK : {estate_agency_name} estate_agency has been added to database{data.white}")
+                    print(f"""{data.green}OK : {estate_agency_name}
+                          estate_agency has been added to database{data.white}""")
                 else:
                     print("stepagency3")
                     print(f"{data.red}KO : {estate_agency_name} estate_agency already exits{data.white}")
