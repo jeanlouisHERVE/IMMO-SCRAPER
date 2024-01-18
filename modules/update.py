@@ -19,6 +19,7 @@ from dotenv import load_dotenv
 # own packages
 import database_app
 import functions
+import data
 
 # get data from .env file
 load_dotenv()
@@ -42,7 +43,7 @@ def check_accept_section(cssSelector: str):
         accept = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, cssSelector)))
         accept.click()
     except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
-        print("KO : no accept part")
+        print(f"{data.blue}KO : no accept part{data.white}")
 
 
 def update_descriptions():
@@ -177,7 +178,7 @@ def update_descriptions():
             database_app.delete_property(int(id_property))
             continue
         except (NoSuchElementException):
-            print("KO : no out of the market banner")
+            print(f"{data.blue}KO : no out of the market banner {data.white}")
 
         print("step2")
 
@@ -247,12 +248,12 @@ def update_descriptions():
                     new_price = float(new_price)
                     # Process the new_price as needed
             elif len(price_elements) > 1:
-                raise ValueError("KO: Multiple elements found for span.ad-price__the-price")
+                raise ValueError(f"{data.red}KO: Multiple elements found for span.ad-price__the-price{data.white}")
             else:
-                print("KO: No elements found for span.ad-price__the-price")
+                print(f"{data.blue}KO: No elements found for span.ad-price__the-price{data.white}")
 
         except NoSuchElementException:
-            print("KO: Error finding elements")
+            print(f"{data.red}KO: Error finding elements{data.white}")
         except ValueError as ve:
             print(str(ve))
 
@@ -305,12 +306,10 @@ def update_descriptions():
 
                 # bedroom_number
                 elif "chambre" in element_text:
-                    print("step7")
                     new_bedroom_number = re.findall(regex_find_numbers, element_text)[0]
 
                 # toilet_number
                 elif "wc" in element_text:
-                    print("step8")
                     if "séparé" in element_text:
                         continue
                     else:
@@ -318,17 +317,14 @@ def update_descriptions():
 
                 # bathroom_number
                 elif "bain" in element_text:
-                    print("step9")
                     new_bathroom_number = re.findall(regex_find_numbers, element_text)[0]
 
                 # cellar
                 elif "cave" in element_text:
-                    print("step10")
                     new_cellar = True
 
                 # lock_up_garage
                 elif "box" in element_text:
-                    print("step11")
                     new_lock_up_garage = True
 
                 # heating
@@ -425,7 +421,7 @@ def update_descriptions():
                     continue
 
             except (NoSuchElementException, StaleElementReferenceException):
-                print("KO : no data elements found")
+                print(f"{data.red}KO : no data elements found{data.white}")
 
         print('step4')
         # neighborhood_description
@@ -436,7 +432,7 @@ def update_descriptions():
                                                     )
             new_neighborhood_description = new_neighborhood_description.text
         except (NoSuchElementException, StaleElementReferenceException):
-            print("KO : no data for neighborhood_description")
+            print(f"{data.blue}KO : no data for neighborhood_description{data.white}")
 
         # energetic_performance_letter
         try:
@@ -446,7 +442,7 @@ def update_descriptions():
                                                     )
             new_energetic_performance_letter = new_energetic_performance_letter.text
         except (NoSuchElementException, StaleElementReferenceException):
-            print("KO : no data for energetic_performance_letter")
+            print(f"{data.blue}KO : no data for energetic_performance_letter{data.white}")
 
         # energetic_performance_number && climatic_performance_number
         try:
@@ -466,7 +462,7 @@ def update_descriptions():
                     new_climatic_performance_number = int(new_dpe_data_numbers[1].text.replace("*", ""))
 
         except (NoSuchElementException, StaleElementReferenceException):
-            print("KO : no data for energetic_performance_number")
+            print(f"{data.blue}KO : no data for energetic_performance_number{data.white}")
 
         # climatic_performance_letter
         try:
@@ -475,7 +471,7 @@ def update_descriptions():
                                                         )
             new_climatic_performance_letter = new_climatic_performance_letter.text
         except (NoSuchElementException, StaleElementReferenceException):
-            print("KO : no data for climatic_performance_letter")
+            print(f"{data.blue}KO : no data for climatic_performance_letter{data.white}")
 
         print("------------------Description Part End------------------")
 
@@ -483,7 +479,7 @@ def update_descriptions():
         print("last_price", last_price)
         print('new_price', new_price)
         if new_price is None or last_price is new_price:
-            print("KO : New price is the same than the old one")
+            print(f"{data.blue}KO : New price is the same than the old one{data.white}")
             continue
         else:
             # default values
@@ -521,7 +517,6 @@ def update_descriptions():
             climatic_performance_number = old_property_description[30]
             climatic_performance_letter = old_property_description[31]
             estate_agency_id = old_property_description[32]
-            print("step32")
             print("#############RECAP ANNOUNCE VARIABLES#############")
             print("price                        :", new_price, last_price)
             print("year_of_construction         :", new_year_of_construction, year_of_construction)
@@ -567,7 +562,6 @@ def update_descriptions():
             if neighborhood_description != new_neighborhood_description:
                 neighborhood_description = new_neighborhood_description
 
-            print("step33")
             # rooms
             if bedroom_number != new_bedroom_number:
                 bedroom_number = new_bedroom_number
@@ -629,14 +623,14 @@ def update_descriptions():
                 climatic_performance_number = new_climatic_performance_number
             if climatic_performance_letter != new_climatic_performance_letter:
                 climatic_performance_letter = new_climatic_performance_letter
-            print("step34")
+
             print("----------------------Add new price Property---------------------")
             print(new_price)
             if last_price != new_price:
                 database_app.add_price_to_property(new_date_add_to_db, id_property, new_price)
-                print(f"The price for property {id_property} has been update {new_price}")
+                print(f"{data.green}The price for property {id_property} has been update {new_price}{data.white}")
             else:
-                print(f"No prices found for property {id_property}")
+                print(f"{data.blue}No prices found for property {id_property}{data.white}")
             print("step35")
             print("--------------------End add new price Property--------------------")
             print("----------------------Update Description---------------------")
@@ -675,7 +669,6 @@ def update_descriptions():
                                             estate_agency_id
                                             )
             announce_modified = True
-            print("step36")
             print("--------------------End Update Description------------------")
 
         if announce_modified:
@@ -687,4 +680,3 @@ def update_descriptions():
             print(f"----------------PROPERTY {id_property} HAS NOT BEEN UPDATED-------------------------")
             print("------------------------------------------------------------------------------------")
 
-# TODO change the criteria to run an update from dateOfModification to price
