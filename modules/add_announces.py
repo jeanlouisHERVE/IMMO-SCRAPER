@@ -574,7 +574,6 @@ def add_descriptions():
                 print("result", result)
 
                 if not database_app.get_agency_by_name(estate_agency_name) or estate_agency_name is None:
-                    print("stepagency1")
                     database_app.add_agency(estate_agency_name,
                                             estate_agency_address,
                                             estate_agency_fee_percentage,
@@ -582,11 +581,9 @@ def add_descriptions():
                                             estate_agency_total_announces,
                                             estate_agency_total_announces_active
                                             )
-                    print("stepagency2")
                     print(f"""{data.green}OK : {estate_agency_name}
                           estate_agency has been added to database{data.white}""")
                 else:
-                    print("stepagency3")
                     print(f"{data.red}KO : {estate_agency_name} estate_agency already exits{data.white}")
 
                 try:

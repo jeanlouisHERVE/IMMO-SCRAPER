@@ -56,7 +56,6 @@ def update_descriptions():
 
         print("url_property", url_property)
         print("id_property", id_property, type(id_property))
-        print("step1")
         driver.get(url_property)
         driver.implicitly_wait(10)
         announce_modified = False
@@ -180,8 +179,6 @@ def update_descriptions():
         except (NoSuchElementException):
             print(f"{data.blue}KO : no out of the market banner {data.white}")
 
-        print("step2")
-
         labelsInfo = driver.find_elements(By.CSS_SELECTOR, "div.labelInfo")
 
         new_price = 0
@@ -232,8 +229,6 @@ def update_descriptions():
 
         regex_find_numbers = r'\d+'
         regex_find_text_after_colon = r':\s*([^:,]+)'
-
-        print("step3")
         last_price = database_app.get_last_price_for_property(id_property)
         # get new price
 
@@ -267,7 +262,6 @@ def update_descriptions():
 
                 # year_of_construction
                 if "construit" in element_text:
-                    print("step4")
                     new_year_of_construction = re.findall(regex_find_numbers, element_text)[0]
                     format_string_construction = "%Y"
                     local_timestamp_construction = datetime.datetime.strptime(
@@ -280,14 +274,12 @@ def update_descriptions():
 
                 # exposition
                 elif "exposé" in element_text:
-                    print("step5")
                     pattern_exposition = r'exposé\s(.+)'
                     new_exposition = re.findall(pattern_exposition, element_text)[0]
 
                 # floor
                 # total_floor_number
                 elif "étage" in element_text:
-                    print("step6")
                     pattern_floor = r'^[0-9]+'
                     pattern_floor_number = r'sur\s+(\d+)'
 
@@ -423,7 +415,6 @@ def update_descriptions():
             except (NoSuchElementException, StaleElementReferenceException):
                 print(f"{data.red}KO : no data elements found{data.white}")
 
-        print('step4')
         # neighborhood_description
         try:
             new_neighborhood_description = driver.find_element(
