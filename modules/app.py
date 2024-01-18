@@ -22,10 +22,10 @@ city_researched_content = os.environ["CITY_RESEARCHED_CONTENT"]
 menu_prompt = f"""-- Menu --
 
 1) {script_colors.greenscript}Refresh database{script_colors.blackscript}
-2) Run script to add description
-3) Update descriptions
-4) Update database architecture using sql
-5) Number of announces
+2) {script_colors.redscript}Run script to add description{script_colors.blackscript}
+3) {script_colors.yellowscript}Update descriptions{script_colors.blackscript}
+4) {script_colors.purplescript}Update database architecture using sql{script_colors.blackscript}
+5) {script_colors.lightbluescript}Number of announces{script_colors.blackscript}
 6) Exit
 
 Enter your choice: """
